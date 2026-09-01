@@ -3,7 +3,7 @@ services:
     name: toolsallinonepro
     runtime: python
     plan: free
-    buildCommand: apt-get update && apt-get install -y ffmpeg curl && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && apt-get install -y nodejs && pip install -r requirements.txt
+    buildCommand: apt-get update && apt-get install -y ffmpeg && pip install -r requirements.txt && curl -fsSL https://nodejs.org/dist/v22.12.0/node-v22.12.0-linux-x64.tar.xz | tar -xJf - -C /usr/local --strip-components=1
     startCommand: gunicorn wsgi:app --workers 2 --threads 4 --timeout 600
     envVars:
       - key: PYTHON_VERSION
