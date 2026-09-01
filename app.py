@@ -569,6 +569,7 @@ def _ytdlp_python_extract(url, video_id):
             'retries': 2,
             'extractor_retries': 3,
             'extractor_args': {'youtube': {'player_client': clients}},
+            'impersonate_target': 'chrome',
             'http_headers': {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
             },
@@ -712,6 +713,18 @@ def run_translate_transcript(video_id, target_lang):
 # ═══════════════════════════════════════════════════════════
 
 def fetch_url(url, timeout=15):
+    """Fetch a URL with browser impersonation when curl-cffi is available."""
+    # Try curl-cffi first (bypasses TLS fingerprint blocking)
+    try:
+        from curl_cffi import requests as cffi_requests
+        resp = cffi_requests.get(url, impersonate='chrome', timeout=timeout)
+        if resp.status_code == 200:
+            return resp.text
+    except ImportError:
+        pass
+    except Exception:
+        pass
+    # Fallback to urllib
     import urllib.request
     try:
         req = urllib.request.Request(url, headers={

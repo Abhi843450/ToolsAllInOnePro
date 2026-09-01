@@ -123,29 +123,22 @@ window.ToolHandlers['youtube-downloader'] = function(TH) {
         html += '</div></div>';
       }
     } else {
-      // No formats — production server without yt-dlp
+      // No formats — extraction failed
       html += '<div class="result-item">';
       html += '<div class="result-label">Quick Actions</div>';
       html += '<div style="display:flex;flex-direction:column;gap:10px;margin-top:8px">';
 
-      // Open in YouTube button
       html += '<a href="https://www.youtube.com/watch?v=' + TH.esc(data.video_id) + '" target="_blank" rel="noopener" ';
       html += 'style="display:flex;align-items:center;gap:10px;padding:14px 18px;background:#ff0000;color:white;text-decoration:none;border-radius:8px;font-weight:600">';
       html += '<span class="material-icons-outlined" style="font-size:24px">play_circle</span>';
       html += 'Watch on YouTube</a>';
 
-      // Try cobalt.tools (free download service)
-      html += '<a href="https://cobalt.tools/?url=' + encodeURIComponent(data.url) + '" target="_blank" rel="noopener" ';
-      html += 'style="display:flex;align-items:center;gap:10px;padding:14px 18px;background:var(--primary);color:var(--text-inverse);text-decoration:none;border-radius:8px;font-weight:600">';
-      html += '<span class="material-icons-outlined" style="font-size:24px">download</span>';
-      html += 'Download via Cobalt (Free)</a>';
-
       html += '</div></div>';
 
-      html += '<div class="result-item" style="border-color:var(--info);background:#f0f7ff">';
+      html += '<div class="result-item" style="border-color:var(--warning);background:#fff8f0">';
       html += '<div style="display:flex;align-items:start;gap:8px">';
-      html += '<span class="material-icons-outlined" style="color:var(--info);font-size:20px;flex-shrink:0">info</span>';
-      html += '<div class="result-value" style="font-size:0.85rem">Direct download links require yt-dlp on the server. Use the buttons above to watch or download via third-party services.</div>';
+      html += '<span class="material-icons-outlined" style="color:var(--warning);font-size:20px;flex-shrink:0">warning</span>';
+      html += '<div class="result-value" style="font-size:0.85rem">Could not load download options for this video. Please try again in a moment, or try a different YouTube URL.</div>';
       html += '</div></div>';
     }
 
