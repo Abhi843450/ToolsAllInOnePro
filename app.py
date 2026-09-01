@@ -109,6 +109,129 @@ def robots():
 # API — runs the Python tools natively
 # ═══════════════════════════════════════════════════════════
 
+@app.route('/api/download', methods=['GET'])
+def api_download():
+    """Stream a YouTube format directly to the user with a forced download.
+    ?video_id=..&itag=..  (direct stream)  or  ?video_id=..&merge=1&height=..  (video+audio MP4)."""
+    video_id = (request.args.get('video_id') or '').strip()
+    itag = (request.args.get('itag') or '').strip()
+    merge = request.args.get('merge') == '1'
+    height = (request.args.get('height') or '').strip()
+    title = sanitize_filename(request.args.get('title') or 'youtube_video')[:60]
+
+    if not re.match(r'^[A-Za-z0-9_-]{11}$', video_id):
+        return jsonify({'success': False, 'error': 'Invalid video ID'}), 400
+    if merge:
+        if not re.match(r'^\d{3,4}$', height):
+            return jsonify({'success': False, 'error': 'Invalid height'}), 400
+        return _download_merged(video_id, int(height), title)
+    if not re.match(r'^\d{1,4}$', itag):
+        return jsonify({'success': False, 'error': 'Invalid format id'}), 400
+    return _download_stream(video_id, itag, title)
+
+
+def sanitize_filename(name):
+    return re.sub(r'[<>:"/\\|?*\x00-\x1f]', '', name).replace('\n', ' ').strip() or 'youtube_video'
+
+
+def _yt_dlp_cmd():
+    """Return a yt-dlp invocation that works whether installed as CLI or pip module."""
+    try:
+        result = subprocess.run(['yt-dlp', '--version'], capture_output=True, text=True, timeout=5)
+        if result.returncode == 0:
+            return ['yt-dlp']
+    except Exception:
+        pass
+    return [sys.executable, '-m', 'yt_dlp']
+
+
+def _download_stream(video_id, itag, title):
+    video_url = f'https://www.youtube.com/watch?v={video_id}'
+    base = _yt_dlp_cmd()
+    cmd = base + [
+        '--no-playlist', '--no-warnings', '--no-check-certificates',
+        '--socket-timeout', '20', '--retries', '2',
+        '--extractor-args', 'youtube:player_client=default,web_embedded,tv,mweb,android',
+        '--get-url', '-f', itag, video_url,
+    ]
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
+    except Exception as e:
+        return jsonify({'success': False, 'error': 'Failed to resolve stream: ' + str(e)}), 502
+    if result.returncode != 0 or not result.stdout.strip():
+        return jsonify({'success': False, 'error': 'Could not resolve a download link for this format. Try another quality.'}), 502
+
+    stream_url = result.stdout.strip().split('\n')[0]
+    return _stream_url(stream_url, f'{title}_{itag}.mp4', 'application/octet-stream')
+
+
+def _stream_url(source_url, filename, content_type):
+    import urllib.request
+    def generate():
+        req = urllib.request.Request(source_url, headers={
+            'User-Agent': ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
+                           '(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'),
+        })
+        with urllib.request.urlopen(req, timeout=60) as resp:
+            while True:
+                chunk = resp.read(1024 * 1024)
+                if not chunk:
+                    break
+                yield chunk
+    return Response(generate(), mimetype=content_type, headers={
+        'Content-Disposition': f'attachment; filename="{filename}"',
+    })
+
+
+def _download_merged(video_id, height, title):
+    """Download video+audio of the requested height and merge to MP4 (needs ffmpeg on server)."""
+    import tempfile
+    import shutil
+
+    if not shutil.which('ffmpeg'):
+        return jsonify({'success': False, 'error': 'Merging is not available on this server.'}), 501
+
+    video_url = f'https://www.youtube.com/watch?v={video_id}'
+    tmpdir = tempfile.mkdtemp(prefix='ytmerge_')
+    out_pattern = os.path.join(tmpdir, '%(id)s.%(ext)s')
+    try:
+        base = _yt_dlp_cmd()
+        cmd = base + [
+            '--no-playlist', '--no-warnings', '--no-check-certificates',
+            '--socket-timeout', '20', '--retries', '2',
+            '--extractor-args', 'youtube:player_client=default,web_embedded,tv,mweb,android',
+            '--merge-output-format', 'mp4',
+            '--format', f'bv*[height<={height}][ext=mp4]+ba[ext=m4a]/b[height<={height}][ext=mp4]',
+            '--output', out_pattern,
+            '--ffmpeg-location', shutil.which('ffmpeg'),
+            video_url,
+        ]
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=240)
+        merged = None
+        for name in os.listdir(tmpdir):
+            if name.endswith('.mp4'):
+                merged = os.path.join(tmpdir, name)
+                break
+        if result.returncode != 0 or not merged or not os.path.isfile(merged):
+            return jsonify({'success': False, 'error': 'Could not merge this quality (fall back to a lower one).'}), 502
+        size = os.path.getsize(merged)
+        filename = f'{title}_{height}p.mp4'
+        def generate(path, file_size):
+            with open(path, 'rb') as fh:
+                while True:
+                    chunk = fh.read(1024 * 1024)
+                    if not chunk:
+                        break
+                    yield chunk
+            shutil.rmtree(tmpdir, ignore_errors=True)
+        return Response(generate(merged, size), mimetype='video/mp4', headers={
+            'Content-Disposition': f'attachment; filename="{filename}"',
+        })
+    except Exception as e:
+        shutil.rmtree(tmpdir, ignore_errors=True)
+        return jsonify({'success': False, 'error': 'Download failed: ' + str(e)}), 502
+
+
 @app.route('/api/run-tool', methods=['POST', 'OPTIONS'])
 def api_run_tool():
     if request.method == 'OPTIONS':

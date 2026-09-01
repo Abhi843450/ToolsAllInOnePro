@@ -44,49 +44,82 @@ window.ToolHandlers['youtube-downloader'] = function(TH) {
     if (data.duration) html += '<div class="yt-duration">Duration: ' + TH.esc(data.duration) + '</div>';
     html += '</div></div></div>';
 
-    // Download formats
+    // Download formats — every quality streams through /api/download (forced download)
     if (data.formats && data.formats.length > 0) {
-      var directFormats = data.formats.filter(function(f) { return f.url && !f.hasCipher; });
-      var cipherFormats = data.formats.filter(function(f) { return !f.url || f.hasCipher; });
+      var combined = data.formats.filter(function(f) { return f.stream_type === 'video'; });
+      var vonly = data.formats.filter(function(f) { return f.stream_type === 'video_only'; });
+      var audios = data.formats.filter(function(f) { return f.stream_type === 'audio'; });
+      var mergeHeights = [];
+      if (data.ffmpeg && vonly.length) {
+        mergeHeights = vonly.map(function(f) { return f.height; })
+          .filter(function(h, i, a) { return h && a.indexOf(h) === i; })
+          .sort(function(a, b) { return b - a; });
+      }
 
       html += '<div class="result-item">';
       html += '<div class="result-label">Download Options (' + data.formats.length + ')</div>';
       html += '<div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">';
 
-      data.formats.forEach(function(fmt) {
-        var isAudio = fmt.height === 0;
-        var isExternal = !!fmt.hasCipher;
-        var icon = isExternal ? 'open_in_new' : (isAudio ? 'headphones' : 'play_circle');
-        var color = isExternal ? 'var(--info)' : (isAudio ? 'var(--warning)' : 'var(--primary)');
-        var size = fmt.filesize ? ' (' + formatSize(fmt.filesize) + ')' : '';
-        var ext = (fmt.ext || 'mp4').toUpperCase();
-        var filename = sanitizeFilename(data.title) + '_' + fmt.label.replace(/[^a-zA-Z0-9]/g, '_') + '.' + (fmt.ext || 'mp4');
+      function sectionLabel(text) {
+        return '<div style="margin:6px 0 2px;font-size:.72rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.5px">' + TH.esc(text) + '</div>';
+      }
+      function buildRow(label, meta, apiPath, icon, color) {
+        var filename = sanitizeFilename(data.title) + '_' + label.replace(/[^a-zA-Z0-9]/g, '_') + '.mp4';
+        var href = apiPath + '&title=' + encodeURIComponent(data.title);
+        return '<div class="yt-download-row" style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg-secondary);border:2px solid var(--border);border-radius:8px">'
+          + '<span class="material-icons-outlined" style="color:' + color + ';font-size:26px;flex-shrink:0">' + icon + '</span>'
+          + '<div style="flex:1;min-width:0">'
+          + '<div style="font-weight:600">' + TH.esc(label) + '</div>'
+          + '<div style="font-size:0.8rem;color:var(--text-secondary)">' + TH.esc(meta) + '</div>'
+          + '</div>'
+          + '<a href="' + TH.esc(href) + '" download="' + TH.esc(filename) + '" aria-label="Download ' + TH.esc(label) + '" '
+          + 'style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--primary);color:#fff;border-radius:8px;flex-shrink:0;text-decoration:none">'
+          + '<span class="material-icons-outlined" style="font-size:20px">save_alt</span></a>'
+          + '</div>';
+      }
 
-        html += '<div class="yt-download-row" style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--bg-secondary);border:2px solid var(--border);border-radius:8px;transition:all 0.15s">';
-        html += '<span class="material-icons-outlined" style="color:' + color + ';font-size:28px;flex-shrink:0">' + icon + '</span>';
-        html += '<div style="flex:1;min-width:0">';
-        html += '<div style="font-weight:600">' + TH.esc(fmt.label) + size + '</div>';
-        html += '<div style="font-size:0.8rem;color:var(--text-secondary)">' + ext + (isExternal ? ' — protected' : '') + '</div>';
-        html += '</div>';
+      if (combined.length) {
+        html += sectionLabel('Video + Audio (MP4) — download right away');
+        combined.forEach(function(fmt) {
+          var size = fmt.filesize ? ' (' + formatSize(fmt.filesize) + ')' : '';
+          html += buildRow(fmt.label + size, 'MP4 with sound — downloads as file',
+            '/api/download?video_id=' + data.video_id + '&itag=' + fmt.itag, 'play_circle', 'var(--primary)');
+        });
+      }
 
-        if (fmt.url && !fmt.hasCipher) {
-          html += '<a href="' + TH.esc(fmt.url) + '" download="' + TH.esc(filename) + '" target="_blank" rel="noopener" ';
-          html += 'style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--primary);color:var(--text-inverse);border:none;cursor:pointer;text-decoration:none;border-radius:8px;flex-shrink:0">';
-          html += '<span class="material-icons-outlined" style="font-size:20px">save_alt</span></a>';
-        } else {
-          html += '<a href="https://www.youtube.com/watch?v=' + TH.esc(data.video_id) + '" target="_blank" rel="noopener" ';
-          html += 'style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--info);color:white;border:none;cursor:pointer;text-decoration:none;border-radius:8px;flex-shrink:0" title="Open in YouTube">';
-          html += '<span class="material-icons-outlined" style="font-size:20px">open_in_new</span></a>';
-        }
-        html += '</div>';
-      });
+      if (mergeHeights.length) {
+        html += sectionLabel('High Quality (Video + Audio merged MP4)');
+        mergeHeights.forEach(function(h) {
+          html += buildRow(h + 'p Best Quality (Video + Audio)', 'Merged on server — H.264 + AAC MP4',
+            '/api/download?video_id=' + data.video_id + '&merge=1&height=' + h, 'merge', 'var(--warning)');
+        });
+      }
+
+      if (vonly.length) {
+        html += sectionLabel('Video Only (very high quality, no sound)');
+        vonly.forEach(function(fmt) {
+          var size = fmt.filesize ? ' (' + formatSize(fmt.filesize) + ')' : '';
+          html += buildRow(fmt.label + size, 'No audio — pair with an MP3 below',
+            '/api/download?video_id=' + data.video_id + '&itag=' + fmt.itag, 'high_quality', 'var(--info)');
+        });
+      }
+
+      if (audios.length) {
+        html += sectionLabel('Audio Only');
+        audios.forEach(function(fmt) {
+          var size = fmt.filesize ? ' (' + formatSize(fmt.filesize) + ')' : '';
+          html += buildRow(fmt.label + size, 'Music / MP3 style download',
+            '/api/download?video_id=' + data.video_id + '&itag=' + fmt.itag, 'headphones', 'var(--success)');
+        });
+      }
+
       html += '</div></div>';
 
-      if (cipherFormats.length > 0 && directFormats.length === 0) {
+      if (!data.ffmpeg && vonly.length) {
         html += '<div class="result-item" style="border-color:var(--warning);background:#fff8f0">';
         html += '<div style="display:flex;align-items:start;gap:8px">';
         html += '<span class="material-icons-outlined" style="color:var(--warning);font-size:20px;flex-shrink:0">warning</span>';
-        html += '<div class="result-value" style="font-size:0.85rem">This video uses protected streams. Click <strong>open_in_new</strong> to view/download on YouTube directly.</div>';
+        html += '<div class="result-value" style="font-size:0.85rem">1080p and higher need server-side merging (ffmpeg) to include audio. Install ffmpeg on your server to enable one-click high-quality downloads.</div>';
         html += '</div></div>';
       }
     } else {

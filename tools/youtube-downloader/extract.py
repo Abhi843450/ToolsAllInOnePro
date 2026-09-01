@@ -112,7 +112,6 @@ def get_video_info(url, ytdlp_path):
 
 def process_formats(info):
     formats = []
-    seen = set()
 
     for fmt in info.get('formats', []):
         url = fmt.get('url', '')
@@ -126,6 +125,8 @@ def process_formats(info):
         filesize = fmt.get('filesize') or fmt.get('filesize_approx', 0) or 0
         abr = fmt.get('abr', 0) or 0
         protocol = fmt.get('protocol', '')
+        itag = fmt.get('format_id', '')
+        fps = fmt.get('fps', 0) or 0
 
         if protocol in ['m3u8_native', 'm3u8', 'mhtml']:
             continue
@@ -133,45 +134,76 @@ def process_formats(info):
             continue
         if filesize > 0 and filesize < 10000:
             continue
+        if not str(itag).isdigit():
+            continue
 
-        label = ''
         if vcodec != 'none' and acodec != 'none':
-            if height >= 2160: label = f'4K ({ext})'
-            elif height >= 1440: label = f'1440p ({ext})'
-            elif height >= 1080: label = f'1080p ({ext})'
-            elif height >= 720: label = f'720p ({ext})'
-            elif height >= 480: label = f'480p ({ext})'
-            elif height >= 360: label = f'360p ({ext})'
-            elif height > 0: label = f'{height}p ({ext})'
+            stream_type = 'video'          # combined: has audio
         elif vcodec != 'none':
-            if height >= 2160: label = f'4K Video ({ext})'
-            elif height >= 1440: label = f'1440p Video ({ext})'
-            elif height >= 1080: label = f'1080p Video ({ext})'
-            elif height >= 720: label = f'720p Video ({ext})'
+            stream_type = 'video_only'     # high-res video, no audio
         elif acodec != 'none':
-            label = f'Audio {round(abr)}kbps ({ext})'
-
-        if not label:
+            stream_type = 'audio'
+        else:
             continue
 
-        key = f'{height}p_{ext}' if height > 0 else f'audio_{ext}_{abr}'
-        if key in seen:
+        # Prefer h264/aac for instant-play quality matching
+        fmt_rank = 0
+        if ext == 'mp4':
+            fmt_rank = 2
+        elif ext == 'm4a':
+            fmt_rank = 1
+
+        if stream_type == 'video':
+            label = f'{height}p MP4 - Video + Audio' if ext == 'mp4' else f'{height}p {ext.upper()}'
+        elif stream_type == 'video_only':
+            label = f'{height}p MP4 - Video only' if ext == 'mp4' else f'{height}p {ext.upper()}'
+        else:
+            label = f'Audio {round(abr)}kbps ({ext.upper()})'
+
+        group = (stream_type, height if stream_type != 'audio' else round(abr, -1))
+        idx = next((i for i, f in enumerate(formats)
+                    if (f['stream_type'], f['height'] if f['stream_type'] != 'audio' else f['abr']) == group), None)
+        if idx is not None:
+            existing = formats[idx]
+            # Prefer mp4 (framed, plays everywhere) and larger file for same quality group
+            if existing.get('ext') == 'mp4' or (ext == 'mp4' and fmt_rank > 0 and existing.get('filesize', 0) < filesize):
+                continue
+            formats[idx] = {
+                'label': label, 'itag': str(itag), 'url': url, 'ext': ext,
+                'height': height, 'fps': fps, 'filesize': filesize, 'abr': round(abr, -1),
+                'stream_type': stream_type, 'has_audio': stream_type != 'video_only',
+                'has_video': stream_type != 'audio',
+            }
             continue
-        seen.add(key)
 
         formats.append({
             'label': label,
+            'itag': str(itag),
             'url': url,
             'ext': ext,
             'height': height,
+            'fps': fps,
             'filesize': filesize,
-            'vcodec': vcodec,
-            'acodec': acodec,
-            'abr': abr,
+            'abr': round(abr, -1),
+            'stream_type': stream_type,
+            'has_audio': stream_type != 'video_only',
+            'has_video': stream_type != 'audio',
         })
 
-    formats.sort(key=lambda f: (-f['height'] if f['vcodec'] != 'none' else 9999))
+    # Order: combined video by height desc, then video_only by height desc, then audio by bitrate desc
+    def sort_key(f):
+        order = {'video': 0, 'video_only': 1, 'audio': 2}
+        return (order.get(f['stream_type'], 3), -f['height'], -f['abr'])
+    formats.sort(key=sort_key)
     return formats
+
+
+def has_ffmpeg():
+    try:
+        result = subprocess.run(['ffmpeg', '-version'], capture_output=True, text=True, timeout=5)
+        return result.returncode == 0
+    except Exception:
+        return False
 
 
 def get_oembed_info(url):
@@ -253,6 +285,7 @@ def main():
             'duration': duration,
             'formats': formats,
             'url': url,
+            'ffmpeg': has_ffmpeg(),
         }
     }
 
