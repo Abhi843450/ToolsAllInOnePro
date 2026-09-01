@@ -235,8 +235,9 @@ window.ToolHandlers['youtube-transcript'] = function(TH) {
         translateBtn.addEventListener('click', function() {
           var targetLang = langSelect.value;
           if (!targetLang) { alert('Please select a language first.'); return; }
-          if (targetLang === 'en') {
-            // Reset to original English
+          var sourceLang = (window._transcriptData && window._transcriptData.source_lang) || 'en';
+          if (targetLang === sourceLang) {
+            // Reset to original
             renderTranscript(Object.assign({}, window._transcriptData, {
               transcript: window._originalTranscript, title: window._transcriptData.title
             }));
@@ -270,10 +271,12 @@ window.ToolHandlers['youtube-transcript'] = function(TH) {
   // translate endpoint has no quota from a browser and handles the whole text in
   // one go, so every line really gets translated. Server-side only as a fallback.
   function translateTranscript(segments, targetLang) {
-    return browserTranslateFull(segments, targetLang)
+    var sourceLang = (window._transcriptData && window._transcriptData.source_lang) || 'en';
+    return browserTranslateFull(segments, targetLang, sourceLang)
       .catch(function(browserErr) {
         var errMsg = browserErr && browserErr.message ? browserErr.message : 'Browser translation unavailable';
-        return serverTranslate(segments, targetLang).catch(function(serverErr) {
+
+        return serverTranslate(segments, targetLang, sourceLang).catch(function(serverErr) {
           var msg = serverErr && serverErr.message ? serverErr.message : 'Server translation unavailable';
           throw new Error(errMsg + ' / ' + msg);
         });
@@ -282,7 +285,8 @@ window.ToolHandlers['youtube-transcript'] = function(TH) {
 
   // Send the ENTIRE transcript at once (a few big requests, not tiny batches) so
   // nothing comes back half-translated.
-  function browserTranslateFull(segments, targetLang) {
+  function browserTranslateFull(segments, targetLang, sourceLang) {
+    sourceLang = sourceLang || 'en';
     var SEP = ' ||| ';
     var MAXLEN = 4000;
 
@@ -301,7 +305,7 @@ window.ToolHandlers['youtube-transcript'] = function(TH) {
     var chain = Promise.resolve();
     jobs.forEach(function(job) {
       chain = chain.then(function() {
-        return gtxRequest(job, targetLang).then(function(parts) {
+        return gtxRequest(job, targetLang, sourceLang).then(function(parts) {
           job.forEach(function(seg, i) {
             results[segments.indexOf(seg)] = { start: seg.start, text: decodeHtmlEntities(parts[i] || '') };
           });
@@ -311,48 +315,55 @@ window.ToolHandlers['youtube-transcript'] = function(TH) {
     return chain.then(function() {
       var translated = results.filter(function(s) { return s && s.text; });
       if (!translated.length) throw new Error('No segments translated.');
-      if (translated.length < segments.length) throw new Error('Translation came back incomplete.');
-      return translated;
+      // Accept partial translations — fill missing segments with originals
+      for (var i = 0; i < segments.length; i++) {
+        if (!results[i] || !results[i].text) {
+          results[i] = { start: segments[i].start, text: segments[i].text };
+        }
+      }
+      return results;
     });
   }
 
-  function gtxRequest(job, targetLang, attempt) {
+  function gtxRequest(job, targetLang, sourceLang, attempt) {
     attempt = attempt || 0;
+    sourceLang = sourceLang || 'en';
     var SEP = ' ||| ';
-    var joined = job.map(function(seg) { return seg.text; }).join(SEP);
-    var url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=' +
-      encodeURIComponent(targetLang) + '&dt=t&q=' + encodeURIComponent(joined);
-    return fetch(url)
-      .then(function(r) {
-        if (!r.ok) throw new Error('Google returned ' + r.status);
-        return r.json();
-      })
-      .then(function(d) {
-        if (!d || !d[0]) throw new Error('Unexpected translation response');
-        var full = d[0].map(function(part) { return part[0] || ''; }).join('');
-        var parts = full.split(SEP);
-        if (parts.length < job.length) {
-          while (parts.length < job.length) parts.push(parts[parts.length - 1] || '');
-        }
-        return parts.slice(0, job.length);
-      })
-      .catch(function(err) {
-        if (attempt < 1) {
-          return new Promise(function(res) { setTimeout(res, 1200); })
-            .then(function() { return gtxRequest(job, targetLang, attempt + 1); });
-        }
-        throw err;
+    // Translate each segment individually to avoid separator mangling
+    var chain = Promise.resolve([]);
+    job.forEach(function(seg) {
+      chain = chain.then(function(acc) {
+        var url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' +
+          encodeURIComponent(sourceLang) + '&tl=' +
+          encodeURIComponent(targetLang) + '&dt=t&q=' + encodeURIComponent(seg.text);
+        return fetch(url)
+          .then(function(r) {
+            if (!r.ok) throw new Error('Google returned ' + r.status);
+            return r.json();
+          })
+          .then(function(d) {
+            if (!d || !d[0]) throw new Error('Unexpected translation response');
+            var full = d[0].map(function(part) { return part[0] || ''; }).join('');
+            return acc.concat([full]);
+          })
+          .catch(function(err) {
+            // On error, keep original text
+            return acc.concat([seg.text]);
+          });
       });
+    });
+    return chain;
   }
 
-  function serverTranslate(segments, targetLang) {
+  function serverTranslate(segments, targetLang, sourceLang) {
+    sourceLang = sourceLang || 'en';
     return fetch('/api/translate-text', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         texts: segments.map(function(s) { return s.text; }),
         target_lang: targetLang,
-        source_lang: 'en'
+        source_lang: sourceLang
       })
     })
     .then(function(r) {
@@ -361,9 +372,7 @@ window.ToolHandlers['youtube-transcript'] = function(TH) {
     })
     .then(function(resp) {
       if (!resp.success) throw new Error(resp.error || 'Translation failed');
-      if (resp.data && resp.data.used_fallback) {
-        throw new Error('Server used its local fallback');
-      }
+      // Accept partial translations — used_fallback just means some lines stayed original
       return mapTranslated(segments, resp.data.translated || []);
     });
   }

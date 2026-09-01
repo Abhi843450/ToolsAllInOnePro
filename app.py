@@ -290,72 +290,119 @@ def api_translate_text():
 
 
 def translate_texts(texts, target_lang, source_lang='en'):
-    """Translate EVERY line. MyMemory in safe (<=450 char) batches so it never
-    truncates, then Google gtx in a few large calls for whatever is left.
-    Only lines that literally nothing could translate stay original.
-    Returns (translated_list, used_fallback=True if any line stayed original)."""
+    """Translate every line using deep_translator (primary) with MyMemory/gtx
+    fallbacks. Returns (translated_list, used_fallback=True if any line stayed
+    original)."""
     import time
     if not texts:
         return [], False
     if source_lang == target_lang:
         return list(texts), False
 
+    # Map some common codes that deep_translator may not handle directly
+    lang_map = {
+        'zh-CN': 'zh-CN', 'zh-TW': 'zh-TW', 'zh': 'zh-CN',
+        'he': 'iw', 'jv': 'jv', 'hmn': 'hmn',
+        'ceb': 'ceb', 'haw': 'haw', 'fy': 'fy',
+    }
+    tl_lang = lang_map.get(target_lang, target_lang)
+    tl_src = lang_map.get(source_lang, source_lang)
+
     result = [None] * len(texts)
 
-    # Pass 1: MyMemory — small batches so every line fits within its per-request cap
-    batch, batch_idxs, total = [], [], 0
-
-    def flush_mymemory():
-        nonlocal batch, batch_idxs, total
-        if not batch:
-            return
-        try:
-            parts = _mymemory_translate(batch, source_lang, target_lang)
-        except Exception:
-            parts = batch
-        for bi, orig, part in zip(batch_idxs, batch, parts):
-            if _is_translation(part, orig):
-                result[bi] = part
+    # ── Pass 1: deep_translator GoogleTranslator (most reliable) ──
+    try:
+        from deep_translator import GoogleTranslator
+        translator = GoogleTranslator(source=tl_src, target=tl_lang)
+        # Send in batches of ~4500 chars to stay within limits
         batch, batch_idxs, total = [], [], 0
+        for idx in range(len(texts)):
+            add = len(texts[idx]) + 2
+            if batch and total + add > 4500:
+                try:
+                    parts = translator.translate_batch(batch)
+                    if isinstance(parts, str):
+                        parts = [parts]
+                    for bi, orig, part in zip(batch_idxs, batch, parts):
+                        if _is_translation(part, orig):
+                            result[bi] = part
+                except Exception:
+                    pass
+                batch, batch_idxs, total = [], [], 0
+                time.sleep(0.15)
+            batch.append(texts[idx])
+            batch_idxs.append(idx)
+            total += add
+        if batch:
+            try:
+                parts = translator.translate_batch(batch)
+                if isinstance(parts, str):
+                    parts = [parts]
+                for bi, orig, part in zip(batch_idxs, batch, parts):
+                    if _is_translation(part, orig):
+                        result[bi] = part
+            except Exception:
+                pass
+    except ImportError:
+        pass
+    except Exception:
+        pass
 
-    for idx in range(len(texts)):
-        add = len(texts[idx])
-        if batch and total + add > 450:
-            flush_mymemory()
-        batch.append(texts[idx])
-        batch_idxs.append(idx)
-        total += add
-    flush_mymemory()
-
-    # Pass 2: Google gtx — the whole remaining text in a few large calls
+    # ── Pass 2: MyMemory for anything still untranslated ──
     pending = [i for i in range(len(texts)) if result[i] is None]
-    batch, batch_idxs, total = [], [], 0
-
-    def flush_gtx():
-        nonlocal batch, batch_idxs, total
-        if not batch:
-            return
-        try:
-            parts = _gtx_translate(batch, source_lang, target_lang)
-        except Exception:
-            parts = None
-        if parts:
+    if pending:
+        batch, batch_idxs, total = [], [], 0
+        def flush_mymemory():
+            nonlocal batch, batch_idxs, total
+            if not batch:
+                return
+            try:
+                parts = _mymemory_translate(batch, source_lang, target_lang)
+            except Exception:
+                parts = batch
             for bi, orig, part in zip(batch_idxs, batch, parts):
                 if _is_translation(part, orig):
                     result[bi] = part
+            batch, batch_idxs, total = [], [], 0
+
+        for idx in pending:
+            add = len(texts[idx])
+            if batch and total + add > 450:
+                flush_mymemory()
+            batch.append(texts[idx])
+            batch_idxs.append(idx)
+            total += add
+        flush_mymemory()
+
+    # ── Pass 3: Google gtx for anything still untranslated ──
+    pending = [i for i in range(len(texts)) if result[i] is None]
+    if pending:
         batch, batch_idxs, total = [], [], 0
+        def flush_gtx():
+            nonlocal batch, batch_idxs, total
+            if not batch:
+                return
+            try:
+                parts = _gtx_translate(batch, source_lang, target_lang)
+            except Exception:
+                parts = None
+            if parts:
+                for bi, orig, part in zip(batch_idxs, batch, parts):
+                    if _is_translation(part, orig):
+                        result[bi] = part
+            batch, batch_idxs, total = [], [], 0
 
-    for idx in pending:
-        add = len(texts[idx])
-        if batch and total + add > 3800:
-            flush_gtx()
-            time.sleep(0.3)
-        batch.append(texts[idx])
-        batch_idxs.append(idx)
-        total += add
-    flush_gtx()
+        for idx in pending:
+            add = len(texts[idx])
+            if batch and total + add > 3800:
+                flush_gtx()
+                time.sleep(0.3)
+            batch.append(texts[idx])
+            batch_idxs.append(idx)
+            total += add
+        flush_gtx()
 
-    # Whatever is left genuinely could not be translated
+    # Whatever is left genuinely could not be translated — keep original
     used_fallback = False
     for idx in range(len(texts)):
         if result[idx] is None:

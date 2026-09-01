@@ -117,6 +117,27 @@ def get_video_info(url, ytdlp_path):
     return None
 
 
+def _codec_short(vcodec, acodec):
+    """Return a short codec label like 'H.264', 'VP9', 'AV1' for display."""
+    vc = (vcodec or '').lower()
+    if 'avc' in vc:
+        return 'H.264'
+    if 'vp9' in vc or 'vp09' in vc:
+        return 'VP9'
+    if 'av01' in vc or 'av1' in vc:
+        return 'AV1'
+    if 'hev' in vc or 'h265' in vc or 'hev1' in vc:
+        return 'H.265'
+    ac = (acodec or '').lower()
+    if 'mp4a' in ac:
+        return 'AAC'
+    if 'opus' in ac:
+        return 'Opus'
+    if 'mp3' in ac:
+        return 'MP3'
+    return ''
+
+
 def process_formats(info):
     formats = []
 
@@ -153,54 +174,73 @@ def process_formats(info):
         else:
             continue
 
-        # Prefer h264/aac for instant-play quality matching
-        fmt_rank = 0
-        if ext == 'mp4':
-            fmt_rank = 2
-        elif ext == 'm4a':
-            fmt_rank = 1
+        # Round fps to nearest standard bucket to avoid near-duplicate entries
+        if fps > 0:
+            fps_bucket = 60 if fps >= 50 else 30 if fps >= 24 else round(fps)
+        else:
+            fps_bucket = 0
+
+        codec = _codec_short(vcodec, acodec)
 
         if stream_type == 'video':
-            label = f'{height}p MP4 - Video + Audio' if ext == 'mp4' else f'{height}p {ext.upper()}'
+            fps_str = f' {fps_bucket}fps' if fps_bucket > 30 else ''
+            label = f'{height}p{fps_str} ({codec})' if codec else f'{height}p{fps_str}'
         elif stream_type == 'video_only':
-            label = f'{height}p MP4 - Video only' if ext == 'mp4' else f'{height}p {ext.upper()}'
+            fps_str = f' {fps_bucket}fps' if fps_bucket > 30 else ''
+            label = f'{height}p{fps_str} ({codec})' if codec else f'{height}p{fps_str}'
         else:
-            label = f'Audio {round(abr)}kbps ({ext.upper()})'
+            label = f'Audio {round(abr)}kbps ({codec or ext.upper()})'
 
-        group = (stream_type, height if stream_type != 'audio' else round(abr, -1))
+        # Group by (stream_type, height, fps_bucket) — keeps 30fps and 60fps separate
+        group = (stream_type, height if stream_type != 'audio' else round(abr, -1), fps_bucket if stream_type != 'audio' else 0)
         idx = next((i for i, f in enumerate(formats)
-                    if (f['stream_type'], f['height'] if f['stream_type'] != 'audio' else f['abr']) == group), None)
+                    if (f['stream_type'],
+                        f['height'] if f['stream_type'] != 'audio' else f['abr'],
+                        f.get('fps_bucket', 0) if f['stream_type'] != 'audio' else 0) == group), None)
         if idx is not None:
             existing = formats[idx]
-            # Prefer mp4 (framed, plays everywhere) and larger file for same quality group
-            if existing.get('ext') == 'mp4' or (ext == 'mp4' and fmt_rank > 0 and existing.get('filesize', 0) < filesize):
+            # Prefer mp4 over webm for the same quality group; if both mp4, keep larger file
+            if ext == 'mp4' and existing.get('ext') != 'mp4':
+                formats[idx] = {
+                    'label': label, 'itag': str(itag), 'url': url, 'ext': ext,
+                    'height': height, 'fps': fps, 'fps_bucket': fps_bucket,
+                    'filesize': filesize, 'abr': round(abr, -1),
+                    'stream_type': stream_type, 'has_audio': stream_type != 'video_only',
+                    'has_video': stream_type != 'audio', 'codec': codec,
+                }
                 continue
-            formats[idx] = {
-                'label': label, 'itag': str(itag), 'url': url, 'ext': ext,
-                'height': height, 'fps': fps, 'filesize': filesize, 'abr': round(abr, -1),
-                'stream_type': stream_type, 'has_audio': stream_type != 'video_only',
-                'has_video': stream_type != 'audio',
-            }
+            if existing.get('ext') == 'mp4' and ext != 'mp4':
+                continue
+            # Same ext — keep the larger file (usually higher quality)
+            if filesize > existing.get('filesize', 0):
+                formats[idx] = {
+                    'label': label, 'itag': str(itag), 'url': url, 'ext': ext,
+                    'height': height, 'fps': fps, 'fps_bucket': fps_bucket,
+                    'filesize': filesize, 'abr': round(abr, -1),
+                    'stream_type': stream_type, 'has_audio': stream_type != 'video_only',
+                    'has_video': stream_type != 'audio', 'codec': codec,
+                }
             continue
 
         formats.append({
             'label': label,
-            'itag': str(itag),
-            'url': url,
+            'itag': str(itag), 'url': url,
             'ext': ext,
             'height': height,
             'fps': fps,
+            'fps_bucket': fps_bucket,
             'filesize': filesize,
             'abr': round(abr, -1),
             'stream_type': stream_type,
             'has_audio': stream_type != 'video_only',
             'has_video': stream_type != 'audio',
+            'codec': codec,
         })
 
     # Order: combined video by height desc, then video_only by height desc, then audio by bitrate desc
     def sort_key(f):
         order = {'video': 0, 'video_only': 1, 'audio': 2}
-        return (order.get(f['stream_type'], 3), -f['height'], -f['abr'])
+        return (order.get(f['stream_type'], 3), -f['height'], -f.get('fps_bucket', 0), -f['abr'])
     formats.sort(key=sort_key)
     return formats
 
