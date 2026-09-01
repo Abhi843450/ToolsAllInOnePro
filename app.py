@@ -290,46 +290,90 @@ def api_translate_text():
 
 
 def translate_texts(texts, target_lang, source_lang='en'):
-    """Translate a list of texts. MyMemory first, Google gtx fallback, originals as last resort.
-    Returns (translated_list, used_fallback) where used_fallback=True when any line stayed original."""
+    """Translate EVERY line. MyMemory in safe (<=450 char) batches so it never
+    truncates, then Google gtx in a few large calls for whatever is left.
+    Only lines that literally nothing could translate stay original.
+    Returns (translated_list, used_fallback=True if any line stayed original)."""
     import time
     if not texts:
         return [], False
     if source_lang == target_lang:
         return list(texts), False
 
-    MAX_CHARS = 1200
-    result = []
-    used_fallback = False
-    idx = 0
-    n = len(texts)
-    while idx < n:
-        batch_end = idx
-        total = 0
-        while batch_end < n and total + len(texts[batch_end]) + len('  ') <= MAX_CHARS:
-            total += len(texts[batch_end]) + len('  ')
-            batch_end += 1
-        batch = texts[idx:batch_end] or texts[idx:idx + 1]
-        batch_end = max(batch_end, idx + 1)
+    result = [None] * len(texts)
 
-        translated = None
-        for fn in (_mymemory_translate, _gtx_translate):
-            try:
-                translated = fn(batch, source_lang, target_lang)
-                break
-            except Exception:
-                translated = None
-        if translated is None:
-            translated = batch
+    # Pass 1: MyMemory — small batches so every line fits within its per-request cap
+    batch, batch_idxs, total = [], [], 0
+
+    def flush_mymemory():
+        nonlocal batch, batch_idxs, total
+        if not batch:
+            return
+        try:
+            parts = _mymemory_translate(batch, source_lang, target_lang)
+        except Exception:
+            parts = batch
+        for bi, orig, part in zip(batch_idxs, batch, parts):
+            if _is_translation(part, orig):
+                result[bi] = part
+        batch, batch_idxs, total = [], [], 0
+
+    for idx in range(len(texts)):
+        add = len(texts[idx])
+        if batch and total + add > 450:
+            flush_mymemory()
+        batch.append(texts[idx])
+        batch_idxs.append(idx)
+        total += add
+    flush_mymemory()
+
+    # Pass 2: Google gtx — the whole remaining text in a few large calls
+    pending = [i for i in range(len(texts)) if result[i] is None]
+    batch, batch_idxs, total = [], [], 0
+
+    def flush_gtx():
+        nonlocal batch, batch_idxs, total
+        if not batch:
+            return
+        try:
+            parts = _gtx_translate(batch, source_lang, target_lang)
+        except Exception:
+            parts = None
+        if parts:
+            for bi, orig, part in zip(batch_idxs, batch, parts):
+                if _is_translation(part, orig):
+                    result[bi] = part
+        batch, batch_idxs, total = [], [], 0
+
+    for idx in pending:
+        add = len(texts[idx])
+        if batch and total + add > 3800:
+            flush_gtx()
+            time.sleep(0.3)
+        batch.append(texts[idx])
+        batch_idxs.append(idx)
+        total += add
+    flush_gtx()
+
+    # Whatever is left genuinely could not be translated
+    used_fallback = False
+    for idx in range(len(texts)):
+        if result[idx] is None:
+            result[idx] = texts[idx]
             used_fallback = True
-        if len(translated) < len(batch):
-            translated = translated + batch[len(translated):]
-            used_fallback = True
-        result.extend(translated[:len(batch)])
-        idx = batch_end
-        if idx < n:
-            time.sleep(0.5)
     return result, used_fallback
+
+
+def _is_translation(part, orig):
+    s = (part or '').strip()
+    o = (orig or '').strip()
+    if not s:
+        return False
+    if len(o) < 2:
+        return True
+    if s.lower() == o.lower():
+        return False
+    return True
 
 
 def _mymemory_translate(batch, source_lang, target_lang):
@@ -338,6 +382,7 @@ def _mymemory_translate(batch, source_lang, target_lang):
     SEP = '<br>'
     joined = SEP.join(batch)
     url = ('https://api.mymemory.translated.net/get?q={}&langpair={}|{}'
+           '&de=pdfdown.translator@gmail.com'
            .format(urllib.parse.quote(joined),
                    urllib.parse.quote(source_lang), urllib.parse.quote(target_lang)))
     req = urllib.request.Request(url, headers={

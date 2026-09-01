@@ -18,7 +18,7 @@ CACHE_TTL = 3600  # 1 hour
 
 
 def get_cache(url):
-    key = hashlib.md5(url.encode()).hexdigest()
+    key = hashlib.md5(f'v3:{url}'.encode()).hexdigest()
     path = os.path.join(CACHE_DIR, f'yt_dl_{key}.json')
     if os.path.exists(path):
         age = time.time() - os.path.getmtime(path)
@@ -33,7 +33,7 @@ def get_cache(url):
 
 def set_cache(url, data):
     os.makedirs(CACHE_DIR, exist_ok=True)
-    key = hashlib.md5(url.encode()).hexdigest()
+    key = hashlib.md5(f'v3:{url}'.encode()).hexdigest()
     path = os.path.join(CACHE_DIR, f'yt_dl_{key}.json')
     try:
         with open(path, 'w', encoding='utf-8') as f:
@@ -296,8 +296,9 @@ def main():
         }
     }
 
-    # Cache result
-    set_cache(url, result)
+    # Cache result — only when formats actually loaded (never cache an empty/broken result)
+    if formats:
+        set_cache(url, result)
 
     print(json.dumps(result))
 

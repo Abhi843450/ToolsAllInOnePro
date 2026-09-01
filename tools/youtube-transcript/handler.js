@@ -266,15 +266,82 @@ window.ToolHandlers['youtube-transcript'] = function(TH) {
     }, 100);
   }
 
-  // Translate transcript — server first, direct Google from the browser as a reliable fallback
+  // Translate transcript — full length, straight from the browser first. Google's
+  // translate endpoint has no quota from a browser and handles the whole text in
+  // one go, so every line really gets translated. Server-side only as a fallback.
   function translateTranscript(segments, targetLang) {
-    return serverTranslate(segments, targetLang)
-      .catch(function(serverErr) {
-        // Server could not translate (blocked/rate-limited) — try Google straight from the browser
-        var errMsg = serverErr && serverErr.message ? serverErr.message : 'Server translation unavailable';
-        return browserTranslate(segments, targetLang).catch(function(browserErr) {
-          throw new Error((browserErr && browserErr.message) || errMsg);
+    return browserTranslateFull(segments, targetLang)
+      .catch(function(browserErr) {
+        var errMsg = browserErr && browserErr.message ? browserErr.message : 'Browser translation unavailable';
+        return serverTranslate(segments, targetLang).catch(function(serverErr) {
+          var msg = serverErr && serverErr.message ? serverErr.message : 'Server translation unavailable';
+          throw new Error(errMsg + ' / ' + msg);
         });
+      });
+  }
+
+  // Send the ENTIRE transcript at once (a few big requests, not tiny batches) so
+  // nothing comes back half-translated.
+  function browserTranslateFull(segments, targetLang) {
+    var SEP = ' ||| ';
+    var MAXLEN = 4000;
+
+    var jobs = [];
+    var cur = [];
+    var curLen = 0;
+    segments.forEach(function(seg) {
+      var add = SEP.length + seg.text.length;
+      if (cur.length && curLen + add > MAXLEN) { jobs.push(cur); cur = []; curLen = 0; }
+      cur.push(seg);
+      curLen += add;
+    });
+    if (cur.length) jobs.push(cur);
+
+    var results = new Array(segments.length);
+    var chain = Promise.resolve();
+    jobs.forEach(function(job) {
+      chain = chain.then(function() {
+        return gtxRequest(job, targetLang).then(function(parts) {
+          job.forEach(function(seg, i) {
+            results[segments.indexOf(seg)] = { start: seg.start, text: decodeHtmlEntities(parts[i] || '') };
+          });
+        });
+      });
+    });
+    return chain.then(function() {
+      var translated = results.filter(function(s) { return s && s.text; });
+      if (!translated.length) throw new Error('No segments translated.');
+      if (translated.length < segments.length) throw new Error('Translation came back incomplete.');
+      return translated;
+    });
+  }
+
+  function gtxRequest(job, targetLang, attempt) {
+    attempt = attempt || 0;
+    var SEP = ' ||| ';
+    var joined = job.map(function(seg) { return seg.text; }).join(SEP);
+    var url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=' +
+      encodeURIComponent(targetLang) + '&dt=t&q=' + encodeURIComponent(joined);
+    return fetch(url)
+      .then(function(r) {
+        if (!r.ok) throw new Error('Google returned ' + r.status);
+        return r.json();
+      })
+      .then(function(d) {
+        if (!d || !d[0]) throw new Error('Unexpected translation response');
+        var full = d[0].map(function(part) { return part[0] || ''; }).join('');
+        var parts = full.split(SEP);
+        if (parts.length < job.length) {
+          while (parts.length < job.length) parts.push(parts[parts.length - 1] || '');
+        }
+        return parts.slice(0, job.length);
+      })
+      .catch(function(err) {
+        if (attempt < 1) {
+          return new Promise(function(res) { setTimeout(res, 1200); })
+            .then(function() { return gtxRequest(job, targetLang, attempt + 1); });
+        }
+        throw err;
       });
   }
 
@@ -299,44 +366,6 @@ window.ToolHandlers['youtube-transcript'] = function(TH) {
       }
       return mapTranslated(segments, resp.data.translated || []);
     });
-  }
-
-  function browserTranslate(segments, targetLang) {
-    var SEP = ' ||| ';
-    var BATCH = 30;
-    var translated = [];
-
-    function batchRequest(texts) {
-      var joined = texts.join(SEP);
-      var url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=' +
-        encodeURIComponent(targetLang) + '&dt=t&q=' + encodeURIComponent(joined);
-      return fetch(url)
-        .then(function(r) {
-          if (!r.ok) throw new Error('Google returned ' + r.status);
-          return r.json();
-        })
-        .then(function(d) {
-          if (!d || !d[0]) throw new Error('Unexpected translation response');
-          return d[0].map(function(seg) { return seg[0] || ''; }).join('').split(SEP);
-        });
-    }
-
-    var batches = [];
-    for (var i = 0; i < segments.length; i += BATCH) {
-      batches.push(segments.slice(i, i + BATCH));
-    }
-    var chain = Promise.resolve();
-    batches.forEach(function(batch) {
-      chain = chain.then(function() {
-        return batchRequest(batch.map(function(s) { return s.text; }))
-          .then(function(texts) {
-            batch.forEach(function(seg, j) {
-              translated.push({ start: seg.start, text: decodeHtmlEntities(texts[j] || seg.text) });
-            });
-          });
-      });
-    });
-    return chain.then(function() { return translated; });
   }
 
   function mapTranslated(segments, texts) {
