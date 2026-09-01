@@ -286,7 +286,7 @@ window.ToolHandlers['youtube-transcript'] = function(TH) {
   // Send the ENTIRE transcript at once (a few big requests, not tiny batches) so
   // nothing comes back half-translated.
   function browserTranslateFull(segments, targetLang, sourceLang) {
-    sourceLang = sourceLang || 'en';
+    sourceLang = sourceLang || 'auto';
     var SEP = ' ||| ';
     var MAXLEN = 4000;
 
@@ -327,7 +327,7 @@ window.ToolHandlers['youtube-transcript'] = function(TH) {
 
   function gtxRequest(job, targetLang, sourceLang, attempt) {
     attempt = attempt || 0;
-    sourceLang = sourceLang || 'en';
+    sourceLang = sourceLang || 'auto';
     var SEP = ' ||| ';
     // Translate each segment individually to avoid separator mangling
     var chain = Promise.resolve([]);
@@ -356,7 +356,7 @@ window.ToolHandlers['youtube-transcript'] = function(TH) {
   }
 
   function serverTranslate(segments, targetLang, sourceLang) {
-    sourceLang = sourceLang || 'en';
+    sourceLang = sourceLang || 'auto';
     return fetch('/api/translate-text', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

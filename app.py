@@ -274,7 +274,7 @@ def api_translate_text():
         data = request.get_json(silent=True) or {}
         texts = data.get('texts') or []
         target_lang = (data.get('target_lang') or data.get('lang') or 'es').strip()
-        source_lang = (data.get('source_lang') or 'en').strip()
+        source_lang = (data.get('source_lang') or 'auto').strip()
 
         if not isinstance(texts, list) or not texts:
             return jsonify({'success': False, 'error': 'No text to translate'})
@@ -290,7 +290,7 @@ def api_translate_text():
         return jsonify({'success': False, 'error': 'Translation failed: ' + str(e)})
 
 
-def translate_texts(texts, target_lang, source_lang='en'):
+def translate_texts(texts, target_lang, source_lang='auto'):
     """Translate every line using deep_translator (primary) with MyMemory/gtx
     fallbacks. Returns (translated_list, used_fallback=True if any line stayed
     original)."""
@@ -349,9 +349,9 @@ def translate_texts(texts, target_lang, source_lang='en'):
     except Exception:
         pass
 
-    # ── Pass 2: MyMemory for anything still untranslated ──
+    # ── Pass 2: MyMemory for anything still untranslated (skip if source_lang is auto) ──
     pending = [i for i in range(len(texts)) if result[i] is None]
-    if pending:
+    if pending and source_lang != 'auto':
         batch, batch_idxs, total = [], [], 0
         def flush_mymemory():
             nonlocal batch, batch_idxs, total
