@@ -126,29 +126,29 @@ def api_debug_extract():
         return jsonify({'output': output})
 
     # Try yt-dlp with all the options
-    ydl_opts = {
-        'quiet': False, 'no_warnings': False, 'no_check_certificates': True,
-        'skip_download': True, 'socket_timeout': 10, 'retries': 1,
-        'extractor_retries': 1,
-        'extractor_args': {'youtube': {'player_client': ['default', 'web_embedded', 'tv', 'mweb', 'android']}},
-        'http_headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'},
-        'js_runtimes': {'node': {}},
-    }
-
-    for imp in ('chrome', False):
-        try:
-            opts = dict(ydl_opts)
-            if imp:
-                opts['impersonate_target'] = imp
-            with yt_dlp.YoutubeDL(opts) as ydl:
-                info = ydl.extract_info(url, download=False)
-            n = len(info.get('formats', [])) if info else 0
-            ps = info.get('playabilityStatus', {}) if info else {}
-            output.append(f'impersonate={imp}: {n} formats, status={ps.get("status","?")}')
-            if n == 0:
-                output.append(f'  reason={ps.get("reason","none")}')
-        except Exception as e:
-            output.append(f'impersonate={imp}: ERROR {type(e).__name__}: {str(e)[:150]}')
+    for clients in [['default', 'web_embedded', 'tv', 'mweb', 'android'], ['android_testsuite']]:
+        ydl_opts = {
+            'quiet': False, 'no_warnings': False, 'no_check_certificates': True,
+            'skip_download': True, 'socket_timeout': 10, 'retries': 1,
+            'extractor_retries': 1,
+            'extractor_args': {'youtube': {'player_client': clients}},
+            'http_headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'},
+            'js_runtimes': {'node': {}},
+        }
+        for imp in ('chrome', False):
+            try:
+                opts = dict(ydl_opts)
+                if imp:
+                    opts['impersonate_target'] = imp
+                with yt_dlp.YoutubeDL(opts) as ydl:
+                    info = ydl.extract_info(url, download=False)
+                n = len(info.get('formats', [])) if info else 0
+                ps = info.get('playabilityStatus', {}) if info else {}
+                output.append(f'clients={clients} imp={imp}: {n} formats, status={ps.get("status","?")}')
+                if n == 0:
+                    output.append(f'  reason={ps.get("reason","none")}')
+            except Exception as e:
+                output.append(f'clients={clients} imp={imp}: ERROR {type(e).__name__}: {str(e)[:150]}')
 
     return jsonify({'output': output, 'video_id': video_id})
 
@@ -203,21 +203,22 @@ def _yt_dlp_cmd():
 def _download_stream(video_id, itag, title):
     video_url = f'https://www.youtube.com/watch?v={video_id}'
     base = _yt_dlp_cmd()
-    cmd = base + [
-        '--no-playlist', '--no-warnings', '--no-check-certificates',
-        '--socket-timeout', '20', '--retries', '2',
-        '--extractor-args', 'youtube:player_client=default,web_embedded,tv,mweb,android',
-        '--get-url', '-f', itag, video_url,
-    ]
-    try:
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
-    except Exception as e:
-        return jsonify({'success': False, 'error': 'Failed to resolve stream: ' + str(e)}), 502
-    if result.returncode != 0 or not result.stdout.strip():
-        return jsonify({'success': False, 'error': 'Could not resolve a download link for this format. Try another quality.'}), 502
-
-    stream_url = result.stdout.strip().split('\n')[0]
-    return _stream_url(stream_url, f'{title}_{itag}.mp4', 'application/octet-stream')
+    # Try android_testsuite first (bypasses bot detection), fall back to default clients
+    for clients in ['android_testsuite', 'default,web_embedded,tv,mweb,android']:
+        cmd = base + [
+            '--no-playlist', '--no-warnings', '--no-check-certificates',
+            '--socket-timeout', '20', '--retries', '2',
+            '--extractor-args', f'youtube:player_client={clients}',
+            '--get-url', '-f', itag, video_url,
+        ]
+        try:
+            result = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
+            if result.returncode == 0 and result.stdout.strip():
+                stream_url = result.stdout.strip().split('\n')[0]
+                return _stream_url(stream_url, f'{title}_{itag}.mp4', 'application/octet-stream')
+        except Exception:
+            continue
+    return jsonify({'success': False, 'error': 'Could not resolve a download link for this format. Try another quality.'}), 502
 
 
 def _stream_url(source_url, filename, content_type):
@@ -632,36 +633,43 @@ def _ytdlp_python_extract(url, video_id):
 
     thumbnail = f'https://img.youtube.com/vi/{video_id}/hqdefault.jpg'
 
-    ydl_opts = {
-        'quiet': False,
-        'no_warnings': False,
-        'no_check_certificates': True,
-        'skip_download': True,
-        'socket_timeout': 10,
-        'retries': 1,
-        'extractor_retries': 1,
-        'extractor_args': {'youtube': {'player_client': ['default', 'web_embedded', 'tv', 'mweb', 'android']}},
-        'http_headers': {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        },
-        'js_runtimes': {'node': {}},
-    }
+    # Strategy: try web clients first, then android_testsuite (bypasses bot detection on datacenter IPs)
+    client_strategies = [
+        ['default', 'web_embedded', 'tv', 'mweb', 'android'],
+        ['android_testsuite'],
+    ]
 
     info = None
     errors = []
-    # Try with impersonation, then without
-    for imp in ('chrome', False):
-        try:
-            opts = dict(ydl_opts)
-            if imp:
-                opts['impersonate_target'] = imp
-            with yt_dlp.YoutubeDL(opts) as ydl:
-                info = ydl.extract_info(url, download=False)
-            if info and info.get('formats'):
-                break
-            errors.append(f'impersonate={imp}: got info but {len(info.get("formats",[]))} formats')
-        except Exception as e:
-            errors.append(f'impersonate={imp}: {type(e).__name__}: {str(e)[:80]}')
+    for clients in client_strategies:
+        if info and info.get('formats'):
+            break
+        ydl_opts = {
+            'quiet': False,
+            'no_warnings': False,
+            'no_check_certificates': True,
+            'skip_download': True,
+            'socket_timeout': 10,
+            'retries': 1,
+            'extractor_retries': 1,
+            'extractor_args': {'youtube': {'player_client': clients}},
+            'http_headers': {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            },
+            'js_runtimes': {'node': {}},
+        }
+        for imp in ('chrome', False):
+            try:
+                opts = dict(ydl_opts)
+                if imp:
+                    opts['impersonate_target'] = imp
+                with yt_dlp.YoutubeDL(opts) as ydl:
+                    info = ydl.extract_info(url, download=False)
+                if info and info.get('formats'):
+                    break
+                errors.append(f'clients={clients} imp={imp}: got info but {len(info.get("formats",[]))} formats')
+            except Exception as e:
+                errors.append(f'clients={clients} imp={imp}: {type(e).__name__}: {str(e)[:80]}')
 
     if not info:
         # Log errors for debugging on Render

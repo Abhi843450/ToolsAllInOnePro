@@ -95,13 +95,14 @@ def get_video_info(url, ytdlp_path):
         '--extractor-retries', '3',
         '--retries', '2',
         '--js-runtimes', 'node',
-        '--extractor-args', 'youtube:player_client=default,web_embedded,tv,mweb,android',
     ]
 
     cmd_parts = ytdlp_path.split()
+    # Try web clients first, then android_testsuite (bypasses bot detection on datacenter IPs)
     attempts = [
-        cmd_parts + base_args + ['--impersonate', 'chrome', url],
-        cmd_parts + base_args + [url],
+        cmd_parts + base_args + ['--extractor-args', 'youtube:player_client=default,web_embedded,tv,mweb,android', '--impersonate', 'chrome', url],
+        cmd_parts + base_args + ['--extractor-args', 'youtube:player_client=default,web_embedded,tv,mweb,android', url],
+        cmd_parts + base_args + ['--extractor-args', 'youtube:player_client=android_testsuite', url],
     ]
     for cmd in attempts:
         try:
