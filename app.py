@@ -112,7 +112,8 @@ def robots():
 @app.route('/api/download', methods=['GET'])
 def api_download():
     """Stream a YouTube format directly to the user with a forced download.
-    ?video_id=..&itag=..  (direct stream)  or  ?video_id=..&merge=1&height=..  (video+audio MP4)."""
+    ?video_id=..&itag=..&cobalt_url=..  (direct stream)
+    or  ?video_id=..&merge=1&height=..  (video+audio MP4)."""
     video_id = (request.args.get('video_id') or '').strip()
     itag = (request.args.get('itag') or '').strip()
     merge = request.args.get('merge') == '1'
@@ -516,11 +517,141 @@ def run_python_script(script_path, args):
 
 
 def run_youtube_downloader(url, video_id):
+    # 1) Try the dedicated extract.py subprocess
     script = os.path.join(TOOLS_DIR, 'youtube-downloader', 'extract.py')
     result = run_python_script(script, [url])
-    if result:
+    if result and result.get('data', {}).get('formats'):
         return result
+
+    # 2) Try yt-dlp Python API directly (in-process, avoids subprocess issues)
+    try:
+        result = _ytdlp_python_extract(url, video_id)
+        if result and result.get('data', {}).get('formats'):
+            return result
+    except Exception:
+        pass
+
+    # 3) Final fallback: scrape YouTube HTML
     return php_extract_downloader(url, video_id)
+
+
+def _ytdlp_python_extract(url, video_id):
+    """Use yt-dlp as a Python library (no subprocess) to extract formats.
+    Tries multiple client combinations for maximum compatibility."""
+    try:
+        import yt_dlp
+    except ImportError:
+        return None
+
+    thumbnail = f'https://img.youtube.com/vi/{video_id}/hqdefault.jpg'
+    title = ''
+    channel = ''
+    duration = ''
+    formats = []
+
+    # Try multiple client combos — some videos only work with certain combos
+    client_combos = [
+        ['default', 'web_embedded', 'tv', 'mweb', 'android'],
+        ['default', 'web', 'tv', 'mweb', 'android'],
+        ['web_embedded'],
+        ['mweb'],
+        ['android'],
+    ]
+
+    info = None
+    for clients in client_combos:
+        ydl_opts = {
+            'quiet': True,
+            'no_warnings': True,
+            'no_check_certificates': True,
+            'skip_download': True,
+            'socket_timeout': 20,
+            'retries': 2,
+            'extractor_retries': 3,
+            'extractor_args': {'youtube': {'player_client': clients}},
+            'http_headers': {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            },
+        }
+        try:
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                info = ydl.extract_info(url, download=False)
+            if info and info.get('formats'):
+                break
+        except Exception:
+            continue
+
+    if not info:
+        return None
+
+    if not info:
+        return None
+
+    title = info.get('title', info.get('fulltitle', ''))
+    channel = info.get('channel', info.get('uploader', ''))
+    duration = info.get('duration_string', '')
+    if info.get('thumbnail'):
+        thumbnail = info['thumbnail']
+
+    # Process formats the same way as extract.py
+    try:
+        sys.path.insert(0, os.path.join(TOOLS_DIR, 'youtube-downloader'))
+        from extract import process_formats, has_ffmpeg
+        formats = process_formats(info)
+        ffmpeg_available = has_ffmpeg()
+    except Exception:
+        ffmpeg_available = False
+        # Inline fallback processing
+        for fmt in info.get('formats', []):
+            fmt_url = fmt.get('url', '')
+            if not fmt_url:
+                continue
+            height = fmt.get('height', 0) or 0
+            ext = fmt.get('ext', 'mp4')
+            vcodec = fmt.get('vcodec', 'none')
+            acodec = fmt.get('acodec', 'none')
+            filesize = fmt.get('filesize') or fmt.get('filesize_approx', 0) or 0
+            abr = fmt.get('abr', 0) or 0
+            itag = fmt.get('format_id', '')
+            fps = fmt.get('fps', 0) or 0
+            protocol = fmt.get('protocol', '')
+            if protocol in ['m3u8_native', 'm3u8', 'mhtml']:
+                continue
+            if not str(itag).isdigit():
+                continue
+            if vcodec != 'none' and acodec != 'none':
+                st = 'video'
+            elif vcodec != 'none':
+                st = 'video_only'
+            elif acodec != 'none':
+                st = 'audio'
+            else:
+                continue
+            label = f'{height}p' if st != 'audio' else f'Audio {round(abr)}kbps'
+            formats.append({
+                'label': label, 'itag': str(itag), 'url': fmt_url, 'ext': ext,
+                'height': height, 'fps': fps, 'filesize': filesize,
+                'abr': round(abr, -1), 'stream_type': st,
+                'has_audio': st != 'video_only', 'has_video': st != 'audio',
+            })
+        formats.sort(key=lambda f: ({'video': 0, 'video_only': 1, 'audio': 2}.get(f['stream_type'], 3), -f['height']))
+
+    if not formats:
+        return None
+
+    return {
+        'success': True,
+        'data': {
+            'title': title or 'YouTube Video',
+            'channel': channel,
+            'video_id': video_id,
+            'thumbnail': thumbnail,
+            'duration': duration,
+            'formats': formats,
+            'url': url,
+            'ffmpeg': ffmpeg_available,
+        }
+    }
 
 
 def run_youtube_transcript(url, video_id, lang='en'):
