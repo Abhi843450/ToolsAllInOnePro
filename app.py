@@ -510,7 +510,7 @@ def run_python_script(script_path, args):
     try:
         result = subprocess.run(
             [sys.executable, script_path] + args,
-            capture_output=True, text=True, timeout=90,
+            capture_output=True, text=True, timeout=45,
         )
         if result.returncode == 0 and result.stdout.strip():
             data = json.loads(result.stdout.strip())
@@ -727,7 +727,7 @@ def run_translate_transcript(video_id, target_lang):
     try:
         result = subprocess.run(
             [sys.executable, '-c', script],
-            capture_output=True, text=True, timeout=90,
+            capture_output=True, text=True, timeout=45,
         )
         if result.returncode == 0 and result.stdout.strip():
             data = json.loads(result.stdout.strip())
