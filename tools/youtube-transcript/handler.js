@@ -190,9 +190,6 @@ window.ToolHandlers['youtube-transcript'] = function(TH) {
       var transcriptText = formatTranscript(data.transcript);
       html += '<div class="result-item"><div class="result-label">Transcript (' + data.transcript.length + ' segments)</div>';
       html += '<pre class="transcript-text">' + TH.esc(transcriptText) + '</pre></div>';
-      html += '<div class="result-item" style="text-align:center">';
-      html += '<button class="btn btn--primary" id="copyTranscriptBtn" data-text="' + TH.esc(transcriptText) + '">';
-      html += '<span class="material-icons-outlined">content_copy</span> Copy Transcript</button></div>';
 
       // ═══ LANGUAGE SELECTOR ═══
       html += '<div class="result-item" style="border-color:var(--primary);background:#f8f9ff">';
@@ -229,16 +226,7 @@ window.ToolHandlers['youtube-transcript'] = function(TH) {
     TH.showResults(html);
 
     setTimeout(function() {
-      // Copy button
-      var copyBtn = document.getElementById('copyTranscriptBtn');
-      if (copyBtn) {
-        copyBtn.addEventListener('click', function() {
-          navigator.clipboard.writeText(this.getAttribute('data-text')).then(function() {
-            copyBtn.innerHTML = '<span class="material-icons-outlined">check</span> Copied!';
-            setTimeout(function() { copyBtn.innerHTML = '<span class="material-icons-outlined">content_copy</span> Copy Transcript'; }, 1500);
-          });
-        });
-      }
+      // NOTE: every result card already gets a small "Copy" button from ui.js showResults.
 
       // Translate button
       var translateBtn = document.getElementById('translateBtn');
@@ -278,8 +266,19 @@ window.ToolHandlers['youtube-transcript'] = function(TH) {
     }, 100);
   }
 
-  // Translate transcript server-side (robust, no YouTube blocking, no CORS issues)
+  // Translate transcript — server first, direct Google from the browser as a reliable fallback
   function translateTranscript(segments, targetLang) {
+    return serverTranslate(segments, targetLang)
+      .catch(function(serverErr) {
+        // Server could not translate (blocked/rate-limited) — try Google straight from the browser
+        var errMsg = serverErr && serverErr.message ? serverErr.message : 'Server translation unavailable';
+        return browserTranslate(segments, targetLang).catch(function(browserErr) {
+          throw new Error((browserErr && browserErr.message) || errMsg);
+        });
+      });
+  }
+
+  function serverTranslate(segments, targetLang) {
     return fetch('/api/translate-text', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -291,20 +290,61 @@ window.ToolHandlers['youtube-transcript'] = function(TH) {
     })
     .then(function(r) {
       if (!r.ok) throw new Error('Translation API returned ' + r.status);
-      var ct = r.headers.get('content-type') || '';
-      if (ct.indexOf('application/json') === -1) {
-        throw new Error('Server returned an invalid response.');
-      }
       return r.json();
     })
     .then(function(resp) {
       if (!resp.success) throw new Error(resp.error || 'Translation failed');
-      var translated = (resp.data.translated || []).map(function(text, idx) {
-        return { start: segments[idx] ? segments[idx].start : 0, text: decodeHtmlEntities(String(text)) };
-      }).filter(function(s) { return s.text !== undefined && s.text !== null && s.text !== ''; });
-      if (!translated.length) throw new Error('No translated segments returned.');
-      return translated;
+      if (resp.data && resp.data.used_fallback) {
+        throw new Error('Server used its local fallback');
+      }
+      return mapTranslated(segments, resp.data.translated || []);
     });
+  }
+
+  function browserTranslate(segments, targetLang) {
+    var SEP = ' ||| ';
+    var BATCH = 30;
+    var translated = [];
+
+    function batchRequest(texts) {
+      var joined = texts.join(SEP);
+      var url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=' +
+        encodeURIComponent(targetLang) + '&dt=t&q=' + encodeURIComponent(joined);
+      return fetch(url)
+        .then(function(r) {
+          if (!r.ok) throw new Error('Google returned ' + r.status);
+          return r.json();
+        })
+        .then(function(d) {
+          if (!d || !d[0]) throw new Error('Unexpected translation response');
+          return d[0].map(function(seg) { return seg[0] || ''; }).join('').split(SEP);
+        });
+    }
+
+    var batches = [];
+    for (var i = 0; i < segments.length; i += BATCH) {
+      batches.push(segments.slice(i, i + BATCH));
+    }
+    var chain = Promise.resolve();
+    batches.forEach(function(batch) {
+      chain = chain.then(function() {
+        return batchRequest(batch.map(function(s) { return s.text; }))
+          .then(function(texts) {
+            batch.forEach(function(seg, j) {
+              translated.push({ start: seg.start, text: decodeHtmlEntities(texts[j] || seg.text) });
+            });
+          });
+      });
+    });
+    return chain.then(function() { return translated; });
+  }
+
+  function mapTranslated(segments, texts) {
+    var translated = texts.map(function(text, idx) {
+      return { start: segments[idx] ? segments[idx].start : 0, text: decodeHtmlEntities(String(text)) };
+    }).filter(function(s) { return s.text !== undefined && s.text !== null && s.text !== ''; });
+    if (!translated.length) throw new Error('No translated segments returned.');
+    return translated;
   }
 
   function decodeHtmlEntities(text) {
@@ -314,7 +354,7 @@ window.ToolHandlers['youtube-transcript'] = function(TH) {
   }
 
   function formatTranscript(transcript) {
-    return transcript.map(function(t) {
+    var lines = transcript.map(function(t) {
       var total = Math.floor(t.start);
       var secs = total % 60;
       var mins = Math.floor(total / 60) % 60;
@@ -322,7 +362,9 @@ window.ToolHandlers['youtube-transcript'] = function(TH) {
       var ts = (hrs > 0 ? String(hrs).padStart(2, '0') + ':' : '') +
         String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
       return '[' + ts + '] ' + t.text;
-    }).join('\n');
+    });
+    // One blank line between each timestamped caption
+    return lines.join('\n\n');
   }
 
   function extractVideoId(url) {

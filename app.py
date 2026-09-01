@@ -152,6 +152,7 @@ def _download_stream(video_id, itag, title):
         '--no-playlist', '--no-warnings', '--no-check-certificates',
         '--socket-timeout', '20', '--retries', '2',
         '--extractor-args', 'youtube:player_client=default,web_embedded,tv,mweb,android',
+        '--impersonate', 'chrome',
         '--get-url', '-f', itag, video_url,
     ]
     try:
@@ -200,6 +201,7 @@ def _download_merged(video_id, height, title):
             '--no-playlist', '--no-warnings', '--no-check-certificates',
             '--socket-timeout', '20', '--retries', '2',
             '--extractor-args', 'youtube:player_client=default,web_embedded,tv,mweb,android',
+            '--impersonate', 'chrome',
             '--merge-output-format', 'mp4',
             '--format', f'bv*[height<={height}][ext=mp4]+ba[ext=m4a]/b[height<={height}][ext=mp4]',
             '--output', out_pattern,
@@ -279,22 +281,26 @@ def api_translate_text():
             return jsonify({'success': False, 'error': 'Invalid target language'})
 
         texts = [str(t)[:2000] for t in texts]
-        translated = translate_texts(texts, target_lang, source_lang)
-        return jsonify({'success': True, 'data': {'translated': translated, 'language': target_lang}})
+        translated, used_fallback = translate_texts(texts, target_lang, source_lang)
+        return jsonify({'success': True,
+                        'data': {'translated': translated, 'language': target_lang,
+                                 'used_fallback': used_fallback}})
     except Exception as e:
         return jsonify({'success': False, 'error': 'Translation failed: ' + str(e)})
 
 
 def translate_texts(texts, target_lang, source_lang='en'):
-    """Translate a list of texts. MyMemory first, Google gtx fallback, originals as last resort."""
+    """Translate a list of texts. MyMemory first, Google gtx fallback, originals as last resort.
+    Returns (translated_list, used_fallback) where used_fallback=True when any line stayed original."""
     import time
     if not texts:
-        return []
+        return [], False
     if source_lang == target_lang:
-        return list(texts)
+        return list(texts), False
 
     MAX_CHARS = 1200
     result = []
+    used_fallback = False
     idx = 0
     n = len(texts)
     while idx < n:
@@ -315,13 +321,15 @@ def translate_texts(texts, target_lang, source_lang='en'):
                 translated = None
         if translated is None:
             translated = batch
+            used_fallback = True
         if len(translated) < len(batch):
             translated = translated + batch[len(translated):]
+            used_fallback = True
         result.extend(translated[:len(batch)])
         idx = batch_end
         if idx < n:
             time.sleep(0.5)
-    return result
+    return result, used_fallback
 
 
 def _mymemory_translate(batch, source_lang, target_lang):

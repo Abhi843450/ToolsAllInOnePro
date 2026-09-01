@@ -85,8 +85,7 @@ def format_size(size_bytes):
 
 
 def get_video_info(url, ytdlp_path):
-    cmd_parts = ytdlp_path.split()
-    cmd = cmd_parts + [
+    base_args = [
         '--dump-json',
         '--no-download',
         '--no-warnings',
@@ -96,18 +95,26 @@ def get_video_info(url, ytdlp_path):
         '--extractor-retries', '3',
         '--retries', '2',
         '--extractor-args', 'youtube:player_client=default,web_embedded,tv,mweb,android',
-        url
     ]
 
-    try:
-        result = subprocess.run(
-            cmd, capture_output=True, text=True, timeout=70
-        )
-        if result.returncode != 0:
-            return None
-        return json.loads(result.stdout)
-    except (subprocess.TimeoutExpired, json.JSONDecodeError, Exception):
-        return None
+    cmd_parts = ytdlp_path.split()
+    attempts = [
+        cmd_parts + base_args + ['--impersonate', 'chrome', url],
+        cmd_parts + base_args + [url],
+    ]
+    for cmd in attempts:
+        try:
+            result = subprocess.run(
+                cmd, capture_output=True, text=True, timeout=75
+            )
+            if result.returncode == 0 and result.stdout.strip():
+                try:
+                    return json.loads(result.stdout)
+                except Exception:
+                    continue
+        except (subprocess.TimeoutExpired, Exception):
+            continue
+    return None
 
 
 def process_formats(info):
