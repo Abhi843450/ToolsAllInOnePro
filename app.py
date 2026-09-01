@@ -132,6 +132,7 @@ def api_debug_extract():
         'extractor_retries': 1,
         'extractor_args': {'youtube': {'player_client': ['default', 'web_embedded', 'tv', 'mweb', 'android']}},
         'http_headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'},
+        'js_runtimes': {'node': {}},
     }
 
     for imp in ('chrome', False):
@@ -189,14 +190,14 @@ def sanitize_filename(name):
 
 
 def _yt_dlp_cmd():
-    """Return a yt-dlp invocation with --impersonate chrome baked in."""
+    """Return a yt-dlp invocation with --impersonate chrome and --js-runtimes node baked in."""
     try:
         result = subprocess.run(['yt-dlp', '--version'], capture_output=True, text=True, timeout=5)
         if result.returncode == 0:
-            return ['yt-dlp', '--impersonate', 'chrome']
+            return ['yt-dlp', '--impersonate', 'chrome', '--js-runtimes', 'node']
     except Exception:
         pass
-    return [sys.executable, '-m', 'yt_dlp', '--impersonate', 'chrome']
+    return [sys.executable, '-m', 'yt_dlp', '--impersonate', 'chrome', '--js-runtimes', 'node']
 
 
 def _download_stream(video_id, itag, title):
@@ -643,6 +644,7 @@ def _ytdlp_python_extract(url, video_id):
         'http_headers': {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         },
+        'js_runtimes': {'node': {}},
     }
 
     info = None

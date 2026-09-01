@@ -94,6 +94,7 @@ def get_video_info(url, ytdlp_path):
         '--socket-timeout', '20',
         '--extractor-retries', '3',
         '--retries', '2',
+        '--js-runtimes', 'node',
         '--extractor-args', 'youtube:player_client=default,web_embedded,tv,mweb,android',
     ]
 
