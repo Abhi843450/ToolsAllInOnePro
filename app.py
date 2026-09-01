@@ -522,22 +522,27 @@ def run_python_script(script_path, args):
 
 
 def run_youtube_downloader(url, video_id):
+    import sys as _sys
     # In-process yt-dlp first (most reliable, no subprocess overhead)
     try:
         result = _ytdlp_python_extract(url, video_id)
         if result and result.get('data', {}).get('formats'):
+            print(f'[DL] video_id={video_id} in-process OK: {len(result["data"]["formats"])} formats', file=_sys.stderr)
             return result
-    except Exception:
-        pass
+        print(f'[DL] video_id={video_id} in-process: 0 formats', file=_sys.stderr)
+    except Exception as e:
+        print(f'[DL] video_id={video_id} in-process ERROR: {e}', file=_sys.stderr)
 
     # Subprocess fallback
     try:
         script = os.path.join(TOOLS_DIR, 'youtube-downloader', 'extract.py')
         result = run_python_script(script, [url])
         if result and result.get('data', {}).get('formats'):
+            print(f'[DL] video_id={video_id} subprocess OK: {len(result["data"]["formats"])} formats', file=_sys.stderr)
             return result
-    except Exception:
-        pass
+        print(f'[DL] video_id={video_id} subprocess: 0 formats', file=_sys.stderr)
+    except Exception as e:
+        print(f'[DL] video_id={video_id} subprocess ERROR: {e}', file=_sys.stderr)
 
     # HTML scraping fallback
     try:
@@ -573,8 +578,8 @@ def _ytdlp_python_extract(url, video_id):
     thumbnail = f'https://img.youtube.com/vi/{video_id}/hqdefault.jpg'
 
     ydl_opts = {
-        'quiet': True,
-        'no_warnings': True,
+        'quiet': False,
+        'no_warnings': False,
         'no_check_certificates': True,
         'skip_download': True,
         'socket_timeout': 10,
@@ -587,6 +592,7 @@ def _ytdlp_python_extract(url, video_id):
     }
 
     info = None
+    errors = []
     # Try with impersonation, then without
     for imp in ('chrome', False):
         try:
@@ -597,10 +603,14 @@ def _ytdlp_python_extract(url, video_id):
                 info = ydl.extract_info(url, download=False)
             if info and info.get('formats'):
                 break
-        except Exception:
-            continue
+            errors.append(f'impersonate={imp}: got info but {len(info.get("formats",[]))} formats')
+        except Exception as e:
+            errors.append(f'impersonate={imp}: {type(e).__name__}: {str(e)[:80]}')
 
     if not info:
+        # Log errors for debugging on Render
+        import sys as _sys
+        print(f'[EXTRACT FAIL] video_id={video_id} errors={errors}', file=_sys.stderr)
         return None
 
     title = info.get('title', info.get('fulltitle', ''))
