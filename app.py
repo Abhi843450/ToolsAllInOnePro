@@ -11,6 +11,7 @@ from flask import Flask, render_template, request, jsonify, send_from_directory,
 app = Flask(__name__, static_folder='assets', template_folder='templates')
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+TOOLS_DIR = os.path.join(BASE_DIR, 'tools')
 
 
 def get_current_year():
@@ -22,9 +23,9 @@ app.jinja_env.globals['current_year'] = get_current_year
 
 
 def load_tools():
-    """Scan tool directories for tool.json files."""
+    """Scan tool directories (inside tools/) for tool.json files."""
     tools = []
-    for tool_dir in glob.glob(os.path.join(BASE_DIR, '*')):
+    for tool_dir in glob.glob(os.path.join(TOOLS_DIR, '*')):
         if not os.path.isdir(tool_dir):
             continue
         tool_json = os.path.join(tool_dir, 'tool.json')
@@ -42,7 +43,7 @@ def load_tools():
 
 def load_tool(slug):
     """Load a single tool's tool.json by slug (validated against directory name)."""
-    tool_json = os.path.join(BASE_DIR, slug, 'tool.json')
+    tool_json = os.path.join(TOOLS_DIR, slug, 'tool.json')
     if not os.path.isfile(tool_json):
         return None
     with open(tool_json, 'r', encoding='utf-8') as f:
@@ -73,12 +74,13 @@ def tool_page(slug):
     return render_template('tool.html', tool=tool, slug=slug, all_tools=all_tools)
 
 
-# Serve tool-specific handler.js (kept alongside each tool directory)
+# Serve tool-specific handler.js (kept alongside each tool directory inside tools/)
 @app.route('/tool/<slug>/handler.js')
 def tool_handler_js(slug):
-    handler_path = os.path.join(BASE_DIR, slug, 'handler.js')
+    tool_dir = os.path.join(TOOLS_DIR, slug)
+    handler_path = os.path.join(tool_dir, 'handler.js')
     if os.path.isfile(handler_path):
-        return send_from_directory(os.path.join(BASE_DIR, slug), 'handler.js',
+        return send_from_directory(tool_dir, 'handler.js',
                                    mimetype='application/javascript')
     return '', 404
 
@@ -170,7 +172,7 @@ def run_python_script(script_path, args):
 
 
 def run_youtube_downloader(url, video_id):
-    script = os.path.join(BASE_DIR, 'youtube-downloader', 'extract.py')
+    script = os.path.join(TOOLS_DIR, 'youtube-downloader', 'extract.py')
     result = run_python_script(script, [url])
     if result:
         return result
@@ -178,7 +180,7 @@ def run_youtube_downloader(url, video_id):
 
 
 def run_youtube_transcript(url, video_id, lang='en'):
-    script = os.path.join(BASE_DIR, 'youtube-transcript', 'extract.py')
+    script = os.path.join(TOOLS_DIR, 'youtube-transcript', 'extract.py')
     result = run_python_script(script, [url, lang])
     if result:
         return result
