@@ -554,7 +554,7 @@ def _ytdlp_python_extract(url, video_id):
     duration = ''
     formats = []
 
-    # Try multiple client combos — some videos only work with certain combos
+    # Try with impersonation first, then without (Render may lack curl-cffi)
     client_combos = [
         ['default', 'web_embedded', 'tv', 'mweb', 'android'],
         ['default', 'web', 'tv', 'mweb', 'android'],
@@ -564,6 +564,7 @@ def _ytdlp_python_extract(url, video_id):
     ]
 
     info = None
+    # Pass 1: with impersonation (bypasses TLS fingerprint blocks)
     for clients in client_combos:
         ydl_opts = {
             'quiet': True,
@@ -587,8 +588,29 @@ def _ytdlp_python_extract(url, video_id):
         except Exception:
             continue
 
-    if not info:
-        return None
+    # Pass 2: without impersonation (fallback if curl-cffi not installed)
+    if not info or not info.get('formats'):
+        for clients in client_combos:
+            ydl_opts = {
+                'quiet': True,
+                'no_warnings': True,
+                'no_check_certificates': True,
+                'skip_download': True,
+                'socket_timeout': 20,
+                'retries': 2,
+                'extractor_retries': 3,
+                'extractor_args': {'youtube': {'player_client': clients}},
+                'http_headers': {
+                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                },
+            }
+            try:
+                with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                    info = ydl.extract_info(url, download=False)
+                if info and info.get('formats'):
+                    break
+            except Exception:
+                continue
 
     if not info:
         return None
