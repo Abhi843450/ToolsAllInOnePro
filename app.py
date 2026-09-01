@@ -13,6 +13,12 @@ app = Flask(__name__, static_folder='assets', template_folder='templates')
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TOOLS_DIR = os.path.join(BASE_DIR, 'tools')
 
+# Prepend tools/youtube-downloader to PATH so yt-dlp finds our node shim
+# (py-mini-racer V8 engine) when real Node.js is not installed
+_NODE_SHIM_DIR = os.path.join(TOOLS_DIR, 'youtube-downloader')
+if os.path.isdir(_NODE_SHIM_DIR):
+    os.environ['PATH'] = _NODE_SHIM_DIR + os.pathsep + os.environ.get('PATH', '')
+
 # YouTube cookies (Netscape cookies.txt) — uploaded by the user to bypass
 # YouTube's bot detection on datacenter IPs. Empty/missing = anonymous mode.
 YT_COOKIES_PATH = os.path.join(TOOLS_DIR, 'youtube-downloader', 'cookies.txt')
