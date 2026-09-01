@@ -13,11 +13,7 @@ app = Flask(__name__, static_folder='assets', template_folder='templates')
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TOOLS_DIR = os.path.join(BASE_DIR, 'tools')
 
-# Prepend tools/youtube-downloader to PATH so yt-dlp finds our node shim
-# (py-mini-racer V8 engine) when real Node.js is not installed
-_NODE_SHIM_DIR = os.path.join(TOOLS_DIR, 'youtube-downloader')
-if os.path.isdir(_NODE_SHIM_DIR):
-    os.environ['PATH'] = _NODE_SHIM_DIR + os.pathsep + os.environ.get('PATH', '')
+
 
 # YouTube cookies (Netscape cookies.txt) — uploaded by the user to bypass
 # YouTube's bot detection on datacenter IPs. Empty/missing = anonymous mode.
@@ -614,12 +610,14 @@ def run_python_script(script_path, args):
     try:
         result = subprocess.run(
             [sys.executable, script_path] + args,
-            capture_output=True, text=True, timeout=20,
+            capture_output=True, text=True, timeout=15,
         )
         if result.returncode == 0 and result.stdout.strip():
             data = json.loads(result.stdout.strip())
             if isinstance(data, dict) and 'success' in data:
                 return data
+    except subprocess.TimeoutExpired:
+        print(f'[TIMEOUT] Script {script_path} timed out', file=sys.stderr)
     except Exception:
         pass
     return None
@@ -675,8 +673,28 @@ def run_youtube_downloader(url, video_id):
     }
 
 
+def _prefetch_youtube_cookies():
+    """Use curl_cffi to pre-fetch YouTube cookies (bypasses TLS fingerprint bot detection).
+    Exports them to a Netscape cookie file for yt-dlp."""
+    cookie_path = os.path.join(TOOLS_DIR, 'youtube-downloader', 'prefetched_cookies.txt')
+    try:
+        from curl_cffi import requests as cffi_requests
+        s = cffi_requests.Session(impersonate='chrome')
+        s.get('https://www.youtube.com/', timeout=10)
+        s.get('https://www.youtube.com/', timeout=10)  # second visit to get more cookies
+        if not s.cookies:
+            return None
+        with open(cookie_path, 'w') as f:
+            f.write('# Netscape HTTP Cookie File\n')
+            for name, value in s.cookies.items():
+                f.write(f'.youtube.com\tTRUE\t/\tTRUE\t0\t{name}\t{value}\n')
+        return cookie_path
+    except Exception:
+        return None
+
+
 def _ytdlp_python_extract(url, video_id):
-    """Use yt-dlp Python API. Single fast attempt — max 20s."""
+    """Use yt-dlp Python API with curl_cffi impersonation + pre-fetched cookies."""
     try:
         import yt_dlp
     except ImportError:
@@ -684,7 +702,10 @@ def _ytdlp_python_extract(url, video_id):
 
     thumbnail = f'https://img.youtube.com/vi/{video_id}/hqdefault.jpg'
 
-    # Strategy: try web clients first, then android_testsuite (bypasses bot detection on datacenter IPs)
+    # Pre-fetch cookies with curl_cffi to bypass TLS fingerprinting
+    prefetched = _prefetch_youtube_cookies()
+
+    # Strategy: try web clients first, then android_testsuite
     client_strategies = [
         ['default', 'web_embedded', 'tv', 'mweb', 'android'],
         ['android_testsuite'],
@@ -696,8 +717,8 @@ def _ytdlp_python_extract(url, video_id):
         if info and info.get('formats'):
             break
         ydl_opts = {
-            'quiet': False,
-            'no_warnings': False,
+            'quiet': True,
+            'no_warnings': True,
             'no_check_certificates': True,
             'skip_download': True,
             'socket_timeout': 10,
@@ -707,10 +728,12 @@ def _ytdlp_python_extract(url, video_id):
             'http_headers': {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
             },
-            'js_runtimes': {'node': {}},
+            'impersonate_target': 'chrome',
         }
-        if yt_cookies_active():
-            ydl_opts['cookiefile'] = YT_COOKIES_PATH
+        # Use prefetched cookies, fallback to uploaded cookies
+        cookie_file = prefetched or (YT_COOKIES_PATH if yt_cookies_active() else None)
+        if cookie_file:
+            ydl_opts['cookiefile'] = cookie_file
         for imp in ('chrome', False):
             try:
                 opts = dict(ydl_opts)
@@ -725,7 +748,6 @@ def _ytdlp_python_extract(url, video_id):
                 errors.append(f'clients={clients} imp={imp}: {type(e).__name__}: {str(e)[:80]}')
 
     if not info:
-        # Log errors for debugging on Render
         import sys as _sys
         print(f'[EXTRACT FAIL] video_id={video_id} errors={errors}', file=_sys.stderr)
         return None
