@@ -136,14 +136,14 @@ def sanitize_filename(name):
 
 
 def _yt_dlp_cmd():
-    """Return a yt-dlp invocation that works whether installed as CLI or pip module."""
+    """Return a yt-dlp invocation with --impersonate chrome baked in."""
     try:
         result = subprocess.run(['yt-dlp', '--version'], capture_output=True, text=True, timeout=5)
         if result.returncode == 0:
-            return ['yt-dlp']
+            return ['yt-dlp', '--impersonate', 'chrome']
     except Exception:
         pass
-    return [sys.executable, '-m', 'yt_dlp']
+    return [sys.executable, '-m', 'yt_dlp', '--impersonate', 'chrome']
 
 
 def _download_stream(video_id, itag, title):
@@ -153,7 +153,6 @@ def _download_stream(video_id, itag, title):
         '--no-playlist', '--no-warnings', '--no-check-certificates',
         '--socket-timeout', '20', '--retries', '2',
         '--extractor-args', 'youtube:player_client=default,web_embedded,tv,mweb,android',
-        '--impersonate', 'chrome',
         '--get-url', '-f', itag, video_url,
     ]
     try:
@@ -168,18 +167,26 @@ def _download_stream(video_id, itag, title):
 
 
 def _stream_url(source_url, filename, content_type):
-    import urllib.request
+    """Proxy a remote URL to the client using curl_cffi for TLS impersonation."""
     def generate():
-        req = urllib.request.Request(source_url, headers={
-            'User-Agent': ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
-                           '(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'),
-        })
-        with urllib.request.urlopen(req, timeout=60) as resp:
-            while True:
-                chunk = resp.read(1024 * 1024)
-                if not chunk:
-                    break
-                yield chunk
+        try:
+            from curl_cffi import requests as cffi_requests
+            resp = cffi_requests.get(source_url, impersonate='chrome', timeout=60, stream=True)
+            for chunk in resp.iter_content(chunk_size=1024 * 1024):
+                if chunk:
+                    yield chunk
+        except ImportError:
+            import urllib.request
+            req = urllib.request.Request(source_url, headers={
+                'User-Agent': ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
+                               '(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'),
+            })
+            with urllib.request.urlopen(req, timeout=60) as resp:
+                while True:
+                    chunk = resp.read(1024 * 1024)
+                    if not chunk:
+                        break
+                    yield chunk
     return Response(generate(), mimetype=content_type, headers={
         'Content-Disposition': f'attachment; filename="{filename}"',
     })
@@ -202,7 +209,6 @@ def _download_merged(video_id, height, title):
             '--no-playlist', '--no-warnings', '--no-check-certificates',
             '--socket-timeout', '20', '--retries', '2',
             '--extractor-args', 'youtube:player_client=default,web_embedded,tv,mweb,android',
-            '--impersonate', 'chrome',
             '--merge-output-format', 'mp4',
             '--format', f'bv*[height<={height}][ext=mp4]+ba[ext=m4a]/b[height<={height}][ext=mp4]',
             '--output', out_pattern,
