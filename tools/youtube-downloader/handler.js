@@ -123,23 +123,18 @@ window.ToolHandlers['youtube-downloader'] = function(TH) {
         html += '</div></div>';
       }
     } else {
-      // No formats — extraction failed
-      html += '<div class="result-item">';
-      html += '<div class="result-label">Quick Actions</div>';
-      html += '<div style="display:flex;flex-direction:column;gap:10px;margin-top:8px">';
-
-      html += '<a href="https://www.youtube.com/watch?v=' + TH.esc(data.video_id) + '" target="_blank" rel="noopener" ';
-      html += 'style="display:flex;align-items:center;gap:10px;padding:14px 18px;background:#ff0000;color:white;text-decoration:none;border-radius:8px;font-weight:600">';
-      html += '<span class="material-icons-outlined" style="font-size:24px">play_circle</span>';
-      html += 'Watch on YouTube</a>';
-
-      html += '</div></div>';
-
+      // No formats — show retry option
       html += '<div class="result-item" style="border-color:var(--warning);background:#fff8f0">';
-      html += '<div style="display:flex;align-items:start;gap:8px">';
-      html += '<span class="material-icons-outlined" style="color:var(--warning);font-size:20px;flex-shrink:0">warning</span>';
-      html += '<div class="result-value" style="font-size:0.85rem">Could not load download options for this video. Please try again in a moment, or try a different YouTube URL.</div>';
-      html += '</div></div>';
+      html += '<div style="display:flex;flex-direction:column;gap:10px">';
+      html += '<div style="display:flex;align-items:center;gap:8px">';
+      html += '<span class="material-icons-outlined" style="color:var(--warning);font-size:20px;flex-shrink:0">cloud_off</span>';
+      html += '<div class="result-value" style="font-size:0.85rem;font-weight:600">Download options could not be loaded for this video.</div>';
+      html += '</div>';
+      html += '<div style="display:flex;flex-direction:column;gap:8px">';
+      html += '<button class="btn btn--primary" id="retryBtn" style="display:flex;align-items:center;gap:6px;align-self:flex-start">';
+      html += '<span class="material-icons-outlined" style="font-size:18px">refresh</span> Try Again</button>';
+      html += '<a href="https://www.youtube.com/watch?v=' + TH.esc(data.video_id) + '" target="_blank" rel="noopener" style="font-size:0.85rem;color:var(--primary);text-decoration:underline;cursor:pointer">Open on YouTube instead</a>';
+      html += '</div></div></div>';
     }
 
     // Original URL
@@ -155,6 +150,16 @@ window.ToolHandlers['youtube-downloader'] = function(TH) {
     }
 
     TH.showResults(html);
+
+    setTimeout(function() {
+      var retryBtn = document.getElementById('retryBtn');
+      if (retryBtn) {
+        retryBtn.addEventListener('click', function() {
+          var url = document.getElementById('toolUrlInput')?.value?.trim();
+          if (url) window.ToolHandlers['youtube-downloader'](TH);
+        });
+      }
+    }, 100);
   })
   .catch(function(e) { TH.showError('Error: ' + e.message); });
 
