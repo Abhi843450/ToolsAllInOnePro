@@ -1,0 +1,11 @@
+.git
+.github
+*.md
+.env
+*.pyc
+__pycache__
+.venv
+venv
+node_modules
+.DS_Store
+Only_reference/
