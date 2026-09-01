@@ -18,6 +18,31 @@ TOOLS_DIR = os.path.join(BASE_DIR, 'tools')
 YT_COOKIES_PATH = os.path.join(TOOLS_DIR, 'youtube-downloader', 'cookies.txt')
 
 
+def _provision_yt_cookies():
+    """On boot, source cookies from env vars so no visitor-facing upload is needed.
+
+    YT_COOKIES = raw Netscape cookies.txt content
+    YT_COOKIES_B64 = same content, base64-encoded (preferred, newlines safe)
+    """
+    import base64 as _b64
+    raw = os.environ.get('YT_COOKIES_B64') or os.environ.get('YT_COOKIES')
+    if not raw:
+        return
+    try:
+        try:
+            content = _b64.b64decode(raw, validate=True).decode('utf-8')
+        except Exception:
+            content = raw
+        os.makedirs(os.path.dirname(YT_COOKIES_PATH), exist_ok=True)
+        with open(YT_COOKIES_PATH, 'w', encoding='utf-8') as f:
+            f.write(content)
+    except Exception:
+        pass
+
+
+_provision_yt_cookies()
+
+
 def yt_cookies_active():
     return os.path.isfile(YT_COOKIES_PATH)
 
@@ -342,75 +367,6 @@ def api_run_tool():
         return jsonify({'success': False, 'error': f'Unknown tool: {tool}'})
     except Exception as e:
         return jsonify({'success': False, 'error': 'Server error: ' + str(e)})
-
-
-# ═══════════════════════════════════════════════════════════
-# YouTube cookies — uploaded by the user so yt-dlp can bypass
-# YouTube's bot detection on datacenter IPs (e.g. Render).
-# ═══════════════════════════════════════════════════════════
-
-@app.route('/api/yt-cookies/status', methods=['GET'])
-def api_yt_cookies_status():
-    active = yt_cookies_active()
-    modified = ''
-    if active:
-        try:
-            from datetime import datetime
-            modified = datetime.utcfromtimestamp(
-                os.path.getmtime(YT_COOKIES_PATH)).strftime('%Y-%m-%d %H:%M UTC')
-        except Exception:
-            pass
-    return jsonify({'success': True, 'active': active, 'modified': modified})
-
-
-@app.route('/api/yt-cookies', methods=['POST', 'OPTIONS'])
-def api_yt_cookies_upload():
-    if request.method == 'OPTIONS':
-        return '', 200
-    content = ''
-    if request.files:
-        f = request.files.get('file')
-        if f:
-            try:
-                content = f.read().decode('utf-8', errors='replace')
-            except Exception:
-                content = ''
-    if not content:
-        data = request.get_json(silent=True) or {}
-        content = data.get('cookies', '') or ''
-
-    content = (content or '').strip()
-    if len(content) < 30 or '#' not in content and '\t' not in content:
-        return jsonify({'success': False,
-                        'error': 'That does not look like a cookies.txt file (Netscape format). Export it with a browser "cookies.txt" extension while logged into YouTube.'}), 400
-
-    try:
-        os.makedirs(os.path.dirname(YT_COOKIES_PATH), exist_ok=True)
-        with open(YT_COOKIES_PATH, 'w', encoding='utf-8') as f:
-            f.write(content)
-    except Exception as e:
-        return jsonify({'success': False, 'error': 'Could not save cookies: ' + str(e)}), 500
-
-    # Invalidate the format cache so a fresh full extraction runs with cookies.
-    try:
-        cache_dir = os.path.join(os.environ.get('TEMP', '/tmp'), 'toolcache')
-        for name in os.listdir(cache_dir):
-            if name.startswith('yt_dl_'):
-                os.remove(os.path.join(cache_dir, name))
-    except Exception:
-        pass
-
-    return jsonify({'success': True, 'active': True})
-
-
-@app.route('/api/yt-cookies', methods=['DELETE'])
-def api_yt_cookies_remove():
-    try:
-        if os.path.isfile(YT_COOKIES_PATH):
-            os.remove(YT_COOKIES_PATH)
-        return jsonify({'success': True, 'active': False})
-    except Exception as e:
-        return jsonify({'success': False, 'error': str(e)}), 500
 
 
 @app.route('/api/translate-text', methods=['POST', 'OPTIONS'])

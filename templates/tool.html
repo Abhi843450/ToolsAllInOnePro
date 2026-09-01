@@ -59,35 +59,6 @@
             {% endif %}
         </div>
 
-        {% if slug == 'youtube-downloader' %}
-        <!-- Optional cookies (fixes YouTube bot-blocking on server IPs) -->
-        <div class="cookies-box" id="ytCookiesBox" style="margin-top:14px;">
-            <button type="button" class="cookies-toggle" id="ytCookiesToggle" aria-expanded="false">
-                <span class="material-icons-outlined" style="font-size:18px">cookie</span>
-                <span id="ytCookiesToggleText">YouTube is blocking the server? Add your browser cookies (optional)</span>
-                <span class="material-icons-outlined cookies-caret" style="font-size:18px">expand_more</span>
-            </button>
-            <div class="cookies-body hidden" id="ytCookiesBody">
-                <p class="cookies-hint">
-                    YouTube sometimes blocks automated downloads from server IPs. Uploading a
-                    <code>cookies.txt</code> export from a browser where you're logged into YouTube
-                    unlocks every resolution and audio quality. Use a browser extension like
-                    "Get cookies.txt LOCALLY", then export while on youtube.com.
-                </p>
-                <div class="cookies-controls">
-                    <input type="file" id="ytCookiesFile" accept=".txt" class="cookies-file">
-                    <button class="btn btn--primary" id="ytCookiesUpload" style="flex-shrink:0">
-                        <span class="material-icons-outlined" style="font-size:18px">upload_file</span> Upload
-                    </button>
-                    <button class="btn btn--ghost hidden" id="ytCookiesRemove" style="flex-shrink:0">
-                        <span class="material-icons-outlined" style="font-size:18px">delete</span> Remove
-                    </button>
-                    <span class="cookies-status" id="ytCookiesStatus"></span>
-                </div>
-            </div>
-        </div>
-        {% endif %}
-
         <!-- Results -->
         <div class="results-area hidden" id="resultsPanel">
             <div class="results-header">
