@@ -3,6 +3,84 @@
  * Server first (yt-dlp when available), PHP fallback with helpful UX.
  */
 window.ToolHandlers = window.ToolHandlers || {};
+
+// Wire the optional cookies upload box as soon as the page loads.
+(function initCookiesBox() {
+  var cookiesBox = document.getElementById('ytCookiesBox');
+  if (!cookiesBox) return;
+
+  function setCookiesStatus(text, ok) {
+    var el = document.getElementById('ytCookiesStatus');
+    if (!el) return;
+    el.textContent = text || '';
+    el.className = 'cookies-status ' + (ok ? 'ok' : text ? 'err' : '');
+  }
+
+  function refreshCookiesStatus() {
+    fetch('/api/yt-cookies/status')
+      .then(function(r) { return r.json(); })
+      .then(function(res) {
+        if (res && res.active) {
+          setCookiesStatus('Cookies active' + (res.modified ? ' (since ' + res.modified + ')' : '') + ' — downloads unlocked', true);
+          document.getElementById('ytCookiesRemove')?.classList?.remove('hidden');
+          document.getElementById('ytCookiesToggleText').textContent = 'YouTube cookies are active — all resolutions unlocked';
+        } else {
+          setCookiesStatus('No cookies set — some videos may be blocked from server IPs.', false);
+          document.getElementById('ytCookiesRemove')?.classList?.add('hidden');
+          document.getElementById('ytCookiesToggleText').textContent = 'YouTube is blocking the server? Add your browser cookies (optional)';
+        }
+      })
+      .catch(function() { setCookiesStatus('', false); });
+  }
+
+  var toggle = document.getElementById('ytCookiesToggle');
+  var body = document.getElementById('ytCookiesBody');
+  if (toggle && body) {
+    toggle.addEventListener('click', function() {
+      var open = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!open));
+      body.classList.toggle('hidden', open);
+    });
+  }
+
+  var fileInput = document.getElementById('ytCookiesFile');
+  var uploadBtn = document.getElementById('ytCookiesUpload');
+  var removeBtn = document.getElementById('ytCookiesRemove');
+
+  if (uploadBtn) {
+    uploadBtn.addEventListener('click', function() {
+      var f = fileInput && fileInput.files && fileInput.files[0];
+      if (!f) { setCookiesStatus('Choose a cookies.txt file first.', false); return; }
+      var fd = new FormData();
+      fd.append('file', f);
+      setCookiesStatus('Uploading...', false);
+      fetch('/api/yt-cookies', { method: 'POST', body: fd })
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+          if (res && res.success) {
+            setCookiesStatus('Cookies saved — the next search will unlock all formats.', true);
+            document.getElementById('ytCookiesRemove')?.classList?.remove('hidden');
+            var t = document.getElementById('ytCookiesToggleText');
+            if (t) t.textContent = 'YouTube cookies are active — all resolutions unlocked';
+          } else {
+            setCookiesStatus((res && res.error) || 'Upload failed.', false);
+          }
+        })
+        .catch(function() { setCookiesStatus('Upload failed — try again.', false); });
+    });
+  }
+
+  if (removeBtn) {
+    removeBtn.addEventListener('click', function() {
+      fetch('/api/yt-cookies', { method: 'DELETE' })
+        .then(function() { refreshCookiesStatus(); })
+        .catch(function() { refreshCookiesStatus(); });
+    });
+  }
+
+  refreshCookiesStatus();
+})();
+
 window.ToolHandlers['youtube-downloader'] = function(TH) {
   var url = document.getElementById('toolUrlInput')?.value?.trim();
   if (!url) { TH.showError('Please enter a YouTube URL'); return; }

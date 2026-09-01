@@ -84,7 +84,7 @@ def format_size(size_bytes):
     return f'{size_bytes/1073741824:.2f} GB'
 
 
-def get_video_info(url, ytdlp_path):
+def get_video_info(url, ytdlp_path, cookies_path=''):
     base_args = [
         '--dump-json',
         '--no-download',
@@ -96,6 +96,8 @@ def get_video_info(url, ytdlp_path):
         '--retries', '2',
         '--js-runtimes', 'node',
     ]
+    if cookies_path:
+        base_args += ['--cookies', cookies_path]
 
     cmd_parts = ytdlp_path.split()
     # Try web clients first, then android_testsuite (bypasses bot detection on datacenter IPs)
@@ -279,11 +281,18 @@ def get_external_formats(video_id):
 
 
 def main():
-    if len(sys.argv) < 2:
+    args = sys.argv[1:]
+    cookies_path = ''
+    if '--cookies' in args:
+        i = args.index('--cookies')
+        if i + 1 < len(args):
+            cookies_path = args[i + 1]
+            del args[i:i + 2]
+    if len(args) < 1:
         print(json.dumps({'success': False, 'error': 'No URL provided'}))
         sys.exit(1)
 
-    url = sys.argv[1]
+    url = args[0]
     video_id = extract_video_id(url)
 
     if not video_id:
@@ -305,7 +314,7 @@ def main():
     # Try yt-dlp
     ytdlp_path = find_ytdlp()
     if ytdlp_path:
-        info = get_video_info(url, ytdlp_path)
+        info = get_video_info(url, ytdlp_path, cookies_path)
         if info:
             title = info.get('title', info.get('fulltitle', ''))
             channel = info.get('channel', info.get('uploader', ''))
