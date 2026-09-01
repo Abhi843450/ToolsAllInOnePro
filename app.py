@@ -98,6 +98,60 @@ def sitemap():
     return Response('\n'.join(xml), mimetype='application/xml')
 
 
+@app.route('/api/debug-extract', methods=['POST'])
+def api_debug_extract():
+    """Debug endpoint: shows what yt-dlp reports for a video on this server."""
+    data = request.get_json(silent=True) or {}
+    url = data.get('url', '')
+    video_id = extract_video_id(url)
+    if not video_id:
+        return jsonify({'error': 'invalid url'})
+
+    import sys as _sys
+    output = []
+
+    # Check curl_cffi
+    try:
+        from curl_cffi import requests as cffi_requests
+        output.append('curl_cffi: INSTALLED')
+    except ImportError:
+        output.append('curl_cffi: NOT INSTALLED')
+
+    # Check yt-dlp
+    try:
+        import yt_dlp
+        output.append(f'yt_dlp: {yt_dlp.version.__version__}')
+    except ImportError:
+        output.append('yt_dlp: NOT INSTALLED')
+        return jsonify({'output': output})
+
+    # Try yt-dlp with all the options
+    ydl_opts = {
+        'quiet': False, 'no_warnings': False, 'no_check_certificates': True,
+        'skip_download': True, 'socket_timeout': 10, 'retries': 1,
+        'extractor_retries': 1,
+        'extractor_args': {'youtube': {'player_client': ['default', 'web_embedded', 'tv', 'mweb', 'android']}},
+        'http_headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'},
+    }
+
+    for imp in ('chrome', False):
+        try:
+            opts = dict(ydl_opts)
+            if imp:
+                opts['impersonate_target'] = imp
+            with yt_dlp.YoutubeDL(opts) as ydl:
+                info = ydl.extract_info(url, download=False)
+            n = len(info.get('formats', [])) if info else 0
+            ps = info.get('playabilityStatus', {}) if info else {}
+            output.append(f'impersonate={imp}: {n} formats, status={ps.get("status","?")}')
+            if n == 0:
+                output.append(f'  reason={ps.get("reason","none")}')
+        except Exception as e:
+            output.append(f'impersonate={imp}: ERROR {type(e).__name__}: {str(e)[:150]}')
+
+    return jsonify({'output': output, 'video_id': video_id})
+
+
 @app.route('/robots.txt')
 def robots():
     site_url = request.host_url.rstrip('/')
