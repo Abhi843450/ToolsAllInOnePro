@@ -563,47 +563,29 @@ def _ytdlp_python_extract(url, video_id):
         ['android'],
     ]
 
+    import time as _time
+    deadline = _time.time() + 60  # 60s total budget for all attempts
     info = None
-    # Pass 1: with impersonation (bypasses TLS fingerprint blocks)
-    for clients in client_combos:
-        ydl_opts = {
-            'quiet': True,
-            'no_warnings': True,
-            'no_check_certificates': True,
-            'skip_download': True,
-            'socket_timeout': 20,
-            'retries': 2,
-            'extractor_retries': 3,
-            'extractor_args': {'youtube': {'player_client': clients}},
-            'impersonate_target': 'chrome',
-            'http_headers': {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            },
-        }
-        try:
-            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                info = ydl.extract_info(url, download=False)
-            if info and info.get('formats'):
-                break
-        except Exception:
-            continue
-
-    # Pass 2: without impersonation (fallback if curl-cffi not installed)
-    if not info or not info.get('formats'):
+    # Pass 1: with impersonation, then without
+    for impersonate in (True, False):
         for clients in client_combos:
+            if _time.time() > deadline:
+                break
             ydl_opts = {
                 'quiet': True,
                 'no_warnings': True,
                 'no_check_certificates': True,
                 'skip_download': True,
-                'socket_timeout': 20,
-                'retries': 2,
-                'extractor_retries': 3,
+                'socket_timeout': 15,
+                'retries': 1,
+                'extractor_retries': 2,
                 'extractor_args': {'youtube': {'player_client': clients}},
                 'http_headers': {
                     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
                 },
             }
+            if impersonate:
+                ydl_opts['impersonate_target'] = 'chrome'
             try:
                 with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                     info = ydl.extract_info(url, download=False)
@@ -611,6 +593,8 @@ def _ytdlp_python_extract(url, video_id):
                     break
             except Exception:
                 continue
+        if info and info.get('formats'):
+            break
 
     if not info:
         return None
