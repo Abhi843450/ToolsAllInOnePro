@@ -112,8 +112,7 @@ def robots():
 @app.route('/api/download', methods=['GET'])
 def api_download():
     """Stream a YouTube format directly to the user with a forced download.
-    ?video_id=..&itag=..&cobalt_url=..  (direct stream)
-    or  ?video_id=..&merge=1&height=..  (video+audio MP4)."""
+    ?video_id=..&itag=..  (direct stream)  or  ?video_id=..&merge=1&height=..  (video+audio MP4)."""
     video_id = (request.args.get('video_id') or '').strip()
     itag = (request.args.get('itag') or '').strip()
     merge = request.args.get('merge') == '1'
