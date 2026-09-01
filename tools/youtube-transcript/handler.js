@@ -108,7 +108,6 @@ window.ToolHandlers['youtube-transcript'] = function(TH) {
     var lines = md.split('\n');
     var title = '';
     var transcript = [];
-    var seenStarts = {};
 
     for (var i = 0; i < Math.min(lines.length, 10); i++) {
       var line = lines[i].trim();
@@ -117,16 +116,21 @@ window.ToolHandlers['youtube-transcript'] = function(TH) {
 
     for (var j = 0; j < lines.length; j++) {
       var tl = lines[j].trim();
-      var tsMatch = tl.match(/^\[(\d+):(\d{2})\]\s*(.+)/);
+      // Accept [mm:ss], mm:ss, [hh:mm:ss], hh:mm:ss — every caption keeps its timestamp.
+      var tsMatch = tl.match(/^\[?(\d{1,2}):(\d{2})(?::(\d{2}))?\]?\s*(.+)$/);
       if (tsMatch) {
+        var hours = tsMatch[3];
         var mins = parseInt(tsMatch[1]);
         var secs = parseInt(tsMatch[2]);
-        var text = tsMatch[3].trim();
+        if (hours) {
+          mins = mins * 60 + secs;
+          secs = parseInt(tsMatch[3]);
+        }
+        var text = tsMatch[4].trim();
         var start = mins * 60 + secs;
-        // Clean duplicate phrases within text
+        // Clean duplicate phrases within a single line only (never drop whole segments)
         text = decodeHtmlEntities(deduplicateText(text));
-        if (text && !seenStarts[start]) {
-          seenStarts[start] = true;
+        if (text) {
           transcript.push({ start: start, text: text });
         }
       }
@@ -311,9 +315,12 @@ window.ToolHandlers['youtube-transcript'] = function(TH) {
 
   function formatTranscript(transcript) {
     return transcript.map(function(t) {
-      var mins = Math.floor(t.start / 60);
-      var secs = Math.floor(t.start % 60);
-      var ts = String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+      var total = Math.floor(t.start);
+      var secs = total % 60;
+      var mins = Math.floor(total / 60) % 60;
+      var hrs = Math.floor(total / 3600);
+      var ts = (hrs > 0 ? String(hrs).padStart(2, '0') + ':' : '') +
+        String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
       return '[' + ts + '] ' + t.text;
     }).join('\n');
   }
