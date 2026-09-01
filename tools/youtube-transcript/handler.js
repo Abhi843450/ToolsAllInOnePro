@@ -237,7 +237,7 @@ window.ToolHandlers['youtube-transcript'] = function(TH) {
           btn.disabled = true;
           btn.innerHTML = '<span class="material-icons-outlined" style="animation:spin 0.6s linear infinite;font-size:18px">sync</span> Translating...';
 
-          translateTranscript(window._originalTranscript, targetLang)
+          translateTranscript(videoId, targetLang)
             .then(function(translated) {
               var langName = ALL_LANGUAGES.find(function(l) { return l.code === targetLang; });
               var displayName = langName ? langName.name : targetLang;
@@ -256,54 +256,29 @@ window.ToolHandlers['youtube-transcript'] = function(TH) {
     }, 100);
   }
 
-  // Translate transcript using Google Translate (free, CORS open from browser)
-  function translateTranscript(segments, targetLang) {
-    var SEP = ' ||| ';
-    var BATCH_SIZE = 30;
-    var translated = [];
-
-    function translateBatch(texts) {
-      var joined = texts.join(SEP);
-      var url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=' +
-        encodeURIComponent(targetLang) + '&dt=t&q=' + encodeURIComponent(joined);
-      return fetch(url)
-        .then(function(r) {
-          if (!r.ok) throw new Error('Translation API returned ' + r.status);
-          return r.json();
-        })
-        .then(function(d) {
-          if (d && d[0]) {
-            var result = d[0].map(function(s) { return s[0] || ''; }).join('');
-            return result.split(SEP);
-          }
-          throw new Error('Unexpected translation response');
-        });
-    }
-
-    var batches = [];
-    for (var i = 0; i < segments.length; i += BATCH_SIZE) {
-      batches.push(segments.slice(i, i + BATCH_SIZE));
-    }
-
-    var chain = Promise.resolve();
-    batches.forEach(function(batch, idx) {
-      chain = chain.then(function() {
-        var texts = batch.map(function(s) { return s.text; });
-        return translateBatch(texts).then(function(translatedTexts) {
-          batch.forEach(function(seg, j) {
-            translated.push({
-              start: seg.start,
-              text: decodeHtmlEntities(translatedTexts[j] || seg.text)
-            });
-          });
-          if (idx < batches.length - 1) {
-            return new Promise(function(resolve) { setTimeout(resolve, 500); });
-          }
-        });
+  // Translate transcript server-side (uses youtube-transcript-api, reliable)
+  function translateTranscript(videoId, targetLang) {
+    return fetch('/api/run-tool?tool=translate-transcript', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ video_id: videoId, target_lang: targetLang })
+    })
+    .then(function(r) {
+      if (!r.ok) throw new Error('Translation API returned ' + r.status);
+      var ct = r.headers.get('content-type') || '';
+      if (ct.indexOf('application/json') === -1) {
+        throw new Error('Server returned an invalid response.');
+      }
+      return r.json();
+    })
+    .then(function(resp) {
+      if (!resp.success) throw new Error(resp.error || 'Translation failed');
+      var translated = (resp.data.transcript || []).map(function(s) {
+        return { start: parseFloat(s.start), text: decodeHtmlEntities(s.text) };
       });
+      if (!translated.length) throw new Error('No translated segments returned.');
+      return translated;
     });
-
-    return chain.then(function() { return translated; });
   }
 
   function decodeHtmlEntities(text) {

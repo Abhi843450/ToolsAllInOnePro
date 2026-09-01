@@ -114,27 +114,44 @@ def api_run_tool():
     if request.method == 'OPTIONS':
         return '', 200
 
-    data = request.get_json(silent=True) or {}
-    url = data.get('url', '')
-    tool = request.args.get('tool', data.get('tool', ''))
+    try:
+        data = request.get_json(silent=True) or {}
+        url = data.get('url', '')
+        tool = request.args.get('tool', data.get('tool', ''))
 
-    if not url and tool != 'translate-transcript':
-        return jsonify({'success': False, 'error': 'No URL provided'})
+        if not url and tool != 'translate-transcript':
+            return jsonify({'success': False, 'error': 'No URL provided'})
 
-    video_id = extract_video_id(url) if url else data.get('video_id', '')
+        video_id = extract_video_id(url) if url else data.get('video_id', '')
 
-    if tool == 'youtube-downloader':
-        return jsonify(run_youtube_downloader(url, video_id))
+        if tool == 'youtube-downloader':
+            return jsonify(run_youtube_downloader(url, video_id))
 
-    elif tool == 'youtube-transcript':
-        lang = data.get('lang', 'en')
-        return jsonify(run_youtube_transcript(url, video_id, lang))
+        elif tool == 'youtube-transcript':
+            lang = data.get('lang', 'en')
+            return jsonify(run_youtube_transcript(url, video_id, lang))
 
-    elif tool == 'translate-transcript':
-        target_lang = data.get('target_lang', 'es')
-        return jsonify(run_translate_transcript(video_id, target_lang))
+        elif tool == 'translate-transcript':
+            target_lang = data.get('target_lang', 'es')
+            return jsonify(run_translate_transcript(video_id, target_lang))
 
-    return jsonify({'success': False, 'error': f'Unknown tool: {tool}'})
+        return jsonify({'success': False, 'error': f'Unknown tool: {tool}'})
+    except Exception as e:
+        return jsonify({'success': False, 'error': 'Server error: ' + str(e)})
+
+
+@app.errorhandler(404)
+def not_found(e):
+    if request.path.startswith('/api/'):
+        return jsonify({'success': False, 'error': 'Not found'}), 404
+    return e
+
+
+@app.errorhandler(500)
+def server_error(e):
+    if request.path.startswith('/api/'):
+        return jsonify({'success': False, 'error': 'Internal server error'}), 500
+    return e
 
 
 def extract_video_id(url):
@@ -196,17 +213,26 @@ def run_translate_transcript(video_id, target_lang):
         "try:\n"
         f"    ytt = YouTubeTranscriptApi()\n"
         f"    tl = ytt.list('{video_id}')\n"
-        "    transcript = None\n"
-        "    for t in tl:\n"
-        "        if t.language_code.startswith('en'):\n"
-        "            transcript = t\n"
-        "            break\n"
-        "    if not transcript:\n"
-        "        transcript = tl.find_transcript([t.language_code for t in tl])\n"
-        f"    translated = transcript.translate('{target_lang}')\n"
-        "    result = translated.fetch()\n"
-        f"    segments = [{{'start': s.start, 'text': s.text.strip()}} for s in result.snippets if s.text.strip() and len(s.text.strip()) > 1]\n"
-        f"    print(json.dumps({{'success': True, 'data': {{'transcript': segments, 'language': '{target_lang}'}}}}))\n"
+        "    candidates = sorted(tl, key=lambda t: (0 if t.language_code.startswith('en') else 1, 0 if not t.is_generated else 1))\n"
+        "    if not candidates:\n"
+        "        candidates = list(tl)\n"
+        "    last_err = None\n"
+        "    segments = None\n"
+        "    language = None\n"
+        "    for t in candidates:\n"
+        "        try:\n"
+        f"            translated = t.translate('{target_lang}')\n"
+        "            result = translated.fetch()\n"
+        "            segments = [{'start': s.start, 'text': s.text.strip()} for s in result.snippets if s.text.strip() and len(s.text.strip()) > 1]\n"
+        "            if segments:\n"
+        "                language = result.language_code\n"
+        "                break\n"
+        "        except Exception as e:\n"
+        "            last_err = e\n"
+        "    if segments:\n"
+        f"        print(json.dumps({{'success': True, 'data': {{'transcript': segments, 'language': language}}}}))\n"
+        "    else:\n"
+        "        print(json.dumps({'success': False, 'error': str(last_err)}))\n"
         "except Exception as e:\n"
         "    print(json.dumps({'success': False, 'error': str(e)}))\n"
     )

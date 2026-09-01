@@ -17,7 +17,14 @@ window.ToolHandlers['youtube-downloader'] = function(TH) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ url: url })
   })
-  .then(function(r) { return r.json(); })
+  .then(function(r) {
+    if (!r.ok) throw new Error('Server returned HTTP ' + r.status);
+    var ct = r.headers.get('content-type') || '';
+    if (ct.indexOf('application/json') === -1) {
+      throw new Error('Server returned an invalid response. Please try again in a moment.');
+    }
+    return r.json();
+  })
   .then(function(resp) {
     if (!resp.success) { TH.showError(resp.error || 'Failed to fetch video info'); return; }
 
