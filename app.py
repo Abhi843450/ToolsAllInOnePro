@@ -522,22 +522,40 @@ def run_python_script(script_path, args):
 
 
 def run_youtube_downloader(url, video_id):
-    # 1) Try the dedicated extract.py subprocess
-    script = os.path.join(TOOLS_DIR, 'youtube-downloader', 'extract.py')
-    result = run_python_script(script, [url])
-    if result and result.get('data', {}).get('formats'):
-        return result
-
-    # 2) Try yt-dlp Python API directly (in-process, avoids subprocess issues)
     try:
-        result = _ytdlp_python_extract(url, video_id)
+        # 1) Try the dedicated extract.py subprocess
+        script = os.path.join(TOOLS_DIR, 'youtube-downloader', 'extract.py')
+        result = run_python_script(script, [url])
         if result and result.get('data', {}).get('formats'):
             return result
-    except Exception:
-        pass
 
-    # 3) Final fallback: scrape YouTube HTML
-    return php_extract_downloader(url, video_id)
+        # 2) Try yt-dlp Python API directly (in-process, avoids subprocess issues)
+        try:
+            result = _ytdlp_python_extract(url, video_id)
+            if result and result.get('data', {}).get('formats'):
+                return result
+        except Exception:
+            pass
+
+        # 3) Final fallback: scrape YouTube HTML
+        return php_extract_downloader(url, video_id)
+    except Exception as e:
+        # Never let extraction crash the request — return empty formats with error
+        thumbnail = f'https://img.youtube.com/vi/{video_id}/hqdefault.jpg'
+        oe = get_oembed_info(f'https://www.youtube.com/watch?v={video_id}')
+        return {
+            'success': True,
+            'data': {
+                'title': oe.get('title', '') or 'YouTube Video',
+                'channel': oe.get('channel', ''),
+                'video_id': video_id,
+                'thumbnail': thumbnail,
+                'duration': '',
+                'formats': [],
+                'url': f'https://www.youtube.com/watch?v={video_id}',
+                'note': f'Extraction failed: {str(e)[:100]}',
+            }
+        }
 
 
 def _ytdlp_python_extract(url, video_id):
