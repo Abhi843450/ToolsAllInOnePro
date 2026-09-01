@@ -510,7 +510,7 @@ def run_python_script(script_path, args):
     try:
         result = subprocess.run(
             [sys.executable, script_path] + args,
-            capture_output=True, text=True, timeout=45,
+            capture_output=True, text=True, timeout=20,
         )
         if result.returncode == 0 and result.stdout.strip():
             data = json.loads(result.stdout.strip())
@@ -564,60 +564,41 @@ def run_youtube_downloader(url, video_id):
 
 
 def _ytdlp_python_extract(url, video_id):
-    """Use yt-dlp as a Python library (no subprocess) to extract formats.
-    Tries multiple client combinations for maximum compatibility."""
+    """Use yt-dlp Python API. Single fast attempt — max 20s."""
     try:
         import yt_dlp
     except ImportError:
         return None
 
     thumbnail = f'https://img.youtube.com/vi/{video_id}/hqdefault.jpg'
-    title = ''
-    channel = ''
-    duration = ''
-    formats = []
 
-    # Try with impersonation first, then without (Render may lack curl-cffi)
-    client_combos = [
-        ['default', 'web_embedded', 'tv', 'mweb', 'android'],
-        ['default', 'web', 'tv', 'mweb', 'android'],
-        ['web_embedded'],
-        ['mweb'],
-        ['android'],
-    ]
+    ydl_opts = {
+        'quiet': True,
+        'no_warnings': True,
+        'no_check_certificates': True,
+        'skip_download': True,
+        'socket_timeout': 10,
+        'retries': 1,
+        'extractor_retries': 1,
+        'extractor_args': {'youtube': {'player_client': ['default', 'web_embedded', 'tv', 'mweb', 'android']}},
+        'http_headers': {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        },
+    }
 
-    import time as _time
-    deadline = _time.time() + 60  # 60s total budget for all attempts
     info = None
-    # Pass 1: with impersonation, then without
-    for impersonate in (True, False):
-        for clients in client_combos:
-            if _time.time() > deadline:
+    # Try with impersonation, then without
+    for imp in ('chrome', False):
+        try:
+            opts = dict(ydl_opts)
+            if imp:
+                opts['impersonate_target'] = imp
+            with yt_dlp.YoutubeDL(opts) as ydl:
+                info = ydl.extract_info(url, download=False)
+            if info and info.get('formats'):
                 break
-            ydl_opts = {
-                'quiet': True,
-                'no_warnings': True,
-                'no_check_certificates': True,
-                'skip_download': True,
-                'socket_timeout': 15,
-                'retries': 1,
-                'extractor_retries': 2,
-                'extractor_args': {'youtube': {'player_client': clients}},
-                'http_headers': {
-                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                },
-            }
-            if impersonate:
-                ydl_opts['impersonate_target'] = 'chrome'
-            try:
-                with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                    info = ydl.extract_info(url, download=False)
-                if info and info.get('formats'):
-                    break
-            except Exception:
-                continue
-        if info and info.get('formats'):
-            break
+        except Exception:
+            continue
 
     if not info:
         return None
@@ -732,7 +713,7 @@ def run_translate_transcript(video_id, target_lang):
     try:
         result = subprocess.run(
             [sys.executable, '-c', script],
-            capture_output=True, text=True, timeout=45,
+            capture_output=True, text=True, timeout=20,
         )
         if result.returncode == 0 and result.stdout.strip():
             data = json.loads(result.stdout.strip())
