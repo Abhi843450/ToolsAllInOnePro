@@ -367,7 +367,7 @@ def api_run_tool():
             return jsonify(run_translate_transcript(video_id, target_lang))
 
         return jsonify({'success': False, 'error': f'Unknown tool: {tool}'})
-    except Exception as e:
+    except (SystemExit, Exception) as e:
         return jsonify({'success': False, 'error': 'Server error: ' + str(e)})
 
 
@@ -624,38 +624,26 @@ def run_python_script(script_path, args):
 
 
 def run_youtube_downloader(url, video_id):
-    import sys as _sys
-    # In-process yt-dlp first (most reliable, no subprocess overhead)
+    """Extract YouTube download formats. Must finish in <25s (gunicorn timeout)."""
+    # 1) Try yt-dlp (fast, single attempt)
     try:
         result = _ytdlp_python_extract(url, video_id)
         if result and result.get('data', {}).get('formats'):
-            print(f'[DL] video_id={video_id} in-process OK: {len(result["data"]["formats"])} formats', file=_sys.stderr)
+            print(f'[DL] video_id={video_id} yt-dlp OK: {len(result["data"]["formats"])} formats', file=sys.stderr)
             return result
-        print(f'[DL] video_id={video_id} in-process: 0 formats', file=_sys.stderr)
     except Exception as e:
-        print(f'[DL] video_id={video_id} in-process ERROR: {e}', file=_sys.stderr)
+        print(f'[DL] video_id={video_id} yt-dlp ERROR: {e}', file=sys.stderr)
 
-    # Subprocess fallback
+    # 2) HTML scraping fallback (fast, uses curl_cffi)
     try:
-        script = os.path.join(TOOLS_DIR, 'youtube-downloader', 'extract.py')
-        args = [url]
-        if yt_cookies_active():
-            args += ['--cookies', YT_COOKIES_PATH]
-        result = run_python_script(script, args)
+        result = php_extract_downloader(url, video_id)
         if result and result.get('data', {}).get('formats'):
-            print(f'[DL] video_id={video_id} subprocess OK: {len(result["data"]["formats"])} formats', file=_sys.stderr)
+            print(f'[DL] video_id={video_id} html OK: {len(result["data"]["formats"])} formats', file=sys.stderr)
             return result
-        print(f'[DL] video_id={video_id} subprocess: 0 formats', file=_sys.stderr)
-    except Exception as e:
-        print(f'[DL] video_id={video_id} subprocess ERROR: {e}', file=_sys.stderr)
-
-    # HTML scraping fallback
-    try:
-        return php_extract_downloader(url, video_id)
     except Exception:
         pass
 
-    # Last resort: return empty with info
+    # 3) Return video info even without download links
     thumbnail = f'https://img.youtube.com/vi/{video_id}/hqdefault.jpg'
     oe = get_oembed_info(f'https://www.youtube.com/watch?v={video_id}')
     return {
@@ -668,88 +656,42 @@ def run_youtube_downloader(url, video_id):
             'duration': '',
             'formats': [],
             'url': f'https://www.youtube.com/watch?v={video_id}',
-            'note': 'Could not extract download options for this video.',
+            'note': 'YouTube is blocking downloads from this server. Try opening the video link directly.',
         }
     }
 
 
-def _prefetch_youtube_cookies():
-    """Use curl_cffi to pre-fetch YouTube cookies (bypasses TLS fingerprint bot detection).
-    Exports them to a Netscape cookie file for yt-dlp."""
-    cookie_path = os.path.join(TOOLS_DIR, 'youtube-downloader', 'prefetched_cookies.txt')
-    try:
-        from curl_cffi import requests as cffi_requests
-        s = cffi_requests.Session(impersonate='chrome')
-        s.get('https://www.youtube.com/', timeout=10)
-        s.get('https://www.youtube.com/', timeout=10)  # second visit to get more cookies
-        if not s.cookies:
-            return None
-        with open(cookie_path, 'w') as f:
-            f.write('# Netscape HTTP Cookie File\n')
-            for name, value in s.cookies.items():
-                f.write(f'.youtube.com\tTRUE\t/\tTRUE\t0\t{name}\t{value}\n')
-        return cookie_path
-    except Exception:
-        return None
-
-
 def _ytdlp_python_extract(url, video_id):
-    """Use yt-dlp Python API with curl_cffi impersonation + pre-fetched cookies."""
+    """Use yt-dlp Python API. Single fast attempt — must finish in <10s."""
     try:
         import yt_dlp
     except ImportError:
         return None
 
-    thumbnail = f'https://img.youtube.com/vi/{video_id}/hqdefault.jpg'
+    # Single fast attempt with impersonate (uses curl_cffi if available)
+    ydl_opts = {
+        'quiet': True,
+        'no_warnings': True,
+        'no_check_certificates': True,
+        'skip_download': True,
+        'socket_timeout': 8,
+        'retries': 0,
+        'extractor_retries': 0,
+        'http_headers': {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        },
+        'impersonate_target': 'chrome',
+    }
+    if yt_cookies_active():
+        ydl_opts['cookiefile'] = YT_COOKIES_PATH
 
-    # Pre-fetch cookies with curl_cffi to bypass TLS fingerprinting
-    prefetched = _prefetch_youtube_cookies()
-
-    # Strategy: try web clients first, then android_testsuite
-    client_strategies = [
-        ['default', 'web_embedded', 'tv', 'mweb', 'android'],
-        ['android_testsuite'],
-    ]
-
-    info = None
-    errors = []
-    for clients in client_strategies:
-        if info and info.get('formats'):
-            break
-        ydl_opts = {
-            'quiet': True,
-            'no_warnings': True,
-            'no_check_certificates': True,
-            'skip_download': True,
-            'socket_timeout': 10,
-            'retries': 1,
-            'extractor_retries': 1,
-            'extractor_args': {'youtube': {'player_client': clients}},
-            'http_headers': {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            },
-            'impersonate_target': 'chrome',
-        }
-        # Use prefetched cookies, fallback to uploaded cookies
-        cookie_file = prefetched or (YT_COOKIES_PATH if yt_cookies_active() else None)
-        if cookie_file:
-            ydl_opts['cookiefile'] = cookie_file
-        for imp in ('chrome', False):
-            try:
-                opts = dict(ydl_opts)
-                if imp:
-                    opts['impersonate_target'] = imp
-                with yt_dlp.YoutubeDL(opts) as ydl:
-                    info = ydl.extract_info(url, download=False)
-                if info and info.get('formats'):
-                    break
-                errors.append(f'clients={clients} imp={imp}: got info but {len(info.get("formats",[]))} formats')
-            except Exception as e:
-                errors.append(f'clients={clients} imp={imp}: {type(e).__name__}: {str(e)[:80]}')
-
-    if not info:
-        import sys as _sys
-        print(f'[EXTRACT FAIL] video_id={video_id} errors={errors}', file=_sys.stderr)
+    try:
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(url, download=False)
+        if not info or not info.get('formats'):
+            return None
+    except Exception as e:
+        print(f'[DL] video_id={video_id} yt-dlp ERROR: {type(e).__name__}: {str(e)[:80]}', file=sys.stderr)
         return None
 
     title = info.get('title', info.get('fulltitle', ''))
