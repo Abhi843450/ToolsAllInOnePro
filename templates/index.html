@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}AllToolinOne Pro — Free YouTube Downloader & Transcript{% endblock %}
+
+{% block content %}
+<main class="dashboard">
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero__inner">
+            <div class="hero__content">
+                <h1 class="hero__title">
+                    <span class="material-icons-outlined hero__icon">bolt</span>
+                    AllToolinOne Pro
+                </h1>
+                <p class="hero__subtitle">Free YouTube tools — download videos and get transcripts instantly. More tools coming soon.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Grid -->
+    <section class="tools-section">
+        <div class="container">
+            <div class="tools-grid" id="toolsGrid">
+                {% for tool in tools %}
+                    <a href="/tool/{{ tool.slug }}"
+                       class="tool-card"
+                       data-name="{{ ((tool.name or '') ~ ' ' ~ (tool.description or '')) | lower }}"
+                    >
+                        <div class="tool-card__icon-wrap">
+                            <span class="material-icons-outlined tool-card__icon">{{ tool.icon or 'build' }}</span>
+                        </div>
+                        <h3 class="tool-card__name">{{ tool.name or 'Tool' }}</h3>
+                        <p class="tool-card__desc">{{ tool.description or '' }}</p>
+                        <span class="tool-card__category">
+                            {{ (tool.category or 'tool') | capitalize }}
+                        </span>
+                    </a>
+                {% endfor %}
+            </div>
+            {% if total_tools == 0 %}
+            <div class="no-results">
+                <span class="material-icons-outlined no-results__icon">construction</span>
+                <p class="no-results__text">No tools available yet. Check back soon!</p>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+</main>
+{% endblock %}
