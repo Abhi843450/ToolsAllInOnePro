@@ -58,33 +58,51 @@ window.ToolHandlers['youtube-transcript'] = function(TH) {
     {code:'yi',name:'Yiddish'},{code:'yo',name:'Yoruba'},{code:'zu',name:'Zulu'}
   ];
 
-  // Fetch transcript from youtube-transcript.ai
-  var apiUrl = 'https://youtube-transcript.ai/transcript/' + videoId + '.txt?lang=en';
+  // Fetch transcript from our backend first (full-length, reliable)
+  fetch('/api/run-tool?tool=youtube-transcript', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ url: url, lang: 'en' })
+  })
+    .then(function(r) { return r.json(); })
+    .then(function(resp) {
+      if (resp.success && resp.data && resp.data.transcript && resp.data.transcript.length) {
+        window._transcriptData = resp.data;
+        window._originalTranscript = resp.data.transcript.slice(); // save copy
+        renderTranscript(resp.data);
+      } else {
+        fetchYtTranscriptAi();
+      }
+    })
+    .catch(function() { fetchYtTranscriptAi(); });
 
-  fetch(apiUrl)
-    .then(function(r) {
-      if (!r.ok) throw new Error('No transcript available');
-      return r.text();
-    })
-    .then(function(mdText) {
-      var result = parseTranscriptMarkdown(mdText, videoId, url);
-      window._transcriptData = result;
-      window._originalTranscript = result.transcript.slice(); // save copy
-      renderTranscript(result);
-    })
-    .catch(function(e) {
-      // Try oEmbed for title at least
-      fetch('https://www.youtube.com/oembed?url=' + encodeURIComponent(url) + '&format=json')
-        .then(function(r) { return r.json(); })
-        .then(function(oe) {
-          renderTranscript({
-            title: oe.title || 'YouTube Video', channel: oe.author_name || '',
-            video_id: videoId, thumbnail: 'https://img.youtube.com/vi/' + videoId + '/hqdefault.jpg',
-            transcript: [], url: url, note: 'No transcript available for this video. It may not have captions enabled.'
-          });
-        })
-        .catch(function() { TH.showError('Failed to fetch transcript.'); });
-    });
+  function fetchYtTranscriptAi() {
+    var apiUrl = 'https://youtube-transcript.ai/transcript/' + videoId + '.txt?lang=en';
+    fetch(apiUrl)
+      .then(function(r) {
+        if (!r.ok) throw new Error('No transcript available');
+        return r.text();
+      })
+      .then(function(mdText) {
+        var result = parseTranscriptMarkdown(mdText, videoId, url);
+        window._transcriptData = result;
+        window._originalTranscript = result.transcript.slice(); // save copy
+        renderTranscript(result);
+      })
+      .catch(function(e) {
+        // Try oEmbed for title at least
+        fetch('https://www.youtube.com/oembed?url=' + encodeURIComponent(url) + '&format=json')
+          .then(function(r) { return r.json(); })
+          .then(function(oe) {
+            renderTranscript({
+              title: oe.title || 'YouTube Video', channel: oe.author_name || '',
+              video_id: videoId, thumbnail: 'https://img.youtube.com/vi/' + videoId + '/hqdefault.jpg',
+              transcript: [], url: url, note: 'No transcript available for this video. It may not have captions enabled.'
+            });
+          })
+          .catch(function() { TH.showError('Failed to fetch transcript.'); });
+      });
+  }
 
   function parseTranscriptMarkdown(md, videoId, originalUrl) {
     var lines = md.split('\n');
@@ -237,7 +255,7 @@ window.ToolHandlers['youtube-transcript'] = function(TH) {
           btn.disabled = true;
           btn.innerHTML = '<span class="material-icons-outlined" style="animation:spin 0.6s linear infinite;font-size:18px">sync</span> Translating...';
 
-          translateTranscript(videoId, targetLang)
+          translateTranscript(window._originalTranscript, targetLang)
             .then(function(translated) {
               var langName = ALL_LANGUAGES.find(function(l) { return l.code === targetLang; });
               var displayName = langName ? langName.name : targetLang;
@@ -256,12 +274,16 @@ window.ToolHandlers['youtube-transcript'] = function(TH) {
     }, 100);
   }
 
-  // Translate transcript server-side (uses youtube-transcript-api, reliable)
-  function translateTranscript(videoId, targetLang) {
-    return fetch('/api/run-tool?tool=translate-transcript', {
+  // Translate transcript server-side (robust, no YouTube blocking, no CORS issues)
+  function translateTranscript(segments, targetLang) {
+    return fetch('/api/translate-text', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ video_id: videoId, target_lang: targetLang })
+      body: JSON.stringify({
+        texts: segments.map(function(s) { return s.text; }),
+        target_lang: targetLang,
+        source_lang: 'en'
+      })
     })
     .then(function(r) {
       if (!r.ok) throw new Error('Translation API returned ' + r.status);
@@ -273,9 +295,9 @@ window.ToolHandlers['youtube-transcript'] = function(TH) {
     })
     .then(function(resp) {
       if (!resp.success) throw new Error(resp.error || 'Translation failed');
-      var translated = (resp.data.transcript || []).map(function(s) {
-        return { start: parseFloat(s.start), text: decodeHtmlEntities(s.text) };
-      });
+      var translated = (resp.data.translated || []).map(function(text, idx) {
+        return { start: segments[idx] ? segments[idx].start : 0, text: decodeHtmlEntities(String(text)) };
+      }).filter(function(s) { return s.text !== undefined && s.text !== null && s.text !== ''; });
       if (!translated.length) throw new Error('No translated segments returned.');
       return translated;
     });

@@ -91,15 +91,17 @@ def get_video_info(url, ytdlp_path):
         '--no-download',
         '--no-warnings',
         '--no-check-certificates',
-        '--socket-timeout', '15',
-        '--extractor-retries', '1',
-        '--retries', '1',
+        '--no-playlist',
+        '--socket-timeout', '20',
+        '--extractor-retries', '3',
+        '--retries', '2',
+        '--extractor-args', 'youtube:player_client=default,web_embedded,tv,mweb,android',
         url
     ]
 
     try:
         result = subprocess.run(
-            cmd, capture_output=True, text=True, timeout=45
+            cmd, capture_output=True, text=True, timeout=70
         )
         if result.returncode != 0:
             return None

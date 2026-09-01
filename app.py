@@ -140,6 +140,110 @@ def api_run_tool():
         return jsonify({'success': False, 'error': 'Server error: ' + str(e)})
 
 
+@app.route('/api/translate-text', methods=['POST', 'OPTIONS'])
+def api_translate_text():
+    if request.method == 'OPTIONS':
+        return '', 200
+    try:
+        data = request.get_json(silent=True) or {}
+        texts = data.get('texts') or []
+        target_lang = (data.get('target_lang') or data.get('lang') or 'es').strip()
+        source_lang = (data.get('source_lang') or 'en').strip()
+
+        if not isinstance(texts, list) or not texts:
+            return jsonify({'success': False, 'error': 'No text to translate'})
+        if not re.match(r'^[a-zA-Z-]{2,10}$', target_lang):
+            return jsonify({'success': False, 'error': 'Invalid target language'})
+
+        texts = [str(t)[:2000] for t in texts]
+        translated = translate_texts(texts, target_lang, source_lang)
+        return jsonify({'success': True, 'data': {'translated': translated, 'language': target_lang}})
+    except Exception as e:
+        return jsonify({'success': False, 'error': 'Translation failed: ' + str(e)})
+
+
+def translate_texts(texts, target_lang, source_lang='en'):
+    """Translate a list of texts. MyMemory first, Google gtx fallback, originals as last resort."""
+    import time
+    if not texts:
+        return []
+    if source_lang == target_lang:
+        return list(texts)
+
+    MAX_CHARS = 1200
+    result = []
+    idx = 0
+    n = len(texts)
+    while idx < n:
+        batch_end = idx
+        total = 0
+        while batch_end < n and total + len(texts[batch_end]) + len('  ') <= MAX_CHARS:
+            total += len(texts[batch_end]) + len('  ')
+            batch_end += 1
+        batch = texts[idx:batch_end] or texts[idx:idx + 1]
+        batch_end = max(batch_end, idx + 1)
+
+        translated = None
+        for fn in (_mymemory_translate, _gtx_translate):
+            try:
+                translated = fn(batch, source_lang, target_lang)
+                break
+            except Exception:
+                translated = None
+        if translated is None:
+            translated = batch
+        if len(translated) < len(batch):
+            translated = translated + batch[len(translated):]
+        result.extend(translated[:len(batch)])
+        idx = batch_end
+        if idx < n:
+            time.sleep(0.5)
+    return result
+
+
+def _mymemory_translate(batch, source_lang, target_lang):
+    import urllib.request
+    import urllib.parse
+    SEP = '<br>'
+    joined = SEP.join(batch)
+    url = ('https://api.mymemory.translated.net/get?q={}&langpair={}|{}'
+           .format(urllib.parse.quote(joined),
+                   urllib.parse.quote(source_lang), urllib.parse.quote(target_lang)))
+    req = urllib.request.Request(url, headers={
+        'User-Agent': ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
+                       '(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'),
+    })
+    with urllib.request.urlopen(req, timeout=25) as resp:
+        data = json.loads(resp.read().decode('utf-8', errors='ignore'))
+    if str(data.get('responseStatus')) not in ('200', '0'):
+        raise RuntimeError('MyMemory status ' + str(data.get('responseStatus')))
+    translated = ((data.get('responseData') or {}).get('translatedText', '') or '').strip()
+    parts = [p.strip() for p in translated.split(SEP)]
+    if len(parts) < len(batch):
+        parts = parts + batch[len(parts):]
+    return parts[:len(batch)]
+
+
+def _gtx_translate(batch, source_lang, target_lang):
+    import urllib.request
+    import urllib.parse
+    SEP = ' ||| '
+    joined = SEP.join(batch)
+    url = ('https://translate.googleapis.com/translate_a/single?client=gtx&sl={}&tl={}&dt=t&q={}'
+           .format(urllib.parse.quote(source_lang), urllib.parse.quote(target_lang),
+                   urllib.parse.quote(joined)))
+    req = urllib.request.Request(url, headers={
+        'User-Agent': ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
+                       '(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'),
+    })
+    with urllib.request.urlopen(req, timeout=25) as resp:
+        data = json.loads(resp.read().decode('utf-8', errors='ignore'))
+    translated = ''.join(seg[0] for seg in (data or [[None]])[0] if seg and seg[0]).split(SEP)
+    if len(translated) < len(batch):
+        translated = translated + batch[len(translated):]
+    return translated[:len(batch)]
+
+
 @app.errorhandler(404)
 def not_found(e):
     if request.path.startswith('/api/'):
