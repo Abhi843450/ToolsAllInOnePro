@@ -1,7 +1,7 @@
 /**
  * Data.js — Static reference data for cheatsheets, tables, and lists
  */
-const Data = {};
+var Data = {};
 
 // ─── ASCII TABLE ────────────────────────────────────────────
 Data.asciiTable = [];

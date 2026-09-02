@@ -2,7 +2,7 @@
  * Processors.js — All tool processing functions
  * Each function receives params object and returns {success, data, html}
  */
-const Processors = {};
+var Processors = {};
 
 // ─── TEXT TOOLS ─────────────────────────────────────────────
 
