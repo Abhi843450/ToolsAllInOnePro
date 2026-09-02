@@ -5,10 +5,11 @@
     "category": "Code Tools",
     "description": "Generate regular expressions from descriptions",
     "input_type": "text",
-    "placeholder": "Describe what to match...",
+    "placeholder": "Describe what to match (e.g. email, phone, URL)...",
     "button_label": "Generate",
     "button_icon": "find_replace",
     "config": {
         "processor": "caesar_cipher"
-    }
+    },
+    "example": "email"
 }

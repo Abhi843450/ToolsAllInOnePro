@@ -9,7 +9,15 @@
     "button_label": "Compare",
     "button_icon": "compare",
     "config": {
-        "processor": "text_diff"
+        "processor": "text_diff",
+        "inputs": [
+            {
+                "name": "text2",
+                "type": "textarea",
+                "label": "Text 2:",
+                "height": "120"
+            }
+        ]
     },
     "example": "Hello World\nLine 2"
 }

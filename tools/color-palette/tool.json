@@ -10,5 +10,6 @@
     "button_icon": "palette",
     "config": {
         "processor": "color_palette_gen"
-    }
+    },
+    "example": "#3B82F6"
 }

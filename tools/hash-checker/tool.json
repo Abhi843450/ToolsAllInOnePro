@@ -5,10 +5,11 @@
     "category": "Cryptography",
     "description": "Verify if a hash matches given input text",
     "input_type": "text",
-    "placeholder": "Enter hash to check...",
+    "placeholder": "Enter hash to verify...",
     "button_label": "Verify",
     "button_icon": "gpp_good",
     "config": {
         "processor": "hash_generator"
-    }
+    },
+    "example": "5d41402abc4b2a76b9719d911017c592"
 }

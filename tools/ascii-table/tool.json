@@ -10,5 +10,6 @@
     "button_icon": "table",
     "config": {
         "processor": "ascii_table_full"
-    }
+    },
+    "example": ""
 }

@@ -5,10 +5,11 @@
     "category": "Generators",
     "description": "Generate CSS box-shadow values with preview",
     "input_type": "text",
-    "placeholder": "Optional preset...",
+    "placeholder": "Enter preset (default, hard, soft, glow, neumorphism)...",
     "button_label": "Generate",
     "button_icon": "shadow",
     "config": {
         "processor": "box_shadow_maker"
-    }
+    },
+    "example": "default"
 }

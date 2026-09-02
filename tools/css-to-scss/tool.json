@@ -5,10 +5,11 @@
     "category": "Code Tools",
     "description": "Convert CSS to SCSS with variables and nesting suggestions",
     "input_type": "text",
-    "placeholder": "Paste CSS here...",
+    "placeholder": "Paste CSS to convert...",
     "button_label": "Convert",
     "button_icon": "code",
     "config": {
         "processor": "css_formatter"
-    }
+    },
+    "example": ".box { color: red; }"
 }

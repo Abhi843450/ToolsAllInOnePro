@@ -5,7 +5,7 @@
     "category": "Text Tools",
     "description": "Generate random first names, last names, full names, usernames, or passwords",
     "input_type": "text",
-    "placeholder": "Optional seed or prefix...",
+    "placeholder": "Optional count or prefix...",
     "button_label": "Generate",
     "button_icon": "person_add",
     "config": {

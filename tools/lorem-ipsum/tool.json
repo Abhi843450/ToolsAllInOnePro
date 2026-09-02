@@ -5,7 +5,7 @@
     "category": "Text Tools",
     "description": "Generate placeholder text in paragraphs, words, or sentences",
     "input_type": "text",
-    "placeholder": "Number of paragraphs...",
+    "placeholder": "Number of paragraphs (e.g. 3)...",
     "button_label": "Generate",
     "button_icon": "dynamic_feed",
     "config": {

@@ -5,10 +5,11 @@
     "category": "Cryptography",
     "description": "Convert text to 1337 5p34k and back",
     "input_type": "text",
-    "placeholder": "Enter text...",
+    "placeholder": "Enter text to convert to 1337...",
     "button_label": "Convert",
     "button_icon": "translate",
     "config": {
         "processor": "font_generator"
-    }
+    },
+    "example": "Hello World"
 }

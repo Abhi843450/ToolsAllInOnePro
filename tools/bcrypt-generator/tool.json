@@ -10,5 +10,6 @@
     "button_icon": "lock",
     "config": {
         "processor": "hash_generator"
-    }
+    },
+    "example": "mypassword123"
 }
