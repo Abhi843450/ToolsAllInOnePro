@@ -10,10 +10,9 @@
   "@type": "WebSite",
   "name": "ToolsAllInOnePro",
   "url": "{{ request.host_url }}",
-  "description": "342+ free online tools for developers and creators",
-  "potentialAction": {
+  "description": "342+ free online tools for developers and creators",    "potentialAction": {
     "@type": "SearchAction",
-    "target": "{{ request.host_url }}?q={search_term_string}",
+    "target": "{{ request.host_url }}search?q={search_term_string}",
     "query-input": "required name=search_term_string"
   },
   "about": {
@@ -56,7 +55,7 @@
             <div style="display:flex;justify-content:center;margin-bottom:24px">
                 <div class="search-wrapper">
                     <span class="material-icons-outlined search-icon">search</span>
-                    <input type="text" id="toolSearch" class="search-input" placeholder="Search {{ total_tools }} tools...">
+                    <input type="text" id="toolSearch" class="search-input" placeholder="Search {{ total_tools }} tools... (Enter to open directly)">
                 </div>
             </div>
 
@@ -147,6 +146,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Search filtering
     searchInput.addEventListener('input', function() { filterTools(); });
+
+    // Enter key — redirect to tool page if there's a match
+    searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            var query = searchInput.value.toLowerCase().trim();
+            if (!query) return;
+            // Find best matching card
+            var bestCard = null;
+            var bestScore = 0;
+            cards.forEach(function(card) {
+                var name = (card.dataset.name || '').toLowerCase();
+                if (name.indexOf(query) !== -1) {
+                    var score = 100 - name.indexOf(query);
+                    if (score > bestScore) {
+                        bestScore = score;
+                        bestCard = card;
+                    }
+                }
+            });
+            if (bestCard) {
+                window.location.href = bestCard.getAttribute('href');
+            }
+        }
+    });
 
     function filterTools() {
         var query = searchInput.value.toLowerCase().trim();

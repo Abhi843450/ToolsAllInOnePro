@@ -23,7 +23,63 @@
     "@type": "Organization",
     "name": "ToolsAllInOnePro",
     "url": "{{ request.host_url }}"
+  },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "{{ request.host_url }}"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "{{ tool.category }}",
+        "item": "{{ request.host_url }}#{{ tool.category_slug }}"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "{{ tool.name }}",
+        "item": "{{ request.url }}"
+      }
+    ]
+  },
+  "isAccessibleForFree": true,
+  "browserRequirements": "Requires a modern web browser",
+  "softwareHelp": {
+    "@type": "CreativeWork",
+    "name": "{{ tool.description }}",
+    "url": "{{ request.url }}"
   }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ request.host_url }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "{{ tool.category }}",
+      "item": "{{ request.host_url }}#{{ tool.category_slug }}"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "{{ tool.name }}",
+      "item": "{{ request.url }}"
+    }
+  ]
 }
 </script>
 {% endblock %}

@@ -108,6 +108,49 @@ def index():
     )
 
 
+@app.route('/search')
+def search_redirect():
+    """Search redirect: if query matches a tool name/slug, go to it. Otherwise homepage."""
+    q = request.args.get('q', '').strip().lower()
+    if not q:
+        return redirect(url_for('index'))
+    tools = load_tools()
+    # Exact slug match
+    for t in tools:
+        if t.get('slug', '').replace('-', ' ') == q or t.get('slug', '') == q:
+            return redirect(url_for('tool_page', slug=t['slug']))
+    # Exact name match (case-insensitive)
+    for t in tools:
+        if (t.get('name', '').lower()) == q:
+            return redirect(url_for('tool_page', slug=t['slug']))
+    # Partial name match — best first
+    best = None
+    best_score = 0
+    for t in tools:
+        name = (t.get('name', '') or '').lower()
+        desc = (t.get('description', '') or '').lower()
+        slug = (t.get('slug', '') or '').replace('-', ' ')
+        if q in name:
+            score = 100 - name.index(q)
+            if score > best_score:
+                best_score = score
+                best = t
+        elif q in slug:
+            score = 80 - slug.index(q)
+            if score > best_score:
+                best_score = score
+                best = t
+        elif q in desc:
+            score = 50 - desc.index(q)
+            if score > best_score:
+                best_score = score
+                best = t
+    if best and best_score >= 50:
+        return redirect(url_for('tool_page', slug=best['slug']))
+    # No match — go to homepage with search
+    return redirect(url_for('index'))
+
+
 @app.route('/tool/<slug>')
 def tool_page(slug):
     tool = load_tool(slug)
