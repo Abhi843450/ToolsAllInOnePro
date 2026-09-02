@@ -178,20 +178,19 @@ def sitemap_page():
     return render_template('sitemap.html', tools=tools, categories=categories, total_tools=len(tools))
 
 
-@app.route('/sitemap.xsl')
-def sitemap_xsl():
-    xsl_path = os.path.join(BASE_DIR, 'assets', 'sitemap.xsl')
-    if os.path.isfile(xsl_path):
-        return send_from_directory(os.path.join(BASE_DIR, 'assets'), 'sitemap.xsl',
-                                   mimetype='application/xml')
-    return 'Not found', 404
-
-
 @app.route('/sitemap.xml')
 def sitemap():
     import xml.etree.ElementTree as ET
     from xml.dom import minidom
     from datetime import datetime
+
+    # Check if browser request — redirect to HTML sitemap
+    accept = request.headers.get('Accept', '')
+    ua = request.headers.get('User-Agent', '').lower()
+    is_bot = any(b in ua for b in ['googlebot', 'bingbot', 'yandex', 'slurp', 'duckduckbot', 'baiduspider'])
+    is_xml_accept = 'application/xml' in accept or 'text/xml' in accept or '*/*' in accept
+    if not is_bot and not is_xml_accept:
+        return redirect(url_for('sitemap_page'))
 
     tools = load_tools()
     site_url = request.host_url.rstrip('/')
@@ -244,14 +243,9 @@ def sitemap():
     rough = ET.tostring(urlset, encoding='unicode')
     parsed = minidom.parseString(rough)
     pretty = parsed.toprettyxml(indent='  ', encoding=None)
-    # Fix line endings and remove extra XML declaration
     lines = pretty.replace('\r\n', '\n').split('\n')
     if lines[0].startswith('<?xml'):
         lines[0] = '<?xml version="1.0" encoding="UTF-8"?>'
-        # Add XSL stylesheet so browsers render it beautifully
-        xsl_url = request.host_url.rstrip('/') + '/sitemap.xsl'
-        lines.insert(1, '<?xml-stylesheet type="text/xsl" href="' + xsl_url + '"?>')
-    # Remove empty lines
     lines = [l for l in lines if l.strip()]
     body = '\n'.join(lines) + '\n'
 
