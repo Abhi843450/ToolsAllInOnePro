@@ -30,10 +30,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mobile.css') }}">
     {% block extra_head %}{% endblock %}
 </head>
 <body>
-    <nav class="navbar">
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="container navbar__inner">
             <a href="/" class="navbar__brand">
                 <span class="material-icons-outlined">bolt</span>
@@ -64,7 +65,7 @@
                                 </a>
                                 {% endfor %}
                                 {% if cat_data.tools|length > 8 %}
-                                <a href="/" onclick="localStorage.setItem('activeCategory','{{ cat_key }}');" class="mega-tool mega-tool--view-all">
+                                <a href="/category/{{ cat_key }}" class="mega-tool mega-tool--view-all">
                                     <span class="material-icons-outlined" style="opacity:1">arrow_forward</span>
                                     View all {{ cat_data.tools|length }} tools →
                                 </a>
@@ -75,30 +76,46 @@
                     </div>
                 </div>
                 {% endif %}
+                <a href="/sitemap" class="nav-link">
+                    <span class="material-icons-outlined">map</span>
+                    Sitemap
+                </a>
             </div>
             <!-- Mobile Toggle -->
-            <button class="navbar__toggle" id="navToggle">
+            <button class="navbar__toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
                 <span class="material-icons-outlined">menu</span>
             </button>
         </div>
         <!-- Mobile Menu -->
-        <div class="navbar__mobile-menu" id="mobileMenu">
-            <a href="/" class="navbar__mobile-link">
+        <div class="navbar__mobile-menu" id="mobileMenu" role="menu">
+            <a href="/" class="navbar__mobile-link" role="menuitem">
                 <span class="material-icons-outlined">grid_view</span> Home
+            </a>
+            <a href="/sitemap" class="navbar__mobile-link" role="menuitem">
+                <span class="material-icons-outlined">map</span> Sitemap
             </a>
             {% if categories %}
             {% for cat_key, cat_data in categories.items() %}
             <div class="navbar__mobile-section">
-                <div class="navbar__mobile-heading" onclick="this.classList.toggle('navbar__mobile-heading--open');this.nextElementSibling.classList.toggle('navbar__mobile-items--open')">
+                <div class="navbar__mobile-heading" role="button" tabindex="0" aria-expanded="false" onclick="this.classList.toggle('navbar__mobile-heading--open');this.nextElementSibling.classList.toggle('navbar__mobile-items--open');this.setAttribute('aria-expanded',this.classList.contains('navbar__mobile-heading--open'))" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click()}">
                     <span><span class="material-icons-outlined" style="margin-right:8px;font-size:16px">{{ cat_data.icon }}</span>{{ cat_data.name }} ({{ cat_data.tools|length }})</span>
                     <span class="material-icons-outlined">expand_more</span>
                 </div>
-                <div class="navbar__mobile-items">
-                    {% for tool in cat_data.tools %}
-                    <a href="/tool/{{ tool.slug }}" class="navbar__mobile-link">
+                <div class="navbar__mobile-items" role="menu">
+                    <a href="/category/{{ cat_key }}" class="navbar__mobile-link" role="menuitem" style="font-weight:600;color:#111">
+                        <span class="material-icons-outlined">arrow_forward</span>
+                        View all {{ cat_data.name }}
+                    </a>
+                    {% for tool in cat_data.tools[:12] %}
+                    <a href="/tool/{{ tool.slug }}" class="navbar__mobile-link" role="menuitem">
                         {{ tool.name }}
                     </a>
                     {% endfor %}
+                    {% if cat_data.tools|length > 12 %}
+                    <a href="/category/{{ cat_key }}" class="navbar__mobile-link" role="menuitem" style="font-weight:700;color:#111">
+                        + {{ cat_data.tools|length - 12 }} more tools →
+                    </a>
+                    {% endif %}
                 </div>
             </div>
             {% endfor %}
@@ -122,13 +139,16 @@
                 </div>
                 {% if categories %}
                 {% set cat_list = categories.values() | list %}
-                {% for cat_data in cat_list[:3] %}
+                {% for cat_data in cat_list[:4] %}
                 <div>
-                    <h4 class="footer__heading">{{ cat_data.name }}</h4>
+                    <h4 class="footer__heading"><a href="/category/{{ cat_data.key }}" style="color:inherit;text-decoration:none">{{ cat_data.name }}</a></h4>
                     <ul class="footer__links">
-                        {% for tool in cat_data.tools[:4] %}
+                        {% for tool in cat_data.tools[:5] %}
                         <li><a href="/tool/{{ tool.slug }}" class="footer__link">{{ tool.name }}</a></li>
                         {% endfor %}
+                        {% if cat_data.tools|length > 5 %}
+                        <li><a href="/category/{{ cat_data.key }}" class="footer__link" style="font-weight:700;color:#fff">View all →</a></li>
+                        {% endif %}
                     </ul>
                 </div>
                 {% endfor %}
@@ -141,6 +161,7 @@
                 </div>
                 <div class="footer__bottom-links">
                     <a href="/sitemap" class="footer__bottom-link">Sitemap</a>
+                    <a href="/sitemap.xml" class="footer__bottom-link">XML Sitemap</a>
                 </div>
             </div>
         </div>

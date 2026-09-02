@@ -1,88 +1,36 @@
 {% extends "base.html" %}
 
-{% block title %}Sitemap — ToolsAllInOnePro{% endblock %}
+{% block title %}Sitemap — Complete Directory of {{ total_tools }}+ Free Tools | ToolsAllInOnePro{% endblock %}
 
 {% block extra_head %}
-<meta name="description" content="Complete sitemap of ToolsAllInOnePro — 342+ free online tools for developers and creators.">
-<style>
-.sitemap-page { padding: 32px 0 48px; flex: 1; }
-.sitemap-header { margin-bottom: 32px; }
-.sitemap-title { display: flex; align-items: center; gap: 10px; font-size: 1.75rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
-.sitemap-title .material-icons-outlined { font-size: 32px; color: #111; }
-.sitemap-subtitle { color: #555; font-size: .95rem; }
-
-/* Stats */
-.sitemap-stats { display: flex; gap: 0; border: 2px solid #e0e0e0; background: #fff; margin-bottom: 32px; overflow: hidden; }
-.sitemap-stat { flex: 1; text-align: center; padding: 20px 16px; border-right: 2px solid #e0e0e0; min-width: 0; }
-.sitemap-stat:last-child { border-right: none; }
-.sitemap-stat__num { display: block; font-size: 2rem; font-weight: 800; color: #111; line-height: 1; }
-.sitemap-stat__label { display: block; font-size: .7rem; font-weight: 700; color: #999; text-transform: uppercase; letter-spacing: .5px; margin-top: 6px; }
-
-/* Table of Contents */
-.sitemap-toc { background: #fff; border: 2px solid #e0e0e0; margin-bottom: 32px; overflow: hidden; }
-.sitemap-toc__title { padding: 14px 20px; background: #111; color: #fff; font-size: .85rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; display: flex; align-items: center; gap: 8px; }
-.sitemap-toc__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0; }
-.sitemap-toc__item { display: flex; align-items: center; gap: 8px; padding: 10px 16px; border-right: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0; text-decoration: none; color: #111; transition: background 80ms; font-size: .85rem; font-weight: 500; overflow: hidden; }
-.sitemap-toc__item:hover { background: #f0f0f0; }
-.sitemap-toc__item .material-icons-outlined { font-size: 18px; color: #999; flex-shrink: 0; }
-.sitemap-toc__count { margin-left: auto; font-size: .7rem; font-weight: 700; color: #999; background: #f8f8f8; padding: 2px 6px; border: 1px solid #e0e0e0; flex-shrink: 0; }
-
-/* Category Sections */
-.sitemap-category { margin-bottom: 24px; border: 2px solid #e0e0e0; background: #fff; overflow: hidden; }
-.sitemap-category__header { display: flex; align-items: center; gap: 10px; padding: 14px 20px; background: #111; color: #fff; }
-.sitemap-category__icon { font-size: 20px; }
-.sitemap-category__name { font-size: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.sitemap-category__count { font-size: .75rem; font-weight: 700; background: rgba(255,255,255,.15); padding: 3px 10px; border: 1px solid rgba(255,255,255,.2); flex-shrink: 0; }
-
-/* Tool List — table-style rows */
-.sitemap-list { list-style: none; }
-.sitemap-list li { border-bottom: 1px solid #f0f0f0; }
-.sitemap-list li:last-child { border-bottom: none; }
-.sitemap-list a { display: flex; align-items: center; gap: 12px; padding: 12px 20px; text-decoration: none; color: #111; transition: background 80ms; }
-.sitemap-list a:hover { background: #f8f8f8; }
-.sitemap-list__icon { font-size: 18px; color: #999; flex-shrink: 0; width: 24px; text-align: center; }
-.sitemap-list a:hover .sitemap-list__icon { color: #111; }
-.sitemap-list__name { font-size: .9rem; font-weight: 600; flex-shrink: 0; min-width: 0; }
-.sitemap-list__desc { font-size: .78rem; color: #888; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.sitemap-list__arrow { font-size: 16px; color: #ccc; flex-shrink: 0; transition: transform 80ms, color 80ms; }
-.sitemap-list a:hover .sitemap-list__arrow { color: #111; transform: translateX(3px); }
-.sitemap-list__url { font-size: .7rem; color: #aaa; font-family: monospace; flex-shrink: 0; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: none; }
-
-/* XML link */
-.sitemap-xml-link { display: flex; align-items: center; gap: 10px; padding: 20px; background: #fff; border: 2px solid #e0e0e0; margin-top: 32px; font-size: .85rem; color: #555; overflow: hidden; }
-.sitemap-xml-link .material-icons-outlined { color: #999; flex-shrink: 0; }
-.sitemap-xml-link a { color: #111; font-weight: 700; text-decoration: underline; }
-.sitemap-xml-link__hint { color: #999; font-size: .8rem; }
-
-/* Responsive */
-@media (max-width: 768px) {
-    .sitemap-stats { flex-direction: column; }
-    .sitemap-stat { border-right: none; border-bottom: 1px solid #e0e0e0; padding: 14px 16px; }
-    .sitemap-stat:last-child { border-bottom: none; }
-    .sitemap-stat__num { font-size: 1.5rem; }
-    .sitemap-toc__grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
-    .sitemap-list a { padding: 10px 16px; gap: 10px; }
-    .sitemap-list__desc { font-size: .72rem; }
-    .sitemap-category__header { padding: 12px 16px; }
+<meta name="description" content="Complete sitemap and directory of all {{ total_tools }}+ free online tools at ToolsAllInOnePro. Browse by category or search alphabetically.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Sitemap — ToolsAllInOnePro",
+  "description": "Complete directory of all {{ total_tools }}+ free online tools",
+  "url": "{{ request.url }}",
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ request.host_url }}" },
+      { "@type": "ListItem", "position": 2, "name": "Sitemap", "item": "{{ request.url }}" }
+    ]
+  }
 }
-@media (max-width: 480px) {
-    .sitemap-toc__grid { grid-template-columns: 1fr 1fr; }
-    .sitemap-list__desc { display: none; }
-    .sitemap-list__arrow { display: none; }
-    .sitemap-list a { padding: 10px 14px; }
-    .sitemap-list__name { font-size: .85rem; }
-}
-</style>
+</script>
 {% endblock %}
 
 {% block content %}
 <main class="sitemap-page">
     <div class="container" style="overflow:hidden">
-        <!-- Back -->
-        <a href="/" class="back-link">
-            <span class="material-icons-outlined">arrow_back</span>
-            <span class="back-link__text">Home</span>
-        </a>
+        <!-- Breadcrumb -->
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <span class="breadcrumb__sep">›</span>
+            <span class="breadcrumb__current">Sitemap</span>
+        </nav>
 
         <!-- Header -->
         <div class="sitemap-header">
@@ -90,7 +38,7 @@
                 <span class="material-icons-outlined">map</span>
                 Sitemap
             </h1>
-            <p class="sitemap-subtitle">Complete directory of all {{ total_tools }}+ tools — click any link to open the tool</p>
+            <p class="sitemap-subtitle">Complete directory of all {{ total_tools }}+ tools — browse by category, search, or jump to any letter</p>
         </div>
 
         <!-- Stats -->
@@ -104,39 +52,63 @@
                 <span class="sitemap-stat__label">Categories</span>
             </div>
             <div class="sitemap-stat">
-                <span class="sitemap-stat__num">{{ total_tools + categories|length + 1 }}</span>
+                <span class="sitemap-stat__num">{{ total_tools + categories|length + 3 }}</span>
                 <span class="sitemap-stat__label">Total Pages</span>
+            </div>
+            <div class="sitemap-stat">
+                <span class="sitemap-stat__num">100%</span>
+                <span class="sitemap-stat__label">Free &amp; Private</span>
             </div>
         </div>
 
-        <!-- Quick Navigation -->
-        <div class="sitemap-toc">
-            <div class="sitemap-toc__title">
-                <span class="material-icons-outlined" style="font-size:18px">apps</span>
-                Jump to Category
+        <!-- Search -->
+        <div class="sitemap-search-wrapper">
+            <div class="sitemap-search">
+                <span class="material-icons-outlined search-icon">search</span>
+                <input type="text" id="sitemapSearch" placeholder="Search tools... (e.g. json, hash, color)">
             </div>
-            <div class="sitemap-toc__grid">
-                {% for cat_key, cat_data in categories.items() %}
-                <a href="#cat-{{ cat_key }}" class="sitemap-toc__item">
-                    <span class="material-icons-outlined">{{ cat_data.icon }}</span>
-                    {{ cat_data.name }}
-                    <span class="sitemap-toc__count">{{ cat_data.tools|length }}</span>
-                </a>
-                {% endfor %}
-            </div>
+        </div>
+        <div class="sitemap-search-count" id="sitemapSearchCount"></div>
+
+        <!-- Quick Links -->
+        <div class="sitemap-quick-links">
+            <a href="/" class="sitemap-quick-link">
+                <span class="material-icons-outlined">home</span>
+                <span class="sitemap-quick-link__name">Home</span>
+            </a>
+            {% for cat_key, cat_data in categories.items() %}
+            <a href="/category/{{ cat_key }}" class="sitemap-quick-link">
+                <span class="material-icons-outlined">{{ cat_data.icon }}</span>
+                <span class="sitemap-quick-link__name">{{ cat_data.name }}</span>
+            </a>
+            {% endfor %}
+        </div>
+
+        <!-- Alphabetical Index -->
+        <div class="sitemap-alpha" id="sitemapAlpha">
+            {% for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' %}
+            {% set ns = namespace(found=false) %}
+            {% for tool in tools %}
+            {% if tool.name and tool.name[0]|upper == letter %}
+            {% set ns.found = true %}
+            {% endif %}
+            {% endfor %}
+            <a href="#alpha-{{ letter }}" class="sitemap-alpha__letter{% if not ns.found %} sitemap-alpha__letter--disabled{% endif %}">{{ letter }}</a>
+            {% endfor %}
         </div>
 
         <!-- Category Sections -->
         {% for cat_key, cat_data in categories.items() %}
-        <div class="sitemap-category" id="cat-{{ cat_key }}">
-            <div class="sitemap-category__header">
+        <div class="sitemap-category" id="cat-{{ cat_key }}" data-category-section>
+            <div class="sitemap-category__header sitemap-category__toggle" onclick="this.parentElement.classList.toggle('sitemap-category--collapsed')">
                 <span class="material-icons-outlined sitemap-category__icon">{{ cat_data.icon }}</span>
                 <h2 class="sitemap-category__name">{{ cat_data.name }}</h2>
                 <span class="sitemap-category__count">{{ cat_data.tools|length }} tools</span>
+                <span class="material-icons-outlined" style="color:#fff;font-size:18px;margin-left:8px">expand_more</span>
             </div>
             <ul class="sitemap-list">
                 {% for tool in cat_data.tools %}
-                <li>
+                <li data-tool-name="{{ (tool.name or '')|lower }}" data-tool-desc="{{ (tool.description or '')|lower }}" data-tool-slug="{{ tool.slug }}">
                     <a href="/tool/{{ tool.slug }}">
                         <span class="material-icons-outlined sitemap-list__icon">{{ tool.icon or 'build' }}</span>
                         <span class="sitemap-list__name">{{ tool.name }}</span>
@@ -149,12 +121,115 @@
         </div>
         {% endfor %}
 
+        <!-- All Tools A-Z -->
+        <h2 style="font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#999;margin:32px 0 16px">
+            <span class="material-icons-outlined" style="font-size:18px;vertical-align:middle">sort_by_alpha</span>
+            All Tools A–Z
+        </h2>
+        {% for letter in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' %}
+        {% set ns2 = namespace(found=false, tools_for_letter=[]) %}
+        {% for tool in tools %}
+        {% if tool.name and tool.name[0]|upper == letter %}
+        {% set ns2.found = true %}
+        {% set ns2.tools_for_letter = ns2.tools_for_letter + [tool] %}
+        {% endif %}
+        {% endfor %}
+        {% if ns2.found %}
+        <div id="alpha-{{ letter }}" style="margin-bottom:8px">
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:#111;color:#fff;margin-bottom:0">
+                <span style="font-size:1.2rem;font-weight:800;color:#fff">{{ letter }}</span>
+                <span style="font-size:.7rem;color:rgba(255,255,255,.5);font-weight:700;text-transform:uppercase;letter-spacing:.5px">{{ ns2.tools_for_letter|length }} tools</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));border:2px solid #e0e0e0;border-top:none;background:#fff">
+                {% for tool in ns2.tools_for_letter %}
+                <a href="/tool/{{ tool.slug }}" class="sitemap-link" data-tool-name="{{ (tool.name or '')|lower }}" data-tool-desc="{{ (tool.description or '')|lower }}">
+                    <span class="material-icons-outlined sitemap-link__icon">{{ tool.icon or 'build' }}</span>
+                    <span class="sitemap-link__info">
+                        <span class="sitemap-link__name">{{ tool.name }}</span>
+                        <span class="sitemap-link__desc">{{ tool.description }}</span>
+                    </span>
+                    <span class="material-icons-outlined sitemap-link__arrow">arrow_forward</span>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+
         <!-- XML Link -->
         <div class="sitemap-xml-link">
             <span class="material-icons-outlined">code</span>
             <a href="/sitemap.xml" target="_blank">View XML Sitemap</a>
-            <span class="sitemap-xml-link__hint">— For search engines</span>
+            <span class="sitemap-xml-link__hint">— For search engines (Google, Bing, etc.)</span>
         </div>
     </div>
 </main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var searchInput = document.getElementById('sitemapSearch');
+    var countEl = document.getElementById('sitemapSearchCount');
+    if (!searchInput) return;
+
+    // Collect all searchable items
+    var allItems = document.querySelectorAll('[data-tool-name]');
+    var categorySections = document.querySelectorAll('[data-category-section]');
+    var alphaSections = document.querySelectorAll('[id^="alpha-"]');
+
+    searchInput.addEventListener('input', function() {
+        var q = searchInput.value.toLowerCase().trim();
+        var count = 0;
+
+        allItems.forEach(function(item) {
+            var name = item.getAttribute('data-tool-name') || '';
+            var desc = item.getAttribute('data-tool-desc') || '';
+            var slug = item.getAttribute('data-tool-slug') || '';
+            if (!q || name.indexOf(q) !== -1 || desc.indexOf(q) !== -1 || slug.replace(/-/g, ' ').indexOf(q) !== -1) {
+                item.style.display = '';
+                count++;
+            } else {
+                item.style.display = 'none';
+            }
+        });
+
+        // Show/hide category sections based on visible children
+        categorySections.forEach(function(section) {
+            var visibleItems = section.querySelectorAll('.sitemap-list li:not([style*="display: none"])');
+            if (q) {
+                section.style.display = visibleItems.length ? '' : 'none';
+            } else {
+                section.style.display = '';
+            }
+        });
+
+        // Show/hide alpha sections
+        alphaSections.forEach(function(section) {
+            var visibleLinks = section.querySelectorAll('.sitemap-link:not([style*="display: none"])');
+            if (q) {
+                section.style.display = visibleLinks.length ? '' : 'none';
+            } else {
+                section.style.display = '';
+            }
+        });
+
+        // Update count
+        if (q) {
+            countEl.textContent = count + ' tool' + (count !== 1 ? 's' : '') + ' found';
+        } else {
+            countEl.textContent = '';
+        }
+    });
+
+    // Enter key — navigate to first result
+    searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            var firstVisible = document.querySelector('.sitemap-list li:not([style*="display: none"]) a, .sitemap-link:not([style*="display: none"])');
+            if (firstVisible) {
+                window.location.href = firstVisible.getAttribute('href');
+            }
+        }
+    });
+});
+</script>
 {% endblock %}
