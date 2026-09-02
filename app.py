@@ -171,6 +171,13 @@ def tool_handler_js(slug):
     return '', 404
 
 
+@app.route('/sitemap')
+def sitemap_page():
+    tools = load_tools()
+    categories = group_tools_by_category(tools)
+    return render_template('sitemap.html', tools=tools, categories=categories, total_tools=len(tools))
+
+
 @app.route('/sitemap.xml')
 def sitemap():
     import xml.etree.ElementTree as ET

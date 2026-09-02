@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Sitemap — ToolsAllInOnePro{% endblock %}
+
+{% block extra_head %}
+<meta name="description" content="Complete sitemap of ToolsAllInOnePro — 342+ free online tools for developers and creators.">
+{% endblock %}
+
+{% block content %}
+<main class="sitemap-page">
+    <div class="container">
+        <!-- Header -->
+        <div class="sitemap-header">
+            <a href="/" class="back-link">
+                <span class="material-icons-outlined">arrow_back</span>
+                <span class="back-link__text">Home</span>
+            </a>
+            <h1 class="sitemap-title">
+                <span class="material-icons-outlined">map</span>
+                Sitemap
+            </h1>
+            <p class="sitemap-subtitle">Complete list of all {{ total_tools }}+ tools organized by category</p>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="sitemap-stats">
+            <div class="sitemap-stat">
+                <span class="sitemap-stat__num">{{ total_tools }}</span>
+                <span class="sitemap-stat__label">Tools</span>
+            </div>
+            <div class="sitemap-stat">
+                <span class="sitemap-stat__num">{{ categories|length }}</span>
+                <span class="sitemap-stat__label">Categories</span>
+            </div>
+            <div class="sitemap-stat">
+                <span class="sitemap-stat__num">{{ total_tools + categories|length + 1 }}</span>
+                <span class="sitemap-stat__label">Total Pages</span>
+            </div>
+        </div>
+
+        <!-- Categories -->
+        {% for cat_key, cat_data in categories.items() %}
+        <div class="sitemap-category">
+            <div class="sitemap-category__header">
+                <span class="material-icons-outlined sitemap-category__icon">{{ cat_data.icon }}</span>
+                <h2 class="sitemap-category__name">{{ cat_data.name }}</h2>
+                <span class="sitemap-category__count">{{ cat_data.tools|length }} tools</span>
+            </div>
+            <div class="sitemap-category__grid">
+                {% for tool in cat_data.tools %}
+                <a href="/tool/{{ tool.slug }}" class="sitemap-link">
+                    <span class="material-icons-outlined sitemap-link__icon">{{ tool.icon or 'build' }}</span>
+                    <span class="sitemap-link__info">
+                        <span class="sitemap-link__name">{{ tool.name }}</span>
+                        <span class="sitemap-link__desc">{{ tool.description }}</span>
+                    </span>
+                    <span class="material-icons-outlined sitemap-link__arrow">arrow_forward</span>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- XML Sitemap Link -->
+        <div class="sitemap-xml-link">
+            <span class="material-icons-outlined">code</span>
+            <a href="/sitemap.xml" target="_blank">View XML Sitemap</a>
+            <span class="sitemap-xml-link__hint">— For search engines</span>
+        </div>
+    </div>
+</main>
+{% endblock %}
