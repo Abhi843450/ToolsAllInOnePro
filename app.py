@@ -235,13 +235,17 @@ def sitemap():
     rough = ET.tostring(urlset, encoding='unicode')
     parsed = minidom.parseString(rough)
     pretty = parsed.toprettyxml(indent='  ', encoding=None)
-    # Remove extra XML declaration from toprettyxml
-    lines = pretty.split('\n')
+    # Fix line endings and remove extra XML declaration
+    lines = pretty.replace('\r\n', '\n').split('\n')
     if lines[0].startswith('<?xml'):
         lines[0] = '<?xml version="1.0" encoding="UTF-8"?>'
-    body = '\n'.join(lines)
+    # Remove empty lines
+    lines = [l for l in lines if l.strip()]
+    body = '\n'.join(lines) + '\n'
 
-    return Response(body, mimetype='application/xml')
+    resp = Response(body, mimetype='application/xml')
+    resp.headers['X-Content-Type-Options'] = 'nosniff'
+    return resp
 
 
 @app.route('/robots.txt')
