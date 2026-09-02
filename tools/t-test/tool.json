@@ -1,7 +1,7 @@
 {
   "slug": "t-test",
   "name": "T-Test Calculator",
-  "icon": "calculate",
+  "icon": "analytics",
   "category": "Statistics & Analysis",
   "description": "Perform one-sample and two-sample t-tests",
   "input_type": "text",

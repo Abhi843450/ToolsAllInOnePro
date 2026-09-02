@@ -1,7 +1,7 @@
 {
   "slug": "docker-cheatsheet",
   "name": "Docker Commands Reference",
-  "icon": "code",
+  "icon": "view_in_ar",
   "category": "Developer Tools",
   "description": "Quick reference for Docker commands and Dockerfile syntax",
   "input_type": "text",

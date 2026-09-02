@@ -1,7 +1,7 @@
 {
   "slug": "icon-search",
   "name": "Material Icon Search",
-  "icon": "search",
+  "icon": "widgets",
   "category": "Design & Visual",
   "description": "Search and find Material Design icons by name",
   "input_type": "text",

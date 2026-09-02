@@ -1,7 +1,7 @@
 {
   "slug": "image-metadata",
   "name": "Image Metadata Viewer",
-  "icon": "info",
+  "icon": "image",
   "category": "Design & Visual",
   "description": "View EXIF and metadata information from uploaded images",
   "input_type": "text",

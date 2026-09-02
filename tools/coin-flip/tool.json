@@ -1,7 +1,7 @@
 {
   "slug": "coin-flip",
   "name": "Coin Flip Simulator",
-  "icon": "swap_horiz",
+  "icon": "casino",
   "category": "Generators",
   "description": "Flip coins with custom counts and display patterns",
   "input_type": "text",

@@ -1,7 +1,7 @@
 {
   "slug": "ascii-table-full",
   "name": "ASCII Table Reference",
-  "icon": "table",
+  "icon": "table_chart",
   "category": "Developer Tools",
   "description": "Complete ASCII table with decimal, hex, octal, binary values",
   "input_type": "text",

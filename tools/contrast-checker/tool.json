@@ -1,7 +1,7 @@
 {
   "slug": "contrast-checker",
   "name": "WCAG Contrast Checker",
-  "icon": "visibility",
+  "icon": "contrast",
   "category": "Design & Visual",
   "description": "Check color contrast ratio for accessibility compliance",
   "input_type": "text",

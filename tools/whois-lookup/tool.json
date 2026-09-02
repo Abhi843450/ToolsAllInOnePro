@@ -1,7 +1,7 @@
 {
   "slug": "whois-lookup",
   "name": "WHOIS Lookup",
-  "icon": "search",
+  "icon": "public",
   "category": "Web & SEO",
   "description": "Look up WHOIS registration information for domains",
   "input_type": "text",

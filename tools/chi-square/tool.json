@@ -1,7 +1,7 @@
 {
   "slug": "chi-square",
   "name": "Chi-Square Calculator",
-  "icon": "calculate",
+  "icon": "analytics",
   "category": "Statistics & Analysis",
   "description": "Calculate chi-square test statistic",
   "input_type": "text",

@@ -1,7 +1,7 @@
 {
   "slug": "brute-force-decoder",
   "name": "Caesar Cipher Brute Force",
-  "icon": "lock",
+  "icon": "lock_open",
   "category": "Encoding & Crypto",
   "description": "Try all 25 Caesar cipher shifts to decode unknown text",
   "input_type": "text",

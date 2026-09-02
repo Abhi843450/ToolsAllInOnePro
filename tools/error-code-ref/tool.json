@@ -1,7 +1,7 @@
 {
   "slug": "error-code-ref",
   "name": "Error Code Reference",
-  "icon": "error",
+  "icon": "warning",
   "category": "Developer Tools",
   "description": "Common error codes across programming languages",
   "input_type": "text",

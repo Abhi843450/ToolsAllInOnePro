@@ -1,7 +1,7 @@
 {
   "slug": "htaccess-generator",
   "name": ".htaccess Generator",
-  "icon": "code",
+  "icon": "storage",
   "category": "Web & SEO",
   "description": "Generate Apache .htaccess rules for redirects and security",
   "input_type": "text",

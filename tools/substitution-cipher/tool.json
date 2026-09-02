@@ -1,7 +1,7 @@
 {
   "slug": "substitution-cipher",
   "name": "Substitution Cipher Tool",
-  "icon": "lock",
+  "icon": "enhanced_encryption",
   "category": "Encoding & Crypto",
   "description": "Encode/decode with a custom substitution alphabet",
   "input_type": "text",

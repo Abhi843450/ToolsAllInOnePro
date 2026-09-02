@@ -1,7 +1,7 @@
 {
   "slug": "passphrase-gen",
   "name": "Passphrase Generator",
-  "icon": "vpn_key",
+  "icon": "password",
   "category": "Encoding & Crypto",
   "description": "Generate memorable passphrases from word lists",
   "input_type": "text",

@@ -1,7 +1,7 @@
 {
   "slug": "margin-of-error",
   "name": "Margin of Error Calculator",
-  "icon": "calculate",
+  "icon": "analytics",
   "category": "Statistics & Analysis",
   "description": "Calculate margin of error from sample size",
   "input_type": "text",

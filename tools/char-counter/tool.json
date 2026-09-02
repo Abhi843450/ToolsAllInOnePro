@@ -1,7 +1,7 @@
 {
   "slug": "char-counter",
   "name": "Character Counter",
-  "icon": "calculate",
+  "icon": "text_increase",
   "category": "Text Tools",
   "description": "Count characters with and without spaces, lines, and bytes",
   "input_type": "text",

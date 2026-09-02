@@ -1,7 +1,7 @@
 {
   "slug": "tip-calculator",
   "name": "Tip Calculator",
-  "icon": "calculate",
+  "icon": "paid",
   "category": "Calculators",
   "description": "Calculate tips and split bills with custom tip percentages",
   "input_type": "text",

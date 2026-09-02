@@ -1,7 +1,7 @@
 {
   "slug": "caesar-cipher",
   "name": "Caesar Cipher",
-  "icon": "lock",
+  "icon": "enhanced_encryption",
   "category": "Cryptography",
   "description": "Encrypt and decrypt text using Caesar cipher with custom shift",
   "input_type": "text",

@@ -1,7 +1,7 @@
 {
   "slug": "code-obfuscator",
   "name": "Code Obfuscator",
-  "icon": "security",
+  "icon": "visibility_off",
   "category": "Code Tools",
   "description": "Obfuscate JavaScript/TypeScript code with variable renaming",
   "input_type": "text",

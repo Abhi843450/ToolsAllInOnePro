@@ -1,7 +1,7 @@
 {
   "slug": "transposition-cipher",
   "name": "Transposition Cipher Tool",
-  "icon": "lock",
+  "icon": "enhanced_encryption",
   "category": "Encoding & Crypto",
   "description": "Encode/decode with columnar transposition",
   "input_type": "text",

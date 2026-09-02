@@ -1,7 +1,7 @@
 {
   "slug": "calorie-calculator",
   "name": "Calorie Calculator",
-  "icon": "calculate",
+  "icon": "local_fire_department",
   "category": "Calculators",
   "description": "Calculate daily calorie needs based on activity level and goals",
   "input_type": "text",

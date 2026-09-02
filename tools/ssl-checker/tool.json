@@ -1,7 +1,7 @@
 {
   "slug": "ssl-checker",
   "name": "SSL Certificate Info",
-  "icon": "security",
+  "icon": "verified",
   "category": "Web & SEO",
   "description": "Display SSL certificate information and chain details",
   "input_type": "text",

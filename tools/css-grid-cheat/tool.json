@@ -1,7 +1,7 @@
 {
   "slug": "css-grid-cheat",
   "name": "CSS Grid Cheat Sheet",
-  "icon": "code",
+  "icon": "grid_on",
   "category": "Developer Tools",
   "description": "Visual reference for CSS Grid properties and values",
   "input_type": "text",

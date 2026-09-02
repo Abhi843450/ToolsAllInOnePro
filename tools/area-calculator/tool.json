@@ -1,7 +1,7 @@
 {
   "slug": "area-calculator",
   "name": "Area Calculator",
-  "icon": "calculate",
+  "icon": "square_foot",
   "category": "Calculators",
   "description": "Calculate area of circle, rectangle, triangle, trapezoid, and parallelogram",
   "input_type": "text",

@@ -1,7 +1,7 @@
 {
   "slug": "password-generator",
   "name": "Password Generator",
-  "icon": "vpn_key",
+  "icon": "password",
   "category": "Cryptography",
   "description": "Generate strong passwords with custom length, character types, and exclusion rules",
   "input_type": "text",

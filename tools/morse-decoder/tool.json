@@ -1,7 +1,7 @@
 {
   "slug": "morse-decoder",
   "name": "Morse Code Decoder",
-  "icon": "radio",
+  "icon": "cell_tower",
   "category": "Encoding & Crypto",
   "description": "Convert Morse Code back to text",
   "input_type": "text",

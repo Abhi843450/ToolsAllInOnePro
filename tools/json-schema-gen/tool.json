@@ -1,7 +1,7 @@
 {
   "slug": "json-schema-gen",
   "name": "JSON Schema Generator",
-  "icon": "code",
+  "icon": "data_object",
   "category": "Developer Tools",
   "description": "Generate JSON Schema from sample JSON data",
   "input_type": "text",

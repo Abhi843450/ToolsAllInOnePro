@@ -1,7 +1,7 @@
 {
   "slug": "text-to-svg",
   "name": "Text to SVG",
-  "icon": "code",
+  "icon": "draw",
   "category": "Converters",
   "description": "Convert text to SVG format with custom fonts and colors",
   "input_type": "text",

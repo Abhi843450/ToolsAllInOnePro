@@ -1,7 +1,7 @@
 {
   "slug": "yaml-formatter",
   "name": "YAML Formatter",
-  "icon": "code",
+  "icon": "data_object",
   "category": "Code Tools",
   "description": "Format and validate YAML documents",
   "input_type": "text",

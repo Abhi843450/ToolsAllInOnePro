@@ -1,7 +1,7 @@
 {
   "slug": "days-between",
   "name": "Days Between Dates",
-  "icon": "calculate",
+  "icon": "date_range",
   "category": "Calculators",
   "description": "Calculate the number of days between two dates",
   "input_type": "text",

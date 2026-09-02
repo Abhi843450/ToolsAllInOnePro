@@ -1,7 +1,7 @@
 {
   "slug": "linux-cheatsheet",
   "name": "Linux Commands Reference",
-  "icon": "code",
+  "icon": "terminal",
   "category": "Developer Tools",
   "description": "Quick reference for common Linux commands",
   "input_type": "text",

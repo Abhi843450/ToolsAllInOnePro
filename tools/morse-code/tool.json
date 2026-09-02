@@ -1,7 +1,7 @@
 {
   "slug": "morse-code",
   "name": "Morse Code Converter",
-  "icon": "radio",
+  "icon": "cell_tower",
   "category": "Text Tools",
   "description": "Convert text to morse code and morse code back to text",
   "input_type": "text",

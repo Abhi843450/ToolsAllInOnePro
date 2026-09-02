@@ -1,7 +1,7 @@
 {
   "slug": "plagiarism-checker",
   "name": "Text Similarity Checker",
-  "icon": "gpp_good",
+  "icon": "verified",
   "category": "Text Tools",
   "description": "Check text similarity and detect potential duplicate content",
   "input_type": "text",

@@ -1,7 +1,7 @@
 {
   "slug": "w3c-validator",
   "name": "W3C HTML Validator",
-  "icon": "check_circle",
+  "icon": "verified",
   "category": "Developer Tools",
   "description": "Validate HTML5 syntax and check for errors",
   "input_type": "text",

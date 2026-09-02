@@ -1,7 +1,7 @@
 {
   "slug": "text-cleaner",
   "name": "Text Cleaner",
-  "icon": "auto_fix_high",
+  "icon": "cleaning_services",
   "category": "Text Tools",
   "description": "Remove extra spaces, blank lines, special characters, and normalize whitespace",
   "input_type": "text",

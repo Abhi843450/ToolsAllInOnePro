@@ -1,7 +1,7 @@
 {
   "slug": "confidence-interval",
   "name": "Confidence Interval Calculator",
-  "icon": "calculate",
+  "icon": "analytics",
   "category": "Statistics & Analysis",
   "description": "Calculate confidence intervals for means",
   "input_type": "text",

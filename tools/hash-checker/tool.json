@@ -1,7 +1,7 @@
 {
   "slug": "hash-checker",
   "name": "Hash Checker",
-  "icon": "gpp_good",
+  "icon": "verified",
   "category": "Cryptography",
   "description": "Verify if a hash matches given input text",
   "input_type": "text",

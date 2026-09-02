@@ -1,7 +1,7 @@
 {
   "slug": "cipher-wheel",
   "name": "Cipher Wheel Tool",
-  "icon": "swap_horiz",
+  "icon": "enhanced_encryption",
   "category": "Encoding & Crypto",
   "description": "Encode/decode using a Caesar cipher with customizable shift",
   "input_type": "text",

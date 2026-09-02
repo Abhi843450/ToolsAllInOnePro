@@ -1,7 +1,7 @@
 {
   "slug": "json-to-env",
   "name": "JSON to Environment Variables",
-  "icon": "code",
+  "icon": "data_object",
   "category": "Converters",
   "description": "Convert JSON config to .env file format",
   "input_type": "text",

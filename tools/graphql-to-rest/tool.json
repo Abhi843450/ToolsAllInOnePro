@@ -1,7 +1,7 @@
 {
   "slug": "graphql-to-rest",
   "name": "GraphQL to REST Converter",
-  "icon": "code",
+  "icon": "api",
   "category": "Converters",
   "description": "Convert GraphQL queries to REST API endpoint descriptions",
   "input_type": "text",

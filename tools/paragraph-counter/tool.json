@@ -1,7 +1,7 @@
 {
   "slug": "paragraph-counter",
   "name": "Paragraph Counter",
-  "icon": "calculate",
+  "icon": "format_list_numbered",
   "category": "Text Tools",
   "description": "Count paragraphs, lines, and words per paragraph",
   "input_type": "text",

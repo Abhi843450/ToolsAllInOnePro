@@ -1,7 +1,7 @@
 {
   "slug": "z-score",
   "name": "Z-Score Calculator",
-  "icon": "calculate",
+  "icon": "analytics",
   "category": "Statistics & Analysis",
   "description": "Calculate Z-scores and find percentiles",
   "input_type": "text",

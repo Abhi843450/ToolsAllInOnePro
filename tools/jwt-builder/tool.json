@@ -1,7 +1,7 @@
 {
   "slug": "jwt-builder",
   "name": "JWT Token Builder",
-  "icon": "vpn_key",
+  "icon": "token",
   "category": "Developer Tools",
   "description": "Build JWT tokens with custom header and payload",
   "input_type": "text",

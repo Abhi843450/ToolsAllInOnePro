@@ -1,7 +1,7 @@
 {
   "slug": "atbash-cipher",
   "name": "Atbash Cipher",
-  "icon": "swap_horiz",
+  "icon": "enhanced_encryption",
   "category": "Cryptography",
   "description": "Encode and decode text using the Atbash substitution cipher",
   "input_type": "text",

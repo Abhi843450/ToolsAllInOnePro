@@ -1,7 +1,7 @@
 {
   "slug": "json-to-yaml",
   "name": "JSON to YAML Converter",
-  "icon": "code",
+  "icon": "data_object",
   "category": "Converters",
   "description": "Convert JSON to YAML format",
   "input_type": "text",

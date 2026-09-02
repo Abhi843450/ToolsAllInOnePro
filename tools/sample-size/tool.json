@@ -1,7 +1,7 @@
 {
   "slug": "sample-size",
   "name": "Sample Size Calculator",
-  "icon": "calculate",
+  "icon": "analytics",
   "category": "Statistics & Analysis",
   "description": "Calculate required sample size for surveys",
   "input_type": "text",

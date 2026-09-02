@@ -1,7 +1,7 @@
 {
   "slug": "password-strength",
   "name": "Password Strength Checker",
-  "icon": "security",
+  "icon": "password",
   "category": "Cryptography",
   "description": "Analyze password strength with entropy calculation and crack time estimation",
   "input_type": "text",

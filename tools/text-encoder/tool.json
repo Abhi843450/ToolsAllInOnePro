@@ -1,7 +1,7 @@
 {
   "slug": "text-encoder",
   "name": "Text Encoder/Decoder",
-  "icon": "lock",
+  "icon": "enhanced_encryption",
   "category": "Text Tools",
   "description": "Encode/decode text with Base64, URL encoding, HTML entities, or ROT13",
   "input_type": "text",

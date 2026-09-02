@@ -1,7 +1,7 @@
 {
   "slug": "encoding-detector",
   "name": "Text Encoding Detector",
-  "icon": "search",
+  "icon": "translate",
   "category": "Encoding & Crypto",
   "description": "Detect character encoding of pasted text",
   "input_type": "text",

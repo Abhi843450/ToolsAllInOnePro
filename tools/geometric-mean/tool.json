@@ -1,7 +1,7 @@
 {
   "slug": "geometric-mean",
   "name": "Geometric Mean Calculator",
-  "icon": "calculate",
+  "icon": "analytics",
   "category": "Statistics & Analysis",
   "description": "Calculate geometric mean of positive numbers",
   "input_type": "text",

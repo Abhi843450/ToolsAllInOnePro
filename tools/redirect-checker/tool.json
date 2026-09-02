@@ -1,7 +1,7 @@
 {
   "slug": "redirect-checker",
   "name": "Redirect Checker",
-  "icon": "swap_horiz",
+  "icon": "redo",
   "category": "Web & SEO",
   "description": "Check redirect chains and final destination URLs",
   "input_type": "text",

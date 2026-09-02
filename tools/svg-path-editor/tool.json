@@ -1,7 +1,7 @@
 {
   "slug": "svg-path-editor",
   "name": "SVG Path Generator",
-  "icon": "brush",
+  "icon": "draw",
   "category": "Design & Visual",
   "description": "Generate SVG path data for common shapes",
   "input_type": "text",

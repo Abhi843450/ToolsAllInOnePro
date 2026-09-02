@@ -1,7 +1,7 @@
 {
   "slug": "correlation",
   "name": "Correlation Coefficient Calculator",
-  "icon": "calculate",
+  "icon": "analytics",
   "category": "Statistics & Analysis",
   "description": "Calculate Pearson correlation between two data sets",
   "input_type": "text",

@@ -1,7 +1,7 @@
 {
   "slug": "structured-data",
   "name": "Structured Data Generator",
-  "icon": "code",
+  "icon": "data_object",
   "category": "Web & SEO",
   "description": "Generate JSON-LD structured data for Schema.org",
   "input_type": "text",

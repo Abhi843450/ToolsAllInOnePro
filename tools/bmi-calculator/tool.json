@@ -1,7 +1,7 @@
 {
   "slug": "bmi-calculator",
   "name": "BMI Calculator",
-  "icon": "calculate",
+  "icon": "monitor_weight",
   "category": "Calculators",
   "description": "Calculate Body Mass Index from height and weight",
   "input_type": "text",

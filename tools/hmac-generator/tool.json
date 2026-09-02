@@ -1,7 +1,7 @@
 {
   "slug": "hmac-generator",
   "name": "HMAC Generator",
-  "icon": "fingerprint",
+  "icon": "enhanced_encryption",
   "category": "Cryptography",
   "description": "Generate HMAC with MD5, SHA-1, SHA-256, or SHA-512",
   "input_type": "text",

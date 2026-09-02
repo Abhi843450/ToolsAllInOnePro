@@ -1,7 +1,7 @@
 {
   "slug": "morse-encoder",
   "name": "Morse Code Encoder",
-  "icon": "radio",
+  "icon": "cell_tower",
   "category": "Encoding & Crypto",
   "description": "Convert text to International Morse Code",
   "input_type": "text",

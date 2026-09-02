@@ -1,7 +1,7 @@
 {
   "slug": "password-checker",
   "name": "Password Quality Analyzer",
-  "icon": "security",
+  "icon": "password",
   "category": "Encoding & Crypto",
   "description": "Analyze password patterns, entropy, and estimated crack time",
   "input_type": "text",

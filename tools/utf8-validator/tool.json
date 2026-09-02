@@ -1,7 +1,7 @@
 {
   "slug": "utf8-validator",
   "name": "UTF-8 Validator",
-  "icon": "check_circle",
+  "icon": "verified",
   "category": "Encoding & Crypto",
   "description": "Validate if text is valid UTF-8 and show code points",
   "input_type": "text",

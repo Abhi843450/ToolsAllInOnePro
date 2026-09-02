@@ -1,7 +1,7 @@
 {
   "slug": "hash-lookup",
   "name": "Hash Lookup",
-  "icon": "search",
+  "icon": "find_in_page",
   "category": "Encoding & Crypto",
   "description": "Look up known MD5/SHA hashes in common databases",
   "input_type": "text",
