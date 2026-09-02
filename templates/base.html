@@ -68,7 +68,8 @@
                                 </a>
                                 {% endfor %}
                                 {% if cat_data.tools|length > 8 %}
-                                <a href="/#{{ cat_key }}" class="mega-tool" style="color:var(--primary);font-weight:600">
+                                <a href="/" onclick="localStorage.setItem('activeCategory','{{ cat_key }}');" class="mega-tool mega-tool--view-all">
+                                    <span class="material-icons-outlined" style="opacity:1">arrow_forward</span>
                                     View all {{ cat_data.tools|length }} tools →
                                 </a>
                                 {% endif %}

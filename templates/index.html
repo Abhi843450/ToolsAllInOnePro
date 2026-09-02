@@ -116,6 +116,25 @@ document.addEventListener('DOMContentLoaded', function() {
     var tabs = document.querySelectorAll('.category-tab');
     var activeCategory = 'all';
 
+    // Check if a category was requested from the dropdown
+    var savedCat = localStorage.getItem('activeCategory');
+    if (savedCat) {
+        localStorage.removeItem('activeCategory');
+        tabs.forEach(function(tab) {
+            if (tab.dataset.category === savedCat) {
+                tabs.forEach(function(t) { t.classList.remove('category-tab--active'); });
+                tab.classList.add('category-tab--active');
+                activeCategory = savedCat;
+            }
+        });
+        // Scroll to tools section after a brief delay
+        setTimeout(function() {
+            var section = document.querySelector('.tools-section');
+            if (section) section.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+        filterTools();
+    }
+
     // Category filtering
     tabs.forEach(function(tab) {
         tab.addEventListener('click', function() {
