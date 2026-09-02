@@ -9,6 +9,6 @@
     "button_label": "Convert",
     "button_icon": "code",
     "config": {
-        "processor": "css_to_scss"
+        "processor": "css_formatter"
     }
 }

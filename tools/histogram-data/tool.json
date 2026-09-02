@@ -9,6 +9,6 @@
     "button_label": "Generate",
     "button_icon": "bar_chart",
     "config": {
-        "processor": "histogram_data"
+        "processor": "mean_median_mode"
     }
 }

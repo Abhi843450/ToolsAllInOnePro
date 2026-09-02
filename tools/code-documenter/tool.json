@@ -9,6 +9,6 @@
     "button_label": "Document",
     "button_icon": "description",
     "config": {
-        "processor": "code_documenter"
+        "processor": "html_formatter"
     }
 }

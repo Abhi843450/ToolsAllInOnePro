@@ -9,6 +9,6 @@
     "button_label": "Generate",
     "button_icon": "cloud",
     "config": {
-        "processor": "word_cloud_data"
+        "processor": "word_frequency"
     }
 }

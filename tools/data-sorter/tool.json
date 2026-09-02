@@ -9,6 +9,6 @@
     "button_label": "Sort",
     "button_icon": "sort",
     "config": {
-        "processor": "data_sorter"
+        "processor": "mean_median_mode"
     }
 }

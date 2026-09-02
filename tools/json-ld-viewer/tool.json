@@ -9,6 +9,6 @@
     "button_label": "Validate",
     "button_icon": "code",
     "config": {
-        "processor": "json_ld_viewer"
+        "processor": "json_validator"
     }
 }

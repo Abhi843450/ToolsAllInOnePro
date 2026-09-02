@@ -9,6 +9,6 @@
     "button_label": "Minify",
     "button_icon": "compress",
     "config": {
-        "processor": "code_minifier"
+        "processor": "html_minifier"
     }
 }

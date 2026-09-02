@@ -7,5 +7,8 @@
     "input_type": "text",
     "placeholder": "Describe what to match...",
     "button_label": "Generate",
-    "button_icon": "find_replace"
+    "button_icon": "find_replace",
+    "config": {
+        "processor": "caesar_cipher"
+    }
 }

@@ -9,6 +9,6 @@
     "button_label": "Convert",
     "button_icon": "memory",
     "config": {
-        "processor": "binary_encoder"
+        "processor": "binary_text"
     }
 }

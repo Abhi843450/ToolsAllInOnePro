@@ -7,5 +7,8 @@
     "input_type": "text",
     "placeholder": "Enter Brainfuck code...",
     "button_label": "Run",
-    "button_icon": "play_arrow"
+    "button_icon": "play_arrow",
+    "config": {
+        "processor": "scientific_calculator"
+    }
 }

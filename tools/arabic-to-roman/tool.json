@@ -9,6 +9,6 @@
     "button_label": "Convert",
     "button_icon": "swap_horiz",
     "config": {
-        "processor": "arabic_to_roman"
+        "processor": "roman_numeral"
     }
 }

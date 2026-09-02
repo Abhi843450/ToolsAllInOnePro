@@ -9,6 +9,6 @@
     "button_label": "Count",
     "button_icon": "calculate",
     "config": {
-        "processor": "char_counter"
+        "processor": "word_counter"
     }
 }

@@ -9,6 +9,6 @@
     "button_label": "Convert",
     "button_icon": "speed",
     "config": {
-        "processor": "speed_converter"
+        "processor": "unit_converter"
     }
 }

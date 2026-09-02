@@ -9,6 +9,6 @@
     "button_label": "Format",
     "button_icon": "code",
     "config": {
-        "processor": "python_formatter"
+        "processor": "html_formatter"
     }
 }

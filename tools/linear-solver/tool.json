@@ -7,5 +7,8 @@
     "input_type": "text",
     "placeholder": "Enter equation (e.g. 2x + 3 = 7)...",
     "button_label": "Solve",
-    "button_icon": "calculate"
+    "button_icon": "calculate",
+    "config": {
+        "processor": "scientific_calculator"
+    }
 }

@@ -9,6 +9,6 @@
     "button_label": "Translate",
     "button_icon": "record_voice_over",
     "config": {
-        "processor": "pig_latin_tool"
+        "processor": "pig_latin"
     }
 }

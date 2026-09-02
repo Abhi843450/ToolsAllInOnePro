@@ -9,6 +9,6 @@
     "button_label": "Convert",
     "button_icon": "map",
     "config": {
-        "processor": "json_sitemap"
+        "processor": "sitemap_generator"
     }
 }

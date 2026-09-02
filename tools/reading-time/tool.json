@@ -9,6 +9,6 @@
     "button_label": "Calculate",
     "button_icon": "schedule",
     "config": {
-        "processor": "reading_time"
+        "processor": "word_counter"
     }
 }

@@ -9,6 +9,6 @@
     "button_label": "Convert",
     "button_icon": "code",
     "config": {
-        "processor": "json_to_toml"
+        "processor": "json_to_yaml"
     }
 }

@@ -9,6 +9,6 @@
     "button_label": "View",
     "button_icon": "table",
     "config": {
-        "processor": "character_map"
+        "processor": "ascii_table_full"
     }
 }

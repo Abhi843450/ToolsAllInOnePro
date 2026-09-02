@@ -9,6 +9,6 @@
     "button_label": "Validate",
     "button_icon": "check_circle",
     "config": {
-        "processor": "sql_validator"
+        "processor": "sql_formatter"
     }
 }

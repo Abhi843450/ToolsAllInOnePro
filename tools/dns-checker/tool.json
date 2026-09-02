@@ -9,6 +9,6 @@
     "button_label": "Lookup",
     "button_icon": "dns",
     "config": {
-        "processor": "dns_checker"
+        "processor": "url_parser"
     }
 }

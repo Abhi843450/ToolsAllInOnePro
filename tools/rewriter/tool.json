@@ -7,5 +7,8 @@
     "input_type": "text",
     "placeholder": "Paste your text here...",
     "button_label": "Rewrite",
-    "button_icon": "edit"
+    "button_icon": "edit",
+    "config": {
+        "processor": "text_encoder"
+    }
 }

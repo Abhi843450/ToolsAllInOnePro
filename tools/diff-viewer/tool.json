@@ -9,6 +9,6 @@
     "button_label": "Compare",
     "button_icon": "compare",
     "config": {
-        "processor": "diff_viewer"
+        "processor": "text_diff"
     }
 }

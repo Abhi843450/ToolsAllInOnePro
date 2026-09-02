@@ -9,6 +9,6 @@
     "button_label": "Calculate",
     "button_icon": "calculate",
     "config": {
-        "processor": "combinatorics"
+        "processor": "probability"
     }
 }

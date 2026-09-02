@@ -9,6 +9,6 @@
     "button_label": "Analyze",
     "button_icon": "security",
     "config": {
-        "processor": "password_checker"
+        "processor": "password_strength"
     }
 }

@@ -9,6 +9,6 @@
     "button_label": "Obfuscate",
     "button_icon": "security",
     "config": {
-        "processor": "code_obfuscator"
+        "processor": "html_minifier"
     }
 }

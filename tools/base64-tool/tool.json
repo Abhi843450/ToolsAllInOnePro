@@ -9,6 +9,6 @@
     "button_label": "Convert",
     "button_icon": "lock",
     "config": {
-        "processor": "base64_tool"
+        "processor": "text_encoder"
     }
 }

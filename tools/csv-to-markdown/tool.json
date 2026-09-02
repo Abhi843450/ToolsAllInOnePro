@@ -7,5 +7,8 @@
     "input_type": "text",
     "placeholder": "Paste CSV data...",
     "button_label": "Convert",
-    "button_icon": "table_chart"
+    "button_icon": "table_chart",
+    "config": {
+        "processor": "csv_to_markdown"
+    }
 }

@@ -9,6 +9,6 @@
     "button_label": "Convert",
     "button_icon": "emoji_emotions",
     "config": {
-        "processor": "emoji_picker"
+        "processor": "font_generator"
     }
 }

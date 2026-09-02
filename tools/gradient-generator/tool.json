@@ -7,5 +7,8 @@
     "input_type": "text",
     "placeholder": "Optional preset name...",
     "button_label": "Generate",
-    "button_icon": "gradient"
+    "button_icon": "gradient",
+    "config": {
+        "processor": "color_palette_gen"
+    }
 }

@@ -9,6 +9,6 @@
     "button_label": "Analyze",
     "button_icon": "insights",
     "config": {
-        "processor": "text_stats"
+        "processor": "word_counter"
     }
 }

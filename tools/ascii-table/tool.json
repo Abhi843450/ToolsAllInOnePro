@@ -7,5 +7,8 @@
     "input_type": "text",
     "placeholder": "Search character or code...",
     "button_label": "View",
-    "button_icon": "table"
+    "button_icon": "table",
+    "config": {
+        "processor": "ascii_table_full"
+    }
 }

@@ -9,6 +9,6 @@
     "button_label": "Parse",
     "button_icon": "schedule",
     "config": {
-        "processor": "cron_parser"
+        "processor": "cron_builder"
     }
 }

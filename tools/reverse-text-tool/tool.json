@@ -9,6 +9,6 @@
     "button_label": "Reverse",
     "button_icon": "flip",
     "config": {
-        "processor": "reverse_text_tool"
+        "processor": "text_reverser"
     }
 }

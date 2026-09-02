@@ -9,6 +9,6 @@
     "button_label": "Lookup",
     "button_icon": "search",
     "config": {
-        "processor": "whois_lookup"
+        "processor": "url_parser"
     }
 }

@@ -7,5 +7,8 @@
     "input_type": "text",
     "placeholder": "Optional count...",
     "button_label": "Generate",
-    "button_icon": "tag"
+    "button_icon": "tag",
+    "config": {
+        "processor": "uuid_generator"
+    }
 }

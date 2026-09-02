@@ -9,6 +9,6 @@
     "button_label": "Create",
     "button_icon": "gradient",
     "config": {
-        "processor": "gradient_maker"
+        "processor": "color_palette_gen"
     }
 }

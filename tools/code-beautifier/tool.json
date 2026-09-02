@@ -9,6 +9,6 @@
     "button_label": "Beautify",
     "button_icon": "auto_fix_high",
     "config": {
-        "processor": "code_beautifier"
+        "processor": "html_formatter"
     }
 }

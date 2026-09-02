@@ -7,5 +7,8 @@
     "input_type": "text",
     "placeholder": "Optional custom width...",
     "button_label": "Generate",
-    "button_icon": "devices"
+    "button_icon": "devices",
+    "config": {
+        "processor": "url_parser"
+    }
 }

@@ -9,6 +9,6 @@
     "button_label": "Generate",
     "button_icon": "api",
     "config": {
-        "processor": "api_mock_gen"
+        "processor": "mock_data_gen"
     }
 }

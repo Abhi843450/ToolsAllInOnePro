@@ -9,6 +9,6 @@
     "button_label": "Calculate",
     "button_icon": "aspect_ratio",
     "config": {
-        "processor": "image_dimensions"
+        "processor": "aspect_ratio"
     }
 }

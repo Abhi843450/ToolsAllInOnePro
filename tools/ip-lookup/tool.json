@@ -9,6 +9,6 @@
     "button_label": "Lookup",
     "button_icon": "location_on",
     "config": {
-        "processor": "ip_lookup"
+        "processor": "url_parser"
     }
 }

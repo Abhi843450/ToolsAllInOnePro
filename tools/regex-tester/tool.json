@@ -9,7 +9,7 @@
     "button_label": "Test",
     "button_icon": "find_replace",
     "config": {
-        "processor": "regex_tester",
+        "processor": "caesar_cipher",
         "inputs": [
             {
                 "name": "pattern",

@@ -9,6 +9,6 @@
     "button_label": "Convert",
     "button_icon": "language",
     "config": {
-        "processor": "idn_converter"
+        "processor": "url_parser"
     }
 }

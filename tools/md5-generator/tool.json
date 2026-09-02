@@ -9,6 +9,6 @@
     "button_label": "Generate",
     "button_icon": "fingerprint",
     "config": {
-        "processor": "md5_generator"
+        "processor": "hash_generator"
     }
 }

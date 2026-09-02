@@ -9,6 +9,6 @@
     "button_label": "Generate",
     "button_icon": "text_fields",
     "config": {
-        "processor": "fancy_text"
+        "processor": "font_generator"
     }
 }

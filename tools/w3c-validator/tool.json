@@ -9,6 +9,6 @@
     "button_label": "Validate",
     "button_icon": "check_circle",
     "config": {
-        "processor": "w3c_validator"
+        "processor": "xml_validator"
     }
 }

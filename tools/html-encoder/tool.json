@@ -9,6 +9,6 @@
     "button_label": "Convert",
     "button_icon": "code",
     "config": {
-        "processor": "html_encoder"
+        "processor": "text_encoder"
     }
 }

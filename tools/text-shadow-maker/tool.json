@@ -9,6 +9,6 @@
     "button_label": "Create",
     "button_icon": "text_fields",
     "config": {
-        "processor": "text_shadow_maker"
+        "processor": "box_shadow_maker"
     }
 }

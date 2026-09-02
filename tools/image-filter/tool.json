@@ -9,6 +9,6 @@
     "button_label": "Filter",
     "button_icon": "filter",
     "config": {
-        "processor": "image_filter"
+        "processor": "placeholder_image"
     }
 }
