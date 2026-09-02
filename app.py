@@ -132,11 +132,67 @@ def tool_handler_js(slug):
 def sitemap():
     tools = load_tools()
     site_url = request.host_url.rstrip('/')
-    xml = ['<?xml version="1.0" encoding="UTF-8"?>',
-           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
-    xml.append(f'  <url><loc>{site_url}/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>')
+    from datetime import datetime
+    today = datetime.utcnow().strftime('%Y-%m-%d')
+    xml = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
+        '        xmlns:xhtml="http://www.w3.org/1999/xhtml">',
+        '',
+        '  <!-- Homepage -->',
+        '  <url>',
+        f'    <loc>{site_url}/</loc>',
+        f'    <lastmod>{today}</lastmod>',
+        '    <changefreq>daily</changefreq>',
+        '    <priority>1.0</priority>',
+        '    <xhtml:link rel="alternate" hreflang="en" href="' + site_url + '/" />',
+        '    <xhtml:link rel="alternate" hreflang="x-default" href="' + site_url + '/" />',
+        '  </url>',
+        '',
+    ]
+    # Group tools by category for category index pages
+    categories_seen = {}
     for t in tools:
-        xml.append(f'  <url><loc>{site_url}/tool/{t["slug"]}</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>')
+        cat = t.get('category', 'Other')
+        if cat not in categories_seen:
+            meta = CATEGORY_META.get(cat, {})
+            cat_key = meta.get('key', cat.lower().replace(' ', '-'))
+            categories_seen[cat] = {
+                'key': cat_key,
+                'name': cat,
+                'tools': [],
+                'icon': meta.get('icon', 'build'),
+            }
+        categories_seen[cat]['tools'].append(t)
+    # Add category index pages
+    for cat, cat_data in categories_seen.items():
+        slug = cat_data['key']
+        tool_count = len(cat_data['tools'])
+        xml.append(f'  <!-- Category: {cat} ({tool_count} tools) -->')
+        xml.append('  <url>')
+        xml.append(f'    <loc>{site_url}/#{slug}</loc>')
+        xml.append(f'    <lastmod>{today}</lastmod>')
+        xml.append('    <changefreq>daily</changefreq>')
+        xml.append('    <priority>0.9</priority>')
+        xml.append(f'    <xhtml:link rel="alternate" hreflang="en" href="{site_url}/#{slug}" />')
+        xml.append(f'    <xhtml:link rel="alternate" hreflang="x-default" href="{site_url}/#{slug}" />')
+        xml.append('  </url>')
+        xml.append('')
+    # Add all individual tool pages
+    for t in tools:
+        slug = t.get('slug', '')
+        cat = t.get('category', '')
+        name = t.get('name', '')
+        xml.append(f'  <!-- {name} ({cat}) -->')
+        xml.append('  <url>')
+        xml.append(f'    <loc>{site_url}/tool/{slug}</loc>')
+        xml.append(f'    <lastmod>{today}</lastmod>')
+        xml.append('    <changefreq>weekly</changefreq>')
+        xml.append('    <priority>0.8</priority>')
+        xml.append(f'    <xhtml:link rel="alternate" hreflang="en" href="{site_url}/tool/{slug}" />')
+        xml.append(f'    <xhtml:link rel="alternate" hreflang="x-default" href="{site_url}/tool/{slug}" />')
+        xml.append('  </url>')
+        xml.append('')
     xml.append('</urlset>')
     return Response('\n'.join(xml), mimetype='application/xml')
 
@@ -144,8 +200,31 @@ def sitemap():
 @app.route('/robots.txt')
 def robots():
     site_url = request.host_url.rstrip('/')
-    txt = f"User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: {site_url}/sitemap.xml\n"
-    return Response(txt, mimetype='text/plain')
+    lines = [
+        'User-agent: *',
+        'Allow: /',
+        'Disallow: /api/',
+        'Disallow: /static/',
+        '',
+        'User-agent: Googlebot',
+        'Allow: /',
+        'Disallow: /api/',
+        '',
+        'User-agent: Bingbot',
+        'Allow: /',
+        'Disallow: /api/',
+        '',
+        'User-agent: Yandex',
+        'Allow: /',
+        'Disallow: /api/',
+        '',
+        f'Sitemap: {site_url}/sitemap.xml',
+        '',
+        '# Crawl-delay for polite bots (seconds)',
+        'User-agent: Yandex',
+        'Crawl-delay: 1',
+    ]
+    return Response('\n'.join(lines), mimetype='text/plain')
 
 
 @app.route('/health')

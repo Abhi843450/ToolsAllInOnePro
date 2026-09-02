@@ -5,6 +5,27 @@
 {% block extra_head %}
 <meta name="description" content="{{ tool.description }} — Use {{ tool.name }} online for free at ToolsAllInOnePro. Fast, private, no sign-up.">
 <link rel="canonical" href="{{ request.url }}">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "{{ tool.name }}",
+  "description": "{{ tool.description }}",
+  "url": "{{ request.url }}",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "All",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "ToolsAllInOnePro",
+    "url": "{{ request.host_url }}"
+  }
+}
+</script>
 {% endblock %}
 
 {% block content %}

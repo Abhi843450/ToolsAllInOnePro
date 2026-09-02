@@ -4,6 +4,34 @@
 
 {% block extra_head %}
 <meta name="description" content="342+ free online tools: text editors, code formatters, converters, generators, calculators, crypto, and more. Fast, private, no sign-up.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "ToolsAllInOnePro",
+  "url": "{{ request.host_url }}",
+  "description": "342+ free online tools for developers and creators",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "{{ request.host_url }}?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  },
+  "about": {
+    "@type": "ItemList",
+    "numberOfItems": {{ total_tools }},
+    "itemListElement": [
+      {% for cat_key, cat_data in categories.items() %}
+      {
+        "@type": "ListItem",
+        "position": {{ loop.index }},
+        "name": "{{ cat_data.name }}",
+        "description": "{{ cat_data.tools|length }} {{ cat_data.name }} online tools"
+      }{% if not loop.last %},{% endif %}
+      {% endfor %}
+    ]
+  }
+}
+</script>
 {% endblock %}
 
 {% block content %}
