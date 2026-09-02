@@ -76,7 +76,7 @@
                     </div>
                 </div>
                 {% endif %}
-                <a href="/sitemap" class="nav-link">
+                <a href="/sitemap" class="nav-link nav-link--sitemap">
                     <span class="material-icons-outlined">map</span>
                     Sitemap
                 </a>
@@ -93,6 +93,9 @@
             </a>
             <a href="/sitemap" class="navbar__mobile-link" role="menuitem">
                 <span class="material-icons-outlined">map</span> Sitemap
+            </a>
+            <a href="/sitemap.xml" class="navbar__mobile-link" role="menuitem" style="padding-left:32px;font-size:.75rem;color:#999">
+                <span class="material-icons-outlined" style="font-size:14px">code</span> XML Sitemap
             </a>
             {% if categories %}
             {% for cat_key, cat_data in categories.items() %}
@@ -136,6 +139,16 @@
                     <p class="footer__desc">
                         {{ total_tools or 342 }}+ free online tools for developers and creators. Text processing, code formatting, cryptography, generators, calculators, and more.
                     </p>
+                    <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap">
+                        <a href="/sitemap" style="display:inline-flex;align-items:center;gap:4px;font-size:.75rem;font-weight:600;color:#888;transition:color 100ms ease">
+                            <span class="material-icons-outlined" style="font-size:14px">map</span>
+                            Sitemap
+                        </a>
+                        <a href="/sitemap.xml" style="display:inline-flex;align-items:center;gap:4px;font-size:.75rem;font-weight:600;color:#888;transition:color 100ms ease">
+                            <span class="material-icons-outlined" style="font-size:14px">code</span>
+                            XML Sitemap
+                        </a>
+                    </div>
                 </div>
                 {% if categories %}
                 {% set cat_list = categories.values() | list %}
@@ -160,8 +173,14 @@
                     &copy; {{ current_year() }} ToolsAllInOnePro. All rights reserved.
                 </div>
                 <div class="footer__bottom-links">
-                    <a href="/sitemap" class="footer__bottom-link">Sitemap</a>
-                    <a href="/sitemap.xml" class="footer__bottom-link">XML Sitemap</a>
+                    <a href="/sitemap" class="footer__bottom-link">
+                        <span class="material-icons-outlined" style="font-size:14px;vertical-align:middle">map</span>
+                        Sitemap
+                    </a>
+                    <a href="/sitemap.xml" class="footer__bottom-link">
+                        <span class="material-icons-outlined" style="font-size:14px;vertical-align:middle">code</span>
+                        XML Sitemap
+                    </a>
                 </div>
             </div>
         </div>
