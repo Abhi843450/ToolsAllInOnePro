@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %}ToolsAllInOnePro — Free YouTube Downloader & Transcript{% endblock %}
+{% block title %}ToolsAllInOnePro — 342+ Free Online Developer & Text Tools{% endblock %}
+
+{% block extra_head %}
+<meta name="description" content="342+ free online tools: text editors, code formatters, converters, generators, calculators, crypto, and more. Fast, private, no sign-up.">
+{% endblock %}
 
 {% block content %}
 <main class="dashboard">
@@ -12,19 +16,47 @@
                     <span class="material-icons-outlined hero__icon">bolt</span>
                     ToolsAllInOnePro
                 </h1>
-                <p class="hero__subtitle">Free YouTube tools — download videos and get transcripts instantly. More tools coming soon.</p>
+                <p class="hero__subtitle">{{ total_tools }}+ free online tools — text, code, crypto, generators, calculators, converters & more. Fast, private, no sign-up.</p>
             </div>
         </div>
     </section>
 
-    <!-- Tool Grid -->
+    <!-- Search + Categories -->
     <section class="tools-section">
         <div class="container">
+            <!-- Search Bar -->
+            <div style="display:flex;justify-content:center;margin-bottom:24px">
+                <div class="search-wrapper">
+                    <span class="material-icons-outlined search-icon">search</span>
+                    <input type="text" id="toolSearch" class="search-input" placeholder="Search {{ total_tools }} tools...">
+                </div>
+            </div>
+
+            <!-- Category Tabs -->
+            <div class="category-tabs-wrapper" id="categoryTabs">
+                <div class="category-tabs" id="categoryTabsList">
+                    <button class="category-tab category-tab--active" data-category="all">
+                        <span class="material-icons-outlined">apps</span>
+                        All
+                        <span class="category-tab__count">{{ total_tools }}</span>
+                    </button>
+                    {% for cat_key, cat_tools in categories.items() %}
+                    <button class="category-tab" data-category="{{ cat_key }}">
+                        <span class="material-icons-outlined">{{ cat_tools.icon }}</span>
+                        {{ cat_tools.name }}
+                        <span class="category-tab__count">{{ cat_tools.tools|length }}</span>
+                    </button>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Tool Grid -->
             <div class="tools-grid" id="toolsGrid">
                 {% for tool in tools %}
                     <a href="/tool/{{ tool.slug }}"
                        class="tool-card"
-                       data-name="{{ ((tool.name or '') ~ ' ' ~ (tool.description or '')) | lower }}"
+                       data-category="{{ tool.category_slug or '' }}"
+                       data-name="{{ ((tool.name or '') ~ ' ' ~ (tool.description or '') ~ ' ' ~ (tool.category or '')) | lower }}"
                     >
                         <div class="tool-card__icon-wrap">
                             <span class="material-icons-outlined tool-card__icon">{{ tool.icon or 'build' }}</span>
@@ -32,11 +64,12 @@
                         <h3 class="tool-card__name">{{ tool.name or 'Tool' }}</h3>
                         <p class="tool-card__desc">{{ tool.description or '' }}</p>
                         <span class="tool-card__category">
-                            {{ (tool.category or 'tool') | capitalize }}
+                            {{ tool.category or 'Tool' }}
                         </span>
                     </a>
                 {% endfor %}
             </div>
+
             {% if total_tools == 0 %}
             <div class="no-results">
                 <span class="material-icons-outlined no-results__icon">construction</span>
@@ -46,4 +79,44 @@
         </div>
     </section>
 </main>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var searchInput = document.getElementById('toolSearch');
+    var grid = document.getElementById('toolsGrid');
+    var cards = grid.querySelectorAll('.tool-card');
+    var tabs = document.querySelectorAll('.category-tab');
+    var activeCategory = 'all';
+
+    // Category filtering
+    tabs.forEach(function(tab) {
+        tab.addEventListener('click', function() {
+            tabs.forEach(function(t) { t.classList.remove('category-tab--active'); });
+            tab.classList.add('category-tab--active');
+            activeCategory = tab.dataset.category;
+            filterTools();
+        });
+    });
+
+    // Search filtering
+    searchInput.addEventListener('input', function() { filterTools(); });
+
+    function filterTools() {
+        var query = searchInput.value.toLowerCase().trim();
+        var count = 0;
+        cards.forEach(function(card) {
+            var name = (card.dataset.name || '').toLowerCase();
+            var cat = card.dataset.category || '';
+            var matchSearch = !query || name.indexOf(query) !== -1;
+            var matchCat = activeCategory === 'all' || cat === activeCategory;
+            if (matchSearch && matchCat) {
+                card.style.display = '';
+                count++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+});
+</script>
 {% endblock %}

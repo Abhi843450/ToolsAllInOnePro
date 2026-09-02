@@ -2,16 +2,28 @@ import os
 import json
 import glob
 import re
-import subprocess
-import sys
 
 from flask import Flask, render_template, request, jsonify, send_from_directory, Response, redirect, url_for
 
-# Use the `assets` folder for static files (css/js/favicon), `templates` for Jinja2
 app = Flask(__name__, static_folder='assets', template_folder='templates')
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TOOLS_DIR = os.path.join(BASE_DIR, 'tools')
+
+# Category metadata
+CATEGORY_META = {
+    "Text Tools": {"key": "text", "icon": "text_fields", "order": 1},
+    "Code Tools": {"key": "code", "icon": "code", "order": 2},
+    "Cryptography": {"key": "crypto", "icon": "enhanced_encryption", "order": 3},
+    "Calculators": {"key": "calculators", "icon": "calculate", "order": 4},
+    "Generators": {"key": "generators", "icon": "auto_awesome", "order": 5},
+    "Converters": {"key": "converters", "icon": "swap_horiz", "order": 6},
+    "Web & SEO": {"key": "web", "icon": "public", "order": 7},
+    "Design & Visual": {"key": "design", "icon": "palette", "order": 8},
+    "Developer Tools": {"key": "developer", "icon": "developer_mode", "order": 9},
+    "Encoding & Crypto": {"key": "encoding", "icon": "lock", "order": 10},
+    "Statistics & Analysis": {"key": "statistics", "icon": "analytics", "order": 11},
+}
 
 
 def get_current_year():
@@ -23,7 +35,7 @@ app.jinja_env.globals['current_year'] = get_current_year
 
 
 def load_tools():
-    """Scan tool directories (inside tools/) for tool.json files."""
+    """Scan tool directories and return sorted list with category_slug added."""
     tools = []
     for tool_dir in glob.glob(os.path.join(TOOLS_DIR, '*')):
         if not os.path.isdir(tool_dir):
@@ -36,6 +48,10 @@ def load_tools():
                 except Exception:
                     continue
             if tool and 'slug' in tool:
+                # Add category_slug for filtering
+                cat = tool.get('category', '')
+                meta = CATEGORY_META.get(cat, {})
+                tool['category_slug'] = meta.get('key', '')
                 tools.append(tool)
     tools.sort(key=lambda t: (t.get('name', '') or '').lower())
     return tools
@@ -53,6 +69,28 @@ def load_tool(slug):
     return tool
 
 
+def group_tools_by_category(tools):
+    """Group tools into ordered dict by category."""
+    from collections import OrderedDict
+    groups = OrderedDict()
+    for tool in tools:
+        cat = tool.get('category', 'Other')
+        if cat not in groups:
+            meta = CATEGORY_META.get(cat, {})
+            groups[cat] = {
+                'name': cat,
+                'key': meta.get('key', cat.lower().replace(' ', '-')),
+                'icon': meta.get('icon', 'build'),
+                'tools': [],
+            }
+        groups[cat]['tools'].append(tool)
+    # Sort by CATEGORY_META order
+    sorted_groups = OrderedDict()
+    for cat, data in sorted(groups.items(), key=lambda x: CATEGORY_META.get(x[0], {}).get('order', 99)):
+        sorted_groups[data['key']] = data
+    return sorted_groups
+
+
 # ═══════════════════════════════════════════════════════════
 # Page Routes
 # ═══════════════════════════════════════════════════════════
@@ -60,9 +98,11 @@ def load_tool(slug):
 @app.route('/')
 def index():
     tools = load_tools()
+    categories = group_tools_by_category(tools)
     return render_template(
         'index.html',
         tools=tools,
+        categories=categories,
         total_tools=len(tools),
         all_tools=tools,
     )
@@ -73,8 +113,9 @@ def tool_page(slug):
     tool = load_tool(slug)
     if not tool:
         return redirect(url_for('index'))
-    all_tools = load_tools()
-    return render_template('tool.html', tool=tool, slug=slug, all_tools=all_tools)
+    tools = load_tools()
+    categories = group_tools_by_category(tools)
+    return render_template('tool.html', tool=tool, slug=slug, all_tools=tools, categories=categories, total_tools=len(tools))
 
 
 @app.route('/tool/<slug>/handler.js')
@@ -111,10 +152,6 @@ def robots():
 def health():
     return jsonify({"status": "ok"})
 
-
-# ═══════════════════════════════════════════════════════════
-# Error Handlers
-# ═══════════════════════════════════════════════════════════
 
 @app.errorhandler(404)
 def not_found(e):
