@@ -1,0 +1,11 @@
+{
+    "slug": "query-string",
+    "name": "Query String Builder",
+    "icon": "link",
+    "category": "Web & SEO",
+    "description": "Build and parse URL query parameters",
+    "input_type": "text",
+    "placeholder": "Enter parameters...",
+    "button_label": "Build",
+    "button_icon": "link"
+}

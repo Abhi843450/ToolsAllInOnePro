@@ -1,0 +1,14 @@
+{
+    "slug": "color-to-tailwind",
+    "name": "Color to Tailwind Config",
+    "icon": "code",
+    "category": "Developer Tools",
+    "description": "Convert color values to Tailwind CSS configuration",
+    "input_type": "text",
+    "placeholder": "Enter color values...",
+    "button_label": "Convert",
+    "button_icon": "code",
+    "config": {
+        "processor": "color_to_tailwind"
+    }
+}

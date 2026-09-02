@@ -1,0 +1,14 @@
+{
+    "slug": "cron-parser",
+    "name": "Cron Expression Parser",
+    "icon": "schedule",
+    "category": "Converters",
+    "description": "Parse cron expressions and show next execution times",
+    "input_type": "text",
+    "placeholder": "Enter cron expression...",
+    "button_label": "Parse",
+    "button_icon": "schedule",
+    "config": {
+        "processor": "cron_parser"
+    }
+}

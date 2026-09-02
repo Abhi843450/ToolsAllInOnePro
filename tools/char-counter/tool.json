@@ -1,0 +1,14 @@
+{
+    "slug": "char-counter",
+    "name": "Character Counter",
+    "icon": "calculate",
+    "category": "Text Tools",
+    "description": "Count characters with and without spaces, lines, and bytes",
+    "input_type": "text",
+    "placeholder": "Paste your text here...",
+    "button_label": "Count",
+    "button_icon": "calculate",
+    "config": {
+        "processor": "char_counter"
+    }
+}

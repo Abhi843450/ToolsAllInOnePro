@@ -1,0 +1,14 @@
+{
+    "slug": "color-converter",
+    "name": "Color Format Converter",
+    "icon": "palette",
+    "category": "Code Tools",
+    "description": "Convert between HEX, RGB, HSL, and CMYK color formats",
+    "input_type": "text",
+    "placeholder": "Enter color value (HEX, RGB, HSL)...",
+    "button_label": "Convert",
+    "button_icon": "palette",
+    "config": {
+        "processor": "color_converter"
+    }
+}

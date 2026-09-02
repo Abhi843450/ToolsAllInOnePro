@@ -1,0 +1,27 @@
+{
+    "slug": "random-fortune",
+    "name": "Random Fortune Generator",
+    "icon": "format_quote",
+    "category": "Generators",
+    "description": "Generate random motivational quotes and fortunes",
+    "input_type": "text",
+    "placeholder": "Optional theme...",
+    "button_label": "Generate",
+    "button_icon": "format_quote",
+    "config": {
+        "processor": "random_fortune",
+        "inputs": [
+            {
+                "name": "type",
+                "type": "select",
+                "label": "Theme:",
+                "options": [
+                    "motivational",
+                    "funny",
+                    "tech",
+                    "life"
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "slug": "box-shadow",
+    "name": "CSS Box Shadow Generator",
+    "icon": "shadow",
+    "category": "Generators",
+    "description": "Generate CSS box-shadow values with preview",
+    "input_type": "text",
+    "placeholder": "Optional preset...",
+    "button_label": "Generate",
+    "button_icon": "shadow"
+}

@@ -1,0 +1,14 @@
+{
+    "slug": "timezone-list",
+    "name": "Timezone List",
+    "icon": "public",
+    "category": "Developer Tools",
+    "description": "Complete list of IANA timezones with UTC offsets",
+    "input_type": "text",
+    "placeholder": "Search timezone...",
+    "button_label": "View",
+    "button_icon": "public",
+    "config": {
+        "processor": "timezone_list"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "slug": "text-stats",
+    "name": "Text Statistics",
+    "icon": "insights",
+    "category": "Text Tools",
+    "description": "Comprehensive text analysis: syllables, complex words, formality score",
+    "input_type": "text",
+    "placeholder": "Paste your text here...",
+    "button_label": "Analyze",
+    "button_icon": "insights",
+    "config": {
+        "processor": "text_stats"
+    }
+}

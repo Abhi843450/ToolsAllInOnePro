@@ -1,0 +1,14 @@
+{
+    "slug": "json-to-toml",
+    "name": "JSON to TOML Converter",
+    "icon": "code",
+    "category": "Converters",
+    "description": "Convert JSON to TOML format",
+    "input_type": "text",
+    "placeholder": "Paste JSON here...",
+    "button_label": "Convert",
+    "button_icon": "code",
+    "config": {
+        "processor": "json_to_toml"
+    }
+}

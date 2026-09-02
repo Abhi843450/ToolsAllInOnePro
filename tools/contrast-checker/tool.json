@@ -1,0 +1,14 @@
+{
+    "slug": "contrast-checker",
+    "name": "WCAG Contrast Checker",
+    "icon": "visibility",
+    "category": "Design & Visual",
+    "description": "Check color contrast ratio for accessibility compliance",
+    "input_type": "text",
+    "placeholder": "Enter two colors...",
+    "button_label": "Check",
+    "button_icon": "visibility",
+    "config": {
+        "processor": "contrast_checker"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "slug": "html-entity-list",
+    "name": "HTML Entity Reference",
+    "icon": "code",
+    "category": "Developer Tools",
+    "description": "View all HTML entities with codes, names, and characters",
+    "input_type": "text",
+    "placeholder": "Search entity...",
+    "button_label": "View",
+    "button_icon": "code",
+    "config": {
+        "processor": "html_entity_list"
+    }
+}

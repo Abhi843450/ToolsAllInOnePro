@@ -1,0 +1,14 @@
+{
+    "slug": "html-to-jsx",
+    "name": "HTML to JSX Converter",
+    "icon": "code",
+    "category": "Developer Tools",
+    "description": "Convert HTML to React JSX syntax",
+    "input_type": "text",
+    "placeholder": "Paste HTML here...",
+    "button_label": "Convert",
+    "button_icon": "code",
+    "config": {
+        "processor": "html_to_jsx"
+    }
+}

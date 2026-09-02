@@ -1,0 +1,14 @@
+{
+    "slug": "env-to-json",
+    "name": "Environment Variables to JSON",
+    "icon": "data_object",
+    "category": "Converters",
+    "description": "Convert .env file format to JSON",
+    "input_type": "text",
+    "placeholder": "Paste env vars...",
+    "button_label": "Convert",
+    "button_icon": "data_object",
+    "config": {
+        "processor": "env_to_json"
+    }
+}

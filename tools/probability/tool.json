@@ -1,0 +1,14 @@
+{
+    "slug": "probability",
+    "name": "Probability Calculator",
+    "icon": "calculate",
+    "category": "Statistics & Analysis",
+    "description": "Calculate probability of events with combinations and permutations",
+    "input_type": "text",
+    "placeholder": "Enter event counts...",
+    "button_label": "Calculate",
+    "button_icon": "calculate",
+    "config": {
+        "processor": "probability"
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "slug": "morse-code-crypto",
+    "name": "Morse Code Encoder/Decoder",
+    "icon": "radio",
+    "category": "Cryptography",
+    "description": "Encode and decode messages using International Morse Code",
+    "input_type": "text",
+    "placeholder": "Enter text or morse code...",
+    "button_label": "Convert",
+    "button_icon": "radio"
+}

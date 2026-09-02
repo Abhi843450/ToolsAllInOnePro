@@ -1,0 +1,14 @@
+{
+    "slug": "cron-builder",
+    "name": "Cron Expression Builder",
+    "icon": "schedule",
+    "category": "Developer Tools",
+    "description": "Build cron expressions with visual field selectors",
+    "input_type": "text",
+    "placeholder": "Describe schedule...",
+    "button_label": "Build",
+    "button_icon": "schedule",
+    "config": {
+        "processor": "cron_builder"
+    }
+}

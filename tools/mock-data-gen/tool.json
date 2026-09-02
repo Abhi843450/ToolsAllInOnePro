@@ -1,0 +1,14 @@
+{
+    "slug": "mock-data-gen",
+    "name": "Mock Data Generator",
+    "icon": "dynamic_feed",
+    "category": "Developer Tools",
+    "description": "Generate realistic mock data for testing (names, emails, addresses)",
+    "input_type": "text",
+    "placeholder": "Enter field type and count...",
+    "button_label": "Generate",
+    "button_icon": "dynamic_feed",
+    "config": {
+        "processor": "mock_data_gen"
+    }
+}

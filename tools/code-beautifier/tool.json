@@ -1,0 +1,14 @@
+{
+    "slug": "code-beautifier",
+    "name": "Code Beautifier",
+    "icon": "auto_fix_high",
+    "category": "Code Tools",
+    "description": "Auto-detect language and beautify code",
+    "input_type": "text",
+    "placeholder": "Paste code here...",
+    "button_label": "Beautify",
+    "button_icon": "auto_fix_high",
+    "config": {
+        "processor": "code_beautifier"
+    }
+}

@@ -1,0 +1,38 @@
+{
+    "slug": "find-replace",
+    "name": "Find and Replace",
+    "icon": "find_replace",
+    "category": "Text Tools",
+    "description": "Find and replace text with regex support and case-insensitive matching",
+    "input_type": "text",
+    "placeholder": "Paste your text here...",
+    "button_label": "Replace",
+    "button_icon": "find_replace",
+    "config": {
+        "processor": "find_replace",
+        "inputs": [
+            {
+                "name": "find_text",
+                "type": "text",
+                "label": "Find:",
+                "placeholder": "Text to find..."
+            },
+            {
+                "name": "replace_text",
+                "type": "text",
+                "label": "Replace with:",
+                "placeholder": "Replacement text..."
+            },
+            {
+                "name": "use_regex",
+                "type": "checkbox",
+                "label": "Use Regex"
+            },
+            {
+                "name": "case_insensitive",
+                "type": "checkbox",
+                "label": "Case Insensitive"
+            }
+        ]
+    }
+}

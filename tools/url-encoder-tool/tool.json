@@ -1,0 +1,14 @@
+{
+    "slug": "url-encoder-tool",
+    "name": "URL Encoder/Decoder",
+    "icon": "link",
+    "category": "Web & SEO",
+    "description": "Encode and decode URLs, query strings, and path components",
+    "input_type": "text",
+    "placeholder": "Enter URL to encode/decode...",
+    "button_label": "Convert",
+    "button_icon": "link",
+    "config": {
+        "processor": "url_encoder_tool"
+    }
+}

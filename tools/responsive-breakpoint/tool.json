@@ -1,0 +1,11 @@
+{
+    "slug": "responsive-breakpoint",
+    "name": "Responsive Breakpoint Generator",
+    "icon": "devices",
+    "category": "Generators",
+    "description": "Generate CSS media query breakpoints for common devices",
+    "input_type": "text",
+    "placeholder": "Optional custom width...",
+    "button_label": "Generate",
+    "button_icon": "devices"
+}

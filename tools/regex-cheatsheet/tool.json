@@ -1,0 +1,14 @@
+{
+    "slug": "regex-cheatsheet",
+    "name": "Regex Cheat Sheet",
+    "icon": "find_replace",
+    "category": "Developer Tools",
+    "description": "Quick reference for regular expression syntax",
+    "input_type": "text",
+    "placeholder": "Search pattern...",
+    "button_label": "View",
+    "button_icon": "find_replace",
+    "config": {
+        "processor": "regex_cheatsheet"
+    }
+}

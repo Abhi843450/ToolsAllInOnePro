@@ -1,0 +1,11 @@
+{
+    "slug": "bcrypt-generator",
+    "name": "Bcrypt Hash Generator",
+    "icon": "lock",
+    "category": "Cryptography",
+    "description": "Generate bcrypt password hashes with custom cost factor",
+    "input_type": "text",
+    "placeholder": "Enter password to hash...",
+    "button_label": "Generate",
+    "button_icon": "lock"
+}

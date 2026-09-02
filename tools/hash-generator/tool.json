@@ -1,0 +1,43 @@
+{
+    "slug": "hash-generator",
+    "name": "Hash Generator",
+    "icon": "fingerprint",
+    "category": "Cryptography",
+    "description": "Generate MD5, SHA-1, SHA-256, SHA-512, CRC32 hashes from text",
+    "input_type": "text",
+    "placeholder": "Select algorithm...",
+    "button_label": "Generate",
+    "button_icon": "fingerprint",
+    "config": {
+        "processor": "hash_generator",
+        "inputs": [
+            {
+                "name": "algorithm",
+                "type": "select",
+                "label": "Algorithm:",
+                "options": [
+                    {
+                        "value": "all",
+                        "label": "All Algorithms"
+                    },
+                    {
+                        "value": "SHA-256",
+                        "label": "SHA-256"
+                    },
+                    {
+                        "value": "SHA-512",
+                        "label": "SHA-512"
+                    },
+                    {
+                        "value": "SHA-1",
+                        "label": "SHA-1"
+                    },
+                    {
+                        "value": "CRC32",
+                        "label": "CRC32"
+                    }
+                ]
+            }
+        ]
+    }
+}

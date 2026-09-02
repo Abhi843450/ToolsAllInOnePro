@@ -1,0 +1,14 @@
+{
+    "slug": "text-shadow-maker",
+    "name": "CSS Text Shadow Maker",
+    "icon": "text_fields",
+    "category": "Design & Visual",
+    "description": "Create text shadows with multiple layers",
+    "input_type": "text",
+    "placeholder": "Optional preset...",
+    "button_label": "Create",
+    "button_icon": "text_fields",
+    "config": {
+        "processor": "text_shadow_maker"
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "slug": "regex-generator",
+    "name": "Regex Generator",
+    "icon": "find_replace",
+    "category": "Code Tools",
+    "description": "Generate regular expressions from descriptions",
+    "input_type": "text",
+    "placeholder": "Describe what to match...",
+    "button_label": "Generate",
+    "button_icon": "find_replace"
+}

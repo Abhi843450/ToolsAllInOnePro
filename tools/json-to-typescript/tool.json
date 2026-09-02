@@ -1,0 +1,14 @@
+{
+    "slug": "json-to-typescript",
+    "name": "JSON to TypeScript Interface",
+    "icon": "code",
+    "category": "Converters",
+    "description": "Generate TypeScript interfaces from JSON data",
+    "input_type": "text",
+    "placeholder": "Paste JSON here...",
+    "button_label": "Convert",
+    "button_icon": "code",
+    "config": {
+        "processor": "json_to_typescript"
+    }
+}

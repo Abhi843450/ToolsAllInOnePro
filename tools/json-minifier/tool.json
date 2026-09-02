@@ -1,0 +1,14 @@
+{
+    "slug": "json-minifier",
+    "name": "JSON Minifier",
+    "icon": "compress",
+    "category": "Code Tools",
+    "description": "Minify JSON by removing whitespace and line breaks",
+    "input_type": "text",
+    "placeholder": "Paste JSON here...",
+    "button_label": "Minify",
+    "button_icon": "compress",
+    "config": {
+        "processor": "json_minifier"
+    }
+}

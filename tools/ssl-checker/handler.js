@@ -1,0 +1,8 @@
+/**
+ * SSL Certificate Info — handler.js
+ * Delegates to Processors.ssl_checker() in processors.js
+ */
+(function() {
+  // Register as a text-processing tool
+  // tool.js will auto-invoke Processors.ssl_checker()
+})();

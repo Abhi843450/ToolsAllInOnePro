@@ -1,0 +1,14 @@
+{
+    "slug": "word-counter",
+    "name": "Word Counter",
+    "icon": "calculate",
+    "category": "Text Tools",
+    "description": "Count words, characters, sentences, paragraphs, and reading time",
+    "input_type": "text",
+    "placeholder": "Paste your text here...",
+    "button_label": "Count",
+    "button_icon": "calculate",
+    "config": {
+        "processor": "word_counter"
+    }
+}

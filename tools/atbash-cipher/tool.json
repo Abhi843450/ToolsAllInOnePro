@@ -1,0 +1,14 @@
+{
+    "slug": "atbash-cipher",
+    "name": "Atbash Cipher",
+    "icon": "swap_horiz",
+    "category": "Cryptography",
+    "description": "Encode and decode text using the Atbash substitution cipher",
+    "input_type": "text",
+    "placeholder": "Enter text to encode/decode...",
+    "button_label": "Process",
+    "button_icon": "swap_horiz",
+    "config": {
+        "processor": "rot13"
+    }
+}

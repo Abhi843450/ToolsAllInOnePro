@@ -1,0 +1,14 @@
+{
+    "slug": "svg-optimizer",
+    "name": "SVG Optimizer",
+    "icon": "compress",
+    "category": "Design & Visual",
+    "description": "Optimize SVG files by removing unnecessary attributes",
+    "input_type": "text",
+    "placeholder": "Paste SVG code...",
+    "button_label": "Optimize",
+    "button_icon": "compress",
+    "config": {
+        "processor": "svg_optimizer"
+    }
+}

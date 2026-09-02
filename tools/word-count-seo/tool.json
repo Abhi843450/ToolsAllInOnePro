@@ -1,0 +1,14 @@
+{
+    "slug": "word-count-seo",
+    "name": "SEO Word Counter",
+    "icon": "analytics",
+    "category": "Web & SEO",
+    "description": "Count words and analyze SEO metrics for web content",
+    "input_type": "text",
+    "placeholder": "Paste article content...",
+    "button_label": "Analyze",
+    "button_icon": "analytics",
+    "config": {
+        "processor": "word_count_seo"
+    }
+}

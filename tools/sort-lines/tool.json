@@ -1,0 +1,14 @@
+{
+    "slug": "sort-lines",
+    "name": "Sort Lines",
+    "icon": "sort",
+    "category": "Code Tools",
+    "description": "Sort lines alphabetically, by length, numerically, or randomly",
+    "input_type": "text",
+    "placeholder": "Paste lines here...",
+    "button_label": "Sort",
+    "button_icon": "sort",
+    "config": {
+        "processor": "sort_lines"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "slug": "readability-score",
+    "name": "Readability Score Calculator",
+    "icon": "analytics",
+    "category": "Web & SEO",
+    "description": "Calculate Flesch-Kincaid, Coleman-Liau, and Gunning Fog scores",
+    "input_type": "text",
+    "placeholder": "Paste text here...",
+    "button_label": "Analyze",
+    "button_icon": "analytics",
+    "config": {
+        "processor": "readability_score"
+    }
+}

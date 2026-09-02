@@ -1,0 +1,11 @@
+{
+    "slug": "text-shadow",
+    "name": "CSS Text Shadow Generator",
+    "icon": "text_fields",
+    "category": "Generators",
+    "description": "Generate CSS text-shadow values with preview",
+    "input_type": "text",
+    "placeholder": "Optional preset...",
+    "button_label": "Generate",
+    "button_icon": "text_fields"
+}

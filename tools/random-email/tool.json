@@ -1,0 +1,14 @@
+{
+    "slug": "random-email",
+    "name": "Random Email Generator",
+    "icon": "email",
+    "category": "Generators",
+    "description": "Generate random email addresses for testing",
+    "input_type": "text",
+    "placeholder": "Optional domain...",
+    "button_label": "Generate",
+    "button_icon": "email",
+    "config": {
+        "processor": "random_email"
+    }
+}

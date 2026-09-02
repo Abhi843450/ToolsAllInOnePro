@@ -1,0 +1,14 @@
+{
+    "slug": "css-formatter",
+    "name": "CSS Formatter",
+    "icon": "code",
+    "category": "Code Tools",
+    "description": "Format and beautify CSS stylesheets",
+    "input_type": "text",
+    "placeholder": "Paste CSS here...",
+    "button_label": "Format",
+    "button_icon": "code",
+    "config": {
+        "processor": "css_formatter"
+    }
+}

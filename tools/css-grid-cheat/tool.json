@@ -1,0 +1,14 @@
+{
+    "slug": "css-grid-cheat",
+    "name": "CSS Grid Cheat Sheet",
+    "icon": "code",
+    "category": "Developer Tools",
+    "description": "Visual reference for CSS Grid properties and values",
+    "input_type": "text",
+    "placeholder": "Search property...",
+    "button_label": "View",
+    "button_icon": "code",
+    "config": {
+        "processor": "css_grid_cheat"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "slug": "md5-generator",
+    "name": "MD5 Hash Generator",
+    "icon": "fingerprint",
+    "category": "Cryptography",
+    "description": "Generate MD5 hash from any text input",
+    "input_type": "text",
+    "placeholder": "Enter text to hash...",
+    "button_label": "Generate",
+    "button_icon": "fingerprint",
+    "config": {
+        "processor": "md5_generator"
+    }
+}

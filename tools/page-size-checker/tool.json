@@ -1,0 +1,14 @@
+{
+    "slug": "page-size-checker",
+    "name": "Page Size Calculator",
+    "icon": "data_usage",
+    "category": "Web & SEO",
+    "description": "Estimate page size from HTML content",
+    "input_type": "text",
+    "placeholder": "Paste HTML here...",
+    "button_label": "Calculate",
+    "button_icon": "data_usage",
+    "config": {
+        "processor": "page_size_checker"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "slug": "json-to-sql",
+    "name": "JSON to SQL Insert",
+    "icon": "data_object",
+    "category": "Converters",
+    "description": "Generate SQL INSERT statements from JSON data",
+    "input_type": "text",
+    "placeholder": "Paste JSON here...",
+    "button_label": "Convert",
+    "button_icon": "data_object",
+    "config": {
+        "processor": "json_to_sql"
+    }
+}

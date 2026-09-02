@@ -1,3 +1,0 @@
-#!/bin/sh
-# Fake 'node' binary: delegates to py-mini-racer via Python shim
-exec python3 "$(dirname "$0")/node_shim.py" "$@"

@@ -1,0 +1,14 @@
+{
+    "slug": "javascript-cheatsheet",
+    "name": "JavaScript Cheat Sheet",
+    "icon": "code",
+    "category": "Developer Tools",
+    "description": "Quick reference for JavaScript syntax, ES6+ features",
+    "input_type": "text",
+    "placeholder": "Search feature...",
+    "button_label": "View",
+    "button_icon": "code",
+    "config": {
+        "processor": "javascript_cheatsheet"
+    }
+}

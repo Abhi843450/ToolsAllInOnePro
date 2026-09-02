@@ -1,0 +1,11 @@
+{
+    "slug": "loan-calculator",
+    "name": "Loan Calculator",
+    "icon": "calculate",
+    "category": "Calculators",
+    "description": "Calculate monthly payments, total interest, and amortization schedules",
+    "input_type": "text",
+    "placeholder": "Enter loan amount...",
+    "button_label": "Calculate",
+    "button_icon": "calculate"
+}

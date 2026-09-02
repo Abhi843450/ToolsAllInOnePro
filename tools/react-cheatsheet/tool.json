@@ -1,0 +1,14 @@
+{
+    "slug": "react-cheatsheet",
+    "name": "React Cheat Sheet",
+    "icon": "code",
+    "category": "Developer Tools",
+    "description": "Quick reference for React hooks, components, and patterns",
+    "input_type": "text",
+    "placeholder": "Search hook/pattern...",
+    "button_label": "View",
+    "button_icon": "code",
+    "config": {
+        "processor": "react_cheatsheet"
+    }
+}

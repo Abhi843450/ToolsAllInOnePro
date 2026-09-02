@@ -1,0 +1,11 @@
+{
+    "slug": "text-to-html",
+    "name": "Text to HTML",
+    "icon": "code",
+    "category": "Converters",
+    "description": "Convert plain text to formatted HTML with line breaks and paragraphs",
+    "input_type": "text",
+    "placeholder": "Enter plain text...",
+    "button_label": "Convert",
+    "button_icon": "code"
+}

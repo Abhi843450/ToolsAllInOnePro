@@ -1,0 +1,14 @@
+{
+    "slug": "line-numberer",
+    "name": "Line Numberer",
+    "icon": "format_list_numbered",
+    "category": "Text Tools",
+    "description": "Add line numbers to text with custom starting number and format",
+    "input_type": "text",
+    "placeholder": "Paste your text here...",
+    "button_label": "Number",
+    "button_icon": "format_list_numbered",
+    "config": {
+        "processor": "line_numberer"
+    }
+}

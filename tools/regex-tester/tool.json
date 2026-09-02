@@ -1,0 +1,22 @@
+{
+    "slug": "regex-tester",
+    "name": "Regex Tester",
+    "icon": "find_replace",
+    "category": "Code Tools",
+    "description": "Test regular expressions with real-time matching and explanation",
+    "input_type": "text",
+    "placeholder": "Enter regex pattern...",
+    "button_label": "Test",
+    "button_icon": "find_replace",
+    "config": {
+        "processor": "regex_tester",
+        "inputs": [
+            {
+                "name": "pattern",
+                "type": "text",
+                "label": "Regex Pattern:",
+                "placeholder": "e.g. \\d+"
+            }
+        ]
+    }
+}

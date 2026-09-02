@@ -1,0 +1,14 @@
+{
+    "slug": "markdown-preview",
+    "name": "Markdown Preview",
+    "icon": "preview",
+    "category": "Text Tools",
+    "description": "Live preview of Markdown with syntax highlighting",
+    "input_type": "text",
+    "placeholder": "Enter Markdown text...",
+    "button_label": "Preview",
+    "button_icon": "preview",
+    "config": {
+        "processor": "markdown_preview"
+    }
+}

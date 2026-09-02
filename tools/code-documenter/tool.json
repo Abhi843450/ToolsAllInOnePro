@@ -1,0 +1,14 @@
+{
+    "slug": "code-documenter",
+    "name": "Code Documenter",
+    "icon": "description",
+    "category": "Code Tools",
+    "description": "Generate JSDoc/Docstring comments for functions",
+    "input_type": "text",
+    "placeholder": "Paste code here...",
+    "button_label": "Document",
+    "button_icon": "description",
+    "config": {
+        "processor": "code_documenter"
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "slug": "hex-calculator",
+    "name": "Hexadecimal Calculator",
+    "icon": "calculate",
+    "category": "Calculators",
+    "description": "Perform arithmetic operations in hexadecimal",
+    "input_type": "text",
+    "placeholder": "Enter hex expression...",
+    "button_label": "Calculate",
+    "button_icon": "calculate"
+}

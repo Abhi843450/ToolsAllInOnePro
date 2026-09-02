@@ -1,0 +1,11 @@
+{
+    "slug": "html-to-markdown",
+    "name": "HTML to Markdown",
+    "icon": "code",
+    "category": "Code Tools",
+    "description": "Convert HTML to Markdown format",
+    "input_type": "text",
+    "placeholder": "Paste HTML here...",
+    "button_label": "Convert",
+    "button_icon": "code"
+}

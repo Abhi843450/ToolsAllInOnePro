@@ -1,0 +1,14 @@
+{
+    "slug": "anova",
+    "name": "ANOVA Calculator",
+    "icon": "calculate",
+    "category": "Statistics & Analysis",
+    "description": "Perform one-way ANOVA test",
+    "input_type": "text",
+    "placeholder": "Enter groups of data...",
+    "button_label": "Calculate",
+    "button_icon": "calculate",
+    "config": {
+        "processor": "anova"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "slug": "data-visualization",
+    "name": "ASCII Chart Generator",
+    "icon": "bar_chart",
+    "category": "Statistics & Analysis",
+    "description": "Generate ASCII bar charts and line charts from data",
+    "input_type": "text",
+    "placeholder": "Enter data values...",
+    "button_label": "Generate",
+    "button_icon": "bar_chart",
+    "config": {
+        "processor": "data_visualization"
+    }
+}

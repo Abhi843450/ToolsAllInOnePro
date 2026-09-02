@@ -1,0 +1,14 @@
+{
+    "slug": "html-minifier",
+    "name": "HTML Minifier",
+    "icon": "compress",
+    "category": "Code Tools",
+    "description": "Minify HTML by removing whitespace, comments, and unnecessary attributes",
+    "input_type": "text",
+    "placeholder": "Paste HTML here...",
+    "button_label": "Minify",
+    "button_icon": "compress",
+    "config": {
+        "processor": "html_minifier"
+    }
+}

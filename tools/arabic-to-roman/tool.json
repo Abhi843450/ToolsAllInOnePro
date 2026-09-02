@@ -1,0 +1,14 @@
+{
+    "slug": "arabic-to-roman",
+    "name": "Arabic to Roman Converter",
+    "icon": "swap_horiz",
+    "category": "Converters",
+    "description": "Convert Arabic numbers to Roman numerals",
+    "input_type": "text",
+    "placeholder": "Enter number...",
+    "button_label": "Convert",
+    "button_icon": "swap_horiz",
+    "config": {
+        "processor": "arabic_to_roman"
+    }
+}

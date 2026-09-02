@@ -1,0 +1,14 @@
+{
+    "slug": "unicode-table",
+    "name": "Unicode Table Explorer",
+    "icon": "table",
+    "category": "Developer Tools",
+    "description": "Browse Unicode characters by category and block",
+    "input_type": "text",
+    "placeholder": "Search character...",
+    "button_label": "View",
+    "button_icon": "table",
+    "config": {
+        "processor": "unicode_table"
+    }
+}

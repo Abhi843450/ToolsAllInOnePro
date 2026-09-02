@@ -1,0 +1,14 @@
+{
+    "slug": "unit-converter",
+    "name": "Unit Converter",
+    "icon": "calculate",
+    "category": "Calculators",
+    "description": "Convert between metric and imperial units for length, weight, temperature, and more",
+    "input_type": "text",
+    "placeholder": "Enter value and units (e.g. 100 kg to lbs)...",
+    "button_label": "Convert",
+    "button_icon": "calculate",
+    "config": {
+        "processor": "unit_converter"
+    }
+}

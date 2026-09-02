@@ -1,0 +1,14 @@
+{
+    "slug": "viewport-resizer",
+    "name": "Viewport Resizer",
+    "icon": "devices",
+    "category": "Web & SEO",
+    "description": "Preview how websites look at different screen sizes",
+    "input_type": "text",
+    "placeholder": "Enter screen width...",
+    "button_label": "Preview",
+    "button_icon": "devices",
+    "config": {
+        "processor": "viewport_resizer"
+    }
+}

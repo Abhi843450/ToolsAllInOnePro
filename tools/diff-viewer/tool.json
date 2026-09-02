@@ -1,0 +1,14 @@
+{
+    "slug": "diff-viewer",
+    "name": "Text Diff Viewer",
+    "icon": "compare",
+    "category": "Developer Tools",
+    "description": "Compare two texts and highlight differences",
+    "input_type": "text",
+    "placeholder": "Paste text 1...",
+    "button_label": "Compare",
+    "button_icon": "compare",
+    "config": {
+        "processor": "diff_viewer"
+    }
+}

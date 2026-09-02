@@ -1,0 +1,14 @@
+{
+    "slug": "color-picker",
+    "name": "Color Picker",
+    "icon": "palette",
+    "category": "Design & Visual",
+    "description": "Pick colors from a color wheel and get HEX, RGB, HSL values",
+    "input_type": "text",
+    "placeholder": "Enter color...",
+    "button_label": "Pick",
+    "button_icon": "palette",
+    "config": {
+        "processor": "color_picker"
+    }
+}

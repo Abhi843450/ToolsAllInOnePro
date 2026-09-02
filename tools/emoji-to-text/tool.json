@@ -1,0 +1,14 @@
+{
+    "slug": "emoji-to-text",
+    "name": "Emoji to Text Description",
+    "icon": "emoji_emotions",
+    "category": "Converters",
+    "description": "Convert emoji to text descriptions and names",
+    "input_type": "text",
+    "placeholder": "Enter emoji...",
+    "button_label": "Convert",
+    "button_icon": "emoji_emotions",
+    "config": {
+        "processor": "emoji_to_text"
+    }
+}

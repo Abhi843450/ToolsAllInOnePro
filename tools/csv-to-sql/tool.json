@@ -1,0 +1,14 @@
+{
+    "slug": "csv-to-sql",
+    "name": "CSV to SQL",
+    "icon": "data_object",
+    "category": "Converters",
+    "description": "Generate SQL CREATE TABLE and INSERT statements from CSV",
+    "input_type": "text",
+    "placeholder": "Paste CSV data...",
+    "button_label": "Convert",
+    "button_icon": "data_object",
+    "config": {
+        "processor": "csv_to_sql"
+    }
+}

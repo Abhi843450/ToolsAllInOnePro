@@ -1,0 +1,14 @@
+{
+    "slug": "margin-of-error",
+    "name": "Margin of Error Calculator",
+    "icon": "calculate",
+    "category": "Statistics & Analysis",
+    "description": "Calculate margin of error from sample size",
+    "input_type": "text",
+    "placeholder": "Enter sample size and confidence level...",
+    "button_label": "Calculate",
+    "button_icon": "calculate",
+    "config": {
+        "processor": "margin_of_error"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "slug": "svg-to-css",
+    "name": "SVG to CSS Background",
+    "icon": "code",
+    "category": "Converters",
+    "description": "Convert SVG to CSS background-image data URI",
+    "input_type": "text",
+    "placeholder": "Paste SVG here...",
+    "button_label": "Convert",
+    "button_icon": "code",
+    "config": {
+        "processor": "svg_to_css"
+    }
+}

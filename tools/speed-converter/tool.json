@@ -1,0 +1,14 @@
+{
+    "slug": "speed-converter",
+    "name": "Speed Converter",
+    "icon": "speed",
+    "category": "Calculators",
+    "description": "Convert between km/h, mph, m/s, and knots",
+    "input_type": "text",
+    "placeholder": "Enter speed and units...",
+    "button_label": "Convert",
+    "button_icon": "speed",
+    "config": {
+        "processor": "speed_converter"
+    }
+}

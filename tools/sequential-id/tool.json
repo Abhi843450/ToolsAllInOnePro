@@ -1,0 +1,11 @@
+{
+    "slug": "sequential-id",
+    "name": "Sequential ID Generator",
+    "icon": "tag",
+    "category": "Generators",
+    "description": "Generate sequential IDs with custom prefix and padding",
+    "input_type": "text",
+    "placeholder": "Enter prefix...",
+    "button_label": "Generate",
+    "button_icon": "tag"
+}

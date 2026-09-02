@@ -1,0 +1,14 @@
+{
+    "slug": "docker-cheatsheet",
+    "name": "Docker Commands Reference",
+    "icon": "code",
+    "category": "Developer Tools",
+    "description": "Quick reference for Docker commands and Dockerfile syntax",
+    "input_type": "text",
+    "placeholder": "Search command...",
+    "button_label": "View",
+    "button_icon": "code",
+    "config": {
+        "processor": "docker_cheatsheet"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "slug": "transposition-cipher",
+    "name": "Transposition Cipher Tool",
+    "icon": "lock",
+    "category": "Encoding & Crypto",
+    "description": "Encode/decode with columnar transposition",
+    "input_type": "text",
+    "placeholder": "Enter text...",
+    "button_label": "Process",
+    "button_icon": "lock",
+    "config": {
+        "processor": "transposition_cipher"
+    }
+}

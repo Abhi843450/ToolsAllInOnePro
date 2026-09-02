@@ -1,0 +1,14 @@
+{
+    "slug": "word-frequency",
+    "name": "Word Frequency Analyzer",
+    "icon": "analytics",
+    "category": "Text Tools",
+    "description": "Analyze word frequency, find most common words, and generate word clouds data",
+    "input_type": "text",
+    "placeholder": "Paste your text here...",
+    "button_label": "Analyze",
+    "button_icon": "analytics",
+    "config": {
+        "processor": "word_frequency"
+    }
+}

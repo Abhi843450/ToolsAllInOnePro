@@ -1,0 +1,11 @@
+{
+    "slug": "rewriter",
+    "name": "Text Rewriter",
+    "icon": "edit",
+    "category": "Text Tools",
+    "description": "Rewrite text with different tones: formal, casual, professional, friendly",
+    "input_type": "text",
+    "placeholder": "Paste your text here...",
+    "button_label": "Rewrite",
+    "button_icon": "edit"
+}

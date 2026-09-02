@@ -1,0 +1,14 @@
+{
+    "slug": "xml-validator",
+    "name": "XML Validator",
+    "icon": "check_circle",
+    "category": "Code Tools",
+    "description": "Validate XML syntax and find errors",
+    "input_type": "text",
+    "placeholder": "Paste XML here...",
+    "button_label": "Validate",
+    "button_icon": "check_circle",
+    "config": {
+        "processor": "xml_validator"
+    }
+}

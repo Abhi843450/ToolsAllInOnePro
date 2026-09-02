@@ -1,0 +1,14 @@
+{
+    "slug": "moving-average",
+    "name": "Moving Average Calculator",
+    "icon": "calculate",
+    "category": "Statistics & Analysis",
+    "description": "Calculate simple and exponential moving averages",
+    "input_type": "text",
+    "placeholder": "Enter data points and window size...",
+    "button_label": "Calculate",
+    "button_icon": "calculate",
+    "config": {
+        "processor": "moving_average"
+    }
+}

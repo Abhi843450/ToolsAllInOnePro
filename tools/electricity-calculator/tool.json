@@ -1,0 +1,11 @@
+{
+    "slug": "electricity-calculator",
+    "name": "Electricity Cost Calculator",
+    "icon": "bolt",
+    "category": "Calculators",
+    "description": "Calculate electricity costs based on wattage and usage time",
+    "input_type": "text",
+    "placeholder": "Enter wattage and hours per day...",
+    "button_label": "Calculate",
+    "button_icon": "bolt"
+}

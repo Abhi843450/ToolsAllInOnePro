@@ -1,0 +1,14 @@
+{
+    "slug": "structured-data",
+    "name": "Structured Data Generator",
+    "icon": "code",
+    "category": "Web & SEO",
+    "description": "Generate JSON-LD structured data for Schema.org",
+    "input_type": "text",
+    "placeholder": "Enter entity type...",
+    "button_label": "Generate",
+    "button_icon": "code",
+    "config": {
+        "processor": "structured_data"
+    }
+}

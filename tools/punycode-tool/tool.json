@@ -1,0 +1,14 @@
+{
+    "slug": "punycode-tool",
+    "name": "Punycode Encoder/Decoder",
+    "icon": "language",
+    "category": "Encoding & Crypto",
+    "description": "Encode and decode internationalized domain names",
+    "input_type": "text",
+    "placeholder": "Enter domain name...",
+    "button_label": "Convert",
+    "button_icon": "language",
+    "config": {
+        "processor": "punycode_tool"
+    }
+}

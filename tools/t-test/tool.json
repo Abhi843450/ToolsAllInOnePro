@@ -1,0 +1,14 @@
+{
+    "slug": "t-test",
+    "name": "T-Test Calculator",
+    "icon": "calculate",
+    "category": "Statistics & Analysis",
+    "description": "Perform one-sample and two-sample t-tests",
+    "input_type": "text",
+    "placeholder": "Enter sample data...",
+    "button_label": "Calculate",
+    "button_icon": "calculate",
+    "config": {
+        "processor": "t_test"
+    }
+}

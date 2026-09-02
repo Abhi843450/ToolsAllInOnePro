@@ -1,0 +1,14 @@
+{
+    "slug": "random-bytes",
+    "name": "Random Bytes Generator",
+    "icon": "casino",
+    "category": "Encoding & Crypto",
+    "description": "Generate random bytes in various formats (hex, base64, binary)",
+    "input_type": "text",
+    "placeholder": "Enter byte count...",
+    "button_label": "Generate",
+    "button_icon": "casino",
+    "config": {
+        "processor": "random_bytes"
+    }
+}

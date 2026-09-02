@@ -1,0 +1,14 @@
+{
+    "slug": "base-n-converter",
+    "name": "Base-N Converter",
+    "icon": "swap_horiz",
+    "category": "Encoding & Crypto",
+    "description": "Convert numbers between base 2 through 36",
+    "input_type": "text",
+    "placeholder": "Enter number and base...",
+    "button_label": "Convert",
+    "button_icon": "swap_horiz",
+    "config": {
+        "processor": "base_n_converter"
+    }
+}

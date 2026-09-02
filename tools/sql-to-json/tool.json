@@ -1,0 +1,14 @@
+{
+    "slug": "sql-to-json",
+    "name": "SQL to JSON Converter",
+    "icon": "data_object",
+    "category": "Converters",
+    "description": "Convert SQL CREATE TABLE statements to JSON schemas",
+    "input_type": "text",
+    "placeholder": "Paste SQL here...",
+    "button_label": "Convert",
+    "button_icon": "data_object",
+    "config": {
+        "processor": "sql_to_json"
+    }
+}

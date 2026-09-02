@@ -1,0 +1,14 @@
+{
+    "slug": "user-agent-parser",
+    "name": "User Agent Parser",
+    "icon": "devices",
+    "category": "Web & SEO",
+    "description": "Parse user agent strings to extract browser, OS, and device info",
+    "input_type": "text",
+    "placeholder": "Enter user agent string...",
+    "button_label": "Parse",
+    "button_icon": "devices",
+    "config": {
+        "processor": "user_agent_parser"
+    }
+}

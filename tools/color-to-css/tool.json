@@ -1,0 +1,14 @@
+{
+    "slug": "color-to-css",
+    "name": "Color to CSS",
+    "icon": "palette",
+    "category": "Converters",
+    "description": "Convert color values to CSS code snippets",
+    "input_type": "text",
+    "placeholder": "Enter color (HEX, RGB, HSL)...",
+    "button_label": "Convert",
+    "button_icon": "palette",
+    "config": {
+        "processor": "color_to_css"
+    }
+}

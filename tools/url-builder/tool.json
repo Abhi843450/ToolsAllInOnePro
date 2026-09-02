@@ -1,0 +1,11 @@
+{
+    "slug": "url-builder",
+    "name": "URL Builder",
+    "icon": "link",
+    "category": "Web & SEO",
+    "description": "Build URLs from components with query parameter management",
+    "input_type": "text",
+    "placeholder": "Enter base URL...",
+    "button_label": "Build",
+    "button_icon": "link"
+}

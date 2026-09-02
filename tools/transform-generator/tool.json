@@ -1,0 +1,14 @@
+{
+    "slug": "transform-generator",
+    "name": "CSS Transform Generator",
+    "icon": "transform",
+    "category": "Design & Visual",
+    "description": "Generate CSS 2D and 3D transform values",
+    "input_type": "text",
+    "placeholder": "Describe transform...",
+    "button_label": "Generate",
+    "button_icon": "transform",
+    "config": {
+        "processor": "transform_generator"
+    }
+}

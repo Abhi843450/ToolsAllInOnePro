@@ -1,0 +1,14 @@
+{
+    "slug": "sha512-generator",
+    "name": "SHA-512 Hash Generator",
+    "icon": "fingerprint",
+    "category": "Cryptography",
+    "description": "Generate SHA-512 hash from any text input",
+    "input_type": "text",
+    "placeholder": "Enter text to hash...",
+    "button_label": "Generate",
+    "button_icon": "fingerprint",
+    "config": {
+        "processor": "sha512_generator"
+    }
+}

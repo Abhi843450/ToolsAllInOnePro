@@ -1,0 +1,11 @@
+{
+    "slug": "text-to-svg",
+    "name": "Text to SVG",
+    "icon": "code",
+    "category": "Converters",
+    "description": "Convert text to SVG format with custom fonts and colors",
+    "input_type": "text",
+    "placeholder": "Enter text...",
+    "button_label": "Convert",
+    "button_icon": "code"
+}

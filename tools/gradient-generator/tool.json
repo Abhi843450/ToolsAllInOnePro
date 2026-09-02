@@ -1,0 +1,11 @@
+{
+    "slug": "gradient-generator",
+    "name": "CSS Gradient Generator",
+    "icon": "gradient",
+    "category": "Generators",
+    "description": "Generate CSS linear, radial, and conic gradients",
+    "input_type": "text",
+    "placeholder": "Optional preset name...",
+    "button_label": "Generate",
+    "button_icon": "gradient"
+}

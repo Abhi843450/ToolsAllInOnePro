@@ -1,0 +1,14 @@
+{
+    "slug": "date-format-ref",
+    "name": "Date Format Reference",
+    "icon": "schedule",
+    "category": "Developer Tools",
+    "description": "strftime/strptime format patterns for various languages",
+    "input_type": "text",
+    "placeholder": "Search format...",
+    "button_label": "View",
+    "button_icon": "schedule",
+    "config": {
+        "processor": "date_format_ref"
+    }
+}

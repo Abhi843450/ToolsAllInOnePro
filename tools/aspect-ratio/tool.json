@@ -1,0 +1,14 @@
+{
+    "slug": "aspect-ratio",
+    "name": "Aspect Ratio Calculator",
+    "icon": "aspect_ratio",
+    "category": "Design & Visual",
+    "description": "Calculate and find aspect ratios for images and videos",
+    "input_type": "text",
+    "placeholder": "Enter dimensions...",
+    "button_label": "Calculate",
+    "button_icon": "aspect_ratio",
+    "config": {
+        "processor": "aspect_ratio"
+    }
+}

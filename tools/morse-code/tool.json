@@ -1,0 +1,14 @@
+{
+    "slug": "morse-code",
+    "name": "Morse Code Converter",
+    "icon": "radio",
+    "category": "Text Tools",
+    "description": "Convert text to morse code and morse code back to text",
+    "input_type": "text",
+    "placeholder": "Enter text or morse code...",
+    "button_label": "Convert",
+    "button_icon": "radio",
+    "config": {
+        "processor": "morse_code"
+    }
+}

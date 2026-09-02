@@ -1,0 +1,14 @@
+{
+    "slug": "js-formatter",
+    "name": "JavaScript Formatter",
+    "icon": "code",
+    "category": "Code Tools",
+    "description": "Format and beautify JavaScript code",
+    "input_type": "text",
+    "placeholder": "Paste JavaScript here...",
+    "button_label": "Format",
+    "button_icon": "code",
+    "config": {
+        "processor": "js_formatter"
+    }
+}

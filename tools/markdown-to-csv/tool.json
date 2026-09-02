@@ -1,0 +1,11 @@
+{
+    "slug": "markdown-to-csv",
+    "name": "Markdown Table to CSV",
+    "icon": "table_chart",
+    "category": "Converters",
+    "description": "Convert Markdown tables to CSV format",
+    "input_type": "text",
+    "placeholder": "Paste Markdown table...",
+    "button_label": "Convert",
+    "button_icon": "table_chart"
+}

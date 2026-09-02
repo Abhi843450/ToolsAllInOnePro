@@ -1,0 +1,14 @@
+{
+    "slug": "sql-formatter",
+    "name": "SQL Formatter",
+    "icon": "data_object",
+    "category": "Code Tools",
+    "description": "Format SQL queries with proper indentation and keyword highlighting",
+    "input_type": "text",
+    "placeholder": "Paste SQL here...",
+    "button_label": "Format",
+    "button_icon": "data_object",
+    "config": {
+        "processor": "sql_formatter"
+    }
+}

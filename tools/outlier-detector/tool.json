@@ -1,0 +1,14 @@
+{
+    "slug": "outlier-detector",
+    "name": "Outlier Detector",
+    "icon": "analytics",
+    "category": "Statistics & Analysis",
+    "description": "Detect outliers in data sets using IQR method",
+    "input_type": "text",
+    "placeholder": "Enter numbers (comma-separated)...",
+    "button_label": "Detect",
+    "button_icon": "analytics",
+    "config": {
+        "processor": "outlier_detector"
+    }
+}

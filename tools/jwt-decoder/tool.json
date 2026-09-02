@@ -1,0 +1,14 @@
+{
+    "slug": "jwt-decoder",
+    "name": "JWT Token Decoder",
+    "icon": "vpn_key",
+    "category": "Code Tools",
+    "description": "Decode JWT tokens and view header, payload, and signature",
+    "input_type": "text",
+    "placeholder": "Paste JWT token here...",
+    "button_label": "Decode",
+    "button_icon": "vpn_key",
+    "config": {
+        "processor": "jwt_decoder"
+    }
+}

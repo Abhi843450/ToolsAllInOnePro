@@ -1,0 +1,14 @@
+{
+    "slug": "random-address",
+    "name": "Random Address Generator",
+    "icon": "home",
+    "category": "Generators",
+    "description": "Generate realistic random addresses for testing",
+    "input_type": "text",
+    "placeholder": "Optional country...",
+    "button_label": "Generate",
+    "button_icon": "home",
+    "config": {
+        "processor": "random_address"
+    }
+}

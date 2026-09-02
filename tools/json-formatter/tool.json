@@ -1,0 +1,14 @@
+{
+    "slug": "json-formatter",
+    "name": "JSON Formatter",
+    "icon": "data_object",
+    "category": "Code Tools",
+    "description": "Format, validate, and beautify JSON data with syntax highlighting",
+    "input_type": "text",
+    "placeholder": "Paste JSON here...",
+    "button_label": "Format",
+    "button_icon": "data_object",
+    "config": {
+        "processor": "json_formatter"
+    }
+}

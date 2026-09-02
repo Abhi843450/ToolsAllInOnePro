@@ -1,0 +1,14 @@
+{
+    "slug": "age-calculator",
+    "name": "Age Calculator",
+    "icon": "calculate",
+    "category": "Calculators",
+    "description": "Calculate exact age in years, months, days, hours, and minutes",
+    "input_type": "text",
+    "placeholder": "Enter birth date (YYYY-MM-DD)...",
+    "button_label": "Calculate",
+    "button_icon": "calculate",
+    "config": {
+        "processor": "age_calculator"
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "slug": "csv-to-markdown",
+    "name": "CSV to Markdown Table",
+    "icon": "table_chart",
+    "category": "Converters",
+    "description": "Convert CSV data to Markdown table format",
+    "input_type": "text",
+    "placeholder": "Paste CSV data...",
+    "button_label": "Convert",
+    "button_icon": "table_chart"
+}

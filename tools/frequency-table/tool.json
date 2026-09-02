@@ -1,0 +1,14 @@
+{
+    "slug": "frequency-table",
+    "name": "Frequency Table Generator",
+    "icon": "table_chart",
+    "category": "Statistics & Analysis",
+    "description": "Generate frequency distributions from data sets",
+    "input_type": "text",
+    "placeholder": "Enter data values...",
+    "button_label": "Generate",
+    "button_icon": "table_chart",
+    "config": {
+        "processor": "frequency_table"
+    }
+}

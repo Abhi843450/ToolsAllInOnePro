@@ -1,0 +1,11 @@
+{
+    "slug": "cuid-generator",
+    "name": "CUID Generator",
+    "icon": "tag",
+    "category": "Generators",
+    "description": "Generate Collision-resistant Unique IDs",
+    "input_type": "text",
+    "placeholder": "Optional count...",
+    "button_label": "Generate",
+    "button_icon": "tag"
+}

@@ -1,0 +1,14 @@
+{
+    "slug": "http-status",
+    "name": "HTTP Status Codes",
+    "icon": "http",
+    "category": "Developer Tools",
+    "description": "Reference for all HTTP status codes with descriptions",
+    "input_type": "text",
+    "placeholder": "Search code...",
+    "button_label": "View",
+    "button_icon": "http",
+    "config": {
+        "processor": "http_status"
+    }
+}

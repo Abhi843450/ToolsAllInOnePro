@@ -1,0 +1,14 @@
+{
+    "slug": "xml-formatter",
+    "name": "XML Formatter",
+    "icon": "code",
+    "category": "Code Tools",
+    "description": "Format and beautify XML with proper indentation",
+    "input_type": "text",
+    "placeholder": "Paste XML here...",
+    "button_label": "Format",
+    "button_icon": "code",
+    "config": {
+        "processor": "xml_formatter"
+    }
+}

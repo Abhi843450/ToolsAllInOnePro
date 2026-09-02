@@ -1,0 +1,14 @@
+{
+    "slug": "html-entity-tool",
+    "name": "HTML Entity Encoding",
+    "icon": "code",
+    "category": "Encoding & Crypto",
+    "description": "Encode and decode HTML entities with named and numeric references",
+    "input_type": "text",
+    "placeholder": "Enter text or entities...",
+    "button_label": "Convert",
+    "button_icon": "code",
+    "config": {
+        "processor": "html_entity_tool"
+    }
+}

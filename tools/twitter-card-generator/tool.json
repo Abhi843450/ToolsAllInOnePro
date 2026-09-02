@@ -1,0 +1,14 @@
+{
+    "slug": "twitter-card-generator",
+    "name": "Twitter Card Generator",
+    "icon": "share",
+    "category": "Web & SEO",
+    "description": "Generate Twitter Card meta tags",
+    "input_type": "text",
+    "placeholder": "Enter tweet content...",
+    "button_label": "Generate",
+    "button_icon": "share",
+    "config": {
+        "processor": "twitter_card_generator"
+    }
+}

@@ -1,0 +1,34 @@
+{
+    "slug": "random-number",
+    "name": "Random Number Generator",
+    "icon": "casino",
+    "category": "Generators",
+    "description": "Generate random numbers within a range with distribution options",
+    "input_type": "text",
+    "placeholder": "Enter range (e.g. 1-100)...",
+    "button_label": "Generate",
+    "button_icon": "casino",
+    "config": {
+        "processor": "random_number",
+        "inputs": [
+            {
+                "name": "min",
+                "type": "number",
+                "label": "Min:",
+                "default": "1"
+            },
+            {
+                "name": "max",
+                "type": "number",
+                "label": "Max:",
+                "default": "100"
+            },
+            {
+                "name": "count",
+                "type": "number",
+                "label": "Count:",
+                "default": "10"
+            }
+        ]
+    }
+}

@@ -1,0 +1,22 @@
+{
+    "slug": "caesar-cipher",
+    "name": "Caesar Cipher",
+    "icon": "lock",
+    "category": "Cryptography",
+    "description": "Encrypt and decrypt text using Caesar cipher with custom shift",
+    "input_type": "text",
+    "placeholder": "Enter text to encrypt/decrypt...",
+    "button_label": "Process",
+    "button_icon": "lock",
+    "config": {
+        "processor": "caesar_cipher",
+        "inputs": [
+            {
+                "name": "shift",
+                "type": "number",
+                "label": "Shift value:",
+                "default": "3"
+            }
+        ]
+    }
+}

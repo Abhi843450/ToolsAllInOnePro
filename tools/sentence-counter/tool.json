@@ -1,0 +1,14 @@
+{
+    "slug": "sentence-counter",
+    "name": "Sentence Counter",
+    "icon": "calculate",
+    "category": "Text Tools",
+    "description": "Count sentences and words per sentence in your text",
+    "input_type": "text",
+    "placeholder": "Paste your text here...",
+    "button_label": "Count",
+    "button_icon": "calculate",
+    "config": {
+        "processor": "sentence_counter"
+    }
+}

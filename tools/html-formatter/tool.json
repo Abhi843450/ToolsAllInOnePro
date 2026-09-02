@@ -1,0 +1,14 @@
+{
+    "slug": "html-formatter",
+    "name": "HTML Formatter",
+    "icon": "code",
+    "category": "Code Tools",
+    "description": "Format and beautify HTML with proper indentation",
+    "input_type": "text",
+    "placeholder": "Paste HTML here...",
+    "button_label": "Format",
+    "button_icon": "code",
+    "config": {
+        "processor": "html_formatter"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "slug": "url-encode",
+    "name": "URL Encoder/Decoder",
+    "icon": "link",
+    "category": "Code Tools",
+    "description": "Encode and decode URLs and query parameters",
+    "input_type": "text",
+    "placeholder": "Enter URL or encoded string...",
+    "button_label": "Convert",
+    "button_icon": "link",
+    "config": {
+        "processor": "url_encode"
+    }
+}

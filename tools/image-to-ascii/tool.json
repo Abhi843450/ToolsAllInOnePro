@@ -1,0 +1,14 @@
+{
+    "slug": "image-to-ascii",
+    "name": "Image to ASCII Art",
+    "icon": "text_fields",
+    "category": "Design & Visual",
+    "description": "Convert uploaded images to ASCII art text",
+    "input_type": "text",
+    "placeholder": "Upload image...",
+    "button_label": "Convert",
+    "button_icon": "text_fields",
+    "config": {
+        "processor": "image_to_ascii"
+    }
+}

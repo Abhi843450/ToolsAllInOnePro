@@ -1,0 +1,14 @@
+{
+    "slug": "safe-colors",
+    "name": "Safe Web Colors",
+    "icon": "palette",
+    "category": "Design & Visual",
+    "description": "View all web-safe colors with HEX and RGB values",
+    "input_type": "text",
+    "placeholder": "Search color...",
+    "button_label": "View",
+    "button_icon": "palette",
+    "config": {
+        "processor": "safe_colors"
+    }
+}

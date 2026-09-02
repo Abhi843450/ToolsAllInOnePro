@@ -1,0 +1,14 @@
+{
+    "slug": "ip-lookup",
+    "name": "IP Address Lookup",
+    "icon": "location_on",
+    "category": "Web & SEO",
+    "description": "Get geolocation and ISP information for IP addresses",
+    "input_type": "text",
+    "placeholder": "Enter IP address...",
+    "button_label": "Lookup",
+    "button_icon": "location_on",
+    "config": {
+        "processor": "ip_lookup"
+    }
+}

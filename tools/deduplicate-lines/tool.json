@@ -1,0 +1,14 @@
+{
+    "slug": "deduplicate-lines",
+    "name": "Remove Duplicate Lines",
+    "icon": "delete_sweep",
+    "category": "Code Tools",
+    "description": "Remove exact and fuzzy duplicate lines from text",
+    "input_type": "text",
+    "placeholder": "Paste text here...",
+    "button_label": "Remove Duplicates",
+    "button_icon": "delete_sweep",
+    "config": {
+        "processor": "deduplicate_lines"
+    }
+}

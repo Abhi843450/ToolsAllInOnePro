@@ -1,0 +1,14 @@
+{
+    "slug": "barcode",
+    "name": "Barcode Generator",
+    "icon": "barcode",
+    "category": "Generators",
+    "description": "Generate barcodes in Code128, Code39, EAN13 formats",
+    "input_type": "text",
+    "placeholder": "Enter data to encode...",
+    "button_label": "Generate",
+    "button_icon": "barcode",
+    "config": {
+        "processor": "barcode"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "slug": "css-flexbox-cheat",
+    "name": "CSS Flexbox Cheat Sheet",
+    "icon": "code",
+    "category": "Developer Tools",
+    "description": "Visual reference for Flexbox properties and values",
+    "input_type": "text",
+    "placeholder": "Search property...",
+    "button_label": "View",
+    "button_icon": "code",
+    "config": {
+        "processor": "css_flexbox_cheat"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "slug": "gradient-maker",
+    "name": "CSS Gradient Maker",
+    "icon": "gradient",
+    "category": "Design & Visual",
+    "description": "Create linear, radial, and conic gradients with live preview",
+    "input_type": "text",
+    "placeholder": "Optional preset...",
+    "button_label": "Create",
+    "button_icon": "gradient",
+    "config": {
+        "processor": "gradient_maker"
+    }
+}

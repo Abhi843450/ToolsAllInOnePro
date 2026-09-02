@@ -1,0 +1,14 @@
+{
+    "slug": "json-validator",
+    "name": "JSON Validator",
+    "icon": "check_circle",
+    "category": "Code Tools",
+    "description": "Validate JSON and find syntax errors with line numbers",
+    "input_type": "text",
+    "placeholder": "Paste JSON here...",
+    "button_label": "Validate",
+    "button_icon": "check_circle",
+    "config": {
+        "processor": "json_validator"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "slug": "binary-text",
+    "name": "Binary \u2194 Text Converter",
+    "icon": "code",
+    "category": "Text Tools",
+    "description": "Convert text to binary and binary back to text",
+    "input_type": "text",
+    "placeholder": "Enter text or binary...",
+    "button_label": "Convert",
+    "button_icon": "code",
+    "config": {
+        "processor": "binary_text"
+    }
+}

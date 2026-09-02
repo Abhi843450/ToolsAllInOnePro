@@ -1,0 +1,11 @@
+{
+    "slug": "leet-speak",
+    "name": "Leet Speak Translator",
+    "icon": "translate",
+    "category": "Cryptography",
+    "description": "Convert text to 1337 5p34k and back",
+    "input_type": "text",
+    "placeholder": "Enter text...",
+    "button_label": "Convert",
+    "button_icon": "translate"
+}

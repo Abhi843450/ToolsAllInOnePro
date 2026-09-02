@@ -1,0 +1,14 @@
+{
+    "slug": "random-color",
+    "name": "Random Color Generator",
+    "icon": "palette",
+    "category": "Generators",
+    "description": "Generate random colors in HEX, RGB, and HSL formats",
+    "input_type": "text",
+    "placeholder": "Optional seed...",
+    "button_label": "Generate",
+    "button_icon": "palette",
+    "config": {
+        "processor": "random_color"
+    }
+}

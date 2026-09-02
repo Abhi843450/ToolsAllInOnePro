@@ -1,0 +1,11 @@
+{
+    "slug": "fibonacci",
+    "name": "Fibonacci Calculator",
+    "icon": "timeline",
+    "category": "Calculators",
+    "description": "Generate Fibonacci sequences and find specific terms",
+    "input_type": "text",
+    "placeholder": "Enter number of terms...",
+    "button_label": "Generate",
+    "button_icon": "timeline"
+}

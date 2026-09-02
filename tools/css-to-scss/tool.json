@@ -1,0 +1,14 @@
+{
+    "slug": "css-to-scss",
+    "name": "CSS to SCSS Converter",
+    "icon": "code",
+    "category": "Code Tools",
+    "description": "Convert CSS to SCSS with variables and nesting suggestions",
+    "input_type": "text",
+    "placeholder": "Paste CSS here...",
+    "button_label": "Convert",
+    "button_icon": "code",
+    "config": {
+        "processor": "css_to_scss"
+    }
+}

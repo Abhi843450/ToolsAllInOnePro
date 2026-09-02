@@ -1,0 +1,28 @@
+{
+    "slug": "text-duplicator",
+    "name": "Text Duplicator",
+    "icon": "content_copy",
+    "category": "Text Tools",
+    "description": "Duplicate text multiple times with custom separators",
+    "input_type": "text",
+    "placeholder": "Paste your text here...",
+    "button_label": "Duplicate",
+    "button_icon": "content_copy",
+    "config": {
+        "processor": "text_duplicator",
+        "inputs": [
+            {
+                "name": "times",
+                "type": "number",
+                "label": "Repeat count:",
+                "default": "3"
+            },
+            {
+                "name": "separator",
+                "type": "text",
+                "label": "Separator:",
+                "placeholder": "e.g. \\n---\\n"
+            }
+        ]
+    }
+}

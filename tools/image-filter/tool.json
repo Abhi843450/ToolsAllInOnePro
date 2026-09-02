@@ -1,0 +1,14 @@
+{
+    "slug": "image-filter",
+    "name": "Image Filter Preview",
+    "icon": "filter",
+    "category": "Design & Visual",
+    "description": "Preview CSS filter effects on uploaded images",
+    "input_type": "text",
+    "placeholder": "Upload image...",
+    "button_label": "Filter",
+    "button_icon": "filter",
+    "config": {
+        "processor": "image_filter"
+    }
+}

@@ -1,0 +1,43 @@
+{
+    "slug": "text-encoder",
+    "name": "Text Encoder/Decoder",
+    "icon": "lock",
+    "category": "Text Tools",
+    "description": "Encode/decode text with Base64, URL encoding, HTML entities, or ROT13",
+    "input_type": "text",
+    "placeholder": "Enter text to encode/decode...",
+    "button_label": "Encode",
+    "button_icon": "lock",
+    "config": {
+        "processor": "text_encoder",
+        "inputs": [
+            {
+                "name": "mode",
+                "type": "select",
+                "label": "Encoding:",
+                "options": [
+                    {
+                        "value": "all",
+                        "label": "All"
+                    },
+                    {
+                        "value": "base64",
+                        "label": "Base64"
+                    },
+                    {
+                        "value": "url",
+                        "label": "URL Encoding"
+                    },
+                    {
+                        "value": "html",
+                        "label": "HTML Entities"
+                    },
+                    {
+                        "value": "rot13",
+                        "label": "ROT13"
+                    }
+                ]
+            }
+        ]
+    }
+}

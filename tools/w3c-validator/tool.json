@@ -1,0 +1,14 @@
+{
+    "slug": "w3c-validator",
+    "name": "W3C HTML Validator",
+    "icon": "check_circle",
+    "category": "Developer Tools",
+    "description": "Validate HTML5 syntax and check for errors",
+    "input_type": "text",
+    "placeholder": "Paste HTML here...",
+    "button_label": "Validate",
+    "button_icon": "check_circle",
+    "config": {
+        "processor": "w3c_validator"
+    }
+}

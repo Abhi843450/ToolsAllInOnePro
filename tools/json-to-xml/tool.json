@@ -1,0 +1,14 @@
+{
+    "slug": "json-to-xml",
+    "name": "JSON to XML Converter",
+    "icon": "code",
+    "category": "Code Tools",
+    "description": "Convert JSON data to XML format",
+    "input_type": "text",
+    "placeholder": "Paste JSON here...",
+    "button_label": "Convert",
+    "button_icon": "code",
+    "config": {
+        "processor": "json_to_xml"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "slug": "csv-to-json",
+    "name": "CSV to JSON Converter",
+    "icon": "data_object",
+    "category": "Code Tools",
+    "description": "Convert CSV data to JSON format with headers as keys",
+    "input_type": "text",
+    "placeholder": "Paste CSV data here...",
+    "button_label": "Convert",
+    "button_icon": "data_object",
+    "config": {
+        "processor": "csv_to_json"
+    }
+}

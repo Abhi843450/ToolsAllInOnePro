@@ -1,0 +1,14 @@
+{
+    "slug": "emoji-picker",
+    "name": "Emoji Converter",
+    "icon": "emoji_emotions",
+    "category": "Text Tools",
+    "description": "Convert text descriptions to emojis or find emojis by keyword",
+    "input_type": "text",
+    "placeholder": "Enter text or emoji keyword...",
+    "button_label": "Convert",
+    "button_icon": "emoji_emotions",
+    "config": {
+        "processor": "emoji_picker"
+    }
+}

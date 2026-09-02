@@ -1,0 +1,14 @@
+{
+    "slug": "image-dimensions",
+    "name": "Image Dimension Calculator",
+    "icon": "aspect_ratio",
+    "category": "Design & Visual",
+    "description": "Calculate image dimensions based on aspect ratio and target size",
+    "input_type": "text",
+    "placeholder": "Enter original dimensions...",
+    "button_label": "Calculate",
+    "button_icon": "aspect_ratio",
+    "config": {
+        "processor": "image_dimensions"
+    }
+}

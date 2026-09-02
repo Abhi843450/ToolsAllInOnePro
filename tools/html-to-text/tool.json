@@ -1,0 +1,11 @@
+{
+    "slug": "html-to-text",
+    "name": "HTML to Text",
+    "icon": "text_fields",
+    "category": "Converters",
+    "description": "Strip HTML tags and extract plain text content",
+    "input_type": "text",
+    "placeholder": "Paste HTML here...",
+    "button_label": "Convert",
+    "button_icon": "text_fields"
+}

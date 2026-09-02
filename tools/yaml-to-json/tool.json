@@ -1,0 +1,14 @@
+{
+    "slug": "yaml-to-json",
+    "name": "YAML to JSON Converter",
+    "icon": "data_object",
+    "category": "Converters",
+    "description": "Convert YAML to JSON format",
+    "input_type": "text",
+    "placeholder": "Paste YAML here...",
+    "button_label": "Convert",
+    "button_icon": "data_object",
+    "config": {
+        "processor": "yaml_to_json"
+    }
+}

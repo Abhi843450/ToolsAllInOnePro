@@ -1,0 +1,11 @@
+{
+    "slug": "2fa-generator",
+    "name": "2FA Code Generator",
+    "icon": "security",
+    "category": "Cryptography",
+    "description": "Generate TOTP two-factor authentication codes from secret keys",
+    "input_type": "text",
+    "placeholder": "Enter TOTP secret key...",
+    "button_label": "Generate",
+    "button_icon": "security"
+}

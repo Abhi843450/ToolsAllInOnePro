@@ -1,0 +1,14 @@
+{
+    "slug": "text-summarizer",
+    "name": "Text Summarizer",
+    "icon": "summarize",
+    "category": "Text Tools",
+    "description": "Extractive summarization \u2014 find the most important sentences",
+    "input_type": "text",
+    "placeholder": "Paste your text here...",
+    "button_label": "Summarize",
+    "button_icon": "summarize",
+    "config": {
+        "processor": "text_summary"
+    }
+}

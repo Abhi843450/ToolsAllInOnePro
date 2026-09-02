@@ -1,0 +1,11 @@
+{
+    "slug": "micro-uuid",
+    "name": "Micro ID Generator",
+    "icon": "tag",
+    "category": "Generators",
+    "description": "Generate short 6-8 character unique IDs",
+    "input_type": "text",
+    "placeholder": "Optional length...",
+    "button_label": "Generate",
+    "button_icon": "tag"
+}

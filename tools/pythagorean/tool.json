@@ -1,0 +1,11 @@
+{
+    "slug": "pythagorean",
+    "name": "Pythagorean Theorem",
+    "icon": "calculate",
+    "category": "Calculators",
+    "description": "Calculate the missing side of a right triangle",
+    "input_type": "text",
+    "placeholder": "Enter two sides (a, b or c)...",
+    "button_label": "Calculate",
+    "button_icon": "calculate"
+}

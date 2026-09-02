@@ -1,0 +1,14 @@
+{
+    "slug": "json-ld-viewer",
+    "name": "JSON-LD Viewer",
+    "icon": "code",
+    "category": "Web & SEO",
+    "description": "Validate and display JSON-LD structured data",
+    "input_type": "text",
+    "placeholder": "Paste JSON-LD here...",
+    "button_label": "Validate",
+    "button_icon": "code",
+    "config": {
+        "processor": "json_ld_viewer"
+    }
+}

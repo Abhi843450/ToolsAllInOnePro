@@ -1,0 +1,23 @@
+{
+    "slug": "dice-roller",
+    "name": "Dice Roller",
+    "icon": "casino",
+    "category": "Generators",
+    "description": "Roll dice with custom sides, count, and modifiers",
+    "input_type": "text",
+    "placeholder": "Enter dice notation (e.g. 2d6+3)...",
+    "button_label": "Roll",
+    "button_icon": "casino",
+    "config": {
+        "processor": "dice_roller",
+        "inputs": [
+            {
+                "name": "notation",
+                "type": "text",
+                "label": "Dice Notation:",
+                "placeholder": "2d6+3",
+                "default": "1d6"
+            }
+        ]
+    }
+}

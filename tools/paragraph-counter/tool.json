@@ -1,0 +1,14 @@
+{
+    "slug": "paragraph-counter",
+    "name": "Paragraph Counter",
+    "icon": "calculate",
+    "category": "Text Tools",
+    "description": "Count paragraphs, lines, and words per paragraph",
+    "input_type": "text",
+    "placeholder": "Paste your text here...",
+    "button_label": "Count",
+    "button_icon": "calculate",
+    "config": {
+        "processor": "paragraph_counter"
+    }
+}

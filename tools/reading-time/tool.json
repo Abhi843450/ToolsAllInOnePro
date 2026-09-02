@@ -1,0 +1,14 @@
+{
+    "slug": "reading-time",
+    "name": "Reading Time Calculator",
+    "icon": "schedule",
+    "category": "Text Tools",
+    "description": "Estimate reading time and speech duration for any text",
+    "input_type": "text",
+    "placeholder": "Paste your text here...",
+    "button_label": "Calculate",
+    "button_icon": "schedule",
+    "config": {
+        "processor": "reading_time"
+    }
+}

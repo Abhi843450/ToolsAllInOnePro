@@ -1,0 +1,14 @@
+{
+    "slug": "color-blindness",
+    "name": "Color Blindness Simulator",
+    "icon": "visibility",
+    "category": "Design & Visual",
+    "description": "Simulate how colors appear to people with different types of color blindness",
+    "input_type": "text",
+    "placeholder": "Enter color (HEX)...",
+    "button_label": "Simulate",
+    "button_icon": "visibility",
+    "config": {
+        "processor": "color_blindness"
+    }
+}

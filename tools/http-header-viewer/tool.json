@@ -1,0 +1,14 @@
+{
+    "slug": "http-header-viewer",
+    "name": "HTTP Header Viewer",
+    "icon": "http",
+    "category": "Web & SEO",
+    "description": "Parse and display HTTP header strings",
+    "input_type": "text",
+    "placeholder": "Enter HTTP headers...",
+    "button_label": "Parse",
+    "button_icon": "http",
+    "config": {
+        "processor": "http_header_viewer"
+    }
+}

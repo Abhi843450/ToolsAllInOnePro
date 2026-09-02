@@ -1,0 +1,14 @@
+{
+    "slug": "material-colors",
+    "name": "Material Design Colors",
+    "icon": "palette",
+    "category": "Design & Visual",
+    "description": "View Material Design color palette with shades",
+    "input_type": "text",
+    "placeholder": "Search color...",
+    "button_label": "View",
+    "button_icon": "palette",
+    "config": {
+        "processor": "material_colors"
+    }
+}

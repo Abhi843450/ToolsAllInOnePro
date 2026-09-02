@@ -1,0 +1,14 @@
+{
+    "slug": "words-to-number",
+    "name": "Words to Number",
+    "icon": "calculate",
+    "category": "Converters",
+    "description": "Convert written English numbers to digits",
+    "input_type": "text",
+    "placeholder": "Enter words...",
+    "button_label": "Convert",
+    "button_icon": "calculate",
+    "config": {
+        "processor": "words_to_number"
+    }
+}

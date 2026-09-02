@@ -1,0 +1,14 @@
+{
+    "slug": "slash-escape",
+    "name": "String Escape Tool",
+    "icon": "code",
+    "category": "Encoding & Crypto",
+    "description": "Escape/unescape strings for JavaScript, Python, JSON, and SQL",
+    "input_type": "text",
+    "placeholder": "Enter string...",
+    "button_label": "Convert",
+    "button_icon": "code",
+    "config": {
+        "processor": "slash_escape"
+    }
+}

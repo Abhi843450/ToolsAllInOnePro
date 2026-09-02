@@ -1,0 +1,14 @@
+{
+    "slug": "clip-path-generator",
+    "name": "CSS Clip Path Generator",
+    "icon": "crop",
+    "category": "Design & Visual",
+    "description": "Generate CSS clip-path polygon values",
+    "input_type": "text",
+    "placeholder": "Describe shape...",
+    "button_label": "Generate",
+    "button_icon": "crop",
+    "config": {
+        "processor": "clip_path_generator"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "slug": "box-shadow-maker",
+    "name": "CSS Box Shadow Maker",
+    "icon": "shadow",
+    "category": "Design & Visual",
+    "description": "Create box shadows with multiple layers and spread",
+    "input_type": "text",
+    "placeholder": "Optional preset...",
+    "button_label": "Create",
+    "button_icon": "shadow",
+    "config": {
+        "processor": "box_shadow_maker"
+    }
+}

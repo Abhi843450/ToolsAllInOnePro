@@ -1,0 +1,14 @@
+{
+    "slug": "base64-tool",
+    "name": "Base64 Encoder/Decoder",
+    "icon": "lock",
+    "category": "Encoding & Crypto",
+    "description": "Encode and decode Base64 strings with UTF-8 support",
+    "input_type": "text",
+    "placeholder": "Enter text or Base64...",
+    "button_label": "Convert",
+    "button_icon": "lock",
+    "config": {
+        "processor": "base64_tool"
+    }
+}

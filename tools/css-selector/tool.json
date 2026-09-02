@@ -1,0 +1,14 @@
+{
+    "slug": "css-selector",
+    "name": "CSS Selector Generator",
+    "icon": "code",
+    "category": "Web & SEO",
+    "description": "Generate CSS selectors from element descriptions",
+    "input_type": "text",
+    "placeholder": "Describe element...",
+    "button_label": "Generate",
+    "button_icon": "code",
+    "config": {
+        "processor": "css_selector"
+    }
+}

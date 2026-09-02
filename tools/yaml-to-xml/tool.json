@@ -1,0 +1,14 @@
+{
+    "slug": "yaml-to-xml",
+    "name": "YAML to XML Converter",
+    "icon": "code",
+    "category": "Converters",
+    "description": "Convert YAML to XML format",
+    "input_type": "text",
+    "placeholder": "Paste YAML here...",
+    "button_label": "Convert",
+    "button_icon": "code",
+    "config": {
+        "processor": "yaml_to_xml"
+    }
+}

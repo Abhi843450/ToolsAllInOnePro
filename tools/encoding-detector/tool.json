@@ -1,0 +1,14 @@
+{
+    "slug": "encoding-detector",
+    "name": "Text Encoding Detector",
+    "icon": "search",
+    "category": "Encoding & Crypto",
+    "description": "Detect character encoding of pasted text",
+    "input_type": "text",
+    "placeholder": "Paste text to detect...",
+    "button_label": "Detect",
+    "button_icon": "search",
+    "config": {
+        "processor": "encoding_detector"
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "slug": "css-animation",
+    "name": "CSS Animation Generator",
+    "icon": "animation",
+    "category": "Generators",
+    "description": "Generate CSS keyframe animations for common effects",
+    "input_type": "text",
+    "placeholder": "Describe animation...",
+    "button_label": "Generate",
+    "button_icon": "animation"
+}

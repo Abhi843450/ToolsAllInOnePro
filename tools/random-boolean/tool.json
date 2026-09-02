@@ -1,0 +1,14 @@
+{
+    "slug": "random-boolean",
+    "name": "Random Boolean Generator",
+    "icon": "check_circle",
+    "category": "Generators",
+    "description": "Generate random true/false values with fair distribution",
+    "input_type": "text",
+    "placeholder": "Optional count...",
+    "button_label": "Generate",
+    "button_icon": "check_circle",
+    "config": {
+        "processor": "random_boolean"
+    }
+}

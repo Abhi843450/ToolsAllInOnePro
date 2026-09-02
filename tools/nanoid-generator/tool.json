@@ -1,0 +1,11 @@
+{
+    "slug": "nanoid-generator",
+    "name": "NanoID Generator",
+    "icon": "tag",
+    "category": "Generators",
+    "description": "Generate compact unique IDs with custom alphabet and length",
+    "input_type": "text",
+    "placeholder": "Optional length...",
+    "button_label": "Generate",
+    "button_icon": "tag"
+}

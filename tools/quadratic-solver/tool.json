@@ -1,0 +1,14 @@
+{
+    "slug": "quadratic-solver",
+    "name": "Quadratic Equation Solver",
+    "icon": "calculate",
+    "category": "Calculators",
+    "description": "Solve quadratic equations ax\u00b2 + bx + c = 0 with step-by-step solutions",
+    "input_type": "text",
+    "placeholder": "Enter coefficients a, b, c...",
+    "button_label": "Solve",
+    "button_icon": "calculate",
+    "config": {
+        "processor": "quadratic_solver"
+    }
+}

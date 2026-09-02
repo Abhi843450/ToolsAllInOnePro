@@ -1,0 +1,41 @@
+{
+    "slug": "lorem-ipsum",
+    "name": "Lorem Ipsum Generator",
+    "icon": "dynamic_feed",
+    "category": "Text Tools",
+    "description": "Generate placeholder text in paragraphs, words, or sentences",
+    "input_type": "text",
+    "placeholder": "Enter number of paragraphs...",
+    "button_label": "Generate",
+    "button_icon": "dynamic_feed",
+    "config": {
+        "processor": "lorem_ipsum",
+        "inputs": [
+            {
+                "name": "count",
+                "type": "number",
+                "label": "Count:",
+                "default": "3"
+            },
+            {
+                "name": "type",
+                "type": "select",
+                "label": "Type:",
+                "options": [
+                    {
+                        "value": "paragraphs",
+                        "label": "Paragraphs"
+                    },
+                    {
+                        "value": "sentences",
+                        "label": "Sentences"
+                    },
+                    {
+                        "value": "words",
+                        "label": "Words"
+                    }
+                ]
+            }
+        ]
+    }
+}

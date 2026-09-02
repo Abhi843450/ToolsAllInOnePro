@@ -1,0 +1,14 @@
+{
+    "slug": "png-compressor",
+    "name": "PNG Compressor",
+    "icon": "compress",
+    "category": "Design & Visual",
+    "description": "Compress PNG images to reduce file size",
+    "input_type": "text",
+    "placeholder": "Upload PNG...",
+    "button_label": "Compress",
+    "button_icon": "compress",
+    "config": {
+        "processor": "png_compressor"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "slug": "data-converter",
+    "name": "Data Size Converter",
+    "icon": "data_usage",
+    "category": "Calculators",
+    "description": "Convert between bytes, KB, MB, GB, TB, PB",
+    "input_type": "text",
+    "placeholder": "Enter data size...",
+    "button_label": "Convert",
+    "button_icon": "data_usage",
+    "config": {
+        "processor": "data_converter"
+    }
+}

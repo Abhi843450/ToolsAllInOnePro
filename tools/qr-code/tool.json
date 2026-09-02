@@ -1,0 +1,14 @@
+{
+    "slug": "qr-code",
+    "name": "QR Code Generator",
+    "icon": "qr_code_2",
+    "category": "Generators",
+    "description": "Generate QR codes for text, URLs, emails, or WiFi credentials",
+    "input_type": "text",
+    "placeholder": "Enter content for QR code...",
+    "button_label": "Generate",
+    "button_icon": "qr_code_2",
+    "config": {
+        "processor": "qr_code"
+    }
+}

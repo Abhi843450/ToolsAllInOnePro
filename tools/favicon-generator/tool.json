@@ -1,0 +1,14 @@
+{
+    "slug": "favicon-generator",
+    "name": "Favicon Generator",
+    "icon": "icon",
+    "category": "Design & Visual",
+    "description": "Generate favicon from text initials or emoji",
+    "input_type": "text",
+    "placeholder": "Enter initials or emoji...",
+    "button_label": "Generate",
+    "button_icon": "icon",
+    "config": {
+        "processor": "favicon_generator"
+    }
+}

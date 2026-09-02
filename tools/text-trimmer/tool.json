@@ -1,0 +1,22 @@
+{
+    "slug": "text-trimmer",
+    "name": "Text Trimmer",
+    "icon": "content_cut",
+    "category": "Text Tools",
+    "description": "Trim text to a specific character or word limit with ellipsis",
+    "input_type": "text",
+    "placeholder": "Paste your text here...",
+    "button_label": "Trim",
+    "button_icon": "content_cut",
+    "config": {
+        "processor": "text_trimmer",
+        "inputs": [
+            {
+                "name": "char_limit",
+                "type": "number",
+                "label": "Max Characters:",
+                "default": "100"
+            }
+        ]
+    }
+}

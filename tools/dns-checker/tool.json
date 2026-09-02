@@ -1,0 +1,14 @@
+{
+    "slug": "dns-checker",
+    "name": "DNS Lookup Tool",
+    "icon": "dns",
+    "category": "Web & SEO",
+    "description": "Look up DNS records for a domain",
+    "input_type": "text",
+    "placeholder": "Enter domain name...",
+    "button_label": "Lookup",
+    "button_icon": "dns",
+    "config": {
+        "processor": "dns_checker"
+    }
+}

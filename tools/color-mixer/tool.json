@@ -1,0 +1,14 @@
+{
+    "slug": "color-mixer",
+    "name": "Color Mixer",
+    "icon": "palette",
+    "category": "Design & Visual",
+    "description": "Mix two colors together and get the result in HEX, RGB, HSL",
+    "input_type": "text",
+    "placeholder": "Enter two colors...",
+    "button_label": "Mix",
+    "button_icon": "palette",
+    "config": {
+        "processor": "color_mixer"
+    }
+}

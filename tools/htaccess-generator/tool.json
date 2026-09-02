@@ -1,0 +1,14 @@
+{
+    "slug": "htaccess-generator",
+    "name": ".htaccess Generator",
+    "icon": "code",
+    "category": "Web & SEO",
+    "description": "Generate Apache .htaccess rules for redirects and security",
+    "input_type": "text",
+    "placeholder": "Enter redirect path...",
+    "button_label": "Generate",
+    "button_icon": "code",
+    "config": {
+        "processor": "htaccess_generator"
+    }
+}

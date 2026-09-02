@@ -1,0 +1,11 @@
+{
+    "slug": "markdown-to-html",
+    "name": "Markdown to HTML",
+    "icon": "code",
+    "category": "Code Tools",
+    "description": "Convert Markdown to clean HTML",
+    "input_type": "text",
+    "placeholder": "Enter Markdown here...",
+    "button_label": "Convert",
+    "button_icon": "code"
+}

@@ -1,0 +1,23 @@
+{
+    "slug": "placeholder-image",
+    "name": "Placeholder Image Generator",
+    "icon": "image",
+    "category": "Generators",
+    "description": "Generate placeholder images with custom dimensions and colors",
+    "input_type": "text",
+    "placeholder": "Enter dimensions (e.g. 300x200)...",
+    "button_label": "Generate",
+    "button_icon": "image",
+    "config": {
+        "processor": "placeholder_image",
+        "inputs": [
+            {
+                "name": "size",
+                "type": "text",
+                "label": "Dimensions:",
+                "placeholder": "300x200",
+                "default": "300x200"
+            }
+        ]
+    }
+}

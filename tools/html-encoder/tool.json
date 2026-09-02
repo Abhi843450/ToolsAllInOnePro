@@ -1,0 +1,14 @@
+{
+    "slug": "html-encoder",
+    "name": "HTML Encoder/Decoder",
+    "icon": "code",
+    "category": "Web & SEO",
+    "description": "Encode and decode HTML entities and special characters",
+    "input_type": "text",
+    "placeholder": "Enter HTML text...",
+    "button_label": "Convert",
+    "button_icon": "code",
+    "config": {
+        "processor": "html_encoder"
+    }
+}

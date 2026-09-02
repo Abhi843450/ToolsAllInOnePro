@@ -1,0 +1,14 @@
+{
+    "slug": "temperature-converter",
+    "name": "Temperature Converter",
+    "icon": "thermostat",
+    "category": "Calculators",
+    "description": "Convert between Celsius, Fahrenheit, and Kelvin",
+    "input_type": "text",
+    "placeholder": "Enter temperature (e.g. 100 C)...",
+    "button_label": "Convert",
+    "button_icon": "thermostat",
+    "config": {
+        "processor": "temperature_converter"
+    }
+}

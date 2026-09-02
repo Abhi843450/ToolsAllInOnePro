@@ -1,0 +1,14 @@
+{
+    "slug": "code-minifier",
+    "name": "Code Minifier",
+    "icon": "compress",
+    "category": "Code Tools",
+    "description": "Auto-detect language and minify code",
+    "input_type": "text",
+    "placeholder": "Paste code here...",
+    "button_label": "Minify",
+    "button_icon": "compress",
+    "config": {
+        "processor": "code_minifier"
+    }
+}

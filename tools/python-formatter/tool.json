@@ -1,0 +1,14 @@
+{
+    "slug": "python-formatter",
+    "name": "Python Formatter",
+    "icon": "code",
+    "category": "Code Tools",
+    "description": "Format Python code with proper PEP 8 style",
+    "input_type": "text",
+    "placeholder": "Paste Python code here...",
+    "button_label": "Format",
+    "button_icon": "code",
+    "config": {
+        "processor": "python_formatter"
+    }
+}
