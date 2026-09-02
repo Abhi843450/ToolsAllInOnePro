@@ -5,4 +5,11 @@ services:
     plan: free
     envVars:
       - key: PYTHON_VERSION
-        value: "3.12.0"
+        value: "3.12"
+      - key: PYTHONUNBUFFERED
+        value: "1"
+      - key: BGUTIL_ENABLED
+        value: "1"
+      # Optional: Set YOUTUBE_COOKIES_B64 for cookie-based authentication fallback
+      # # key: YOUTUBE_COOKIES_B64
+      # # sync: false

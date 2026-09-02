@@ -21,4 +21,9 @@ Thumbs.db
 *.log
 
 # User-uploaded YouTube cookies (never commit — contains login secrets)
+cookies.txt
+*.cookies
 tools/youtube-downloader/cookies.txt
+
+# Secrets directory
+secrets/

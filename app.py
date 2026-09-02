@@ -4,56 +4,15 @@ import glob
 import re
 import subprocess
 import sys
+import shutil
 
-from flask import Flask, render_template, request, jsonify, send_from_directory, Response, redirect, url_for
+from flask import Flask, render_template, request, jsonify, send_from_directory, Response, redirect, url_for, send_file
 
 # Use the `assets` folder for static files (css/js/favicon), `templates` for Jinja2
 app = Flask(__name__, static_folder='assets', template_folder='templates')
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TOOLS_DIR = os.path.join(BASE_DIR, 'tools')
-
-
-
-# YouTube cookies (Netscape cookies.txt) — uploaded by the user to bypass
-# YouTube's bot detection on datacenter IPs. Empty/missing = anonymous mode.
-YT_COOKIES_PATH = os.path.join(TOOLS_DIR, 'youtube-downloader', 'cookies.txt')
-
-
-def _provision_yt_cookies():
-    """On boot, source cookies from env vars so no visitor-facing upload is needed.
-
-    YT_COOKIES = raw Netscape cookies.txt content
-    YT_COOKIES_B64 = same content, base64-encoded (preferred, newlines safe)
-    """
-    import base64 as _b64
-    raw = os.environ.get('YT_COOKIES_B64') or os.environ.get('YT_COOKIES')
-    if not raw:
-        return
-    try:
-        try:
-            content = _b64.b64decode(raw, validate=True).decode('utf-8')
-        except Exception:
-            content = raw
-        os.makedirs(os.path.dirname(YT_COOKIES_PATH), exist_ok=True)
-        with open(YT_COOKIES_PATH, 'w', encoding='utf-8') as f:
-            f.write(content)
-    except Exception:
-        pass
-
-
-_provision_yt_cookies()
-
-
-def yt_cookies_active():
-    return os.path.isfile(YT_COOKIES_PATH)
-
-
-def yt_cookies_cli_arg():
-    """Return ['--cookies', path] so the CLI yt-dlp uses uploaded cookies."""
-    if yt_cookies_active():
-        return ['--cookies', YT_COOKIES_PATH]
-    return []
 
 
 def get_current_year():
@@ -95,6 +54,10 @@ def load_tool(slug):
     return tool
 
 
+# ═══════════════════════════════════════════════════════════
+# Page Routes
+# ═══════════════════════════════════════════════════════════
+
 @app.route('/')
 def index():
     tools = load_tools()
@@ -116,7 +79,6 @@ def tool_page(slug):
     return render_template('tool.html', tool=tool, slug=slug, all_tools=all_tools)
 
 
-# Serve tool-specific handler.js (kept alongside each tool directory inside tools/)
 @app.route('/tool/<slug>/handler.js')
 def tool_handler_js(slug):
     tool_dir = os.path.join(TOOLS_DIR, slug)
@@ -140,63 +102,6 @@ def sitemap():
     return Response('\n'.join(xml), mimetype='application/xml')
 
 
-@app.route('/api/debug-extract', methods=['POST'])
-def api_debug_extract():
-    """Debug endpoint: shows what yt-dlp reports for a video on this server."""
-    data = request.get_json(silent=True) or {}
-    url = data.get('url', '')
-    video_id = extract_video_id(url)
-    if not video_id:
-        return jsonify({'error': 'invalid url'})
-
-    import sys as _sys
-    output = []
-
-    # Check curl_cffi
-    try:
-        from curl_cffi import requests as cffi_requests
-        output.append('curl_cffi: INSTALLED')
-    except ImportError:
-        output.append('curl_cffi: NOT INSTALLED')
-
-    # Check yt-dlp
-    try:
-        import yt_dlp
-        output.append(f'yt_dlp: {yt_dlp.version.__version__}')
-    except ImportError:
-        output.append('yt_dlp: NOT INSTALLED')
-        return jsonify({'output': output})
-
-    # Try yt-dlp with all the options
-    for clients in [['default', 'web_embedded', 'tv', 'mweb', 'android'], ['android_testsuite']]:
-        ydl_opts = {
-            'quiet': False, 'no_warnings': False, 'no_check_certificates': True,
-            'skip_download': True, 'socket_timeout': 10, 'retries': 1,
-            'extractor_retries': 1,
-            'extractor_args': {'youtube': {'player_client': clients}},
-            'http_headers': {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'},
-            'js_runtimes': {'node': {}},
-        }
-        if yt_cookies_active():
-            ydl_opts['cookiefile'] = YT_COOKIES_PATH
-        for imp in ('chrome', False):
-            try:
-                opts = dict(ydl_opts)
-                if imp:
-                    opts['impersonate_target'] = imp
-                with yt_dlp.YoutubeDL(opts) as ydl:
-                    info = ydl.extract_info(url, download=False)
-                n = len(info.get('formats', [])) if info else 0
-                ps = info.get('playabilityStatus', {}) if info else {}
-                output.append(f'clients={clients} imp={imp}: {n} formats, status={ps.get("status","?")}')
-                if n == 0:
-                    output.append(f'  reason={ps.get("reason","none")}')
-            except Exception as e:
-                output.append(f'clients={clients} imp={imp}: ERROR {type(e).__name__}: {str(e)[:150]}')
-
-    return jsonify({'output': output, 'video_id': video_id})
-
-
 @app.route('/robots.txt')
 def robots():
     site_url = request.host_url.rstrip('/')
@@ -205,139 +110,298 @@ def robots():
 
 
 # ═══════════════════════════════════════════════════════════
-# API — runs the Python tools natively
+# Health & Diagnostics
 # ═══════════════════════════════════════════════════════════
+
+@app.route('/health')
+def health():
+    return jsonify({"status": "ok"})
+
+
+@app.route('/api/diagnostic')
+def api_diagnostic():
+    """Development diagnostic endpoint. Disable in production."""
+    from services.youtube_service import _provider, _cookies_configured
+    diag = {"yt_dlp": "unknown", "ffmpeg": False, "javascript_runtime": False,
+            "po_token_provider": False, "cookies_configured": _cookies_configured}
+    try:
+        import yt_dlp
+        diag["yt_dlp"] = yt_dlp.version.__version__
+    except Exception:
+        pass
+    try:
+        diag["ffmpeg"] = shutil.which("ffmpeg") is not None
+    except Exception:
+        pass
+    try:
+        r = subprocess.run(["node", "--version"], capture_output=True, text=True, timeout=5)
+        diag["javascript_runtime"] = r.returncode == 0
+    except Exception:
+        pass
+    diag["po_token_provider"] = _provider.get("ready", False)
+    return jsonify(diag)
+
+
+# ═══════════════════════════════════════════════════════════
+# YouTube API — New Architecture
+# ═══════════════════════════════════════════════════════════
+
+def _get_client_ip():
+    """Get client IP for rate limiting."""
+    if request.headers.get("X-Forwarded-For"):
+        return request.headers["X-Forwarded-For"].split(",")[0].strip()
+    return request.remote_addr or "127.0.0.1"
+
+
+@app.route('/api/youtube/analyze', methods=['POST', 'OPTIONS'])
+def api_youtube_analyze():
+    """Analyze a YouTube video and return metadata + available formats."""
+    if request.method == 'OPTIONS':
+        return '', 200
+
+    from services.youtube_service import (
+        validate_youtube_url, extract_video_id, canonical_url,
+        extract_video_info, build_analyze_response, build_error_response,
+        check_rate_limit,
+    )
+
+    # Rate limiting
+    ip = _get_client_ip()
+    allowed, retry_after = check_rate_limit(ip, limit=10, window=60)
+    if not allowed:
+        return jsonify(build_error_response("SERVER_BUSY",
+            "Too many requests. Please wait a moment and try again.")), 429
+
+    data = request.get_json(silent=True) or {}
+    url = (data.get("url") or "").strip()
+
+    if not url:
+        return jsonify(build_error_response("INVALID_URL")), 400
+
+    # Validate URL
+    is_valid, video_id, err_msg = validate_youtube_url(url)
+    if not is_valid:
+        return jsonify(build_error_response("INVALID_URL", err_msg)), 400
+
+    # Build canonical URL
+    url = canonical_url(video_id)
+
+    # Extract video info (bounded by yt-dlp timeout + retry logic)
+    info = extract_video_info(url, video_id, max_attempts=3)
+    if not info:
+        return jsonify(build_error_response(
+            "YOUTUBE_VERIFICATION_REQUIRED",
+            "YouTube temporarily refused this server request. Please try again later.",
+            retryable=True,
+        )), 502
+
+    return jsonify(build_analyze_response(info, video_id))
+
+
+@app.route('/api/youtube/download', methods=['POST', 'OPTIONS'])
+def api_youtube_download():
+    """Create a download job for a YouTube video format."""
+    if request.method == 'OPTIONS':
+        return '', 200
+
+    from services.youtube_service import (
+        validate_youtube_url, extract_video_id, canonical_url,
+        create_job, build_error_response, check_rate_limit,
+    )
+
+    # Rate limiting
+    ip = _get_client_ip()
+    allowed, retry_after = check_rate_limit(ip, limit=5, window=60)
+    if not allowed:
+        return jsonify(build_error_response("SERVER_BUSY",
+            "Too many download requests. Please wait.")), 429
+
+    data = request.get_json(silent=True) or {}
+    url = (data.get("url") or "").strip()
+    format_id = (data.get("format_id") or "").strip()
+    output_type = (data.get("output_type") or "video").strip()
+    audio_format = (data.get("audio_format") or "").strip() or None
+    audio_bitrate = (data.get("audio_bitrate") or "").strip() or None
+    video_title = (data.get("video_title") or "").strip()
+
+    if not url:
+        return jsonify(build_error_response("INVALID_URL")), 400
+
+    # Validate URL
+    is_valid, video_id, err_msg = validate_youtube_url(url)
+    if not is_valid:
+        return jsonify(build_error_response("INVALID_URL", err_msg)), 400
+
+    # Validate output_type
+    if output_type not in ("video", "audio"):
+        output_type = "video"
+
+    # Validate format_id (alphanumeric, hyphens, underscores, plus signs only)
+    if format_id and not re.match(r'^[a-zA-Z0-9_\-+]+$', format_id):
+        return jsonify(build_error_response("INVALID_URL", "Invalid format selection.")), 400
+
+    # Validate audio format
+    if output_type == "audio" and audio_format:
+        if audio_format not in ("mp3", "m4a", "opus", "webm"):
+            return jsonify(build_error_response("INVALID_URL", "Invalid audio format.")), 400
+
+    # Validate audio bitrate
+    if audio_bitrate and audio_bitrate not in ("128", "192", "256", "320"):
+        audio_bitrate = "192"
+
+    url = canonical_url(video_id)
+
+    # Create job
+    job = create_job(
+        url=url, video_id=video_id, format_id=format_id,
+        output_type=output_type, audio_format=audio_format,
+        audio_bitrate=audio_bitrate, video_title=video_title,
+    )
+
+    return jsonify({
+        "success": True,
+        "job_id": job.id,
+        "status": job.status,
+    })
+
+
+@app.route('/api/youtube/jobs/<job_id>', methods=['GET'])
+def api_youtube_job_status(job_id):
+    """Get download job status."""
+    from services.youtube_service import get_job, build_error_response
+    import re as _re
+
+    # Validate job_id format (hex only)
+    if not _re.match(r'^[a-f0-9]{12}$', job_id):
+        return jsonify(build_error_response("INVALID_URL", "Invalid job ID.")), 400
+
+    job = get_job(job_id)
+    if not job:
+        return jsonify(build_error_response("VIDEO_UNAVAILABLE", "Job not found.")), 404
+
+    return jsonify({
+        "success": True,
+        "job": job.to_dict(),
+    })
+
+
+@app.route('/api/youtube/jobs/<job_id>/file', methods=['GET'])
+def api_youtube_job_file(job_id):
+    """Serve the downloaded file for a completed job."""
+    from services.youtube_service import get_job, build_error_response
+    import re as _re
+
+    if not _re.match(r'^[a-f0-9]{12}$', job_id):
+        return jsonify(build_error_response("INVALID_URL", "Invalid job ID.")), 400
+
+    job = get_job(job_id)
+    if not job:
+        return jsonify(build_error_response("VIDEO_UNAVAILABLE", "Job not found.")), 404
+
+    if job.status != "ready":
+        return jsonify(build_error_response("DOWNLOAD_FAILED",
+            "File is not ready yet.")), 409
+
+    if not job.output_path or not os.path.isfile(job.output_path):
+        return jsonify(build_error_response("DOWNLOAD_FAILED",
+            "File not found or has expired.")), 404
+
+    # Determine MIME type
+    ext = os.path.splitext(job.filename or "")[1].lower()
+    mime_map = {
+        ".mp4": "video/mp4", ".webm": "video/webm", ".mkv": "video/x-matroska",
+        ".m4a": "audio/mp4", ".opus": "audio/opus", ".mp3": "audio/mpeg",
+        ".ogg": "audio/ogg",
+    }
+    mime_type = mime_map.get(ext, "application/octet-stream")
+
+    return send_file(
+        job.output_path,
+        mimetype=mime_type,
+        as_attachment=True,
+        download_name=job.filename or f"download{ext}",
+    )
+
+
+# ═══════════════════════════════════════════════════════════
+# Legacy YouTube API (backward compatible with old frontend)
+# ═══════════════════════════════════════════════════════════
+
+@app.route('/api/debug-extract', methods=['POST'])
+def api_debug_extract():
+    """Debug endpoint: shows what yt-dlp reports for a video on this server."""
+    data = request.get_json(silent=True) or {}
+    url = data.get('url', '')
+    video_id = _extract_video_id_legacy(url)
+    if not video_id:
+        return jsonify({'error': 'invalid url'})
+
+    output = []
+
+    try:
+        from curl_cffi import requests as cffi_requests
+        output.append('curl_cffi: INSTALLED')
+    except ImportError:
+        output.append('curl_cffi: NOT INSTALLED')
+
+    try:
+        import yt_dlp
+        output.append(f'yt_dlp: {yt_dlp.version.__version__}')
+    except ImportError:
+        output.append('yt_dlp: NOT INSTALLED')
+        return jsonify({'output': output})
+
+    # Use the new service for extraction
+    from services.youtube_service import extract_video_info, canonical_url
+    url = canonical_url(video_id)
+    info = extract_video_info(url, video_id, max_attempts=2)
+    if info:
+        n = len(info.get('formats', [])) if info else 0
+        output.append(f'yt-dlp: {n} formats')
+    else:
+        output.append('yt-dlp: extraction failed')
+
+    return jsonify({'output': output, 'video_id': video_id})
+
 
 @app.route('/api/download', methods=['GET'])
 def api_download():
-    """Stream a YouTube format directly to the user with a forced download.
-    ?video_id=..&itag=..  (direct stream)  or  ?video_id=..&merge=1&height=..  (video+audio MP4)."""
+    """Legacy direct download endpoint — kept for backward compatibility.
+    Redirects to the new job-based system."""
     video_id = (request.args.get('video_id') or '').strip()
     itag = (request.args.get('itag') or '').strip()
     merge = request.args.get('merge') == '1'
     height = (request.args.get('height') or '').strip()
-    title = sanitize_filename(request.args.get('title') or 'youtube_video')[:60]
+    title = _sanitize_filename_legacy(request.args.get('title') or 'youtube_video')[:60]
 
     if not re.match(r'^[A-Za-z0-9_-]{11}$', video_id):
         return jsonify({'success': False, 'error': 'Invalid video ID'}), 400
-    if merge:
-        if not re.match(r'^\d{3,4}$', height):
-            return jsonify({'success': False, 'error': 'Invalid height'}), 400
-        return _download_merged(video_id, int(height), title)
-    if not re.match(r'^\d{1,4}$', itag):
-        return jsonify({'success': False, 'error': 'Invalid format id'}), 400
-    return _download_stream(video_id, itag, title)
 
+    from services.youtube_service import create_job, canonical_url
 
-def sanitize_filename(name):
-    return re.sub(r'[<>:"/\\|?*\x00-\x1f]', '', name).replace('\n', ' ').strip() or 'youtube_video'
+    url = canonical_url(video_id)
 
+    if merge and re.match(r'^\\d{3,4}$', height):
+        job = create_job(
+            url=url, video_id=video_id,
+            format_id=f"bv*[height<={height}][ext=mp4]+ba[ext=m4a]/b[height<={height}][ext=mp4]",
+            output_type="video", video_title=title,
+        )
+    elif itag and re.match(r'^[a-zA-Z0-9_\\-+]+$', itag):
+        job = create_job(
+            url=url, video_id=video_id,
+            format_id=itag, output_type="video", video_title=title,
+        )
+    else:
+        return jsonify({'success': False, 'error': 'Invalid parameters'}), 400
 
-def _yt_dlp_cmd():
-    """Return a yt-dlp invocation with --impersonate chrome and --js-runtimes node baked in."""
-    try:
-        result = subprocess.run(['yt-dlp', '--version'], capture_output=True, text=True, timeout=5)
-        if result.returncode == 0:
-            return ['yt-dlp', '--impersonate', 'chrome', '--js-runtimes', 'node']
-    except Exception:
-        pass
-    return [sys.executable, '-m', 'yt_dlp', '--impersonate', 'chrome', '--js-runtimes', 'node']
-
-
-def _download_stream(video_id, itag, title):
-    video_url = f'https://www.youtube.com/watch?v={video_id}'
-    base = _yt_dlp_cmd() + yt_cookies_cli_arg()
-    # Try android_testsuite first (bypasses bot detection), fall back to default clients
-    for clients in ['android_testsuite', 'default,web_embedded,tv,mweb,android']:
-        cmd = base + [
-            '--no-playlist', '--no-warnings', '--no-check-certificates',
-            '--socket-timeout', '20', '--retries', '2',
-            '--extractor-args', f'youtube:player_client={clients}',
-            '--get-url', '-f', itag, video_url,
-        ]
-        try:
-            result = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
-            if result.returncode == 0 and result.stdout.strip():
-                stream_url = result.stdout.strip().split('\n')[0]
-                return _stream_url(stream_url, f'{title}_{itag}.mp4', 'application/octet-stream')
-        except Exception:
-            continue
-    return jsonify({'success': False, 'error': 'Could not resolve a download link for this format. Try another quality.'}), 502
-
-
-def _stream_url(source_url, filename, content_type):
-    """Proxy a remote URL to the client using curl_cffi for TLS impersonation."""
-    def generate():
-        try:
-            from curl_cffi import requests as cffi_requests
-            resp = cffi_requests.get(source_url, impersonate='chrome', timeout=60, stream=True)
-            for chunk in resp.iter_content(chunk_size=1024 * 1024):
-                if chunk:
-                    yield chunk
-        except ImportError:
-            import urllib.request
-            req = urllib.request.Request(source_url, headers={
-                'User-Agent': ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
-                               '(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'),
-            })
-            with urllib.request.urlopen(req, timeout=60) as resp:
-                while True:
-                    chunk = resp.read(1024 * 1024)
-                    if not chunk:
-                        break
-                    yield chunk
-    return Response(generate(), mimetype=content_type, headers={
-        'Content-Disposition': f'attachment; filename="{filename}"',
+    # Return job info so frontend can poll
+    return jsonify({
+        'success': True,
+        'job_id': job.id,
+        'status': job.status,
+        'message': 'Download started. Poll /api/youtube/jobs/<job_id> for status.',
     })
-
-
-def _download_merged(video_id, height, title):
-    """Download video+audio of the requested height and merge to MP4 (needs ffmpeg on server)."""
-    import tempfile
-    import shutil
-
-    if not shutil.which('ffmpeg'):
-        return jsonify({'success': False, 'error': 'Merging is not available on this server.'}), 501
-
-    video_url = f'https://www.youtube.com/watch?v={video_id}'
-    tmpdir = tempfile.mkdtemp(prefix='ytmerge_')
-    out_pattern = os.path.join(tmpdir, '%(id)s.%(ext)s')
-    try:
-        base = _yt_dlp_cmd() + yt_cookies_cli_arg()
-        cmd = base + [
-            '--no-playlist', '--no-warnings', '--no-check-certificates',
-            '--socket-timeout', '20', '--retries', '2',
-            '--extractor-args', 'youtube:player_client=default,web_embedded,tv,mweb,android',
-            '--merge-output-format', 'mp4',
-            '--format', f'bv*[height<={height}][ext=mp4]+ba[ext=m4a]/b[height<={height}][ext=mp4]',
-            '--output', out_pattern,
-            '--ffmpeg-location', shutil.which('ffmpeg'),
-            video_url,
-        ]
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=240)
-        merged = None
-        for name in os.listdir(tmpdir):
-            if name.endswith('.mp4'):
-                merged = os.path.join(tmpdir, name)
-                break
-        if result.returncode != 0 or not merged or not os.path.isfile(merged):
-            return jsonify({'success': False, 'error': 'Could not merge this quality (fall back to a lower one).'}), 502
-        size = os.path.getsize(merged)
-        filename = f'{title}_{height}p.mp4'
-        def generate(path, file_size):
-            with open(path, 'rb') as fh:
-                while True:
-                    chunk = fh.read(1024 * 1024)
-                    if not chunk:
-                        break
-                    yield chunk
-            shutil.rmtree(tmpdir, ignore_errors=True)
-        return Response(generate(merged, size), mimetype='video/mp4', headers={
-            'Content-Disposition': f'attachment; filename="{filename}"',
-        })
-    except Exception as e:
-        shutil.rmtree(tmpdir, ignore_errors=True)
-        return jsonify({'success': False, 'error': 'Download failed: ' + str(e)}), 502
 
 
 @app.route('/api/run-tool', methods=['POST', 'OPTIONS'])
@@ -353,10 +417,27 @@ def api_run_tool():
         if not url and tool != 'translate-transcript':
             return jsonify({'success': False, 'error': 'No URL provided'})
 
-        video_id = extract_video_id(url) if url else data.get('video_id', '')
+        video_id = _extract_video_id_legacy(url) if url else data.get('video_id', '')
 
         if tool == 'youtube-downloader':
-            return jsonify(run_youtube_downloader(url, video_id))
+            # Route to the new analyze endpoint
+            from services.youtube_service import (
+                validate_youtube_url, extract_video_id, canonical_url,
+                extract_video_info, build_analyze_response, build_error_response,
+            )
+
+            is_valid, vid, err_msg = validate_youtube_url(url)
+            if not is_valid:
+                return jsonify(build_error_response("INVALID_URL", err_msg))
+
+            url = canonical_url(vid)
+            info = extract_video_info(url, vid, max_attempts=2)
+            if not info:
+                return jsonify(build_error_response(
+                    "YOUTUBE_VERIFICATION_REQUIRED",
+                    "YouTube temporarily refused this server request. Please try again later.",
+                ))
+            return jsonify(build_analyze_response(info, vid))
 
         elif tool == 'youtube-transcript':
             lang = data.get('lang', 'en')
@@ -396,16 +477,13 @@ def api_translate_text():
 
 
 def translate_texts(texts, target_lang, source_lang='auto'):
-    """Translate every line using deep_translator (primary) with MyMemory/gtx
-    fallbacks. Returns (translated_list, used_fallback=True if any line stayed
-    original)."""
+    """Translate using deep_translator with MyMemory/gtx fallbacks."""
     import time
     if not texts:
         return [], False
     if source_lang == target_lang:
         return list(texts), False
 
-    # Map some common codes that deep_translator may not handle directly
     lang_map = {
         'zh-CN': 'zh-CN', 'zh-TW': 'zh-TW', 'zh': 'zh-CN',
         'he': 'iw', 'jv': 'jv', 'hmn': 'hmn',
@@ -416,11 +494,9 @@ def translate_texts(texts, target_lang, source_lang='auto'):
 
     result = [None] * len(texts)
 
-    # ── Pass 1: deep_translator GoogleTranslator (most reliable) ──
     try:
         from deep_translator import GoogleTranslator
         translator = GoogleTranslator(source=tl_src, target=tl_lang)
-        # Send in batches of ~4500 chars to stay within limits
         batch, batch_idxs, total = [], [], 0
         for idx in range(len(texts)):
             add = len(texts[idx]) + 2
@@ -454,7 +530,6 @@ def translate_texts(texts, target_lang, source_lang='auto'):
     except Exception:
         pass
 
-    # ── Pass 2: MyMemory for anything still untranslated (skip if source_lang is auto) ──
     pending = [i for i in range(len(texts)) if result[i] is None]
     if pending and source_lang != 'auto':
         batch, batch_idxs, total = [], [], 0
@@ -480,7 +555,6 @@ def translate_texts(texts, target_lang, source_lang='auto'):
             total += add
         flush_mymemory()
 
-    # ── Pass 3: Google gtx for anything still untranslated ──
     pending = [i for i in range(len(texts)) if result[i] is None]
     if pending:
         batch, batch_idxs, total = [], [], 0
@@ -508,7 +582,6 @@ def translate_texts(texts, target_lang, source_lang='auto'):
             total += add
         flush_gtx()
 
-    # Whatever is left genuinely could not be translated — keep original
     used_fallback = False
     for idx in range(len(texts)):
         if result[idx] is None:
@@ -573,21 +646,12 @@ def _gtx_translate(batch, source_lang, target_lang):
     return translated[:len(batch)]
 
 
-@app.errorhandler(404)
-def not_found(e):
-    if request.path.startswith('/api/'):
-        return jsonify({'success': False, 'error': 'Not found'}), 404
-    return e
+# ═══════════════════════════════════════════════════════════
+# Helpers
+# ═══════════════════════════════════════════════════════════
 
-
-@app.errorhandler(500)
-def server_error(e):
-    if request.path.startswith('/api/'):
-        return jsonify({'success': False, 'error': 'Internal server error'}), 500
-    return e
-
-
-def extract_video_id(url):
+def _extract_video_id_legacy(url):
+    """Extract video ID from URL (legacy helper for backward compat)."""
     patterns = [
         r'(?:youtube\.com/watch\?v=)([a-zA-Z0-9_-]{11})',
         r'(?:youtu\.be/)([a-zA-Z0-9_-]{11})',
@@ -603,170 +667,28 @@ def extract_video_id(url):
     return None
 
 
-def run_python_script(script_path, args):
-    """Run a tool's extract.py and parse its JSON output."""
-    if not os.path.isfile(script_path):
-        return None
+def _sanitize_filename_legacy(name):
+    return re.sub(r'[<>:"/\\|?*\x00-\x1f]', '', name).replace('\n', ' ').strip() or 'youtube_video'
+
+
+def run_youtube_transcript(url, video_id, lang='en'):
+    script = os.path.join(TOOLS_DIR, 'youtube-transcript', 'extract.py')
+    if not os.path.isfile(script):
+        return _php_transcript_fallback(url, video_id)
     try:
         result = subprocess.run(
-            [sys.executable, script_path] + args,
-            capture_output=True, text=True, timeout=15,
+            [sys.executable, script, url, lang],
+            capture_output=True, text=True, timeout=20,
         )
         if result.returncode == 0 and result.stdout.strip():
             data = json.loads(result.stdout.strip())
             if isinstance(data, dict) and 'success' in data:
                 return data
     except subprocess.TimeoutExpired:
-        print(f'[TIMEOUT] Script {script_path} timed out', file=sys.stderr)
+        print(f'[TIMEOUT] Script {script} timed out', file=sys.stderr)
     except Exception:
         pass
-    return None
-
-
-def run_youtube_downloader(url, video_id):
-    """Extract YouTube download formats. Must finish in <25s (gunicorn timeout)."""
-    # 1) Try yt-dlp (fast, single attempt)
-    try:
-        result = _ytdlp_python_extract(url, video_id)
-        if result and result.get('data', {}).get('formats'):
-            print(f'[DL] video_id={video_id} yt-dlp OK: {len(result["data"]["formats"])} formats', file=sys.stderr)
-            return result
-    except Exception as e:
-        print(f'[DL] video_id={video_id} yt-dlp ERROR: {e}', file=sys.stderr)
-
-    # 2) HTML scraping fallback (fast, uses curl_cffi)
-    try:
-        result = php_extract_downloader(url, video_id)
-        if result and result.get('data', {}).get('formats'):
-            print(f'[DL] video_id={video_id} html OK: {len(result["data"]["formats"])} formats', file=sys.stderr)
-            return result
-    except Exception:
-        pass
-
-    # 3) Return video info even without download links
-    thumbnail = f'https://img.youtube.com/vi/{video_id}/hqdefault.jpg'
-    oe = get_oembed_info(f'https://www.youtube.com/watch?v={video_id}')
-    return {
-        'success': True,
-        'data': {
-            'title': oe.get('title', '') or 'YouTube Video',
-            'channel': oe.get('channel', ''),
-            'video_id': video_id,
-            'thumbnail': thumbnail,
-            'duration': '',
-            'formats': [],
-            'url': f'https://www.youtube.com/watch?v={video_id}',
-            'note': 'YouTube is blocking downloads from this server. Try opening the video link directly.',
-        }
-    }
-
-
-def _ytdlp_python_extract(url, video_id):
-    """Use yt-dlp Python API. Single fast attempt — must finish in <10s."""
-    try:
-        import yt_dlp
-    except ImportError:
-        return None
-
-    # Single fast attempt with impersonate (uses curl_cffi if available)
-    ydl_opts = {
-        'quiet': True,
-        'no_warnings': True,
-        'no_check_certificates': True,
-        'skip_download': True,
-        'socket_timeout': 8,
-        'retries': 0,
-        'extractor_retries': 0,
-        'http_headers': {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        },
-        'impersonate_target': 'chrome',
-    }
-    if yt_cookies_active():
-        ydl_opts['cookiefile'] = YT_COOKIES_PATH
-
-    try:
-        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            info = ydl.extract_info(url, download=False)
-        if not info or not info.get('formats'):
-            return None
-    except Exception as e:
-        print(f'[DL] video_id={video_id} yt-dlp ERROR: {type(e).__name__}: {str(e)[:80]}', file=sys.stderr)
-        return None
-
-    title = info.get('title', info.get('fulltitle', ''))
-    channel = info.get('channel', info.get('uploader', ''))
-    duration = info.get('duration_string', '')
-    if info.get('thumbnail'):
-        thumbnail = info['thumbnail']
-
-    # Process formats the same way as extract.py
-    try:
-        sys.path.insert(0, os.path.join(TOOLS_DIR, 'youtube-downloader'))
-        from extract import process_formats, has_ffmpeg
-        formats = process_formats(info)
-        ffmpeg_available = has_ffmpeg()
-    except Exception:
-        ffmpeg_available = False
-        # Inline fallback processing
-        for fmt in info.get('formats', []):
-            fmt_url = fmt.get('url', '')
-            if not fmt_url:
-                continue
-            height = fmt.get('height', 0) or 0
-            ext = fmt.get('ext', 'mp4')
-            vcodec = fmt.get('vcodec', 'none')
-            acodec = fmt.get('acodec', 'none')
-            filesize = fmt.get('filesize') or fmt.get('filesize_approx', 0) or 0
-            abr = fmt.get('abr', 0) or 0
-            itag = fmt.get('format_id', '')
-            fps = fmt.get('fps', 0) or 0
-            protocol = fmt.get('protocol', '')
-            if protocol in ['m3u8_native', 'm3u8', 'mhtml']:
-                continue
-            if not str(itag).isdigit():
-                continue
-            if vcodec != 'none' and acodec != 'none':
-                st = 'video'
-            elif vcodec != 'none':
-                st = 'video_only'
-            elif acodec != 'none':
-                st = 'audio'
-            else:
-                continue
-            label = f'{height}p' if st != 'audio' else f'Audio {round(abr)}kbps'
-            formats.append({
-                'label': label, 'itag': str(itag), 'url': fmt_url, 'ext': ext,
-                'height': height, 'fps': fps, 'filesize': filesize,
-                'abr': round(abr, -1), 'stream_type': st,
-                'has_audio': st != 'video_only', 'has_video': st != 'audio',
-            })
-        formats.sort(key=lambda f: ({'video': 0, 'video_only': 1, 'audio': 2}.get(f['stream_type'], 3), -f['height']))
-
-    if not formats:
-        return None
-
-    return {
-        'success': True,
-        'data': {
-            'title': title or 'YouTube Video',
-            'channel': channel,
-            'video_id': video_id,
-            'thumbnail': thumbnail,
-            'duration': duration,
-            'formats': formats,
-            'url': url,
-            'ffmpeg': ffmpeg_available,
-        }
-    }
-
-
-def run_youtube_transcript(url, video_id, lang='en'):
-    script = os.path.join(TOOLS_DIR, 'youtube-transcript', 'extract.py')
-    result = run_python_script(script, [url, lang])
-    if result:
-        return result
-    return php_transcript_fallback(url, video_id)
+    return _php_transcript_fallback(url, video_id)
 
 
 def run_translate_transcript(video_id, target_lang):
@@ -820,7 +742,6 @@ def run_translate_transcript(video_id, target_lang):
 
 def fetch_url(url, timeout=15):
     """Fetch a URL with browser impersonation when curl-cffi is available."""
-    # Try curl-cffi first (bypasses TLS fingerprint blocking)
     try:
         from curl_cffi import requests as cffi_requests
         resp = cffi_requests.get(url, impersonate='chrome', timeout=timeout)
@@ -830,7 +751,6 @@ def fetch_url(url, timeout=15):
         pass
     except Exception:
         pass
-    # Fallback to urllib
     import urllib.request
     try:
         req = urllib.request.Request(url, headers={
@@ -856,93 +776,9 @@ def get_oembed_info(url):
     return {'title': '', 'channel': ''}
 
 
-def php_extract_downloader(url, video_id):
-    thumbnail = f'https://img.youtube.com/vi/{video_id}/hqdefault.jpg'
-    title = ''
-    channel = ''
-    duration = ''
-    formats = []
-
-    page_html = fetch_url(f'https://www.youtube.com/watch?v={video_id}')
-
-    if page_html:
-        m = re.search(r'var ytInitialPlayerResponse\s*=\s*(\{.*?\});\s*(?:var|<)', page_html, re.DOTALL)
-        if m:
-            try:
-                pr = json.loads(m.group(1))
-                vd = pr.get('videoDetails', {})
-                title = vd.get('title', '')
-                channel = vd.get('author', '')
-                dur = vd.get('lengthSeconds', '')
-                if dur and dur.isdigit():
-                    secs = int(dur)
-                    duration = f'{secs // 60}:{secs % 60:02d}'
-                thumbs = vd.get('thumbnail', {}).get('thumbnails', [])
-                if thumbs:
-                    thumbnail = thumbs[-1].get('url', thumbnail)
-
-                sd = pr.get('streamingData', {})
-                all_fmts = (sd.get('formats', []) or []) + (sd.get('adaptiveFormats', []) or [])
-                seen = set()
-                for fmt in all_fmts:
-                    fmt_url = fmt.get('url', '')
-                    cipher = fmt.get('signatureCipher', '')
-                    if not fmt_url and not cipher:
-                        continue
-                    h = fmt.get('height', 0) or 0
-                    mt = fmt.get('mimeType', '')
-                    fs = int(fmt.get('contentLength', 0) or 0)
-                    is_a = 'audio' in mt
-                    is_v = 'video' in mt
-                    label = ''
-                    if is_v and h > 0:
-                        label = f'{h}p'
-                    elif is_v:
-                        label = 'Video'
-                    elif is_a:
-                        label = 'Audio'
-                    if not label:
-                        continue
-                    ext = 'webm' if 'webm' in mt else 'mp4'
-                    key = f'{h}_{ext}'
-                    if key in seen:
-                        continue
-                    seen.add(key)
-                    formats.append({
-                        'label': f'{label} ({ext})',
-                        'url': fmt_url,
-                        'ext': ext,
-                        'height': h,
-                        'filesize': fs,
-                        'hasCipher': bool(cipher and not fmt_url),
-                    })
-                formats.sort(key=lambda f: -f['height'])
-            except Exception:
-                pass
-
-    if not title:
-        oe = get_oembed_info(url)
-        title = oe['title']
-        channel = oe['channel']
-
-    return {
-        'success': True,
-        'data': {
-            'title': title or 'YouTube Video',
-            'channel': channel,
-            'video_id': video_id,
-            'thumbnail': thumbnail,
-            'duration': duration,
-            'formats': formats,
-            'url': url,
-            'note': 'No direct download links. Install yt-dlp for full support.' if not formats else None,
-        }
-    }
-
-
-def php_transcript_fallback(url, video_id):
+def _php_transcript_fallback(url, video_id):
     oe = get_oembed_info(url)
-    transcript = php_extract_transcript(video_id)
+    transcript = _php_extract_transcript(video_id)
     return {
         'success': True,
         'data': {
@@ -960,7 +796,7 @@ def php_transcript_fallback(url, video_id):
     }
 
 
-def php_extract_transcript(video_id):
+def _php_extract_transcript(video_id):
     page_html = fetch_url(f'https://www.youtube.com/watch?v={video_id}')
     if not page_html:
         return []
@@ -998,6 +834,35 @@ def php_extract_transcript(video_id):
     except Exception:
         pass
     return []
+
+
+# ═══════════════════════════════════════════════════════════
+# Error Handlers
+# ═══════════════════════════════════════════════════════════
+
+@app.errorhandler(404)
+def not_found(e):
+    if request.path.startswith('/api/'):
+        return jsonify({'success': False, 'error': 'Not found'}), 404
+    return e
+
+
+@app.errorhandler(500)
+def server_error(e):
+    if request.path.startswith('/api/'):
+        return jsonify({'success': False, 'error': 'Internal server error'}), 500
+    return e
+
+
+# ═══════════════════════════════════════════════════════════
+# YouTube Service Initialization
+# ═══════════════════════════════════════════════════════════
+
+try:
+    from services.youtube_service import init_youtube_service
+    init_youtube_service()
+except Exception as e:
+    print(f"[YT INIT] Failed to initialize YouTube service: {e}", file=sys.stderr)
 
 
 if __name__ == '__main__':

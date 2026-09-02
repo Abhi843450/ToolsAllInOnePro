@@ -1,6 +1,6 @@
 /**
- * YouTube Video Downloader — handler.js
- * Server first (yt-dlp when available), PHP fallback with helpful UX.
+ * YouTube Video Downloader — handler.js (v2)
+ * Two-step flow: Analyze → Select Format → Download Job → Poll → Download
  */
 window.ToolHandlers = window.ToolHandlers || {};
 
@@ -8,171 +8,290 @@ window.ToolHandlers['youtube-downloader'] = function(TH) {
   var url = document.getElementById('toolUrlInput')?.value?.trim();
   if (!url) { TH.showError('Please enter a YouTube URL'); return; }
 
-  if (!url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/shorts\/|youtube\.com\/embed\/)/)) {
+  // Validate URL format
+  if (!url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/shorts\/|youtube\.com\/embed\/|youtube\.com\/v\/)/)) {
     TH.showError('Please enter a valid YouTube URL');
     return;
   }
 
-  fetch('/api/run-tool?tool=youtube-downloader', {
+  // Step 1: Analyze
+  showLoading('Analyzing video...');
+  fetch('/api/youtube/analyze', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ url: url })
   })
-  .then(function(r) {
-    if (!r.ok) throw new Error('Server returned HTTP ' + r.status);
-    var ct = r.headers.get('content-type') || '';
-    if (ct.indexOf('application/json') === -1) {
-      throw new Error('Server returned an invalid response. Please try again in a moment.');
-    }
-    return r.json();
-  })
+  .then(function(r) { return r.json(); })
   .then(function(resp) {
-    if (!resp.success) { TH.showError(resp.error || 'Failed to fetch video info'); return; }
-
-    var data = resp.data;
-    var html = '';
-
-    // Video info card
-    html += '<div class="result-item">';
-    html += '<div class="yt-info">';
-    if (data.thumbnail) {
-      html += '<img src="' + TH.esc(data.thumbnail) + '" class="yt-thumb" onerror="this.style.display=\'none\'">';
+    hideLoading();
+    if (!resp.success) {
+      var msg = resp.error?.message || resp.error || 'Failed to analyze video';
+      TH.showError(msg);
+      return;
     }
-    html += '<div class="yt-info-text">';
-    html += '<div class="result-label">Video</div>';
-    html += '<div class="result-value yt-title">' + TH.esc(data.title || 'YouTube Video') + '</div>';
-    if (data.channel) html += '<div class="yt-channel">' + TH.esc(data.channel) + '</div>';
-    if (data.duration) html += '<div class="yt-duration">Duration: ' + TH.esc(data.duration) + '</div>';
-    html += '</div></div></div>';
-
-    // Download formats — every quality streams through /api/download (forced download)
-    if (data.formats && data.formats.length > 0) {
-      var combined = data.formats.filter(function(f) { return f.stream_type === 'video'; });
-      var vonly = data.formats.filter(function(f) { return f.stream_type === 'video_only'; });
-      var audios = data.formats.filter(function(f) { return f.stream_type === 'audio'; });
-      var mergeHeights = [];
-      if (data.ffmpeg && vonly.length) {
-        mergeHeights = vonly.map(function(f) { return f.height; })
-          .filter(function(h, i, a) { return h && a.indexOf(h) === i; })
-          .sort(function(a, b) { return b - a; });
-      }
-
-      html += '<div class="result-item">';
-      html += '<div class="result-label">Download Options (' + data.formats.length + ')</div>';
-      html += '<div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">';
-
-      function sectionLabel(text) {
-        return '<div style="margin:6px 0 2px;font-size:.72rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.5px">' + TH.esc(text) + '</div>';
-      }
-      function buildRow(label, meta, apiPath, icon, color) {
-        var filename = sanitizeFilename(data.title) + '_' + label.replace(/[^a-zA-Z0-9]/g, '_') + '.mp4';
-        var href = apiPath + '&title=' + encodeURIComponent(data.title);
-        return '<div class="yt-download-row" style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg-secondary);border:2px solid var(--border);border-radius:8px">'
-          + '<span class="material-icons-outlined" style="color:' + color + ';font-size:26px;flex-shrink:0">' + icon + '</span>'
-          + '<div style="flex:1;min-width:0">'
-          + '<div style="font-weight:600">' + TH.esc(label) + '</div>'
-          + '<div style="font-size:0.8rem;color:var(--text-secondary)">' + TH.esc(meta) + '</div>'
-          + '</div>'
-          + '<a href="' + TH.esc(href) + '" download="' + TH.esc(filename) + '" aria-label="Download ' + TH.esc(label) + '" '
-          + 'style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--primary);color:#fff;border-radius:8px;flex-shrink:0;text-decoration:none">'
-          + '<span class="material-icons-outlined" style="font-size:20px">save_alt</span></a>'
-          + '</div>';
-      }
-
-      if (combined.length) {
-        html += sectionLabel('Video + Audio (MP4) — download right away');
-        combined.forEach(function(fmt) {
-          var size = fmt.filesize ? ' (' + formatSize(fmt.filesize) + ')' : '';
-          html += buildRow(fmt.label + size, 'MP4 with sound — downloads as file',
-            '/api/download?video_id=' + data.video_id + '&itag=' + fmt.itag, 'play_circle', 'var(--primary)');
-        });
-      }
-
-      if (mergeHeights.length) {
-        html += sectionLabel('High Quality (Video + Audio merged MP4)');
-        mergeHeights.forEach(function(h) {
-          html += buildRow(h + 'p Best Quality (Video + Audio)', 'Merged on server — H.264 + AAC MP4',
-            '/api/download?video_id=' + data.video_id + '&merge=1&height=' + h, 'merge', 'var(--warning)');
-        });
-      }
-
-      if (vonly.length) {
-        html += sectionLabel('Video Only (very high quality, no sound)');
-        vonly.forEach(function(fmt) {
-          var size = fmt.filesize ? ' (' + formatSize(fmt.filesize) + ')' : '';
-          html += buildRow(fmt.label + size, 'No audio — pair with an MP3 below',
-            '/api/download?video_id=' + data.video_id + '&itag=' + fmt.itag, 'high_quality', 'var(--info)');
-        });
-      }
-
-      if (audios.length) {
-        html += sectionLabel('Audio Only');
-        audios.forEach(function(fmt) {
-          var size = fmt.filesize ? ' (' + formatSize(fmt.filesize) + ')' : '';
-          html += buildRow(fmt.label + size, 'Music / MP3 style download',
-            '/api/download?video_id=' + data.video_id + '&itag=' + fmt.itag, 'headphones', 'var(--success)');
-        });
-      }
-
-      html += '</div></div>';
-
-      if (!data.ffmpeg && vonly.length) {
-        html += '<div class="result-item" style="border-color:var(--warning);background:#fff8f0">';
-        html += '<div style="display:flex;align-items:start;gap:8px">';
-        html += '<span class="material-icons-outlined" style="color:var(--warning);font-size:20px;flex-shrink:0">warning</span>';
-        html += '<div class="result-value" style="font-size:0.85rem">1080p and higher need server-side merging (ffmpeg) to include audio. Install ffmpeg on your server to enable one-click high-quality downloads.</div>';
-        html += '</div></div>';
-      }
-    } else {
-      // No formats — show retry option
-      html += '<div class="result-item" style="border-color:var(--warning);background:#fff8f0">';
-      html += '<div style="display:flex;flex-direction:column;gap:10px">';
-      html += '<div style="display:flex;align-items:center;gap:8px">';
-      html += '<span class="material-icons-outlined" style="color:var(--warning);font-size:20px;flex-shrink:0">cloud_off</span>';
-      html += '<div class="result-value" style="font-size:0.85rem;font-weight:600">Download options could not be loaded for this video.</div>';
-      html += '</div>';
-      html += '<div style="display:flex;flex-direction:column;gap:8px">';
-      html += '<button class="btn btn--primary" id="retryBtn" style="display:flex;align-items:center;gap:6px;align-self:flex-start">';
-      html += '<span class="material-icons-outlined" style="font-size:18px">refresh</span> Try Again</button>';
-      html += '<a href="https://www.youtube.com/watch?v=' + TH.esc(data.video_id) + '" target="_blank" rel="noopener" style="font-size:0.85rem;color:var(--primary);text-decoration:underline;cursor:pointer">Open on YouTube instead</a>';
-      html += '</div></div></div>';
-    }
-
-    // Original URL
-    html += '<div class="result-item"><div class="result-label">Original URL</div>';
-    html += '<div class="result-hash" style="font-size:0.85rem">' + TH.esc(data.url) + '</div></div>';
-
-    if (data.note && data.formats && data.formats.length > 0) {
-      html += '<div class="result-item" style="border-color:var(--info);background:#f0f7ff">';
-      html += '<div style="display:flex;align-items:start;gap:8px">';
-      html += '<span class="material-icons-outlined" style="color:var(--info);font-size:20px;flex-shrink:0">info</span>';
-      html += '<div class="result-value" style="font-size:0.85rem">' + TH.esc(data.note) + '</div>';
-      html += '</div></div>';
-    }
-
-    TH.showResults(html);
-
-    setTimeout(function() {
-      var retryBtn = document.getElementById('retryBtn');
-      if (retryBtn) {
-        retryBtn.addEventListener('click', function() {
-          var url = document.getElementById('toolUrlInput')?.value?.trim();
-          if (url) window.ToolHandlers['youtube-downloader'](TH);
-        });
-      }
-    }, 100);
+    renderVideoInfo(resp, url);
   })
-  .catch(function(e) { TH.showError('Error: ' + e.message); });
-
-  function formatSize(bytes) {
-    if (!bytes) return '';
-    if (bytes < 1024) return bytes + ' B';
-    if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
-    if (bytes < 1073741824) return (bytes / 1048576).toFixed(1) + ' MB';
-    return (bytes / 1073741824).toFixed(2) + ' GB';
-  }
-
-  function sanitizeFilename(name) {
-    return (name || 'youtube_video').replace(/[<>:"/\\|?*\x00-\x1f]/g, '').replace(/\s+/g, '_').substring(0, 80) || 'youtube_video';
-  }
+  .catch(function(e) {
+    hideLoading();
+    TH.showError('Network error: ' + e.message);
+  });
 };
+
+function showLoading(text) {
+  var el = document.getElementById('loadingState');
+  if (el) {
+    el.classList.remove('hidden');
+    var txt = el.querySelector('.loading__text');
+    if (txt) txt.textContent = text || 'Processing...';
+  }
+}
+
+function hideLoading() {
+  var el = document.getElementById('loadingState');
+  if (el) el.classList.add('hidden');
+}
+
+function renderVideoInfo(resp, originalUrl) {
+  var data = resp;
+  var video = data.video || {};
+  var videoFormats = data.video_formats || [];
+  var audioFormats = data.audio_formats || [];
+
+  var html = '';
+
+  // Video info card
+  html += '<div class="result-item">';
+  html += '<div class="yt-info">';
+  if (video.thumbnail) {
+    html += '<img src="' + TH.esc(video.thumbnail) + '" class="yt-thumb" onerror="this.style.display=\'none\'">';
+  }
+  html += '<div class="yt-info-text">';
+  html += '<div class="result-label">Video</div>';
+  html += '<div class="result-value yt-title">' + TH.esc(video.title || 'YouTube Video') + '</div>';
+  if (video.uploader) html += '<div class="yt-channel">' + TH.esc(video.uploader) + '</div>';
+  if (video.duration_string) html += '<div class="yt-duration">Duration: ' + TH.esc(video.duration_string) + '</div>';
+  html += '</div></div></div>';
+
+  // Format selection
+  var totalFormats = videoFormats.length + audioFormats.length;
+  if (totalFormats === 0) {
+    html += '<div class="result-item" style="border-color:var(--warning);background:#fff8f0">';
+    html += '<div style="display:flex;align-items:center;gap:8px">';
+    html += '<span class="material-icons-outlined" style="color:var(--warning);font-size:20px;flex-shrink:0">cloud_off</span>';
+    html += '<div class="result-value" style="font-size:0.85rem">No download formats available for this video.</div>';
+    html += '</div></div>';
+  } else {
+    html += '<div class="result-item">';
+    html += '<div class="result-label">Download Options (' + totalFormats + ')</div>';
+    html += '<div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">';
+
+    // Video formats
+    if (videoFormats.length > 0) {
+      html += sectionLabel('Video (MP4)');
+      videoFormats.forEach(function(fmt) {
+        var size = fmt.filesize ? ' (' + formatSize(fmt.filesize) + ')' : '';
+        var codec = fmt.codec ? ' • ' + fmt.codec : '';
+        var fpsLabel = fmt.fps_bucket > 30 ? ' ' + fmt.fps_bucket + 'fps' : '';
+        var label = fmt.quality_label + fpsLabel + codec + size;
+        var icon = fmt.has_audio ? 'play_circle' : 'high_quality';
+        var color = fmt.has_audio ? 'var(--primary)' : 'var(--info)';
+        var meta = fmt.has_audio ? 'MP4 with audio' : 'Video only — no audio';
+        html += buildFormatRow(label, meta, originalUrl, fmt.format_id,
+          'video', null, null, video.title, icon, color);
+      });
+    }
+
+    // Audio formats
+    if (audioFormats.length > 0) {
+      html += sectionLabel('Audio Only');
+      audioFormats.forEach(function(fmt) {
+        var size = fmt.filesize ? ' (' + formatSize(fmt.filesize) + ')' : '';
+        var label = fmt.quality_label + size;
+        html += buildFormatRow(label, 'Audio stream', originalUrl, fmt.format_id,
+          'audio', null, null, video.title, 'headphones', 'var(--success)');
+      });
+    }
+
+    // MP3 conversion options
+    html += sectionLabel('Audio Conversion (MP3)');
+    ['320', '192', '128'].forEach(function(bitrate) {
+      var label = 'MP3 ' + bitrate + ' kbps';
+      var meta = 'Transcoded from best audio source';
+      html += buildFormatRow(label, meta, originalUrl, 'bestaudio',
+        'audio', 'mp3', bitrate, video.title, 'music_note', 'var(--warning)');
+    });
+
+    html += '</div></div>';
+  }
+
+  // Original URL
+  html += '<div class="result-item"><div class="result-label">Original URL</div>';
+  html += '<div class="result-hash" style="font-size:0.85rem">' + TH.esc(originalUrl) + '</div></div>';
+
+  TH.showResults(html);
+}
+
+function sectionLabel(text) {
+  return '<div style="margin:6px 0 2px;font-size:.72rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.5px">' + text + '</div>';
+}
+
+function buildFormatRow(label, meta, url, formatId, outputType, audioFormat, audioBitrate, videoTitle, icon, color) {
+  var filename = sanitizeFilename(videoTitle) + '_' + label.replace(/[^a-zA-Z0-9]/g, '_');
+  var btnId = 'dl_' + Math.random().toString(36).substr(2, 8);
+
+  return '<div class="yt-download-row" style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg-secondary);border:2px solid var(--border);border-radius:8px">'
+    + '<span class="material-icons-outlined" style="color:' + color + ';font-size:26px;flex-shrink:0">' + icon + '</span>'
+    + '<div style="flex:1;min-width:0">'
+    + '<div style="font-weight:600">' + TH.esc(label) + '</div>'
+    + '<div style="font-size:0.8rem;color:var(--text-secondary)">' + TH.esc(meta) + '</div>'
+    + '</div>'
+    + '<button id="' + btnId + '" class="dl-format-btn" '
+    + 'data-url="' + TH.esc(url) + '" '
+    + 'data-format-id="' + TH.esc(formatId) + '" '
+    + 'data-output-type="' + TH.esc(outputType) + '" '
+    + 'data-audio-format="' + TH.esc(audioFormat || '') + '" '
+    + 'data-audio-bitrate="' + TH.esc(audioBitrate || '') + '" '
+    + 'data-video-title="' + TH.esc(videoTitle || '') + '" '
+    + 'style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--primary);color:#fff;border-radius:8px;flex-shrink:0;border:none;cursor:pointer">'
+    + '<span class="material-icons-outlined" style="font-size:20px">save_alt</span></button>'
+    + '</div>';
+}
+
+// Wire up download buttons after render
+document.addEventListener('click', function(e) {
+  var btn = e.target.closest('.dl-format-btn');
+  if (!btn) return;
+  e.preventDefault();
+  startDownload(btn);
+});
+
+function startDownload(btn) {
+  var url = btn.getAttribute('data-url');
+  var formatId = btn.getAttribute('data-format-id');
+  var outputType = btn.getAttribute('data-output-type');
+  var audioFormat = btn.getAttribute('data-audio-format') || null;
+  var audioBitrate = btn.getAttribute('data-audio-bitrate') || null;
+  var videoTitle = btn.getAttribute('data-video-title') || '';
+
+  // Show loading
+  showLoading('Starting download...');
+  btn.disabled = true;
+  btn.style.opacity = '0.5';
+
+  // Create download job
+  fetch('/api/youtube/download', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      url: url,
+      format_id: formatId,
+      output_type: outputType,
+      audio_format: audioFormat,
+      audio_bitrate: audioBitrate,
+      video_title: videoTitle,
+    })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(resp) {
+    if (!resp.success) {
+      hideLoading();
+      btn.disabled = false;
+      btn.style.opacity = '1';
+      var msg = resp.error?.message || 'Download failed';
+      TH.showError(msg);
+      return;
+    }
+    // Start polling job status
+    pollJob(resp.job_id, btn, videoTitle);
+  })
+  .catch(function(e) {
+    hideLoading();
+    btn.disabled = false;
+    btn.style.opacity = '1';
+    TH.showError('Network error: ' + e.message);
+  });
+}
+
+function pollJob(jobId, btn, videoTitle) {
+  var pollInterval = 1500; // 1.5s
+  var maxPolls = 120; // 3 minutes max
+  var polls = 0;
+
+  function check() {
+    polls++;
+    if (polls > maxPolls) {
+      hideLoading();
+      btn.disabled = false;
+      btn.style.opacity = '1';
+      TH.showError('Download timed out. Please try again.');
+      return;
+    }
+
+    fetch('/api/youtube/jobs/' + jobId)
+      .then(function(r) { return r.json(); })
+      .then(function(resp) {
+        if (!resp.success || !resp.job) {
+          hideLoading();
+          btn.disabled = false;
+          btn.style.opacity = '1';
+          TH.showError('Job status check failed.');
+          return;
+        }
+
+        var job = resp.job;
+
+        if (job.status === 'ready') {
+          // Download complete — trigger file download
+          hideLoading();
+          btn.disabled = false;
+          btn.style.opacity = '1';
+          var fileUrl = '/api/youtube/jobs/' + jobId + '/file';
+          var a = document.createElement('a');
+          a.href = fileUrl;
+          a.download = job.filename || 'download';
+          a.style.display = 'none';
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(function() { document.body.removeChild(a); }, 1000);
+          return;
+        }
+
+        if (job.status === 'failed') {
+          hideLoading();
+          btn.disabled = false;
+          btn.style.opacity = '1';
+          var errMsg = job.error_message || 'Download failed';
+          TH.showError(errMsg);
+          return;
+        }
+
+        // Update loading text with progress
+        var statusText = job.status.charAt(0).toUpperCase() + job.status.slice(1);
+        if (job.progress > 0) {
+          statusText += ' (' + Math.round(job.progress) + '%)';
+        }
+        showLoading(statusText + '...');
+
+        // Continue polling
+        setTimeout(check, pollInterval);
+      })
+      .catch(function() {
+        // Network error — retry once
+        setTimeout(check, pollInterval * 2);
+      });
+  }
+
+  check();
+}
+
+function formatSize(bytes) {
+  if (!bytes) return '';
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+  if (bytes < 1073741824) return (bytes / 1048576).toFixed(1) + ' MB';
+  return (bytes / 1073741824).toFixed(2) + ' GB';
+}
+
+function sanitizeFilename(name) {
+  return (name || 'youtube_video').replace(/[<>:"/\\|?*\x00-\x1f]/g, '').replace(/\s+/g, '_').substring(0, 80) || 'youtube_video';
+}
