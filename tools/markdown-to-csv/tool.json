@@ -1,15 +1,15 @@
 {
-    "slug": "markdown-to-csv",
-    "name": "Markdown Table to CSV",
-    "icon": "table_chart",
-    "category": "Converters",
-    "description": "Convert Markdown tables to CSV format",
-    "input_type": "text",
-    "placeholder": "Paste Markdown table to convert to CSV...",
-    "button_label": "Convert",
-    "button_icon": "table_chart",
-    "config": {
-        "processor": "markdown_to_csv"
-    },
-    "example": "| Name | Age |\n|------|-----|\n| John | 30 |"
+  "slug": "markdown-to-csv",
+  "name": "Markdown Table to CSV",
+  "icon": "table_chart",
+  "category": "Converters",
+  "description": "Convert Markdown tables to CSV format",
+  "input_type": "text",
+  "placeholder": "Paste Markdown table to convert to CSV...",
+  "button_label": "Convert",
+  "button_icon": "table_chart",
+  "config": {
+    "processor": "markdown_to_csv"
+  },
+  "example": "| Name | Age |\n|------|-----|\n| John | 30 |"
 }

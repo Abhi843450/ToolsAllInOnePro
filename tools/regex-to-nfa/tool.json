@@ -1,15 +1,15 @@
 {
-    "slug": "regex-to-nfa",
-    "name": "Regex to NFA Diagram",
-    "icon": "account_tree",
-    "category": "Converters",
-    "description": "Convert regex to NFA state diagram description",
-    "input_type": "text",
-    "placeholder": "Enter regex pattern to visualize as NFA...",
-    "button_label": "Convert",
-    "button_icon": "account_tree",
-    "config": {
-        "processor": "regex_to_nfa"
-    },
-    "example": "(a|b)*abb"
+  "slug": "regex-to-nfa",
+  "name": "Regex to NFA Diagram",
+  "icon": "account_tree",
+  "category": "Converters",
+  "description": "Convert regex to NFA state diagram description",
+  "input_type": "text",
+  "placeholder": "Enter regex pattern to visualize as NFA...",
+  "button_label": "Convert",
+  "button_icon": "account_tree",
+  "config": {
+    "processor": "regex_to_nfa"
+  },
+  "example": "(a|b)*abb"
 }

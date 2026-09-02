@@ -1,15 +1,15 @@
 {
-    "slug": "password-memorable",
-    "name": "Memorable Password Generator",
-    "icon": "vpn_key",
-    "category": "Generators",
-    "description": "Generate pronounceable passwords using word combinations",
-    "input_type": "text",
-    "placeholder": "Optional word count...",
-    "button_label": "Generate",
-    "button_icon": "vpn_key",
-    "config": {
-        "processor": "passphrase_gen"
-    },
-    "example": ""
+  "slug": "password-memorable",
+  "name": "Memorable Password Generator",
+  "icon": "vpn_key",
+  "category": "Generators",
+  "description": "Generate pronounceable passwords using word combinations",
+  "input_type": "text",
+  "placeholder": "Optional word count...",
+  "button_label": "Generate",
+  "button_icon": "vpn_key",
+  "config": {
+    "processor": "passphrase_gen"
+  },
+  "example": ""
 }

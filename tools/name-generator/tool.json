@@ -1,23 +1,23 @@
 {
-    "slug": "name-generator",
-    "name": "Name Generator",
-    "icon": "person_add",
-    "category": "Text Tools",
-    "description": "Generate random first names, last names, full names, usernames, or passwords",
-    "input_type": "text",
-    "placeholder": "Optional count or prefix...",
-    "button_label": "Generate",
-    "button_icon": "person_add",
-    "config": {
-        "processor": "name_generator",
-        "inputs": [
-            {
-                "name": "count",
-                "type": "number",
-                "label": "Number of names:",
-                "default": "5"
-            }
-        ]
-    },
-    "example": ""
+  "slug": "name-generator",
+  "name": "Name Generator",
+  "icon": "person_add",
+  "category": "Text Tools",
+  "description": "Generate random first names, last names, full names, usernames, or passwords",
+  "input_type": "text",
+  "placeholder": "Optional count or prefix...",
+  "button_label": "Generate",
+  "button_icon": "person_add",
+  "config": {
+    "processor": "name_generator",
+    "inputs": [
+      {
+        "name": "count",
+        "type": "number",
+        "label": "Number of names:",
+        "default": "5"
+      }
+    ]
+  },
+  "example": ""
 }

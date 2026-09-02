@@ -1,15 +1,15 @@
 {
-    "slug": "prime-checker",
-    "name": "Prime Number Checker",
-    "icon": "check_circle",
-    "category": "Calculators",
-    "description": "Check if a number is prime and find prime factors",
-    "input_type": "text",
-    "placeholder": "Enter a number to check if prime...",
-    "button_label": "Check",
-    "button_icon": "check_circle",
-    "config": {
-        "processor": "prime_checker"
-    },
-    "example": "17"
+  "slug": "prime-checker",
+  "name": "Prime Number Checker",
+  "icon": "check_circle",
+  "category": "Calculators",
+  "description": "Check if a number is prime and find prime factors",
+  "input_type": "text",
+  "placeholder": "Enter a number to check if prime...",
+  "button_label": "Check",
+  "button_icon": "check_circle",
+  "config": {
+    "processor": "prime_checker"
+  },
+  "example": "17"
 }

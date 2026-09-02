@@ -1,15 +1,15 @@
 {
-    "slug": "random-name",
-    "name": "Random Name Generator",
-    "icon": "person",
-    "category": "Generators",
-    "description": "Generate random full names, first names, or last names",
-    "input_type": "text",
-    "placeholder": "Optional count or prefix...",
-    "button_label": "Generate",
-    "button_icon": "person",
-    "config": {
-        "processor": "name_generator"
-    },
-    "example": ""
+  "slug": "random-name",
+  "name": "Random Name Generator",
+  "icon": "person",
+  "category": "Generators",
+  "description": "Generate random full names, first names, or last names",
+  "input_type": "text",
+  "placeholder": "Optional count or prefix...",
+  "button_label": "Generate",
+  "button_icon": "person",
+  "config": {
+    "processor": "name_generator"
+  },
+  "example": ""
 }

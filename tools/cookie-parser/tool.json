@@ -1,15 +1,15 @@
 {
-    "slug": "cookie-parser",
-    "name": "Cookie String Parser",
-    "icon": "cookie",
-    "category": "Web & SEO",
-    "description": "Parse cookie header strings into individual cookie objects",
-    "input_type": "text",
-    "placeholder": "Paste cookie header string to parse...",
-    "button_label": "Parse",
-    "button_icon": "cookie",
-    "config": {
-        "processor": "cookie_parser"
-    },
-    "example": "session=abc123; theme=dark; lang=en"
+  "slug": "cookie-parser",
+  "name": "Cookie String Parser",
+  "icon": "cookie",
+  "category": "Web & SEO",
+  "description": "Parse cookie header strings into individual cookie objects",
+  "input_type": "text",
+  "placeholder": "Paste cookie header string to parse...",
+  "button_label": "Parse",
+  "button_icon": "cookie",
+  "config": {
+    "processor": "cookie_parser"
+  },
+  "example": "session=abc123; theme=dark; lang=en"
 }

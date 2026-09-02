@@ -1,15 +1,15 @@
 {
-    "slug": "combinatorics",
-    "name": "Combinations & Permutations",
-    "icon": "calculate",
-    "category": "Statistics & Analysis",
-    "description": "Calculate nCr and nPr values",
-    "input_type": "text",
-    "placeholder": "Enter n and r values (e.g. 10, 3)...",
-    "button_label": "Calculate",
-    "button_icon": "calculate",
-    "config": {
-        "processor": "probability"
-    },
-    "example": "10, 3"
+  "slug": "combinatorics",
+  "name": "Combinations & Permutations",
+  "icon": "calculate",
+  "category": "Statistics & Analysis",
+  "description": "Calculate nCr and nPr values",
+  "input_type": "text",
+  "placeholder": "Enter n and r values (e.g. 10, 3)...",
+  "button_label": "Calculate",
+  "button_icon": "calculate",
+  "config": {
+    "processor": "probability"
+  },
+  "example": "10, 3"
 }

@@ -1,15 +1,15 @@
 {
-    "slug": "sql-cheatsheet",
-    "name": "SQL Cheat Sheet",
-    "icon": "data_object",
-    "category": "Developer Tools",
-    "description": "Quick reference for SQL commands, joins, and functions",
-    "input_type": "text",
-    "placeholder": "Search SQL syntax...",
-    "button_label": "View",
-    "button_icon": "data_object",
-    "config": {
-        "processor": "sql_cheatsheet"
-    },
-    "example": "JOIN"
+  "slug": "sql-cheatsheet",
+  "name": "SQL Cheat Sheet",
+  "icon": "data_object",
+  "category": "Developer Tools",
+  "description": "Quick reference for SQL commands, joins, and functions",
+  "input_type": "text",
+  "placeholder": "Search SQL syntax...",
+  "button_label": "View",
+  "button_icon": "data_object",
+  "config": {
+    "processor": "sql_cheatsheet"
+  },
+  "example": "JOIN"
 }

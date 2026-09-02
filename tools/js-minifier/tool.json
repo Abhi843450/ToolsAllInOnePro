@@ -1,15 +1,15 @@
 {
-    "slug": "js-minifier",
-    "name": "JavaScript Minifier",
-    "icon": "compress",
-    "category": "Code Tools",
-    "description": "Minify JavaScript code",
-    "input_type": "text",
-    "placeholder": "Paste JavaScript to minify...",
-    "button_label": "Minify",
-    "button_icon": "compress",
-    "config": {
-        "processor": "js_minifier"
-    },
-    "example": "function hello() { console.log(\"world\"); return true; }"
+  "slug": "js-minifier",
+  "name": "JavaScript Minifier",
+  "icon": "compress",
+  "category": "Code Tools",
+  "description": "Minify JavaScript code",
+  "input_type": "text",
+  "placeholder": "Paste JavaScript to minify...",
+  "button_label": "Minify",
+  "button_icon": "compress",
+  "config": {
+    "processor": "js_minifier"
+  },
+  "example": "function hello() { console.log(\"world\"); return true; }"
 }

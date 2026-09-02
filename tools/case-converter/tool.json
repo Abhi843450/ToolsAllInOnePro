@@ -1,31 +1,31 @@
 {
-    "slug": "case-converter",
-    "name": "Case Converter",
-    "icon": "text_format",
-    "category": "Text Tools",
-    "description": "Convert text to UPPERCASE, lowercase, Title Case, Sentence case, aLtErNaTiNg CaSe, or iNVERSE cAsE",
-    "input_type": "text",
-    "placeholder": "Paste text to convert case...",
-    "button_label": "Convert",
-    "button_icon": "text_format",
-    "config": {
-        "processor": "case_converter",
-        "inputs": [
-            {
-                "name": "mode",
-                "type": "select",
-                "label": "Convert to:",
-                "options": [
-                    "UPPERCASE",
-                    "lowercase",
-                    "Title Case",
-                    "Sentence case",
-                    "aLtErNaTiNg CaSe",
-                    "iNVERSE cAsE"
-                ],
-                "default": "UPPERCASE"
-            }
-        ]
-    },
-    "example": "hello world example text"
+  "slug": "case-converter",
+  "name": "Case Converter",
+  "icon": "text_format",
+  "category": "Text Tools",
+  "description": "Convert text to UPPERCASE, lowercase, Title Case, Sentence case, aLtErNaTiNg CaSe, or iNVERSE cAsE",
+  "input_type": "text",
+  "placeholder": "Paste text to convert case...",
+  "button_label": "Convert",
+  "button_icon": "text_format",
+  "config": {
+    "processor": "case_converter",
+    "inputs": [
+      {
+        "name": "mode",
+        "type": "select",
+        "label": "Convert to:",
+        "options": [
+          "UPPERCASE",
+          "lowercase",
+          "Title Case",
+          "Sentence case",
+          "aLtErNaTiNg CaSe",
+          "iNVERSE cAsE"
+        ],
+        "default": "UPPERCASE"
+      }
+    ]
+  },
+  "example": "hello world example text"
 }

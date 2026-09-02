@@ -1,15 +1,15 @@
 {
-    "slug": "svg-path-editor",
-    "name": "SVG Path Generator",
-    "icon": "draw",
-    "category": "Design & Visual",
-    "description": "Generate SVG path data for common shapes",
-    "input_type": "text",
-    "placeholder": "Describe shape (circle, rectangle, triangle)...",
-    "button_label": "Generate",
-    "button_icon": "draw",
-    "config": {
-        "processor": "svg_path_editor"
-    },
-    "example": "circle"
+  "slug": "svg-path-editor",
+  "name": "SVG Path Generator",
+  "icon": "brush",
+  "category": "Design & Visual",
+  "description": "Generate SVG path data for common shapes",
+  "input_type": "text",
+  "placeholder": "Describe shape (circle, rectangle, triangle)...",
+  "button_label": "Generate",
+  "button_icon": "draw",
+  "config": {
+    "processor": "svg_path_editor"
+  },
+  "example": "circle"
 }

@@ -1,15 +1,15 @@
 {
-    "slug": "redirect-checker",
-    "name": "Redirect Checker",
-    "icon": "swap_horiz",
-    "category": "Web & SEO",
-    "description": "Check redirect chains and final destination URLs",
-    "input_type": "text",
-    "placeholder": "Enter URL to check redirects...",
-    "button_label": "Check",
-    "button_icon": "swap_horiz",
-    "config": {
-        "processor": "redirect_checker"
-    },
-    "example": "https://example.com/old-page"
+  "slug": "redirect-checker",
+  "name": "Redirect Checker",
+  "icon": "swap_horiz",
+  "category": "Web & SEO",
+  "description": "Check redirect chains and final destination URLs",
+  "input_type": "text",
+  "placeholder": "Enter URL to check redirects...",
+  "button_label": "Check",
+  "button_icon": "swap_horiz",
+  "config": {
+    "processor": "redirect_checker"
+  },
+  "example": "https://example.com/old-page"
 }

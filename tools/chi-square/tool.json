@@ -1,15 +1,15 @@
 {
-    "slug": "chi-square",
-    "name": "Chi-Square Calculator",
-    "icon": "calculate",
-    "category": "Statistics & Analysis",
-    "description": "Calculate chi-square test statistic",
-    "input_type": "text",
-    "placeholder": "Enter observed and expected frequencies (e.g. 50,45 30,35)...",
-    "button_label": "Calculate",
-    "button_icon": "calculate",
-    "config": {
-        "processor": "chi_square"
-    },
-    "example": "50,45 30,35 20,20"
+  "slug": "chi-square",
+  "name": "Chi-Square Calculator",
+  "icon": "calculate",
+  "category": "Statistics & Analysis",
+  "description": "Calculate chi-square test statistic",
+  "input_type": "text",
+  "placeholder": "Enter observed and expected frequencies (e.g. 50,45 30,35)...",
+  "button_label": "Calculate",
+  "button_icon": "calculate",
+  "config": {
+    "processor": "chi_square"
+  },
+  "example": "50,45 30,35 20,20"
 }

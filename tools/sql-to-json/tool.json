@@ -1,15 +1,15 @@
 {
-    "slug": "sql-to-json",
-    "name": "SQL to JSON Converter",
-    "icon": "data_object",
-    "category": "Converters",
-    "description": "Convert SQL CREATE TABLE statements to JSON schemas",
-    "input_type": "text",
-    "placeholder": "Paste SQL CREATE TABLE to generate JSON schema...",
-    "button_label": "Convert",
-    "button_icon": "data_object",
-    "config": {
-        "processor": "sql_to_json"
-    },
-    "example": "CREATE TABLE users (id INT, name VARCHAR(100));"
+  "slug": "sql-to-json",
+  "name": "SQL to JSON Converter",
+  "icon": "data_object",
+  "category": "Converters",
+  "description": "Convert SQL CREATE TABLE statements to JSON schemas",
+  "input_type": "text",
+  "placeholder": "Paste SQL CREATE TABLE to generate JSON schema...",
+  "button_label": "Convert",
+  "button_icon": "data_object",
+  "config": {
+    "processor": "sql_to_json"
+  },
+  "example": "CREATE TABLE users (id INT, name VARCHAR(100));"
 }

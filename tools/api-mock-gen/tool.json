@@ -1,15 +1,15 @@
 {
-    "slug": "api-mock-gen",
-    "name": "API Mock Generator",
-    "icon": "api",
-    "category": "Developer Tools",
-    "description": "Generate mock API responses from JSON templates",
-    "input_type": "text",
-    "placeholder": "Paste JSON response template...",
-    "button_label": "Generate",
-    "button_icon": "api",
-    "config": {
-        "processor": "mock_data_gen"
-    },
-    "example": "{\"users\":[{\"id\":1,\"name\":\"John\"}]}"
+  "slug": "api-mock-gen",
+  "name": "API Mock Generator",
+  "icon": "api",
+  "category": "Developer Tools",
+  "description": "Generate mock API responses from JSON templates",
+  "input_type": "text",
+  "placeholder": "Paste JSON response template...",
+  "button_label": "Generate",
+  "button_icon": "api",
+  "config": {
+    "processor": "mock_data_gen"
+  },
+  "example": "{\"users\":[{\"id\":1,\"name\":\"John\"}]}"
 }

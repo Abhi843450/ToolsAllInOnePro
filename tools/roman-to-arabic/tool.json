@@ -1,15 +1,15 @@
 {
-    "slug": "roman-to-arabic",
-    "name": "Roman to Arabic Converter",
-    "icon": "swap_horiz",
-    "category": "Converters",
-    "description": "Convert Roman numerals to Arabic numbers",
-    "input_type": "text",
-    "placeholder": "Enter Roman numeral to convert...",
-    "button_label": "Convert",
-    "button_icon": "swap_horiz",
-    "config": {
-        "processor": "roman_to_arabic"
-    },
-    "example": "XLII"
+  "slug": "roman-to-arabic",
+  "name": "Roman to Arabic Converter",
+  "icon": "swap_horiz",
+  "category": "Converters",
+  "description": "Convert Roman numerals to Arabic numbers",
+  "input_type": "text",
+  "placeholder": "Enter Roman numeral to convert...",
+  "button_label": "Convert",
+  "button_icon": "swap_horiz",
+  "config": {
+    "processor": "roman_to_arabic"
+  },
+  "example": "XLII"
 }

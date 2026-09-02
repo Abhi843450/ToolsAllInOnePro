@@ -1,15 +1,15 @@
 {
-    "slug": "xml-validator",
-    "name": "XML Validator",
-    "icon": "check_circle",
-    "category": "Code Tools",
-    "description": "Validate XML syntax and find errors",
-    "input_type": "text",
-    "placeholder": "Paste XML to validate syntax...",
-    "button_label": "Validate",
-    "button_icon": "check_circle",
-    "config": {
-        "processor": "xml_validator"
-    },
-    "example": "<root><item>Hello</item></root>"
+  "slug": "xml-validator",
+  "name": "XML Validator",
+  "icon": "check_circle",
+  "category": "Code Tools",
+  "description": "Validate XML syntax and find errors",
+  "input_type": "text",
+  "placeholder": "Paste XML to validate syntax...",
+  "button_label": "Validate",
+  "button_icon": "check_circle",
+  "config": {
+    "processor": "xml_validator"
+  },
+  "example": "<root><item>Hello</item></root>"
 }

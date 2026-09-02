@@ -1,15 +1,15 @@
 {
-    "slug": "base64-url-embed",
-    "name": "Base64 URL Embed Generator",
-    "icon": "link",
-    "category": "Web & SEO",
-    "description": "Create data: URI from text content",
-    "input_type": "text",
-    "placeholder": "Enter text to embed as data URI...",
-    "button_label": "Generate",
-    "button_icon": "link",
-    "config": {
-        "processor": "base64_url_embed"
-    },
-    "example": "Hello World"
+  "slug": "base64-url-embed",
+  "name": "Base64 URL Embed Generator",
+  "icon": "link",
+  "category": "Web & SEO",
+  "description": "Create data: URI from text content",
+  "input_type": "text",
+  "placeholder": "Enter text to embed as data URI...",
+  "button_label": "Generate",
+  "button_icon": "link",
+  "config": {
+    "processor": "base64_url_embed"
+  },
+  "example": "Hello World"
 }

@@ -1,15 +1,15 @@
 {
-    "slug": "word-frequency",
-    "name": "Word Frequency Analyzer",
-    "icon": "analytics",
-    "category": "Text Tools",
-    "description": "Analyze word frequency, find most common words, and generate word clouds data",
-    "input_type": "text",
-    "placeholder": "Paste text to analyze word frequency and most common words...",
-    "button_label": "Analyze",
-    "button_icon": "analytics",
-    "config": {
-        "processor": "word_frequency"
-    },
-    "example": "the cat sat on the mat the cat liked the mat"
+  "slug": "word-frequency",
+  "name": "Word Frequency Analyzer",
+  "icon": "analytics",
+  "category": "Text Tools",
+  "description": "Analyze word frequency, find most common words, and generate word clouds data",
+  "input_type": "text",
+  "placeholder": "Paste text to analyze word frequency and most common words...",
+  "button_label": "Analyze",
+  "button_icon": "analytics",
+  "config": {
+    "processor": "word_frequency"
+  },
+  "example": "the cat sat on the mat the cat liked the mat"
 }

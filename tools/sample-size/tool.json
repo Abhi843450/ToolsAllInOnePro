@@ -1,15 +1,15 @@
 {
-    "slug": "sample-size",
-    "name": "Sample Size Calculator",
-    "icon": "calculate",
-    "category": "Statistics & Analysis",
-    "description": "Calculate required sample size for surveys",
-    "input_type": "text",
-    "placeholder": "Enter margin of error and confidence level (e.g. 0.05, 95)...",
-    "button_label": "Calculate",
-    "button_icon": "calculate",
-    "config": {
-        "processor": "sample_size"
-    },
-    "example": "0.05, 95"
+  "slug": "sample-size",
+  "name": "Sample Size Calculator",
+  "icon": "calculate",
+  "category": "Statistics & Analysis",
+  "description": "Calculate required sample size for surveys",
+  "input_type": "text",
+  "placeholder": "Enter margin of error and confidence level (e.g. 0.05, 95)...",
+  "button_label": "Calculate",
+  "button_icon": "calculate",
+  "config": {
+    "processor": "sample_size"
+  },
+  "example": "0.05, 95"
 }

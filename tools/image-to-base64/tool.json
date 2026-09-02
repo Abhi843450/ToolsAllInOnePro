@@ -1,15 +1,15 @@
 {
-    "slug": "image-to-base64",
-    "name": "Image to Base64",
-    "icon": "image",
-    "category": "Converters",
-    "description": "Convert uploaded images to Base64 encoded strings",
-    "input_type": "text",
-    "placeholder": "Upload image or paste Base64 to decode...",
-    "button_label": "Convert",
-    "button_icon": "image",
-    "config": {
-        "processor": "image_to_base64"
-    },
-    "example": ""
+  "slug": "image-to-base64",
+  "name": "Image to Base64",
+  "icon": "image",
+  "category": "Converters",
+  "description": "Convert uploaded images to Base64 encoded strings",
+  "input_type": "text",
+  "placeholder": "Upload image or paste Base64 to decode...",
+  "button_label": "Convert",
+  "button_icon": "image",
+  "config": {
+    "processor": "image_to_base64"
+  },
+  "example": ""
 }

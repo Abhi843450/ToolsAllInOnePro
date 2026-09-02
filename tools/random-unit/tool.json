@@ -1,15 +1,15 @@
 {
-    "slug": "random-unit",
-    "name": "Random Unit of Measurement",
-    "icon": "straighten",
-    "category": "Generators",
-    "description": "Generate random measurements in various unit systems",
-    "input_type": "text",
-    "placeholder": "Optional unit type...",
-    "button_label": "Generate",
-    "button_icon": "straighten",
-    "config": {
-        "processor": "random_unit"
-    },
-    "example": ""
+  "slug": "random-unit",
+  "name": "Random Unit of Measurement",
+  "icon": "straighten",
+  "category": "Generators",
+  "description": "Generate random measurements in various unit systems",
+  "input_type": "text",
+  "placeholder": "Optional unit type...",
+  "button_label": "Generate",
+  "button_icon": "straighten",
+  "config": {
+    "processor": "random_unit"
+  },
+  "example": ""
 }

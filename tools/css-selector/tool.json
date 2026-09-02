@@ -1,15 +1,15 @@
 {
-    "slug": "css-selector",
-    "name": "CSS Selector Generator",
-    "icon": "code",
-    "category": "Web & SEO",
-    "description": "Generate CSS selectors from element descriptions",
-    "input_type": "text",
-    "placeholder": "Describe the element (e.g. nav, .button, #header)...",
-    "button_label": "Generate",
-    "button_icon": "code",
-    "config": {
-        "processor": "css_selector"
-    },
-    "example": "nav > ul > li.active"
+  "slug": "css-selector",
+  "name": "CSS Selector Generator",
+  "icon": "code",
+  "category": "Web & SEO",
+  "description": "Generate CSS selectors from element descriptions",
+  "input_type": "text",
+  "placeholder": "Describe the element (e.g. nav, .button, #header)...",
+  "button_label": "Generate",
+  "button_icon": "code",
+  "config": {
+    "processor": "css_selector"
+  },
+  "example": "nav > ul > li.active"
 }

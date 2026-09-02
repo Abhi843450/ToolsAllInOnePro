@@ -1,15 +1,15 @@
 {
-    "slug": "fake-company",
-    "name": "Fake Company Generator",
-    "icon": "business",
-    "category": "Generators",
-    "description": "Generate fake company names, domains, and descriptions",
-    "input_type": "text",
-    "placeholder": "Optional count...",
-    "button_label": "Generate",
-    "button_icon": "business",
-    "config": {
-        "processor": "name_generator"
-    },
-    "example": ""
+  "slug": "fake-company",
+  "name": "Fake Company Generator",
+  "icon": "business",
+  "category": "Generators",
+  "description": "Generate fake company names, domains, and descriptions",
+  "input_type": "text",
+  "placeholder": "Optional count...",
+  "button_label": "Generate",
+  "button_icon": "business",
+  "config": {
+    "processor": "name_generator"
+  },
+  "example": ""
 }

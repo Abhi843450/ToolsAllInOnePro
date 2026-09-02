@@ -1,15 +1,15 @@
 {
-    "slug": "percentage-calculator",
-    "name": "Percentage Calculator",
-    "icon": "calculate",
-    "category": "Calculators",
-    "description": "Calculate percentages, percentage increase/decrease, and percentage of values",
-    "input_type": "text",
-    "placeholder": "Enter problem (e.g. 25% of 200, increase from 100 to 150)...",
-    "button_label": "Calculate",
-    "button_icon": "calculate",
-    "config": {
-        "processor": "percentage_calculator"
-    },
-    "example": "25% of 200"
+  "slug": "percentage-calculator",
+  "name": "Percentage Calculator",
+  "icon": "calculate",
+  "category": "Calculators",
+  "description": "Calculate percentages, percentage increase/decrease, and percentage of values",
+  "input_type": "text",
+  "placeholder": "Enter problem (e.g. 25% of 200, increase from 100 to 150)...",
+  "button_label": "Calculate",
+  "button_icon": "calculate",
+  "config": {
+    "processor": "percentage_calculator"
+  },
+  "example": "25% of 200"
 }

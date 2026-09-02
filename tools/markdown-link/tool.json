@@ -1,15 +1,15 @@
 {
-    "slug": "markdown-link",
-    "name": "Markdown Link Generator",
-    "icon": "link",
-    "category": "Web & SEO",
-    "description": "Generate markdown links, images, and references",
-    "input_type": "text",
-    "placeholder": "Enter URL to generate markdown link/image...",
-    "button_label": "Generate",
-    "button_icon": "link",
-    "config": {
-        "processor": "markdown_link"
-    },
-    "example": "https://example.com/image.png"
+  "slug": "markdown-link",
+  "name": "Markdown Link Generator",
+  "icon": "link",
+  "category": "Web & SEO",
+  "description": "Generate markdown links, images, and references",
+  "input_type": "text",
+  "placeholder": "Enter URL to generate markdown link/image...",
+  "button_label": "Generate",
+  "button_icon": "link",
+  "config": {
+    "processor": "markdown_link"
+  },
+  "example": "https://example.com/image.png"
 }

@@ -1,15 +1,15 @@
 {
-    "slug": "utf8-validator",
-    "name": "UTF-8 Validator",
-    "icon": "check_circle",
-    "category": "Encoding & Crypto",
-    "description": "Validate if text is valid UTF-8 and show code points",
-    "input_type": "text",
-    "placeholder": "Paste text to validate UTF-8...",
-    "button_label": "Validate",
-    "button_icon": "check_circle",
-    "config": {
-        "processor": "utf8_validator"
-    },
-    "example": "Hello World"
+  "slug": "utf8-validator",
+  "name": "UTF-8 Validator",
+  "icon": "check_circle",
+  "category": "Encoding & Crypto",
+  "description": "Validate if text is valid UTF-8 and show code points",
+  "input_type": "text",
+  "placeholder": "Paste text to validate UTF-8...",
+  "button_label": "Validate",
+  "button_icon": "check_circle",
+  "config": {
+    "processor": "utf8_validator"
+  },
+  "example": "Hello World"
 }

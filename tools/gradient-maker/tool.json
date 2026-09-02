@@ -1,15 +1,15 @@
 {
-    "slug": "gradient-maker",
-    "name": "CSS Gradient Maker",
-    "icon": "gradient",
-    "category": "Design & Visual",
-    "description": "Create linear, radial, and conic gradients with live preview",
-    "input_type": "text",
-    "placeholder": "Enter colors or preset name (e.g. sunset, ocean)...",
-    "button_label": "Create",
-    "button_icon": "gradient",
-    "config": {
-        "processor": "color_palette_gen"
-    },
-    "example": "sunset"
+  "slug": "gradient-maker",
+  "name": "CSS Gradient Maker",
+  "icon": "gradient",
+  "category": "Design & Visual",
+  "description": "Create linear, radial, and conic gradients with live preview",
+  "input_type": "text",
+  "placeholder": "Enter colors or preset name (e.g. sunset, ocean)...",
+  "button_label": "Create",
+  "button_icon": "gradient",
+  "config": {
+    "processor": "color_palette_gen"
+  },
+  "example": "sunset"
 }

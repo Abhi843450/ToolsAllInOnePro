@@ -1,23 +1,23 @@
 {
-    "slug": "diff-viewer",
-    "name": "Text Diff Viewer",
-    "icon": "compare",
-    "category": "Developer Tools",
-    "description": "Compare two texts and highlight differences",
-    "input_type": "text",
-    "placeholder": "Paste first text to compare...",
-    "button_label": "Compare",
-    "button_icon": "compare",
-    "config": {
-        "processor": "text_diff",
-        "inputs": [
-            {
-                "name": "text2",
-                "type": "textarea",
-                "label": "Text 2:",
-                "height": "120"
-            }
-        ]
-    },
-    "example": "Hello World\nLine 2"
+  "slug": "diff-viewer",
+  "name": "Text Diff Viewer",
+  "icon": "compare",
+  "category": "Developer Tools",
+  "description": "Compare two texts and highlight differences",
+  "input_type": "text",
+  "placeholder": "Paste first text to compare...",
+  "button_label": "Compare",
+  "button_icon": "compare",
+  "config": {
+    "processor": "text_diff",
+    "inputs": [
+      {
+        "name": "text2",
+        "type": "textarea",
+        "label": "Text 2:",
+        "height": "120"
+      }
+    ]
+  },
+  "example": "Hello World\nLine 2"
 }

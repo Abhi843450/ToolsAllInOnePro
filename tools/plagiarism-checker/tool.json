@@ -1,23 +1,23 @@
 {
-    "slug": "plagiarism-checker",
-    "name": "Text Similarity Checker",
-    "icon": "gpp_good",
-    "category": "Text Tools",
-    "description": "Check text similarity and detect potential duplicate content",
-    "input_type": "text",
-    "placeholder": "Enter text to check for similarity...",
-    "button_label": "Check",
-    "button_icon": "gpp_good",
-    "config": {
-        "processor": "text_diff",
-        "inputs": [
-            {
-                "name": "text2",
-                "type": "textarea",
-                "label": "Text 2 (to compare):",
-                "height": "120"
-            }
-        ]
-    },
-    "example": "The quick brown fox jumps over the lazy dog"
+  "slug": "plagiarism-checker",
+  "name": "Text Similarity Checker",
+  "icon": "gpp_good",
+  "category": "Text Tools",
+  "description": "Check text similarity and detect potential duplicate content",
+  "input_type": "text",
+  "placeholder": "Enter text to check for similarity...",
+  "button_label": "Check",
+  "button_icon": "gpp_good",
+  "config": {
+    "processor": "text_diff",
+    "inputs": [
+      {
+        "name": "text2",
+        "type": "textarea",
+        "label": "Text 2 (to compare):",
+        "height": "120"
+      }
+    ]
+  },
+  "example": "The quick brown fox jumps over the lazy dog"
 }

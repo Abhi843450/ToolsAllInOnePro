@@ -1,15 +1,15 @@
 {
-    "slug": "days-between",
-    "name": "Days Between Dates",
-    "icon": "calculate",
-    "category": "Calculators",
-    "description": "Calculate the number of days between two dates",
-    "input_type": "text",
-    "placeholder": "Enter two dates (e.g. 2024-01-01 2024-12-31)...",
-    "button_label": "Calculate",
-    "button_icon": "calculate",
-    "config": {
-        "processor": "days_between"
-    },
-    "example": "2024-01-01, 2024-12-31"
+  "slug": "days-between",
+  "name": "Days Between Dates",
+  "icon": "calculate",
+  "category": "Calculators",
+  "description": "Calculate the number of days between two dates",
+  "input_type": "text",
+  "placeholder": "Enter two dates (e.g. 2024-01-01 2024-12-31)...",
+  "button_label": "Calculate",
+  "button_icon": "calculate",
+  "config": {
+    "processor": "days_between"
+  },
+  "example": "2024-01-01, 2024-12-31"
 }

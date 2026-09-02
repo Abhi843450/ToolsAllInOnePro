@@ -1,15 +1,15 @@
 {
-    "slug": "idn-converter",
-    "name": "IDN Converter",
-    "icon": "language",
-    "category": "Encoding & Crypto",
-    "description": "Convert internationalized domain names to Punycode and back",
-    "input_type": "text",
-    "placeholder": "Enter internationalized domain name...",
-    "button_label": "Convert",
-    "button_icon": "language",
-    "config": {
-        "processor": "url_parser"
-    },
-    "example": "m\u00fcnchen.de"
+  "slug": "idn-converter",
+  "name": "IDN Converter",
+  "icon": "language",
+  "category": "Encoding & Crypto",
+  "description": "Convert internationalized domain names to Punycode and back",
+  "input_type": "text",
+  "placeholder": "Enter internationalized domain name...",
+  "button_label": "Convert",
+  "button_icon": "language",
+  "config": {
+    "processor": "url_parser"
+  },
+  "example": "m\u00fcnchen.de"
 }

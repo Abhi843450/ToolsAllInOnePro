@@ -1,15 +1,15 @@
 {
-    "slug": "html-minifier",
-    "name": "HTML Minifier",
-    "icon": "compress",
-    "category": "Code Tools",
-    "description": "Minify HTML by removing whitespace, comments, and unnecessary attributes",
-    "input_type": "text",
-    "placeholder": "Paste HTML to minify...",
-    "button_label": "Minify",
-    "button_icon": "compress",
-    "config": {
-        "processor": "html_minifier"
-    },
-    "example": "<div class=\"container\">  <p>Hello World</p></div>"
+  "slug": "html-minifier",
+  "name": "HTML Minifier",
+  "icon": "compress",
+  "category": "Code Tools",
+  "description": "Minify HTML by removing whitespace, comments, and unnecessary attributes",
+  "input_type": "text",
+  "placeholder": "Paste HTML to minify...",
+  "button_label": "Minify",
+  "button_icon": "compress",
+  "config": {
+    "processor": "html_minifier"
+  },
+  "example": "<div class=\"container\">  <p>Hello World</p></div>"
 }

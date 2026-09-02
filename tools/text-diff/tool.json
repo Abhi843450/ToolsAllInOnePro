@@ -1,23 +1,23 @@
 {
-    "slug": "text-diff",
-    "name": "Text Difference Checker",
-    "icon": "compare",
-    "category": "Text Tools",
-    "description": "Compare two texts and highlight differences line by line or word by word",
-    "input_type": "text",
-    "placeholder": "Paste first text to compare...",
-    "button_label": "Compare",
-    "button_icon": "compare",
-    "config": {
-        "processor": "text_diff",
-        "inputs": [
-            {
-                "name": "text2",
-                "type": "textarea",
-                "label": "Text 2:",
-                "height": "100"
-            }
-        ]
-    },
-    "example": "Hello World\nThis is line two"
+  "slug": "text-diff",
+  "name": "Text Difference Checker",
+  "icon": "compare",
+  "category": "Text Tools",
+  "description": "Compare two texts and highlight differences line by line or word by word",
+  "input_type": "text",
+  "placeholder": "Paste first text to compare...",
+  "button_label": "Compare",
+  "button_icon": "compare",
+  "config": {
+    "processor": "text_diff",
+    "inputs": [
+      {
+        "name": "text2",
+        "type": "textarea",
+        "label": "Text 2:",
+        "height": "100"
+      }
+    ]
+  },
+  "example": "Hello World\nThis is line two"
 }

@@ -1,15 +1,15 @@
 {
-    "slug": "standard-deviation",
-    "name": "Standard Deviation Calculator",
-    "icon": "calculate",
-    "category": "Statistics & Analysis",
-    "description": "Calculate population and sample standard deviation",
-    "input_type": "text",
-    "placeholder": "Enter numbers separated by commas...",
-    "button_label": "Calculate",
-    "button_icon": "calculate",
-    "config": {
-        "processor": "mean_median_mode"
-    },
-    "example": "2, 4, 4, 4, 5, 5, 7, 9"
+  "slug": "standard-deviation",
+  "name": "Standard Deviation Calculator",
+  "icon": "calculate",
+  "category": "Statistics & Analysis",
+  "description": "Calculate population and sample standard deviation",
+  "input_type": "text",
+  "placeholder": "Enter numbers separated by commas...",
+  "button_label": "Calculate",
+  "button_icon": "calculate",
+  "config": {
+    "processor": "mean_median_mode"
+  },
+  "example": "2, 4, 4, 4, 5, 5, 7, 9"
 }

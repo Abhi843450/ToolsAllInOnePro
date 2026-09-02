@@ -1,15 +1,15 @@
 {
-    "slug": "random-password",
-    "name": "Random Password Generator",
-    "icon": "vpn_key",
-    "category": "Generators",
-    "description": "Generate cryptographically strong random passwords",
-    "input_type": "text",
-    "placeholder": "Optional notes...",
-    "button_label": "Generate",
-    "button_icon": "vpn_key",
-    "config": {
-        "processor": "password_generator"
-    },
-    "example": ""
+  "slug": "random-password",
+  "name": "Random Password Generator",
+  "icon": "vpn_key",
+  "category": "Generators",
+  "description": "Generate cryptographically strong random passwords",
+  "input_type": "text",
+  "placeholder": "Optional notes...",
+  "button_label": "Generate",
+  "button_icon": "vpn_key",
+  "config": {
+    "processor": "password_generator"
+  },
+  "example": ""
 }

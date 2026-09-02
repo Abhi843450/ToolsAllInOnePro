@@ -1,15 +1,15 @@
 {
-    "slug": "lorem-words",
-    "name": "Lorem Ipsum Words",
-    "icon": "dynamic_feed",
-    "category": "Generators",
-    "description": "Generate Lorem Ipsum placeholder words",
-    "input_type": "text",
-    "placeholder": "Number of words...",
-    "button_label": "Generate",
-    "button_icon": "dynamic_feed",
-    "config": {
-        "processor": "lorem_ipsum"
-    },
-    "example": ""
+  "slug": "lorem-words",
+  "name": "Lorem Ipsum Words",
+  "icon": "dynamic_feed",
+  "category": "Generators",
+  "description": "Generate Lorem Ipsum placeholder words",
+  "input_type": "text",
+  "placeholder": "Number of words...",
+  "button_label": "Generate",
+  "button_icon": "dynamic_feed",
+  "config": {
+    "processor": "lorem_ipsum"
+  },
+  "example": ""
 }

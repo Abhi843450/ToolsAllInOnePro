@@ -1,23 +1,23 @@
 {
-    "slug": "random-string",
-    "name": "Random String Generator",
-    "icon": "shuffle",
-    "category": "Generators",
-    "description": "Generate random strings with custom character sets and length",
-    "input_type": "text",
-    "placeholder": "Optional length...",
-    "button_label": "Generate",
-    "button_icon": "shuffle",
-    "config": {
-        "processor": "random_string",
-        "inputs": [
-            {
-                "name": "length",
-                "type": "number",
-                "label": "Length:",
-                "default": "16"
-            }
-        ]
-    },
-    "example": ""
+  "slug": "random-string",
+  "name": "Random String Generator",
+  "icon": "shuffle",
+  "category": "Generators",
+  "description": "Generate random strings with custom character sets and length",
+  "input_type": "text",
+  "placeholder": "Optional length...",
+  "button_label": "Generate",
+  "button_icon": "shuffle",
+  "config": {
+    "processor": "random_string",
+    "inputs": [
+      {
+        "name": "length",
+        "type": "number",
+        "label": "Length:",
+        "default": "16"
+      }
+    ]
+  },
+  "example": ""
 }

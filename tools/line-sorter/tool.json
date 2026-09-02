@@ -1,15 +1,15 @@
 {
-    "slug": "line-sorter",
-    "name": "Line Sorter",
-    "icon": "sort",
-    "category": "Text Tools",
-    "description": "Sort lines alphabetically, by length, reverse order, or remove duplicates",
-    "input_type": "text",
-    "placeholder": "Paste lines to sort alphabetically, by length, or remove duplicates...",
-    "button_label": "Sort",
-    "button_icon": "sort",
-    "config": {
-        "processor": "line_sorter"
-    },
-    "example": "banana\napple\ncherry\ndate"
+  "slug": "line-sorter",
+  "name": "Line Sorter",
+  "icon": "sort",
+  "category": "Text Tools",
+  "description": "Sort lines alphabetically, by length, reverse order, or remove duplicates",
+  "input_type": "text",
+  "placeholder": "Paste lines to sort alphabetically, by length, or remove duplicates...",
+  "button_label": "Sort",
+  "button_icon": "sort",
+  "config": {
+    "processor": "line_sorter"
+  },
+  "example": "banana\napple\ncherry\ndate"
 }

@@ -1,47 +1,47 @@
 {
-    "slug": "password-generator",
-    "name": "Password Generator",
-    "icon": "vpn_key",
-    "category": "Cryptography",
-    "description": "Generate strong passwords with custom length, character types, and exclusion rules",
-    "input_type": "text",
-    "placeholder": "Optional notes or requirements...",
-    "button_label": "Generate",
-    "button_icon": "vpn_key",
-    "config": {
-        "processor": "password_generator",
-        "inputs": [
-            {
-                "name": "length",
-                "type": "number",
-                "label": "Password length:",
-                "default": "16"
-            },
-            {
-                "name": "uppercase",
-                "type": "checkbox",
-                "label": "Uppercase (A-Z)",
-                "default": true
-            },
-            {
-                "name": "lowercase",
-                "type": "checkbox",
-                "label": "Lowercase (a-z)",
-                "default": true
-            },
-            {
-                "name": "numbers",
-                "type": "checkbox",
-                "label": "Numbers (0-9)",
-                "default": true
-            },
-            {
-                "name": "symbols",
-                "type": "checkbox",
-                "label": "Symbols (!@#$...)",
-                "default": true
-            }
-        ]
-    },
-    "example": ""
+  "slug": "password-generator",
+  "name": "Password Generator",
+  "icon": "vpn_key",
+  "category": "Cryptography",
+  "description": "Generate strong passwords with custom length, character types, and exclusion rules",
+  "input_type": "text",
+  "placeholder": "Optional notes or requirements...",
+  "button_label": "Generate",
+  "button_icon": "vpn_key",
+  "config": {
+    "processor": "password_generator",
+    "inputs": [
+      {
+        "name": "length",
+        "type": "number",
+        "label": "Password length:",
+        "default": "16"
+      },
+      {
+        "name": "uppercase",
+        "type": "checkbox",
+        "label": "Uppercase (A-Z)",
+        "default": true
+      },
+      {
+        "name": "lowercase",
+        "type": "checkbox",
+        "label": "Lowercase (a-z)",
+        "default": true
+      },
+      {
+        "name": "numbers",
+        "type": "checkbox",
+        "label": "Numbers (0-9)",
+        "default": true
+      },
+      {
+        "name": "symbols",
+        "type": "checkbox",
+        "label": "Symbols (!@#$...)",
+        "default": true
+      }
+    ]
+  },
+  "example": ""
 }

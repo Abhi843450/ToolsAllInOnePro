@@ -1,15 +1,15 @@
 {
-    "slug": "ascii-table",
-    "name": "ASCII Table Viewer",
-    "icon": "table",
-    "category": "Cryptography",
-    "description": "View ASCII character table with decimal, hex, octal, and binary values",
-    "input_type": "text",
-    "placeholder": "Search character or code...",
-    "button_label": "View",
-    "button_icon": "table",
-    "config": {
-        "processor": "ascii_table_full"
-    },
-    "example": ""
+  "slug": "ascii-table",
+  "name": "ASCII Table Viewer",
+  "icon": "table",
+  "category": "Cryptography",
+  "description": "View ASCII character table with decimal, hex, octal, and binary values",
+  "input_type": "text",
+  "placeholder": "Search character or code...",
+  "button_label": "View",
+  "button_icon": "table",
+  "config": {
+    "processor": "ascii_table_full"
+  },
+  "example": ""
 }

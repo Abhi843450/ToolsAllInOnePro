@@ -1,15 +1,15 @@
 {
-    "slug": "color-palette",
-    "name": "Color Palette Generator",
-    "icon": "palette",
-    "category": "Generators",
-    "description": "Generate harmonious color palettes from a base color",
-    "input_type": "text",
-    "placeholder": "Enter base color (HEX)...",
-    "button_label": "Generate",
-    "button_icon": "palette",
-    "config": {
-        "processor": "color_palette_gen"
-    },
-    "example": "#3B82F6"
+  "slug": "color-palette",
+  "name": "Color Palette Generator",
+  "icon": "palette",
+  "category": "Generators",
+  "description": "Generate harmonious color palettes from a base color",
+  "input_type": "text",
+  "placeholder": "Enter base color (HEX)...",
+  "button_label": "Generate",
+  "button_icon": "palette",
+  "config": {
+    "processor": "color_palette_gen"
+  },
+  "example": "#3B82F6"
 }

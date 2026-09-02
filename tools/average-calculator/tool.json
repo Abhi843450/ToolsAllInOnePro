@@ -1,15 +1,15 @@
 {
-    "slug": "average-calculator",
-    "name": "Average Calculator",
-    "icon": "calculate",
-    "category": "Statistics & Analysis",
-    "description": "Calculate mean, median, mode, range, and variance",
-    "input_type": "text",
-    "placeholder": "Enter numbers separated by commas...",
-    "button_label": "Calculate",
-    "button_icon": "calculate",
-    "config": {
-        "processor": "mean_median_mode"
-    },
-    "example": "10, 20, 30, 40, 50"
+  "slug": "average-calculator",
+  "name": "Average Calculator",
+  "icon": "calculate",
+  "category": "Statistics & Analysis",
+  "description": "Calculate mean, median, mode, range, and variance",
+  "input_type": "text",
+  "placeholder": "Enter numbers separated by commas...",
+  "button_label": "Calculate",
+  "button_icon": "calculate",
+  "config": {
+    "processor": "mean_median_mode"
+  },
+  "example": "10, 20, 30, 40, 50"
 }

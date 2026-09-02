@@ -1,15 +1,15 @@
 {
-    "slug": "password-checker",
-    "name": "Password Quality Analyzer",
-    "icon": "security",
-    "category": "Encoding & Crypto",
-    "description": "Analyze password patterns, entropy, and estimated crack time",
-    "input_type": "text",
-    "placeholder": "Enter password to analyze quality...",
-    "button_label": "Analyze",
-    "button_icon": "security",
-    "config": {
-        "processor": "password_strength"
-    },
-    "example": "MyP@ssw0rd123!"
+  "slug": "password-checker",
+  "name": "Password Quality Analyzer",
+  "icon": "security",
+  "category": "Encoding & Crypto",
+  "description": "Analyze password patterns, entropy, and estimated crack time",
+  "input_type": "text",
+  "placeholder": "Enter password to analyze quality...",
+  "button_label": "Analyze",
+  "button_icon": "security",
+  "config": {
+    "processor": "password_strength"
+  },
+  "example": "MyP@ssw0rd123!"
 }

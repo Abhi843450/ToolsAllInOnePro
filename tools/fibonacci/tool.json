@@ -1,15 +1,15 @@
 {
-    "slug": "fibonacci",
-    "name": "Fibonacci Calculator",
-    "icon": "timeline",
-    "category": "Calculators",
-    "description": "Generate Fibonacci sequences and find specific terms",
-    "input_type": "text",
-    "placeholder": "Enter number of terms to generate...",
-    "button_label": "Generate",
-    "button_icon": "timeline",
-    "config": {
-        "processor": "scientific_calculator"
-    },
-    "example": "10"
+  "slug": "fibonacci",
+  "name": "Fibonacci Calculator",
+  "icon": "timeline",
+  "category": "Calculators",
+  "description": "Generate Fibonacci sequences and find specific terms",
+  "input_type": "text",
+  "placeholder": "Enter number of terms to generate...",
+  "button_label": "Generate",
+  "button_icon": "timeline",
+  "config": {
+    "processor": "scientific_calculator"
+  },
+  "example": "10"
 }

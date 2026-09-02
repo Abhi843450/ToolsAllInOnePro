@@ -1,15 +1,15 @@
 {
-    "slug": "passphrase-gen",
-    "name": "Passphrase Generator",
-    "icon": "vpn_key",
-    "category": "Encoding & Crypto",
-    "description": "Generate memorable passphrases from word lists",
-    "input_type": "text",
-    "placeholder": "Optional word count...",
-    "button_label": "Generate",
-    "button_icon": "vpn_key",
-    "config": {
-        "processor": "passphrase_gen"
-    },
-    "example": ""
+  "slug": "passphrase-gen",
+  "name": "Passphrase Generator",
+  "icon": "vpn_key",
+  "category": "Encoding & Crypto",
+  "description": "Generate memorable passphrases from word lists",
+  "input_type": "text",
+  "placeholder": "Optional word count...",
+  "button_label": "Generate",
+  "button_icon": "vpn_key",
+  "config": {
+    "processor": "passphrase_gen"
+  },
+  "example": ""
 }

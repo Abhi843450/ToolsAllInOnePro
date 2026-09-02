@@ -1,15 +1,15 @@
 {
-    "slug": "currency-converter",
-    "name": "Currency Converter",
-    "icon": "payments",
-    "category": "Calculators",
-    "description": "Convert between currencies using latest rates (offline rates)",
-    "input_type": "text",
-    "placeholder": "Enter amount and currencies (e.g. 100 USD to EUR)...",
-    "button_label": "Convert",
-    "button_icon": "payments",
-    "config": {
-        "processor": "unit_converter"
-    },
-    "example": "100 USD to EUR"
+  "slug": "currency-converter",
+  "name": "Currency Converter",
+  "icon": "payments",
+  "category": "Calculators",
+  "description": "Convert between currencies using latest rates (offline rates)",
+  "input_type": "text",
+  "placeholder": "Enter amount and currencies (e.g. 100 USD to EUR)...",
+  "button_label": "Convert",
+  "button_icon": "payments",
+  "config": {
+    "processor": "unit_converter"
+  },
+  "example": "100 USD to EUR"
 }

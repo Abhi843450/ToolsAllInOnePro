@@ -1,15 +1,15 @@
 {
-    "slug": "morse-encoder",
-    "name": "Morse Code Encoder",
-    "icon": "radio",
-    "category": "Encoding & Crypto",
-    "description": "Convert text to International Morse Code",
-    "input_type": "text",
-    "placeholder": "Enter text to encode as Morse code...",
-    "button_label": "Encode",
-    "button_icon": "radio",
-    "config": {
-        "processor": "morse_encoder"
-    },
-    "example": "SOS"
+  "slug": "morse-encoder",
+  "name": "Morse Code Encoder",
+  "icon": "radio",
+  "category": "Encoding & Crypto",
+  "description": "Convert text to International Morse Code",
+  "input_type": "text",
+  "placeholder": "Enter text to encode as Morse code...",
+  "button_label": "Encode",
+  "button_icon": "radio",
+  "config": {
+    "processor": "morse_encoder"
+  },
+  "example": "SOS"
 }

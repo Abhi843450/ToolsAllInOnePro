@@ -1,15 +1,15 @@
 {
-    "slug": "calorie-calculator",
-    "name": "Calorie Calculator",
-    "icon": "calculate",
-    "category": "Calculators",
-    "description": "Calculate daily calorie needs based on activity level and goals",
-    "input_type": "text",
-    "placeholder": "Enter weight(kg), height(cm), age (e.g. 70, 175, 30)...",
-    "button_label": "Calculate",
-    "button_icon": "calculate",
-    "config": {
-        "processor": "calorie_calculator"
-    },
-    "example": "70, 175, 30"
+  "slug": "calorie-calculator",
+  "name": "Calorie Calculator",
+  "icon": "calculate",
+  "category": "Calculators",
+  "description": "Calculate daily calorie needs based on activity level and goals",
+  "input_type": "text",
+  "placeholder": "Enter weight(kg), height(cm), age (e.g. 70, 175, 30)...",
+  "button_label": "Calculate",
+  "button_icon": "calculate",
+  "config": {
+    "processor": "calorie_calculator"
+  },
+  "example": "70, 175, 30"
 }

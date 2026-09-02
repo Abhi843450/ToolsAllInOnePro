@@ -1,15 +1,15 @@
 {
-    "slug": "url-builder",
-    "name": "URL Builder",
-    "icon": "link",
-    "category": "Web & SEO",
-    "description": "Build URLs from components with query parameter management",
-    "input_type": "text",
-    "placeholder": "Enter base URL to analyze components...",
-    "button_label": "Build",
-    "button_icon": "link",
-    "config": {
-        "processor": "url_parser"
-    },
-    "example": "https://api.example.com/v2/users?page=1"
+  "slug": "url-builder",
+  "name": "URL Builder",
+  "icon": "link",
+  "category": "Web & SEO",
+  "description": "Build URLs from components with query parameter management",
+  "input_type": "text",
+  "placeholder": "Enter base URL to analyze components...",
+  "button_label": "Build",
+  "button_icon": "link",
+  "config": {
+    "processor": "url_parser"
+  },
+  "example": "https://api.example.com/v2/users?page=1"
 }

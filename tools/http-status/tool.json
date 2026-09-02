@@ -1,15 +1,15 @@
 {
-    "slug": "http-status",
-    "name": "HTTP Status Codes",
-    "icon": "http",
-    "category": "Developer Tools",
-    "description": "Reference for all HTTP status codes with descriptions",
-    "input_type": "text",
-    "placeholder": "Search HTTP status codes...",
-    "button_label": "View",
-    "button_icon": "http",
-    "config": {
-        "processor": "http_status"
-    },
-    "example": "404"
+  "slug": "http-status",
+  "name": "HTTP Status Codes",
+  "icon": "http",
+  "category": "Developer Tools",
+  "description": "Reference for all HTTP status codes with descriptions",
+  "input_type": "text",
+  "placeholder": "Search HTTP status codes...",
+  "button_label": "View",
+  "button_icon": "http",
+  "config": {
+    "processor": "http_status"
+  },
+  "example": "404"
 }

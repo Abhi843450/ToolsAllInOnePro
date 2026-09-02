@@ -1,15 +1,15 @@
 {
-    "slug": "svg-to-css",
-    "name": "SVG to CSS Background",
-    "icon": "code",
-    "category": "Converters",
-    "description": "Convert SVG to CSS background-image data URI",
-    "input_type": "text",
-    "placeholder": "Paste SVG to convert to CSS background...",
-    "button_label": "Convert",
-    "button_icon": "code",
-    "config": {
-        "processor": "svg_to_css"
-    },
-    "example": "<svg viewBox=\"0 0 100 100\"><circle cx=\"50\" cy=\"50\" r=\"40\"/></svg>"
+  "slug": "svg-to-css",
+  "name": "SVG to CSS Background",
+  "icon": "code",
+  "category": "Converters",
+  "description": "Convert SVG to CSS background-image data URI",
+  "input_type": "text",
+  "placeholder": "Paste SVG to convert to CSS background...",
+  "button_label": "Convert",
+  "button_icon": "code",
+  "config": {
+    "processor": "svg_to_css"
+  },
+  "example": "<svg viewBox=\"0 0 100 100\"><circle cx=\"50\" cy=\"50\" r=\"40\"/></svg>"
 }

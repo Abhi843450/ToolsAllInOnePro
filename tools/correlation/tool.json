@@ -1,12 +1,12 @@
 {
-    "slug": "correlation",
-    "name": "Correlation Coefficient Calculator",
-    "icon": "calculate",
-    "category": "Statistics & Analysis",
-    "description": "Calculate Pearson correlation between two data sets",
-    "input_type": "text",
-    "placeholder": "Enter x,y data pairs (e.g. 1,2 3,4 5,6)...",
-    "button_label": "Calculate",
-    "button_icon": "calculate",
-    "example": "1,2 3,4 5,6 7,8"
+  "slug": "correlation",
+  "name": "Correlation Coefficient Calculator",
+  "icon": "calculate",
+  "category": "Statistics & Analysis",
+  "description": "Calculate Pearson correlation between two data sets",
+  "input_type": "text",
+  "placeholder": "Enter x,y data pairs (e.g. 1,2 3,4 5,6)...",
+  "button_label": "Calculate",
+  "button_icon": "calculate",
+  "example": "1,2 3,4 5,6 7,8"
 }

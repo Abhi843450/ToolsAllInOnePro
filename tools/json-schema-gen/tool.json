@@ -1,15 +1,15 @@
 {
-    "slug": "json-schema-gen",
-    "name": "JSON Schema Generator",
-    "icon": "code",
-    "category": "Developer Tools",
-    "description": "Generate JSON Schema from sample JSON data",
-    "input_type": "text",
-    "placeholder": "Paste sample JSON to generate JSON Schema...",
-    "button_label": "Generate",
-    "button_icon": "code",
-    "config": {
-        "processor": "json_schema_gen"
-    },
-    "example": "{\"name\":\"John\",\"age\":30,\"active\":true}"
+  "slug": "json-schema-gen",
+  "name": "JSON Schema Generator",
+  "icon": "code",
+  "category": "Developer Tools",
+  "description": "Generate JSON Schema from sample JSON data",
+  "input_type": "text",
+  "placeholder": "Paste sample JSON to generate JSON Schema...",
+  "button_label": "Generate",
+  "button_icon": "code",
+  "config": {
+    "processor": "json_schema_gen"
+  },
+  "example": "{\"name\":\"John\",\"age\":30,\"active\":true}"
 }

@@ -1,15 +1,15 @@
 {
-    "slug": "text-to-slugs",
-    "name": "Text to Slug Generator",
-    "icon": "link",
-    "category": "Text Tools",
-    "description": "Convert text to URL-friendly slugs with custom separators",
-    "input_type": "text",
-    "placeholder": "Enter a title or heading to convert to URL slug...",
-    "button_label": "Generate",
-    "button_icon": "link",
-    "config": {
-        "processor": "text_to_slugs"
-    },
-    "example": "My Awesome Blog Post Title"
+  "slug": "text-to-slugs",
+  "name": "Text to Slug Generator",
+  "icon": "link",
+  "category": "Text Tools",
+  "description": "Convert text to URL-friendly slugs with custom separators",
+  "input_type": "text",
+  "placeholder": "Enter a title or heading to convert to URL slug...",
+  "button_label": "Generate",
+  "button_icon": "link",
+  "config": {
+    "processor": "text_to_slugs"
+  },
+  "example": "My Awesome Blog Post Title"
 }

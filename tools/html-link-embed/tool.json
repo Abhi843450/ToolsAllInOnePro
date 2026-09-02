@@ -1,15 +1,15 @@
 {
-    "slug": "html-link-embed",
-    "name": "HTML Link Embed Generator",
-    "icon": "link",
-    "category": "Web & SEO",
-    "description": "Generate HTML anchor tags with attributes",
-    "input_type": "text",
-    "placeholder": "Enter URL to generate HTML embed code...",
-    "button_label": "Generate",
-    "button_icon": "link",
-    "config": {
-        "processor": "html_link_embed"
-    },
-    "example": "https://example.com"
+  "slug": "html-link-embed",
+  "name": "HTML Link Embed Generator",
+  "icon": "link",
+  "category": "Web & SEO",
+  "description": "Generate HTML anchor tags with attributes",
+  "input_type": "text",
+  "placeholder": "Enter URL to generate HTML embed code...",
+  "button_label": "Generate",
+  "button_icon": "link",
+  "config": {
+    "processor": "html_link_embed"
+  },
+  "example": "https://example.com"
 }

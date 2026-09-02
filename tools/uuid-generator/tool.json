@@ -1,23 +1,23 @@
 {
-    "slug": "uuid-generator",
-    "name": "UUID Generator",
-    "icon": "tag",
-    "category": "Cryptography",
-    "description": "Generate UUID v1, v4, or custom format UUIDs in bulk",
-    "input_type": "text",
-    "placeholder": "Optional count...",
-    "button_label": "Generate",
-    "button_icon": "tag",
-    "config": {
-        "processor": "uuid_generator",
-        "inputs": [
-            {
-                "name": "count",
-                "type": "number",
-                "label": "Count:",
-                "default": "5"
-            }
-        ]
-    },
-    "example": ""
+  "slug": "uuid-generator",
+  "name": "UUID Generator",
+  "icon": "tag",
+  "category": "Cryptography",
+  "description": "Generate UUID v1, v4, or custom format UUIDs in bulk",
+  "input_type": "text",
+  "placeholder": "Optional count...",
+  "button_label": "Generate",
+  "button_icon": "tag",
+  "config": {
+    "processor": "uuid_generator",
+    "inputs": [
+      {
+        "name": "count",
+        "type": "number",
+        "label": "Count:",
+        "default": "5"
+      }
+    ]
+  },
+  "example": ""
 }

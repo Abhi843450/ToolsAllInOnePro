@@ -1,15 +1,15 @@
 {
-    "slug": "area-calculator",
-    "name": "Area Calculator",
-    "icon": "calculate",
-    "category": "Calculators",
-    "description": "Calculate area of circle, rectangle, triangle, trapezoid, and parallelogram",
-    "input_type": "text",
-    "placeholder": "Enter dimensions (e.g. circle radius=5, rectangle 10x20)...",
-    "button_label": "Calculate",
-    "button_icon": "calculate",
-    "config": {
-        "processor": "scientific_calculator"
-    },
-    "example": "10, 20"
+  "slug": "area-calculator",
+  "name": "Area Calculator",
+  "icon": "calculate",
+  "category": "Calculators",
+  "description": "Calculate area of circle, rectangle, triangle, trapezoid, and parallelogram",
+  "input_type": "text",
+  "placeholder": "Enter dimensions (e.g. circle radius=5, rectangle 10x20)...",
+  "button_label": "Calculate",
+  "button_icon": "calculate",
+  "config": {
+    "processor": "scientific_calculator"
+  },
+  "example": "10, 20"
 }

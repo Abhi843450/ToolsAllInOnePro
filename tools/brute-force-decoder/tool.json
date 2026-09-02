@@ -1,15 +1,15 @@
 {
-    "slug": "brute-force-decoder",
-    "name": "Caesar Cipher Brute Force",
-    "icon": "lock",
-    "category": "Encoding & Crypto",
-    "description": "Try all 25 Caesar cipher shifts to decode unknown text",
-    "input_type": "text",
-    "placeholder": "Enter ciphertext to try all 25 Caesar shifts...",
-    "button_label": "Decode",
-    "button_icon": "lock",
-    "config": {
-        "processor": "brute_force_decoder"
-    },
-    "example": "Khoor Zruog"
+  "slug": "brute-force-decoder",
+  "name": "Caesar Cipher Brute Force",
+  "icon": "lock",
+  "category": "Encoding & Crypto",
+  "description": "Try all 25 Caesar cipher shifts to decode unknown text",
+  "input_type": "text",
+  "placeholder": "Enter ciphertext to try all 25 Caesar shifts...",
+  "button_label": "Decode",
+  "button_icon": "lock",
+  "config": {
+    "processor": "brute_force_decoder"
+  },
+  "example": "Khoor Zruog"
 }

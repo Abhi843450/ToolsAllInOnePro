@@ -1,15 +1,15 @@
 {
-    "slug": "data-visualization",
-    "name": "ASCII Chart Generator",
-    "icon": "bar_chart",
-    "category": "Statistics & Analysis",
-    "description": "Generate ASCII bar charts and line charts from data",
-    "input_type": "text",
-    "placeholder": "Enter numbers to generate ASCII bar chart...",
-    "button_label": "Generate",
-    "button_icon": "bar_chart",
-    "config": {
-        "processor": "data_visualization"
-    },
-    "example": "10, 25, 15, 30, 20"
+  "slug": "data-visualization",
+  "name": "ASCII Chart Generator",
+  "icon": "bar_chart",
+  "category": "Statistics & Analysis",
+  "description": "Generate ASCII bar charts and line charts from data",
+  "input_type": "text",
+  "placeholder": "Enter numbers to generate ASCII bar chart...",
+  "button_label": "Generate",
+  "button_icon": "bar_chart",
+  "config": {
+    "processor": "data_visualization"
+  },
+  "example": "10, 25, 15, 30, 20"
 }

@@ -1,15 +1,15 @@
 {
-    "slug": "json-to-python",
-    "name": "JSON to Python Class",
-    "icon": "code",
-    "category": "Converters",
-    "description": "Generate Python dataclass from JSON data",
-    "input_type": "text",
-    "placeholder": "Paste JSON to generate Python dataclass...",
-    "button_label": "Convert",
-    "button_icon": "code",
-    "config": {
-        "processor": "json_to_python"
-    },
-    "example": "{\"name\":\"John\",\"age\":30}"
+  "slug": "json-to-python",
+  "name": "JSON to Python Class",
+  "icon": "code",
+  "category": "Converters",
+  "description": "Generate Python dataclass from JSON data",
+  "input_type": "text",
+  "placeholder": "Paste JSON to generate Python dataclass...",
+  "button_label": "Convert",
+  "button_icon": "code",
+  "config": {
+    "processor": "json_to_python"
+  },
+  "example": "{\"name\":\"John\",\"age\":30}"
 }

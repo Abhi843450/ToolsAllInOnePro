@@ -1,15 +1,15 @@
 {
-    "slug": "number-base",
-    "name": "Number Base Converter",
-    "icon": "swap_horiz",
-    "category": "Calculators",
-    "description": "Convert between binary, octal, decimal, and hexadecimal",
-    "input_type": "text",
-    "placeholder": "Enter number to convert between binary, octal, decimal, hex...",
-    "button_label": "Convert",
-    "button_icon": "swap_horiz",
-    "config": {
-        "processor": "number_base"
-    },
-    "example": "255"
+  "slug": "number-base",
+  "name": "Number Base Converter",
+  "icon": "swap_horiz",
+  "category": "Calculators",
+  "description": "Convert between binary, octal, decimal, and hexadecimal",
+  "input_type": "text",
+  "placeholder": "Enter number to convert between binary, octal, decimal, hex...",
+  "button_label": "Convert",
+  "button_icon": "swap_horiz",
+  "config": {
+    "processor": "number_base"
+  },
+  "example": "255"
 }

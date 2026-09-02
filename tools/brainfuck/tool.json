@@ -1,15 +1,15 @@
 {
-    "slug": "brainfuck",
-    "name": "Brainfuck Interpreter",
-    "icon": "play_arrow",
-    "category": "Cryptography",
-    "description": "Execute Brainfuck code and see output",
-    "input_type": "text",
-    "placeholder": "Enter Brainfuck code to execute...",
-    "button_label": "Run",
-    "button_icon": "play_arrow",
-    "config": {
-        "processor": "scientific_calculator"
-    },
-    "example": "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++."
+  "slug": "brainfuck",
+  "name": "Brainfuck Interpreter",
+  "icon": "play_arrow",
+  "category": "Cryptography",
+  "description": "Execute Brainfuck code and see output",
+  "input_type": "text",
+  "placeholder": "Enter Brainfuck code to execute...",
+  "button_label": "Run",
+  "button_icon": "play_arrow",
+  "config": {
+    "processor": "scientific_calculator"
+  },
+  "example": "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++."
 }

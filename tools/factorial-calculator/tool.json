@@ -1,15 +1,15 @@
 {
-    "slug": "factorial-calculator",
-    "name": "Factorial Calculator",
-    "icon": "calculate",
-    "category": "Calculators",
-    "description": "Calculate factorials and permutations",
-    "input_type": "text",
-    "placeholder": "Enter a number (e.g. 10)...",
-    "button_label": "Calculate",
-    "button_icon": "calculate",
-    "config": {
-        "processor": "probability"
-    },
-    "example": "10"
+  "slug": "factorial-calculator",
+  "name": "Factorial Calculator",
+  "icon": "calculate",
+  "category": "Calculators",
+  "description": "Calculate factorials and permutations",
+  "input_type": "text",
+  "placeholder": "Enter a number (e.g. 10)...",
+  "button_label": "Calculate",
+  "button_icon": "calculate",
+  "config": {
+    "processor": "probability"
+  },
+  "example": "10"
 }

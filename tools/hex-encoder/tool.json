@@ -1,15 +1,15 @@
 {
-    "slug": "hex-encoder",
-    "name": "Hex Encoder/Decoder",
-    "icon": "code",
-    "category": "Cryptography",
-    "description": "Convert text to hexadecimal and back",
-    "input_type": "text",
-    "placeholder": "Enter text or hex string to convert...",
-    "button_label": "Convert",
-    "button_icon": "code",
-    "config": {
-        "processor": "hex_encoder"
-    },
-    "example": "Hello World"
+  "slug": "hex-encoder",
+  "name": "Hex Encoder/Decoder",
+  "icon": "code",
+  "category": "Cryptography",
+  "description": "Convert text to hexadecimal and back",
+  "input_type": "text",
+  "placeholder": "Enter text or hex string to convert...",
+  "button_label": "Convert",
+  "button_icon": "code",
+  "config": {
+    "processor": "hex_encoder"
+  },
+  "example": "Hello World"
 }

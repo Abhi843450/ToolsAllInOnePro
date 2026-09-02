@@ -1,15 +1,15 @@
 {
-    "slug": "gcd-lcm",
-    "name": "GCD & LCM Calculator",
-    "icon": "calculate",
-    "category": "Calculators",
-    "description": "Calculate Greatest Common Divisor and Least Common Multiple",
-    "input_type": "text",
-    "placeholder": "Enter two numbers (e.g. 12, 18)...",
-    "button_label": "Calculate",
-    "button_icon": "calculate",
-    "config": {
-        "processor": "gcd_lcm"
-    },
-    "example": "12, 18"
+  "slug": "gcd-lcm",
+  "name": "GCD & LCM Calculator",
+  "icon": "calculate",
+  "category": "Calculators",
+  "description": "Calculate Greatest Common Divisor and Least Common Multiple",
+  "input_type": "text",
+  "placeholder": "Enter two numbers (e.g. 12, 18)...",
+  "button_label": "Calculate",
+  "button_icon": "calculate",
+  "config": {
+    "processor": "gcd_lcm"
+  },
+  "example": "12, 18"
 }

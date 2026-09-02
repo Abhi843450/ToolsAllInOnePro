@@ -1,15 +1,15 @@
 {
-    "slug": "sequential-id",
-    "name": "Sequential ID Generator",
-    "icon": "tag",
-    "category": "Generators",
-    "description": "Generate sequential IDs with custom prefix and padding",
-    "input_type": "text",
-    "placeholder": "Enter prefix (e.g. user, order, item)...",
-    "button_label": "Generate",
-    "button_icon": "tag",
-    "config": {
-        "processor": "uuid_generator"
-    },
-    "example": "order"
+  "slug": "sequential-id",
+  "name": "Sequential ID Generator",
+  "icon": "tag",
+  "category": "Generators",
+  "description": "Generate sequential IDs with custom prefix and padding",
+  "input_type": "text",
+  "placeholder": "Enter prefix (e.g. user, order, item)...",
+  "button_label": "Generate",
+  "button_icon": "tag",
+  "config": {
+    "processor": "uuid_generator"
+  },
+  "example": "order"
 }

@@ -1,15 +1,15 @@
 {
-    "slug": "http-header-viewer",
-    "name": "HTTP Header Viewer",
-    "icon": "http",
-    "category": "Web & SEO",
-    "description": "Parse and display HTTP header strings",
-    "input_type": "text",
-    "placeholder": "Paste HTTP headers to parse...",
-    "button_label": "Parse",
-    "button_icon": "http",
-    "config": {
-        "processor": "http_header_viewer"
-    },
-    "example": "Content-Type: application/json\nCache-Control: no-cache"
+  "slug": "http-header-viewer",
+  "name": "HTTP Header Viewer",
+  "icon": "http",
+  "category": "Web & SEO",
+  "description": "Parse and display HTTP header strings",
+  "input_type": "text",
+  "placeholder": "Paste HTTP headers to parse...",
+  "button_label": "Parse",
+  "button_icon": "http",
+  "config": {
+    "processor": "http_header_viewer"
+  },
+  "example": "Content-Type: application/json\nCache-Control: no-cache"
 }

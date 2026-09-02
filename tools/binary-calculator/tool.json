@@ -1,15 +1,15 @@
 {
-    "slug": "binary-calculator",
-    "name": "Binary Calculator",
-    "icon": "calculate",
-    "category": "Calculators",
-    "description": "Perform arithmetic operations in binary",
-    "input_type": "text",
-    "placeholder": "Enter binary expression (e.g. 1010 + 1100)...",
-    "button_label": "Calculate",
-    "button_icon": "calculate",
-    "config": {
-        "processor": "scientific_calculator"
-    },
-    "example": "1010 + 1100"
+  "slug": "binary-calculator",
+  "name": "Binary Calculator",
+  "icon": "calculate",
+  "category": "Calculators",
+  "description": "Perform arithmetic operations in binary",
+  "input_type": "text",
+  "placeholder": "Enter binary expression (e.g. 1010 + 1100)...",
+  "button_label": "Calculate",
+  "button_icon": "calculate",
+  "config": {
+    "processor": "scientific_calculator"
+  },
+  "example": "1010 + 1100"
 }

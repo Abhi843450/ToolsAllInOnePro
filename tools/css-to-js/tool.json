@@ -1,15 +1,15 @@
 {
-    "slug": "css-to-js",
-    "name": "CSS to JavaScript Object",
-    "icon": "code",
-    "category": "Developer Tools",
-    "description": "Convert CSS styles to JavaScript style objects",
-    "input_type": "text",
-    "placeholder": "Paste CSS rules to convert to JS objects...",
-    "button_label": "Convert",
-    "button_icon": "code",
-    "config": {
-        "processor": "css_to_js"
-    },
-    "example": ".box { color: red; margin: 10px; }"
+  "slug": "css-to-js",
+  "name": "CSS to JavaScript Object",
+  "icon": "code",
+  "category": "Developer Tools",
+  "description": "Convert CSS styles to JavaScript style objects",
+  "input_type": "text",
+  "placeholder": "Paste CSS rules to convert to JS objects...",
+  "button_label": "Convert",
+  "button_icon": "code",
+  "config": {
+    "processor": "css_to_js"
+  },
+  "example": ".box { color: red; margin: 10px; }"
 }

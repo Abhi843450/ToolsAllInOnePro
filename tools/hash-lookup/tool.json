@@ -1,15 +1,15 @@
 {
-    "slug": "hash-lookup",
-    "name": "Hash Lookup",
-    "icon": "search",
-    "category": "Encoding & Crypto",
-    "description": "Look up known MD5/SHA hashes in common databases",
-    "input_type": "text",
-    "placeholder": "Enter hash to search known databases...",
-    "button_label": "Lookup",
-    "button_icon": "search",
-    "config": {
-        "processor": "hash_lookup"
-    },
-    "example": "5d41402abc4b2a76b9719d911017c592"
+  "slug": "hash-lookup",
+  "name": "Hash Lookup",
+  "icon": "search",
+  "category": "Encoding & Crypto",
+  "description": "Look up known MD5/SHA hashes in common databases",
+  "input_type": "text",
+  "placeholder": "Enter hash to search known databases...",
+  "button_label": "Lookup",
+  "button_icon": "search",
+  "config": {
+    "processor": "hash_lookup"
+  },
+  "example": "5d41402abc4b2a76b9719d911017c592"
 }

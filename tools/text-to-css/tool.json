@@ -1,15 +1,15 @@
 {
-    "slug": "text-to-css",
-    "name": "Text to CSS",
-    "icon": "code",
-    "category": "Converters",
-    "description": "Convert text to CSS font styles, gradients, and text effects",
-    "input_type": "text",
-    "placeholder": "Enter text to generate CSS styles for...",
-    "button_label": "Convert",
-    "button_icon": "code",
-    "config": {
-        "processor": "text_encoder"
-    },
-    "example": "Hello World"
+  "slug": "text-to-css",
+  "name": "Text to CSS",
+  "icon": "code",
+  "category": "Converters",
+  "description": "Convert text to CSS font styles, gradients, and text effects",
+  "input_type": "text",
+  "placeholder": "Enter text to generate CSS styles for...",
+  "button_label": "Convert",
+  "button_icon": "code",
+  "config": {
+    "processor": "text_encoder"
+  },
+  "example": "Hello World"
 }

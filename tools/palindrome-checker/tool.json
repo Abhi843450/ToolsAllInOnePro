@@ -1,15 +1,15 @@
 {
-    "slug": "palindrome-checker",
-    "name": "Palindrome Checker",
-    "icon": "check_circle",
-    "category": "Text Tools",
-    "description": "Check if text is a palindrome ignoring spaces, punctuation, and case",
-    "input_type": "text",
-    "placeholder": "Enter text to check if it's a palindrome...",
-    "button_label": "Check",
-    "button_icon": "check_circle",
-    "config": {
-        "processor": "palindrome_checker"
-    },
-    "example": "racecar"
+  "slug": "palindrome-checker",
+  "name": "Palindrome Checker",
+  "icon": "check_circle",
+  "category": "Text Tools",
+  "description": "Check if text is a palindrome ignoring spaces, punctuation, and case",
+  "input_type": "text",
+  "placeholder": "Enter text to check if it's a palindrome...",
+  "button_label": "Check",
+  "button_icon": "check_circle",
+  "config": {
+    "processor": "palindrome_checker"
+  },
+  "example": "racecar"
 }

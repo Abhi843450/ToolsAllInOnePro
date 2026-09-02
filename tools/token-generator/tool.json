@@ -1,23 +1,23 @@
 {
-    "slug": "token-generator",
-    "name": "Token Generator",
-    "icon": "key",
-    "category": "Cryptography",
-    "description": "Generate secure random tokens, API keys, and session IDs",
-    "input_type": "text",
-    "placeholder": "Optional prefix for token...",
-    "button_label": "Generate",
-    "button_icon": "key",
-    "config": {
-        "processor": "token_generator",
-        "inputs": [
-            {
-                "name": "length",
-                "type": "number",
-                "label": "Token length:",
-                "default": "32"
-            }
-        ]
-    },
-    "example": ""
+  "slug": "token-generator",
+  "name": "Token Generator",
+  "icon": "vpn_key",
+  "category": "Cryptography",
+  "description": "Generate secure random tokens, API keys, and session IDs",
+  "input_type": "text",
+  "placeholder": "Optional prefix for token...",
+  "button_label": "Generate",
+  "button_icon": "key",
+  "config": {
+    "processor": "token_generator",
+    "inputs": [
+      {
+        "name": "length",
+        "type": "number",
+        "label": "Token length:",
+        "default": "32"
+      }
+    ]
+  },
+  "example": ""
 }

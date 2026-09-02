@@ -1,15 +1,15 @@
 {
-    "slug": "json-ld-viewer",
-    "name": "JSON-LD Viewer",
-    "icon": "code",
-    "category": "Web & SEO",
-    "description": "Validate and display JSON-LD structured data",
-    "input_type": "text",
-    "placeholder": "Paste JSON-LD structured data to validate...",
-    "button_label": "Validate",
-    "button_icon": "code",
-    "config": {
-        "processor": "json_validator"
-    },
-    "example": "{\"@type\":\"WebSite\",\"name\":\"My Site\"}"
+  "slug": "json-ld-viewer",
+  "name": "JSON-LD Viewer",
+  "icon": "code",
+  "category": "Web & SEO",
+  "description": "Validate and display JSON-LD structured data",
+  "input_type": "text",
+  "placeholder": "Paste JSON-LD structured data to validate...",
+  "button_label": "Validate",
+  "button_icon": "code",
+  "config": {
+    "processor": "json_validator"
+  },
+  "example": "{\"@type\":\"WebSite\",\"name\":\"My Site\"}"
 }

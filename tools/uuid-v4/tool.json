@@ -1,15 +1,15 @@
 {
-    "slug": "uuid-v4",
-    "name": "UUID v4 Generator",
-    "icon": "tag",
-    "category": "Generators",
-    "description": "Generate random UUID v4 identifiers",
-    "input_type": "text",
-    "placeholder": "Optional count...",
-    "button_label": "Generate",
-    "button_icon": "tag",
-    "config": {
-        "processor": "uuid_generator"
-    },
-    "example": ""
+  "slug": "uuid-v4",
+  "name": "UUID v4 Generator",
+  "icon": "tag",
+  "category": "Generators",
+  "description": "Generate random UUID v4 identifiers",
+  "input_type": "text",
+  "placeholder": "Optional count...",
+  "button_label": "Generate",
+  "button_icon": "tag",
+  "config": {
+    "processor": "uuid_generator"
+  },
+  "example": ""
 }

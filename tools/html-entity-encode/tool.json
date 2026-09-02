@@ -1,15 +1,15 @@
 {
-    "slug": "html-entity-encode",
-    "name": "HTML Entity Encoder",
-    "icon": "code",
-    "category": "Code Tools",
-    "description": "Encode/decode HTML special characters and entities",
-    "input_type": "text",
-    "placeholder": "Enter text with special characters to encode/decode...",
-    "button_label": "Convert",
-    "button_icon": "code",
-    "config": {
-        "processor": "text_encoder"
-    },
-    "example": "Tom & Jerry <3"
+  "slug": "html-entity-encode",
+  "name": "HTML Entity Encoder",
+  "icon": "code",
+  "category": "Code Tools",
+  "description": "Encode/decode HTML special characters and entities",
+  "input_type": "text",
+  "placeholder": "Enter text with special characters to encode/decode...",
+  "button_label": "Convert",
+  "button_icon": "code",
+  "config": {
+    "processor": "text_encoder"
+  },
+  "example": "Tom & Jerry <3"
 }

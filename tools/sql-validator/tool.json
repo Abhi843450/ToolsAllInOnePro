@@ -1,15 +1,15 @@
 {
-    "slug": "sql-validator",
-    "name": "SQL Validator",
-    "icon": "check_circle",
-    "category": "Code Tools",
-    "description": "Validate SQL syntax and detect common errors",
-    "input_type": "text",
-    "placeholder": "Paste SQL to validate syntax...",
-    "button_label": "Validate",
-    "button_icon": "check_circle",
-    "config": {
-        "processor": "sql_formatter"
-    },
-    "example": "SELECT * FROM users WHERE id = 1"
+  "slug": "sql-validator",
+  "name": "SQL Validator",
+  "icon": "check_circle",
+  "category": "Code Tools",
+  "description": "Validate SQL syntax and detect common errors",
+  "input_type": "text",
+  "placeholder": "Paste SQL to validate syntax...",
+  "button_label": "Validate",
+  "button_icon": "check_circle",
+  "config": {
+    "processor": "sql_formatter"
+  },
+  "example": "SELECT * FROM users WHERE id = 1"
 }

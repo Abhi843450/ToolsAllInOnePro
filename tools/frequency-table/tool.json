@@ -1,15 +1,15 @@
 {
-    "slug": "frequency-table",
-    "name": "Frequency Table Generator",
-    "icon": "table_chart",
-    "category": "Statistics & Analysis",
-    "description": "Generate frequency distributions from data sets",
-    "input_type": "text",
-    "placeholder": "Enter data values separated by commas...",
-    "button_label": "Generate",
-    "button_icon": "table_chart",
-    "config": {
-        "processor": "frequency_table"
-    },
-    "example": "1, 2, 2, 3, 3, 3, 4, 4, 4, 4"
+  "slug": "frequency-table",
+  "name": "Frequency Table Generator",
+  "icon": "table_chart",
+  "category": "Statistics & Analysis",
+  "description": "Generate frequency distributions from data sets",
+  "input_type": "text",
+  "placeholder": "Enter data values separated by commas...",
+  "button_label": "Generate",
+  "button_icon": "table_chart",
+  "config": {
+    "processor": "frequency_table"
+  },
+  "example": "1, 2, 2, 3, 3, 3, 4, 4, 4, 4"
 }

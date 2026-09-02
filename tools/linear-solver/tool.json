@@ -1,15 +1,15 @@
 {
-    "slug": "linear-solver",
-    "name": "Linear Equation Solver",
-    "icon": "calculate",
-    "category": "Calculators",
-    "description": "Solve linear equations and systems of equations",
-    "input_type": "text",
-    "placeholder": "Enter equation (e.g. 2x + 3 = 7)...",
-    "button_label": "Solve",
-    "button_icon": "calculate",
-    "config": {
-        "processor": "scientific_calculator"
-    },
-    "example": "2x + 3 = 7"
+  "slug": "linear-solver",
+  "name": "Linear Equation Solver",
+  "icon": "calculate",
+  "category": "Calculators",
+  "description": "Solve linear equations and systems of equations",
+  "input_type": "text",
+  "placeholder": "Enter equation (e.g. 2x + 3 = 7)...",
+  "button_label": "Solve",
+  "button_icon": "calculate",
+  "config": {
+    "processor": "scientific_calculator"
+  },
+  "example": "2x + 3 = 7"
 }

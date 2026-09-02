@@ -1,15 +1,15 @@
 {
-    "slug": "json-to-go-struct",
-    "name": "JSON to Go Struct",
-    "icon": "code",
-    "category": "Converters",
-    "description": "Generate Go struct definitions from JSON data",
-    "input_type": "text",
-    "placeholder": "Paste JSON to generate Go struct...",
-    "button_label": "Convert",
-    "button_icon": "code",
-    "config": {
-        "processor": "json_to_go_struct"
-    },
-    "example": "{\"name\":\"John\",\"age\":30}"
+  "slug": "json-to-go-struct",
+  "name": "JSON to Go Struct",
+  "icon": "code",
+  "category": "Converters",
+  "description": "Generate Go struct definitions from JSON data",
+  "input_type": "text",
+  "placeholder": "Paste JSON to generate Go struct...",
+  "button_label": "Convert",
+  "button_icon": "code",
+  "config": {
+    "processor": "json_to_go_struct"
+  },
+  "example": "{\"name\":\"John\",\"age\":30}"
 }

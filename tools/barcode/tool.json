@@ -1,15 +1,15 @@
 {
-    "slug": "barcode",
-    "name": "Barcode Generator",
-    "icon": "barcode",
-    "category": "Generators",
-    "description": "Generate barcodes in Code128, Code39, EAN13 formats",
-    "input_type": "text",
-    "placeholder": "Enter data to encode as barcode...",
-    "button_label": "Generate",
-    "button_icon": "barcode",
-    "config": {
-        "processor": "barcode"
-    },
-    "example": "1234567890"
+  "slug": "barcode",
+  "name": "Barcode Generator",
+  "icon": "qr_code",
+  "category": "Generators",
+  "description": "Generate barcodes in Code128, Code39, EAN13 formats",
+  "input_type": "text",
+  "placeholder": "Enter data to encode as barcode...",
+  "button_label": "Generate",
+  "button_icon": "barcode",
+  "config": {
+    "processor": "barcode"
+  },
+  "example": "1234567890"
 }

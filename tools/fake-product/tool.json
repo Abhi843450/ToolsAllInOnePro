@@ -1,15 +1,15 @@
 {
-    "slug": "fake-product",
-    "name": "Fake Product Data Generator",
-    "icon": "inventory_2",
-    "category": "Generators",
-    "description": "Generate fake product names, descriptions, prices, and SKUs",
-    "input_type": "text",
-    "placeholder": "Optional count...",
-    "button_label": "Generate",
-    "button_icon": "inventory_2",
-    "config": {
-        "processor": "name_generator"
-    },
-    "example": ""
+  "slug": "fake-product",
+  "name": "Fake Product Data Generator",
+  "icon": "inventory_2",
+  "category": "Generators",
+  "description": "Generate fake product names, descriptions, prices, and SKUs",
+  "input_type": "text",
+  "placeholder": "Optional count...",
+  "button_label": "Generate",
+  "button_icon": "inventory_2",
+  "config": {
+    "processor": "name_generator"
+  },
+  "example": ""
 }

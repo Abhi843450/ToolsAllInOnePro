@@ -1,15 +1,15 @@
 {
-    "slug": "pig-latin-tool",
-    "name": "Pig Latin Translator",
-    "icon": "record_voice_over",
-    "category": "Encoding & Crypto",
-    "description": "Convert English to Pig Latin and back",
-    "input_type": "text",
-    "placeholder": "Enter English text to translate to Pig Latin...",
-    "button_label": "Translate",
-    "button_icon": "record_voice_over",
-    "config": {
-        "processor": "pig_latin"
-    },
-    "example": "hello world"
+  "slug": "pig-latin-tool",
+  "name": "Pig Latin Translator",
+  "icon": "record_voice_over",
+  "category": "Encoding & Crypto",
+  "description": "Convert English to Pig Latin and back",
+  "input_type": "text",
+  "placeholder": "Enter English text to translate to Pig Latin...",
+  "button_label": "Translate",
+  "button_icon": "record_voice_over",
+  "config": {
+    "processor": "pig_latin"
+  },
+  "example": "hello world"
 }

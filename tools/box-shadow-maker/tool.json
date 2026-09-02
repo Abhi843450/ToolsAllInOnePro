@@ -1,15 +1,15 @@
 {
-    "slug": "box-shadow-maker",
-    "name": "CSS Box Shadow Maker",
-    "icon": "shadow",
-    "category": "Design & Visual",
-    "description": "Create box shadows with multiple layers and spread",
-    "input_type": "text",
-    "placeholder": "Enter preset (default, hard, soft, glow, neumorphism)...",
-    "button_label": "Create",
-    "button_icon": "shadow",
-    "config": {
-        "processor": "box_shadow_maker"
-    },
-    "example": "default"
+  "slug": "box-shadow-maker",
+  "name": "CSS Box Shadow Maker",
+  "icon": "shadow",
+  "category": "Design & Visual",
+  "description": "Create box shadows with multiple layers and spread",
+  "input_type": "text",
+  "placeholder": "Enter preset (default, hard, soft, glow, neumorphism)...",
+  "button_label": "Create",
+  "button_icon": "shadow",
+  "config": {
+    "processor": "box_shadow_maker"
+  },
+  "example": "default"
 }

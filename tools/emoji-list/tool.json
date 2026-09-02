@@ -1,15 +1,15 @@
 {
-    "slug": "emoji-list",
-    "name": "Emoji Reference",
-    "icon": "emoji_emotions",
-    "category": "Developer Tools",
-    "description": "Complete emoji list grouped by category",
-    "input_type": "text",
-    "placeholder": "Search emojis...",
-    "button_label": "View",
-    "button_icon": "emoji_emotions",
-    "config": {
-        "processor": "emoji_list"
-    },
-    "example": "heart"
+  "slug": "emoji-list",
+  "name": "Emoji Reference",
+  "icon": "emoji_emotions",
+  "category": "Developer Tools",
+  "description": "Complete emoji list grouped by category",
+  "input_type": "text",
+  "placeholder": "Search emojis...",
+  "button_label": "View",
+  "button_icon": "emoji_emotions",
+  "config": {
+    "processor": "emoji_list"
+  },
+  "example": "heart"
 }

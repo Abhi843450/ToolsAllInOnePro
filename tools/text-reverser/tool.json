@@ -1,15 +1,15 @@
 {
-    "slug": "text-reverser",
-    "name": "Text Reverser",
-    "icon": "flip",
-    "category": "Text Tools",
-    "description": "Reverse text, words, sentences, or characters with various options",
-    "input_type": "text",
-    "placeholder": "Paste text to reverse characters, words, or lines...",
-    "button_label": "Reverse",
-    "button_icon": "flip",
-    "config": {
-        "processor": "text_reverser"
-    },
-    "example": "Hello World"
+  "slug": "text-reverser",
+  "name": "Text Reverser",
+  "icon": "flip",
+  "category": "Text Tools",
+  "description": "Reverse text, words, sentences, or characters with various options",
+  "input_type": "text",
+  "placeholder": "Paste text to reverse characters, words, or lines...",
+  "button_label": "Reverse",
+  "button_icon": "flip",
+  "config": {
+    "processor": "text_reverser"
+  },
+  "example": "Hello World"
 }

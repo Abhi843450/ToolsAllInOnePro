@@ -1,15 +1,15 @@
 {
-    "slug": "error-code-ref",
-    "name": "Error Code Reference",
-    "icon": "error",
-    "category": "Developer Tools",
-    "description": "Common error codes across programming languages",
-    "input_type": "text",
-    "placeholder": "Search error codes...",
-    "button_label": "View",
-    "button_icon": "error",
-    "config": {
-        "processor": "error_code_ref"
-    },
-    "example": "TypeError"
+  "slug": "error-code-ref",
+  "name": "Error Code Reference",
+  "icon": "error",
+  "category": "Developer Tools",
+  "description": "Common error codes across programming languages",
+  "input_type": "text",
+  "placeholder": "Search error codes...",
+  "button_label": "View",
+  "button_icon": "error",
+  "config": {
+    "processor": "error_code_ref"
+  },
+  "example": "TypeError"
 }

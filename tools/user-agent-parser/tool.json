@@ -1,15 +1,15 @@
 {
-    "slug": "user-agent-parser",
-    "name": "User Agent Parser",
-    "icon": "devices",
-    "category": "Web & SEO",
-    "description": "Parse user agent strings to extract browser, OS, and device info",
-    "input_type": "text",
-    "placeholder": "Paste user agent string to parse...",
-    "button_label": "Parse",
-    "button_icon": "devices",
-    "config": {
-        "processor": "user_agent_parser"
-    },
-    "example": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36"
+  "slug": "user-agent-parser",
+  "name": "User Agent Parser",
+  "icon": "devices",
+  "category": "Web & SEO",
+  "description": "Parse user agent strings to extract browser, OS, and device info",
+  "input_type": "text",
+  "placeholder": "Paste user agent string to parse...",
+  "button_label": "Parse",
+  "button_icon": "devices",
+  "config": {
+    "processor": "user_agent_parser"
+  },
+  "example": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/120.0.0.0 Safari/537.36"
 }

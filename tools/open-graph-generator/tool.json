@@ -1,15 +1,15 @@
 {
-    "slug": "open-graph-generator",
-    "name": "Open Graph Generator",
-    "icon": "share",
-    "category": "Web & SEO",
-    "description": "Generate Open Graph meta tags for social sharing",
-    "input_type": "text",
-    "placeholder": "Enter page title for Open Graph tags...",
-    "button_label": "Generate",
-    "button_icon": "share",
-    "config": {
-        "processor": "open_graph_generator"
-    },
-    "example": "My Awesome Article"
+  "slug": "open-graph-generator",
+  "name": "Open Graph Generator",
+  "icon": "share",
+  "category": "Web & SEO",
+  "description": "Generate Open Graph meta tags for social sharing",
+  "input_type": "text",
+  "placeholder": "Enter page title for Open Graph tags...",
+  "button_label": "Generate",
+  "button_icon": "share",
+  "config": {
+    "processor": "open_graph_generator"
+  },
+  "example": "My Awesome Article"
 }

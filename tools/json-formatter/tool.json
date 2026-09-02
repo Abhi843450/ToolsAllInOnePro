@@ -1,15 +1,15 @@
 {
-    "slug": "json-formatter",
-    "name": "JSON Formatter",
-    "icon": "data_object",
-    "category": "Code Tools",
-    "description": "Format, validate, and beautify JSON data with syntax highlighting",
-    "input_type": "text",
-    "placeholder": "Paste JSON to format and beautify...\nExample: {\"name\":\"John\",\"age\":30,\"city\":\"NYC\"}",
-    "button_label": "Format",
-    "button_icon": "data_object",
-    "config": {
-        "processor": "json_formatter"
-    },
-    "example": "{\"name\":\"John\",\"age\":30,\"hobbies\":[\"reading\",\"gaming\"]}"
+  "slug": "json-formatter",
+  "name": "JSON Formatter",
+  "icon": "data_object",
+  "category": "Code Tools",
+  "description": "Format, validate, and beautify JSON data with syntax highlighting",
+  "input_type": "text",
+  "placeholder": "Paste JSON to format and beautify...\nExample: {\"name\":\"John\",\"age\":30,\"city\":\"NYC\"}",
+  "button_label": "Format",
+  "button_icon": "data_object",
+  "config": {
+    "processor": "json_formatter"
+  },
+  "example": "{\"name\":\"John\",\"age\":30,\"hobbies\":[\"reading\",\"gaming\"]}"
 }

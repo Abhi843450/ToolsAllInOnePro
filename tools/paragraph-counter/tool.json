@@ -1,15 +1,15 @@
 {
-    "slug": "paragraph-counter",
-    "name": "Paragraph Counter",
-    "icon": "calculate",
-    "category": "Text Tools",
-    "description": "Count paragraphs, lines, and words per paragraph",
-    "input_type": "text",
-    "placeholder": "Paste text to count paragraphs and lines...",
-    "button_label": "Count",
-    "button_icon": "calculate",
-    "config": {
-        "processor": "word_counter"
-    },
-    "example": "First paragraph here.\n\nSecond paragraph here."
+  "slug": "paragraph-counter",
+  "name": "Paragraph Counter",
+  "icon": "calculate",
+  "category": "Text Tools",
+  "description": "Count paragraphs, lines, and words per paragraph",
+  "input_type": "text",
+  "placeholder": "Paste text to count paragraphs and lines...",
+  "button_label": "Count",
+  "button_icon": "calculate",
+  "config": {
+    "processor": "word_counter"
+  },
+  "example": "First paragraph here.\n\nSecond paragraph here."
 }

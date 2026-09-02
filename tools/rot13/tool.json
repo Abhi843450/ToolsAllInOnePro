@@ -1,15 +1,15 @@
 {
-    "slug": "rot13",
-    "name": "ROT13 Encoder/Decoder",
-    "icon": "swap_horiz",
-    "category": "Cryptography",
-    "description": "Encode and decode text using ROT13 substitution",
-    "input_type": "text",
-    "placeholder": "Enter text to encode/decode with ROT13...",
-    "button_label": "Process",
-    "button_icon": "swap_horiz",
-    "config": {
-        "processor": "rot13"
-    },
-    "example": "Hello World"
+  "slug": "rot13",
+  "name": "ROT13 Encoder/Decoder",
+  "icon": "swap_horiz",
+  "category": "Cryptography",
+  "description": "Encode and decode text using ROT13 substitution",
+  "input_type": "text",
+  "placeholder": "Enter text to encode/decode with ROT13...",
+  "button_label": "Process",
+  "button_icon": "swap_horiz",
+  "config": {
+    "processor": "rot13"
+  },
+  "example": "Hello World"
 }

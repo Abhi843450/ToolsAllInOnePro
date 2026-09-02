@@ -1,15 +1,15 @@
 {
-    "slug": "json-sitemap",
-    "name": "JSON to Sitemap",
-    "icon": "map",
-    "category": "Web & SEO",
-    "description": "Convert URL lists to XML sitemap format",
-    "input_type": "text",
-    "placeholder": "Enter URLs (one per line) for sitemap...",
-    "button_label": "Convert",
-    "button_icon": "map",
-    "config": {
-        "processor": "sitemap_generator"
-    },
-    "example": "https://example.com/\nhttps://example.com/about"
+  "slug": "json-sitemap",
+  "name": "JSON to Sitemap",
+  "icon": "map",
+  "category": "Web & SEO",
+  "description": "Convert URL lists to XML sitemap format",
+  "input_type": "text",
+  "placeholder": "Enter URLs (one per line) for sitemap...",
+  "button_label": "Convert",
+  "button_icon": "map",
+  "config": {
+    "processor": "sitemap_generator"
+  },
+  "example": "https://example.com/\nhttps://example.com/about"
 }

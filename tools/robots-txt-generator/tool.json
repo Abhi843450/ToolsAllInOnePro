@@ -1,15 +1,15 @@
 {
-    "slug": "robots-txt-generator",
-    "name": "Robots.txt Generator",
-    "icon": "smart_toy",
-    "category": "Web & SEO",
-    "description": "Generate robots.txt with crawl rules and sitemap references",
-    "input_type": "text",
-    "placeholder": "Enter sitemap URL...",
-    "button_label": "Generate",
-    "button_icon": "smart_toy",
-    "config": {
-        "processor": "robots_txt_generator"
-    },
-    "example": "https://mysite.com/sitemap.xml"
+  "slug": "robots-txt-generator",
+  "name": "Robots.txt Generator",
+  "icon": "smart_toy",
+  "category": "Web & SEO",
+  "description": "Generate robots.txt with crawl rules and sitemap references",
+  "input_type": "text",
+  "placeholder": "Enter sitemap URL...",
+  "button_label": "Generate",
+  "button_icon": "smart_toy",
+  "config": {
+    "processor": "robots_txt_generator"
+  },
+  "example": "https://mysite.com/sitemap.xml"
 }

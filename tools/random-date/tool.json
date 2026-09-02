@@ -1,15 +1,15 @@
 {
-    "slug": "random-date",
-    "name": "Random Date Generator",
-    "icon": "event",
-    "category": "Generators",
-    "description": "Generate random dates within a range",
-    "input_type": "text",
-    "placeholder": "Optional range (YYYY-MM-DD)...",
-    "button_label": "Generate",
-    "button_icon": "event",
-    "config": {
-        "processor": "random_date"
-    },
-    "example": ""
+  "slug": "random-date",
+  "name": "Random Date Generator",
+  "icon": "event",
+  "category": "Generators",
+  "description": "Generate random dates within a range",
+  "input_type": "text",
+  "placeholder": "Optional range (YYYY-MM-DD)...",
+  "button_label": "Generate",
+  "button_icon": "event",
+  "config": {
+    "processor": "random_date"
+  },
+  "example": ""
 }

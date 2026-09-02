@@ -1,15 +1,15 @@
 {
-    "slug": "vigenere-cipher",
-    "name": "Vigen\u00e8re Cipher",
-    "icon": "lock",
-    "category": "Cryptography",
-    "description": "Encrypt and decrypt using the Vigen\u00e8re polyalphabetic cipher",
-    "input_type": "text",
-    "placeholder": "Enter text to encrypt with Vigenere cipher...",
-    "button_label": "Process",
-    "button_icon": "lock",
-    "config": {
-        "processor": "caesar_cipher"
-    },
-    "example": "HELLO"
+  "slug": "vigenere-cipher",
+  "name": "Vigen\u00e8re Cipher",
+  "icon": "lock",
+  "category": "Cryptography",
+  "description": "Encrypt and decrypt using the Vigen\u00e8re polyalphabetic cipher",
+  "input_type": "text",
+  "placeholder": "Enter text to encrypt with Vigenere cipher...",
+  "button_label": "Process",
+  "button_icon": "lock",
+  "config": {
+    "processor": "caesar_cipher"
+  },
+  "example": "HELLO"
 }

@@ -1,15 +1,15 @@
 {
-    "slug": "weighted-average",
-    "name": "Weighted Average Calculator",
-    "icon": "calculate",
-    "category": "Statistics & Analysis",
-    "description": "Calculate weighted averages with custom weights",
-    "input_type": "text",
-    "placeholder": "Enter values and weights (e.g. 80,0.3 90,0.5 70,0.2)...",
-    "button_label": "Calculate",
-    "button_icon": "calculate",
-    "config": {
-        "processor": "weighted_average"
-    },
-    "example": "80,0.3 90,0.5 70,0.2"
+  "slug": "weighted-average",
+  "name": "Weighted Average Calculator",
+  "icon": "calculate",
+  "category": "Statistics & Analysis",
+  "description": "Calculate weighted averages with custom weights",
+  "input_type": "text",
+  "placeholder": "Enter values and weights (e.g. 80,0.3 90,0.5 70,0.2)...",
+  "button_label": "Calculate",
+  "button_icon": "calculate",
+  "config": {
+    "processor": "weighted_average"
+  },
+  "example": "80,0.3 90,0.5 70,0.2"
 }

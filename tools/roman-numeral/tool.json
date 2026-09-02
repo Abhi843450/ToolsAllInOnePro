@@ -1,15 +1,15 @@
 {
-    "slug": "roman-numeral",
-    "name": "Roman Numeral Converter",
-    "icon": "roman",
-    "category": "Calculators",
-    "description": "Convert between Roman numerals and Arabic numbers",
-    "input_type": "text",
-    "placeholder": "Enter number (1-3999) or Roman numeral...",
-    "button_label": "Convert",
-    "button_icon": "roman",
-    "config": {
-        "processor": "roman_numeral"
-    },
-    "example": "42"
+  "slug": "roman-numeral",
+  "name": "Roman Numeral Converter",
+  "icon": "pin",
+  "category": "Calculators",
+  "description": "Convert between Roman numerals and Arabic numbers",
+  "input_type": "text",
+  "placeholder": "Enter number (1-3999) or Roman numeral...",
+  "button_label": "Convert",
+  "button_icon": "roman",
+  "config": {
+    "processor": "roman_numeral"
+  },
+  "example": "42"
 }

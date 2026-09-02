@@ -1,15 +1,15 @@
 {
-    "slug": "number-to-words",
-    "name": "Number to Words",
-    "icon": "text_fields",
-    "category": "Converters",
-    "description": "Convert numbers to written English words",
-    "input_type": "text",
-    "placeholder": "Enter number to convert to words...",
-    "button_label": "Convert",
-    "button_icon": "text_fields",
-    "config": {
-        "processor": "number_to_words"
-    },
-    "example": "12345"
+  "slug": "number-to-words",
+  "name": "Number to Words",
+  "icon": "text_fields",
+  "category": "Converters",
+  "description": "Convert numbers to written English words",
+  "input_type": "text",
+  "placeholder": "Enter number to convert to words...",
+  "button_label": "Convert",
+  "button_icon": "text_fields",
+  "config": {
+    "processor": "number_to_words"
+  },
+  "example": "12345"
 }

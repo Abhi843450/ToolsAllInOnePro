@@ -1,15 +1,15 @@
 {
-    "slug": "python-formatter",
-    "name": "Python Formatter",
-    "icon": "code",
-    "category": "Code Tools",
-    "description": "Format Python code with proper PEP 8 style",
-    "input_type": "text",
-    "placeholder": "Paste Python code to format...",
-    "button_label": "Format",
-    "button_icon": "code",
-    "config": {
-        "processor": "html_formatter"
-    },
-    "example": "def hello():\n    x=1\n    if x>0:\n        print('positive')"
+  "slug": "python-formatter",
+  "name": "Python Formatter",
+  "icon": "code",
+  "category": "Code Tools",
+  "description": "Format Python code with proper PEP 8 style",
+  "input_type": "text",
+  "placeholder": "Paste Python code to format...",
+  "button_label": "Format",
+  "button_icon": "code",
+  "config": {
+    "processor": "html_formatter"
+  },
+  "example": "def hello():\n    x=1\n    if x>0:\n        print('positive')"
 }

@@ -1,15 +1,15 @@
 {
-    "slug": "text-shadow",
-    "name": "CSS Text Shadow Generator",
-    "icon": "text_fields",
-    "category": "Generators",
-    "description": "Generate CSS text-shadow values with preview",
-    "input_type": "text",
-    "placeholder": "Enter preset (default, glow, hard)...",
-    "button_label": "Generate",
-    "button_icon": "text_fields",
-    "config": {
-        "processor": "box_shadow_maker"
-    },
-    "example": "default"
+  "slug": "text-shadow",
+  "name": "CSS Text Shadow Generator",
+  "icon": "text_fields",
+  "category": "Generators",
+  "description": "Generate CSS text-shadow values with preview",
+  "input_type": "text",
+  "placeholder": "Enter preset (default, glow, hard)...",
+  "button_label": "Generate",
+  "button_icon": "text_fields",
+  "config": {
+    "processor": "box_shadow_maker"
+  },
+  "example": "default"
 }

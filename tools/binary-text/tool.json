@@ -1,15 +1,15 @@
 {
-    "slug": "binary-text",
-    "name": "Binary \u2194 Text Converter",
-    "icon": "code",
-    "category": "Text Tools",
-    "description": "Convert text to binary and binary back to text",
-    "input_type": "text",
-    "placeholder": "Enter text or binary to convert...",
-    "button_label": "Convert",
-    "button_icon": "code",
-    "config": {
-        "processor": "binary_text"
-    },
-    "example": "Hello"
+  "slug": "binary-text",
+  "name": "Binary \u2194 Text Converter",
+  "icon": "code",
+  "category": "Text Tools",
+  "description": "Convert text to binary and binary back to text",
+  "input_type": "text",
+  "placeholder": "Enter text or binary to convert...",
+  "button_label": "Convert",
+  "button_icon": "code",
+  "config": {
+    "processor": "binary_text"
+  },
+  "example": "Hello"
 }

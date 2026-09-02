@@ -1,23 +1,23 @@
 {
-    "slug": "coin-flip",
-    "name": "Coin Flip Simulator",
-    "icon": "swap_horiz",
-    "category": "Generators",
-    "description": "Flip coins with custom counts and display patterns",
-    "input_type": "text",
-    "placeholder": "Optional number of flips...",
-    "button_label": "Flip",
-    "button_icon": "swap_horiz",
-    "config": {
-        "processor": "coin_flip",
-        "inputs": [
-            {
-                "name": "count",
-                "type": "number",
-                "label": "Flips:",
-                "default": "1"
-            }
-        ]
-    },
-    "example": ""
+  "slug": "coin-flip",
+  "name": "Coin Flip Simulator",
+  "icon": "swap_horiz",
+  "category": "Generators",
+  "description": "Flip coins with custom counts and display patterns",
+  "input_type": "text",
+  "placeholder": "Optional number of flips...",
+  "button_label": "Flip",
+  "button_icon": "swap_horiz",
+  "config": {
+    "processor": "coin_flip",
+    "inputs": [
+      {
+        "name": "count",
+        "type": "number",
+        "label": "Flips:",
+        "default": "1"
+      }
+    ]
+  },
+  "example": ""
 }

@@ -1,15 +1,15 @@
 {
-    "slug": "sentence-counter",
-    "name": "Sentence Counter",
-    "icon": "calculate",
-    "category": "Text Tools",
-    "description": "Count sentences and words per sentence in your text",
-    "input_type": "text",
-    "placeholder": "Paste text to count sentences and words per sentence...",
-    "button_label": "Count",
-    "button_icon": "calculate",
-    "config": {
-        "processor": "word_counter"
-    },
-    "example": "Hello world. How are you? I am fine."
+  "slug": "sentence-counter",
+  "name": "Sentence Counter",
+  "icon": "calculate",
+  "category": "Text Tools",
+  "description": "Count sentences and words per sentence in your text",
+  "input_type": "text",
+  "placeholder": "Paste text to count sentences and words per sentence...",
+  "button_label": "Count",
+  "button_icon": "calculate",
+  "config": {
+    "processor": "word_counter"
+  },
+  "example": "Hello world. How are you? I am fine."
 }

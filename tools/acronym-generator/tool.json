@@ -1,15 +1,15 @@
 {
-    "slug": "acronym-generator",
-    "name": "Acronym Generator",
-    "icon": "short_text",
-    "category": "Text Tools",
-    "description": "Generate acronyms from phrases and text",
-    "input_type": "text",
-    "placeholder": "Enter a phrase to abbreviate...",
-    "button_label": "Generate",
-    "button_icon": "short_text",
-    "config": {
-        "processor": "acronym_generator"
-    },
-    "example": "Application Programming Interface"
+  "slug": "acronym-generator",
+  "name": "Acronym Generator",
+  "icon": "short_text",
+  "category": "Text Tools",
+  "description": "Generate acronyms from phrases and text",
+  "input_type": "text",
+  "placeholder": "Enter a phrase to abbreviate...",
+  "button_label": "Generate",
+  "button_icon": "short_text",
+  "config": {
+    "processor": "acronym_generator"
+  },
+  "example": "Application Programming Interface"
 }

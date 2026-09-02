@@ -1,15 +1,15 @@
 {
-    "slug": "timezone-converter",
-    "name": "Timezone Converter",
-    "icon": "public",
-    "category": "Converters",
-    "description": "Convert times between different timezones",
-    "input_type": "text",
-    "placeholder": "Enter time and timezone to convert...",
-    "button_label": "Convert",
-    "button_icon": "public",
-    "config": {
-        "processor": "timezone_converter"
-    },
-    "example": "14:00 UTC"
+  "slug": "timezone-converter",
+  "name": "Timezone Converter",
+  "icon": "public",
+  "category": "Converters",
+  "description": "Convert times between different timezones",
+  "input_type": "text",
+  "placeholder": "Enter time and timezone to convert...",
+  "button_label": "Convert",
+  "button_icon": "public",
+  "config": {
+    "processor": "timezone_converter"
+  },
+  "example": "14:00 UTC"
 }

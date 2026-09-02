@@ -1,15 +1,15 @@
 {
-    "slug": "whois-lookup",
-    "name": "WHOIS Lookup",
-    "icon": "search",
-    "category": "Web & SEO",
-    "description": "Look up WHOIS registration information for domains",
-    "input_type": "text",
-    "placeholder": "Enter domain for WHOIS lookup...",
-    "button_label": "Lookup",
-    "button_icon": "search",
-    "config": {
-        "processor": "url_parser"
-    },
-    "example": "example.com"
+  "slug": "whois-lookup",
+  "name": "WHOIS Lookup",
+  "icon": "search",
+  "category": "Web & SEO",
+  "description": "Look up WHOIS registration information for domains",
+  "input_type": "text",
+  "placeholder": "Enter domain for WHOIS lookup...",
+  "button_label": "Lookup",
+  "button_icon": "search",
+  "config": {
+    "processor": "url_parser"
+  },
+  "example": "example.com"
 }

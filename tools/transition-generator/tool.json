@@ -1,15 +1,15 @@
 {
-    "slug": "transition-generator",
-    "name": "CSS Transition Generator",
-    "icon": "animation",
-    "category": "Design & Visual",
-    "description": "Generate CSS transition properties",
-    "input_type": "text",
-    "placeholder": "Describe transition (e.g. color 0.2s ease)...",
-    "button_label": "Generate",
-    "button_icon": "animation",
-    "config": {
-        "processor": "transition_generator"
-    },
-    "example": "color 0.2s ease"
+  "slug": "transition-generator",
+  "name": "CSS Transition Generator",
+  "icon": "animation",
+  "category": "Design & Visual",
+  "description": "Generate CSS transition properties",
+  "input_type": "text",
+  "placeholder": "Describe transition (e.g. color 0.2s ease)...",
+  "button_label": "Generate",
+  "button_icon": "animation",
+  "config": {
+    "processor": "transition_generator"
+  },
+  "example": "color 0.2s ease"
 }

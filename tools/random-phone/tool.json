@@ -1,15 +1,15 @@
 {
-    "slug": "random-phone",
-    "name": "Random Phone Number Generator",
-    "icon": "phone",
-    "category": "Generators",
-    "description": "Generate random phone numbers in various formats",
-    "input_type": "text",
-    "placeholder": "Optional country code...",
-    "button_label": "Generate",
-    "button_icon": "phone",
-    "config": {
-        "processor": "random_phone"
-    },
-    "example": ""
+  "slug": "random-phone",
+  "name": "Random Phone Number Generator",
+  "icon": "phone",
+  "category": "Generators",
+  "description": "Generate random phone numbers in various formats",
+  "input_type": "text",
+  "placeholder": "Optional country code...",
+  "button_label": "Generate",
+  "button_icon": "phone",
+  "config": {
+    "processor": "random_phone"
+  },
+  "example": ""
 }

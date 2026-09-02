@@ -1,15 +1,15 @@
 {
-    "slug": "probability",
-    "name": "Probability Calculator",
-    "icon": "calculate",
-    "category": "Statistics & Analysis",
-    "description": "Calculate probability of events with combinations and permutations",
-    "input_type": "text",
-    "placeholder": "Enter n and r values for permutations/combinations (e.g. 10, 3)...",
-    "button_label": "Calculate",
-    "button_icon": "calculate",
-    "config": {
-        "processor": "probability"
-    },
-    "example": "10, 3"
+  "slug": "probability",
+  "name": "Probability Calculator",
+  "icon": "calculate",
+  "category": "Statistics & Analysis",
+  "description": "Calculate probability of events with combinations and permutations",
+  "input_type": "text",
+  "placeholder": "Enter n and r values for permutations/combinations (e.g. 10, 3)...",
+  "button_label": "Calculate",
+  "button_icon": "calculate",
+  "config": {
+    "processor": "probability"
+  },
+  "example": "10, 3"
 }

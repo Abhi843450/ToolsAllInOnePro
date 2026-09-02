@@ -1,15 +1,15 @@
 {
-    "slug": "markdown-cheatsheet",
-    "name": "Markdown Cheat Sheet",
-    "icon": "code",
-    "category": "Developer Tools",
-    "description": "Complete Markdown syntax reference with examples",
-    "input_type": "text",
-    "placeholder": "Search Markdown syntax...",
-    "button_label": "View",
-    "button_icon": "code",
-    "config": {
-        "processor": "markdown_cheatsheet"
-    },
-    "example": "heading"
+  "slug": "markdown-cheatsheet",
+  "name": "Markdown Cheat Sheet",
+  "icon": "code",
+  "category": "Developer Tools",
+  "description": "Complete Markdown syntax reference with examples",
+  "input_type": "text",
+  "placeholder": "Search Markdown syntax...",
+  "button_label": "View",
+  "button_icon": "code",
+  "config": {
+    "processor": "markdown_cheatsheet"
+  },
+  "example": "heading"
 }

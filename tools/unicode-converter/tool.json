@@ -1,15 +1,15 @@
 {
-    "slug": "unicode-converter",
-    "name": "Unicode Converter",
-    "icon": "translate",
-    "category": "Cryptography",
-    "description": "Convert text to Unicode code points and back",
-    "input_type": "text",
-    "placeholder": "Enter text or Unicode code points to convert...",
-    "button_label": "Convert",
-    "button_icon": "translate",
-    "config": {
-        "processor": "unicode_converter"
-    },
-    "example": "Hello \u4f60\u597d"
+  "slug": "unicode-converter",
+  "name": "Unicode Converter",
+  "icon": "translate",
+  "category": "Cryptography",
+  "description": "Convert text to Unicode code points and back",
+  "input_type": "text",
+  "placeholder": "Enter text or Unicode code points to convert...",
+  "button_label": "Convert",
+  "button_icon": "translate",
+  "config": {
+    "processor": "unicode_converter"
+  },
+  "example": "Hello \u4f60\u597d"
 }

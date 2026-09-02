@@ -1,15 +1,15 @@
 {
-    "slug": "line-numberer",
-    "name": "Line Numberer",
-    "icon": "format_list_numbered",
-    "category": "Text Tools",
-    "description": "Add line numbers to text with custom starting number and format",
-    "input_type": "text",
-    "placeholder": "Paste text to add line numbers...",
-    "button_label": "Number",
-    "button_icon": "format_list_numbered",
-    "config": {
-        "processor": "line_numberer"
-    },
-    "example": "First line\nSecond line\nThird line"
+  "slug": "line-numberer",
+  "name": "Line Numberer",
+  "icon": "format_list_numbered",
+  "category": "Text Tools",
+  "description": "Add line numbers to text with custom starting number and format",
+  "input_type": "text",
+  "placeholder": "Paste text to add line numbers...",
+  "button_label": "Number",
+  "button_icon": "format_list_numbered",
+  "config": {
+    "processor": "line_numberer"
+  },
+  "example": "First line\nSecond line\nThird line"
 }

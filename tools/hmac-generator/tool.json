@@ -1,15 +1,15 @@
 {
-    "slug": "hmac-generator",
-    "name": "HMAC Generator",
-    "icon": "fingerprint",
-    "category": "Cryptography",
-    "description": "Generate HMAC with MD5, SHA-1, SHA-256, or SHA-512",
-    "input_type": "text",
-    "placeholder": "Enter message to generate HMAC...",
-    "button_label": "Generate",
-    "button_icon": "fingerprint",
-    "config": {
-        "processor": "hash_generator"
-    },
-    "example": "secret message"
+  "slug": "hmac-generator",
+  "name": "HMAC Generator",
+  "icon": "fingerprint",
+  "category": "Cryptography",
+  "description": "Generate HMAC with MD5, SHA-1, SHA-256, or SHA-512",
+  "input_type": "text",
+  "placeholder": "Enter message to generate HMAC...",
+  "button_label": "Generate",
+  "button_icon": "fingerprint",
+  "config": {
+    "processor": "hash_generator"
+  },
+  "example": "secret message"
 }

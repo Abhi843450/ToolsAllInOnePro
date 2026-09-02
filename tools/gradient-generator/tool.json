@@ -1,15 +1,15 @@
 {
-    "slug": "gradient-generator",
-    "name": "CSS Gradient Generator",
-    "icon": "gradient",
-    "category": "Generators",
-    "description": "Generate CSS linear, radial, and conic gradients",
-    "input_type": "text",
-    "placeholder": "Enter preset (sunset, ocean, forest)...",
-    "button_label": "Generate",
-    "button_icon": "gradient",
-    "config": {
-        "processor": "color_palette_gen"
-    },
-    "example": "sunset"
+  "slug": "gradient-generator",
+  "name": "CSS Gradient Generator",
+  "icon": "gradient",
+  "category": "Generators",
+  "description": "Generate CSS linear, radial, and conic gradients",
+  "input_type": "text",
+  "placeholder": "Enter preset (sunset, ocean, forest)...",
+  "button_label": "Generate",
+  "button_icon": "gradient",
+  "config": {
+    "processor": "color_palette_gen"
+  },
+  "example": "sunset"
 }

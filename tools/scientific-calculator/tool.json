@@ -1,15 +1,15 @@
 {
-    "slug": "scientific-calculator",
-    "name": "Scientific Calculator",
-    "icon": "calculate",
-    "category": "Calculators",
-    "description": "Advanced calculator with trigonometry, logarithms, exponents, and more",
-    "input_type": "text",
-    "placeholder": "Enter math expression (e.g. sin(45) + log(100), sqrt(144), 2^10)...",
-    "button_label": "Calculate",
-    "button_icon": "calculate",
-    "config": {
-        "processor": "scientific_calculator"
-    },
-    "example": "sin(45) + sqrt(144)"
+  "slug": "scientific-calculator",
+  "name": "Scientific Calculator",
+  "icon": "calculate",
+  "category": "Calculators",
+  "description": "Advanced calculator with trigonometry, logarithms, exponents, and more",
+  "input_type": "text",
+  "placeholder": "Enter math expression (e.g. sin(45) + log(100), sqrt(144), 2^10)...",
+  "button_label": "Calculate",
+  "button_icon": "calculate",
+  "config": {
+    "processor": "scientific_calculator"
+  },
+  "example": "sin(45) + sqrt(144)"
 }

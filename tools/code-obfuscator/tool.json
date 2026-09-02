@@ -1,14 +1,14 @@
 {
-    "slug": "code-obfuscator",
-    "name": "Code Obfuscator",
-    "icon": "security",
-    "category": "Code Tools",
-    "description": "Obfuscate JavaScript/TypeScript code with variable renaming",
-    "input_type": "text",
-    "placeholder": "Paste code here...",
-    "button_label": "Obfuscate",
-    "button_icon": "security",
-    "config": {
-        "processor": "html_minifier"
-    }
+  "slug": "code-obfuscator",
+  "name": "Code Obfuscator",
+  "icon": "security",
+  "category": "Code Tools",
+  "description": "Obfuscate JavaScript/TypeScript code with variable renaming",
+  "input_type": "text",
+  "placeholder": "Paste code here...",
+  "button_label": "Obfuscate",
+  "button_icon": "security",
+  "config": {
+    "processor": "html_minifier"
+  }
 }

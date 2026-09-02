@@ -1,15 +1,15 @@
 {
-    "slug": "cipher-wheel",
-    "name": "Cipher Wheel Tool",
-    "icon": "swap_horiz",
-    "category": "Encoding & Crypto",
-    "description": "Encode/decode using a Caesar cipher with customizable shift",
-    "input_type": "text",
-    "placeholder": "Enter text to encrypt/decrypt with Caesar cipher...",
-    "button_label": "Process",
-    "button_icon": "swap_horiz",
-    "config": {
-        "processor": "caesar_cipher"
-    },
-    "example": "Hello World"
+  "slug": "cipher-wheel",
+  "name": "Cipher Wheel Tool",
+  "icon": "swap_horiz",
+  "category": "Encoding & Crypto",
+  "description": "Encode/decode using a Caesar cipher with customizable shift",
+  "input_type": "text",
+  "placeholder": "Enter text to encrypt/decrypt with Caesar cipher...",
+  "button_label": "Process",
+  "button_icon": "swap_horiz",
+  "config": {
+    "processor": "caesar_cipher"
+  },
+  "example": "Hello World"
 }

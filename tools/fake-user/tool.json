@@ -1,15 +1,15 @@
 {
-    "slug": "fake-user",
-    "name": "Fake User Profile Generator",
-    "icon": "person",
-    "category": "Generators",
-    "description": "Generate complete fake user profiles with names, emails, addresses",
-    "input_type": "text",
-    "placeholder": "Optional count...",
-    "button_label": "Generate",
-    "button_icon": "person",
-    "config": {
-        "processor": "name_generator"
-    },
-    "example": ""
+  "slug": "fake-user",
+  "name": "Fake User Profile Generator",
+  "icon": "person",
+  "category": "Generators",
+  "description": "Generate complete fake user profiles with names, emails, addresses",
+  "input_type": "text",
+  "placeholder": "Optional count...",
+  "button_label": "Generate",
+  "button_icon": "person",
+  "config": {
+    "processor": "name_generator"
+  },
+  "example": ""
 }

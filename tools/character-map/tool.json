@@ -1,15 +1,15 @@
 {
-    "slug": "character-map",
-    "name": "Extended ASCII Map",
-    "icon": "table",
-    "category": "Encoding & Crypto",
-    "description": "View extended ASCII characters (128-255) with descriptions",
-    "input_type": "text",
-    "placeholder": "Search ASCII characters...",
-    "button_label": "View",
-    "button_icon": "table",
-    "config": {
-        "processor": "ascii_table_full"
-    },
-    "example": ""
+  "slug": "character-map",
+  "name": "Extended ASCII Map",
+  "icon": "table",
+  "category": "Encoding & Crypto",
+  "description": "View extended ASCII characters (128-255) with descriptions",
+  "input_type": "text",
+  "placeholder": "Search ASCII characters...",
+  "button_label": "View",
+  "button_icon": "table",
+  "config": {
+    "processor": "ascii_table_full"
+  },
+  "example": ""
 }

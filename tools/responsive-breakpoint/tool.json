@@ -1,15 +1,15 @@
 {
-    "slug": "responsive-breakpoint",
-    "name": "Responsive Breakpoint Generator",
-    "icon": "devices",
-    "category": "Generators",
-    "description": "Generate CSS media query breakpoints for common devices",
-    "input_type": "text",
-    "placeholder": "Enter screen width (e.g. 375, 768, 1024)...",
-    "button_label": "Generate",
-    "button_icon": "devices",
-    "config": {
-        "processor": "url_parser"
-    },
-    "example": "375"
+  "slug": "responsive-breakpoint",
+  "name": "Responsive Breakpoint Generator",
+  "icon": "devices",
+  "category": "Generators",
+  "description": "Generate CSS media query breakpoints for common devices",
+  "input_type": "text",
+  "placeholder": "Enter screen width (e.g. 375, 768, 1024)...",
+  "button_label": "Generate",
+  "button_icon": "devices",
+  "config": {
+    "processor": "url_parser"
+  },
+  "example": "375"
 }

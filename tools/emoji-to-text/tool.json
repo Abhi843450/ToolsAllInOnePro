@@ -1,15 +1,15 @@
 {
-    "slug": "emoji-to-text",
-    "name": "Emoji to Text Description",
-    "icon": "emoji_emotions",
-    "category": "Converters",
-    "description": "Convert emoji to text descriptions and names",
-    "input_type": "text",
-    "placeholder": "Enter emoji to get text description...",
-    "button_label": "Convert",
-    "button_icon": "emoji_emotions",
-    "config": {
-        "processor": "emoji_to_text"
-    },
-    "example": "\ud83d\ude00\ud83c\udf89\u2764\ufe0f"
+  "slug": "emoji-to-text",
+  "name": "Emoji to Text Description",
+  "icon": "emoji_emotions",
+  "category": "Converters",
+  "description": "Convert emoji to text descriptions and names",
+  "input_type": "text",
+  "placeholder": "Enter emoji to get text description...",
+  "button_label": "Convert",
+  "button_icon": "emoji_emotions",
+  "config": {
+    "processor": "emoji_to_text"
+  },
+  "example": "\ud83d\ude00\ud83c\udf89\u2764\ufe0f"
 }

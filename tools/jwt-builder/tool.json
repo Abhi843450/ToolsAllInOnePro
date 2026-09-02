@@ -1,15 +1,15 @@
 {
-    "slug": "jwt-builder",
-    "name": "JWT Token Builder",
-    "icon": "vpn_key",
-    "category": "Developer Tools",
-    "description": "Build JWT tokens with custom header and payload",
-    "input_type": "text",
-    "placeholder": "Paste payload JSON to build JWT...",
-    "button_label": "Build",
-    "button_icon": "vpn_key",
-    "config": {
-        "processor": "jwt_builder"
-    },
-    "example": "{\"user\":\"john\",\"role\":\"admin\"}"
+  "slug": "jwt-builder",
+  "name": "JWT Token Builder",
+  "icon": "vpn_key",
+  "category": "Developer Tools",
+  "description": "Build JWT tokens with custom header and payload",
+  "input_type": "text",
+  "placeholder": "Paste payload JSON to build JWT...",
+  "button_label": "Build",
+  "button_icon": "vpn_key",
+  "config": {
+    "processor": "jwt_builder"
+  },
+  "example": "{\"user\":\"john\",\"role\":\"admin\"}"
 }

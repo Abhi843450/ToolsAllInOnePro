@@ -1,15 +1,15 @@
 {
-    "slug": "data-sorter",
-    "name": "Data Sorter",
-    "icon": "sort",
-    "category": "Statistics & Analysis",
-    "description": "Sort numerical data sets with statistics summary",
-    "input_type": "text",
-    "placeholder": "Enter numbers separated by commas...",
-    "button_label": "Sort",
-    "button_icon": "sort",
-    "config": {
-        "processor": "mean_median_mode"
-    },
-    "example": "5, 3, 8, 1, 9, 2"
+  "slug": "data-sorter",
+  "name": "Data Sorter",
+  "icon": "sort",
+  "category": "Statistics & Analysis",
+  "description": "Sort numerical data sets with statistics summary",
+  "input_type": "text",
+  "placeholder": "Enter numbers separated by commas...",
+  "button_label": "Sort",
+  "button_icon": "sort",
+  "config": {
+    "processor": "mean_median_mode"
+  },
+  "example": "5, 3, 8, 1, 9, 2"
 }

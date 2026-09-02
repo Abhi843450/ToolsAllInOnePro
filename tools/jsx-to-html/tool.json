@@ -1,15 +1,15 @@
 {
-    "slug": "jsx-to-html",
-    "name": "JSX to HTML Converter",
-    "icon": "code",
-    "category": "Developer Tools",
-    "description": "Convert React JSX to plain HTML",
-    "input_type": "text",
-    "placeholder": "Paste JSX to convert to HTML...",
-    "button_label": "Convert",
-    "button_icon": "code",
-    "config": {
-        "processor": "jsx_to_html"
-    },
-    "example": "<div className=\"box\"><p>Hello</p></div>"
+  "slug": "jsx-to-html",
+  "name": "JSX to HTML Converter",
+  "icon": "code",
+  "category": "Developer Tools",
+  "description": "Convert React JSX to plain HTML",
+  "input_type": "text",
+  "placeholder": "Paste JSX to convert to HTML...",
+  "button_label": "Convert",
+  "button_icon": "code",
+  "config": {
+    "processor": "jsx_to_html"
+  },
+  "example": "<div className=\"box\"><p>Hello</p></div>"
 }

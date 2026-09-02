@@ -1,15 +1,15 @@
 {
-    "slug": "git-cheatsheet",
-    "name": "Git Commands Reference",
-    "icon": "code",
-    "category": "Developer Tools",
-    "description": "Quick reference for Git commands and workflows",
-    "input_type": "text",
-    "placeholder": "Search Git commands...",
-    "button_label": "View",
-    "button_icon": "code",
-    "config": {
-        "processor": "git_cheatsheet"
-    },
-    "example": "commit"
+  "slug": "git-cheatsheet",
+  "name": "Git Commands Reference",
+  "icon": "code",
+  "category": "Developer Tools",
+  "description": "Quick reference for Git commands and workflows",
+  "input_type": "text",
+  "placeholder": "Search Git commands...",
+  "button_label": "View",
+  "button_icon": "code",
+  "config": {
+    "processor": "git_cheatsheet"
+  },
+  "example": "commit"
 }
