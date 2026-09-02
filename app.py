@@ -178,6 +178,15 @@ def sitemap_page():
     return render_template('sitemap.html', tools=tools, categories=categories, total_tools=len(tools))
 
 
+@app.route('/sitemap.xsl')
+def sitemap_xsl():
+    xsl_path = os.path.join(BASE_DIR, 'assets', 'sitemap.xsl')
+    if os.path.isfile(xsl_path):
+        return send_from_directory(os.path.join(BASE_DIR, 'assets'), 'sitemap.xsl',
+                                   mimetype='application/xml')
+    return 'Not found', 404
+
+
 @app.route('/sitemap.xml')
 def sitemap():
     import xml.etree.ElementTree as ET
@@ -239,6 +248,9 @@ def sitemap():
     lines = pretty.replace('\r\n', '\n').split('\n')
     if lines[0].startswith('<?xml'):
         lines[0] = '<?xml version="1.0" encoding="UTF-8"?>'
+        # Add XSL stylesheet so browsers render it beautifully
+        xsl_url = request.host_url.rstrip('/') + '/sitemap.xsl'
+        lines.insert(1, '<?xml-stylesheet type="text/xsl" href="' + xsl_url + '"?>')
     # Remove empty lines
     lines = [l for l in lines if l.strip()]
     body = '\n'.join(lines) + '\n'
