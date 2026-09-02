@@ -87,15 +87,6 @@
 {% block content %}
 <main class="tool-page" data-tool='{{ tool | tojson }}'>
     <div class="container">
-        <!-- Breadcrumb -->
-        <nav class="breadcrumb" aria-label="Breadcrumb">
-            <a href="/">Home</a>
-            <span class="breadcrumb__sep">›</span>
-            <a href="/category/{{ tool.category_slug }}">{{ tool.category }}</a>
-            <span class="breadcrumb__sep">›</span>
-            <span class="breadcrumb__current">{{ tool.name }}</span>
-        </nav>
-
         <!-- Back Link -->
         <a href="/" class="back-link" id="backLink">
             <span class="material-icons-outlined">arrow_back</span>

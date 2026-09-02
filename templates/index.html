@@ -91,9 +91,7 @@
                         </div>
                         <h3 class="tool-card__name">{{ tool.name or 'Tool' }}</h3>
                         <p class="tool-card__desc">{{ tool.description or '' }}</p>
-                        <span class="tool-card__category">
-                            <a href="/category/{{ tool.category_slug }}" onclick="event.stopPropagation()" style="color:inherit;text-decoration:none">{{ tool.category or 'Tool' }}</a>
-                        </span>
+                        <span class="tool-card__category">{{ tool.category or 'Tool' }}</span>
                     </a>
                 {% endfor %}
             </div>

@@ -65,7 +65,7 @@
                                 </a>
                                 {% endfor %}
                                 {% if cat_data.tools|length > 8 %}
-                                <a href="/category/{{ cat_key }}" class="mega-tool mega-tool--view-all">
+                                <a href="/" onclick="localStorage.setItem('activeCategory','{{ cat_key }}');" class="mega-tool mega-tool--view-all">
                                     <span class="material-icons-outlined" style="opacity:1">arrow_forward</span>
                                     View all {{ cat_data.tools|length }} tools →
                                 </a>
@@ -95,17 +95,13 @@
                     <span class="material-icons-outlined">expand_more</span>
                 </div>
                 <div class="navbar__mobile-items" role="menu">
-                    <a href="/category/{{ cat_key }}" class="navbar__mobile-link" role="menuitem" style="font-weight:600;color:#111">
-                        <span class="material-icons-outlined">arrow_forward</span>
-                        View all {{ cat_data.name }}
-                    </a>
                     {% for tool in cat_data.tools[:12] %}
                     <a href="/tool/{{ tool.slug }}" class="navbar__mobile-link" role="menuitem">
                         {{ tool.name }}
                     </a>
                     {% endfor %}
                     {% if cat_data.tools|length > 12 %}
-                    <a href="/category/{{ cat_key }}" class="navbar__mobile-link" role="menuitem" style="font-weight:700;color:#111">
+                    <a href="/" onclick="localStorage.setItem('activeCategory','{{ cat_key }}');" class="navbar__mobile-link" role="menuitem" style="font-weight:700;color:#111">
                         + {{ cat_data.tools|length - 12 }} more tools →
                     </a>
                     {% endif %}
@@ -134,13 +130,13 @@
                 {% set cat_list = categories.values() | list %}
                 {% for cat_data in cat_list[:4] %}
                 <div>
-                    <h4 class="footer__heading"><a href="/category/{{ cat_data.key }}" style="color:inherit;text-decoration:none">{{ cat_data.name }}</a></h4>
+                    <h4 class="footer__heading">{{ cat_data.name }}</h4>
                     <ul class="footer__links">
                         {% for tool in cat_data.tools[:5] %}
                         <li><a href="/tool/{{ tool.slug }}" class="footer__link">{{ tool.name }}</a></li>
                         {% endfor %}
                         {% if cat_data.tools|length > 5 %}
-                        <li><a href="/category/{{ cat_data.key }}" class="footer__link" style="font-weight:700;color:#fff">View all →</a></li>
+                        <li><a href="/" onclick="localStorage.setItem('activeCategory','{{ cat_data.key }}');" class="footer__link" style="font-weight:700;color:#fff">View all →</a></li>
                         {% endif %}
                     </ul>
                 </div>
@@ -152,9 +148,7 @@
                     <span class="material-icons-outlined">bolt</span>
                     &copy; {{ current_year() }} ToolsAllInOnePro. All rights reserved.
                 </div>
-                <div class="footer__bottom-links">
-                    <a href="/sitemap" class="footer__bottom-link">Sitemap</a>
-                </div>
+
             </div>
         </div>
     </footer>
