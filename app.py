@@ -130,71 +130,68 @@ def tool_handler_js(slug):
 
 @app.route('/sitemap.xml')
 def sitemap():
+    import xml.etree.ElementTree as ET
+    from xml.dom import minidom
+    from datetime import datetime
+
     tools = load_tools()
     site_url = request.host_url.rstrip('/')
-    from datetime import datetime
     today = datetime.utcnow().strftime('%Y-%m-%d')
-    xml = [
-        '<?xml version="1.0" encoding="UTF-8"?>',
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
-        '        xmlns:xhtml="http://www.w3.org/1999/xhtml">',
-        '',
-        '  <!-- Homepage -->',
-        '  <url>',
-        f'    <loc>{site_url}/</loc>',
-        f'    <lastmod>{today}</lastmod>',
-        '    <changefreq>daily</changefreq>',
-        '    <priority>1.0</priority>',
-        '    <xhtml:link rel="alternate" hreflang="en" href="' + site_url + '/" />',
-        '    <xhtml:link rel="alternate" hreflang="x-default" href="' + site_url + '/" />',
-        '  </url>',
-        '',
-    ]
-    # Group tools by category for category index pages
+
+    # Build XML tree
+    urlset = ET.Element('urlset')
+    urlset.set('xmlns', 'http://www.sitemaps.org/schemas/sitemap/0.9')
+    urlset.set('xmlns:xhtml', 'http://www.w3.org/1999/xhtml')
+
+    def add_url(loc, lastmod, changefreq, priority):
+        url_el = ET.SubElement(urlset, 'url')
+        ET.SubElement(url_el, 'loc').text = loc
+        ET.SubElement(url_el, 'lastmod').text = lastmod
+        ET.SubElement(url_el, 'changefreq').text = changefreq
+        ET.SubElement(url_el, 'priority').text = priority
+        alt_en = ET.SubElement(url_el, 'xhtml:link')
+        alt_en.set('rel', 'alternate')
+        alt_en.set('hreflang', 'en')
+        alt_en.set('href', loc)
+        alt_xd = ET.SubElement(url_el, 'xhtml:link')
+        alt_xd.set('rel', 'alternate')
+        alt_xd.set('hreflang', 'x-default')
+        alt_xd.set('href', loc)
+
+    # Homepage
+    add_url(site_url + '/', today, 'daily', '1.0')
+
+    # Group tools by category
     categories_seen = {}
     for t in tools:
         cat = t.get('category', 'Other')
         if cat not in categories_seen:
             meta = CATEGORY_META.get(cat, {})
-            cat_key = meta.get('key', cat.lower().replace(' ', '-'))
             categories_seen[cat] = {
-                'key': cat_key,
-                'name': cat,
+                'key': meta.get('key', cat.lower().replace(' ', '-')),
                 'tools': [],
-                'icon': meta.get('icon', 'build'),
             }
         categories_seen[cat]['tools'].append(t)
-    # Add category index pages
+
+    # Category pages
     for cat, cat_data in categories_seen.items():
-        slug = cat_data['key']
-        tool_count = len(cat_data['tools'])
-        xml.append(f'  <!-- Category: {cat} ({tool_count} tools) -->')
-        xml.append('  <url>')
-        xml.append(f'    <loc>{site_url}/#{slug}</loc>')
-        xml.append(f'    <lastmod>{today}</lastmod>')
-        xml.append('    <changefreq>daily</changefreq>')
-        xml.append('    <priority>0.9</priority>')
-        xml.append(f'    <xhtml:link rel="alternate" hreflang="en" href="{site_url}/#{slug}" />')
-        xml.append(f'    <xhtml:link rel="alternate" hreflang="x-default" href="{site_url}/#{slug}" />')
-        xml.append('  </url>')
-        xml.append('')
-    # Add all individual tool pages
+        add_url(site_url + '/#' + cat_data['key'], today, 'daily', '0.9')
+
+    # Tool pages
     for t in tools:
-        slug = t.get('slug', '')
-        cat = t.get('category', '')
-        name = t.get('name', '')
-        xml.append(f'  <!-- {name} ({cat}) -->')
-        xml.append('  <url>')
-        xml.append(f'    <loc>{site_url}/tool/{slug}</loc>')
-        xml.append(f'    <lastmod>{today}</lastmod>')
-        xml.append('    <changefreq>weekly</changefreq>')
-        xml.append('    <priority>0.8</priority>')
-        xml.append(f'    <xhtml:link rel="alternate" hreflang="en" href="{site_url}/tool/{slug}" />')
-        xml.append(f'    <xhtml:link rel="alternate" hreflang="x-default" href="{site_url}/tool/{slug}" />')
-        xml.append('  </url>')
-        xml.append('')
-    xml.append('</urlset>')
-    return Response('\n'.join(xml), mimetype='application/xml')
+        add_url(site_url + '/tool/' + t['slug'], today, 'weekly', '0.8')
+
+    # Pretty-print
+    rough = ET.tostring(urlset, encoding='unicode')
+    parsed = minidom.parseString(rough)
+    pretty = parsed.toprettyxml(indent='  ', encoding=None)
+    # Remove extra XML declaration from toprettyxml
+    lines = pretty.split('\n')
+    if lines[0].startswith('<?xml'):
+        lines[0] = '<?xml version="1.0" encoding="UTF-8"?>'
+    body = '\n'.join(lines)
+
+    return Response(body, mimetype='application/xml')
 
 
 @app.route('/robots.txt')
