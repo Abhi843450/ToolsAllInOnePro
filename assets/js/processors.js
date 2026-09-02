@@ -1058,7 +1058,7 @@ Processors.caesar_cipher = function(text, opts) {
     }
     return c;
   }).join('');
-  return { success: true, data: { 'Encoded (shift ' + shift + ')': encode, 'Decoded (shift ' + shift + ')': decode } };
+  return { success: true, data: { ['Encoded (shift ' + shift + ')']: encode, ['Decoded (shift ' + shift + ')']: decode } };
 };
 
 Processors.rot13 = function(text) {

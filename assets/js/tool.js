@@ -24,6 +24,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
   const actionBtn = document.getElementById('toolActionBtn');
   const origBtnHTML = actionBtn ? actionBtn.innerHTML : '';
+  const clearBtn = document.getElementById('clearBtn');
+  if (clearBtn) {
+    clearBtn.addEventListener('click', function() {
+      var ta = document.getElementById('toolTextArea');
+      if (ta) ta.value = '';
+      var ti = document.getElementById('toolUrlInput');
+      if (ti) ti.value = '';
+      inputFields.forEach(function(field) {
+        var el = document.getElementById('toolInput_' + field.name);
+        if (el) {
+          if (field.type === 'checkbox') el.checked = false;
+          else el.value = field.default || '';
+        }
+      });
+      UI.hideResults();
+      UI.hideError();
+    });
+  }
 
   function resetButton() {
     if (actionBtn) {

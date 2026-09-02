@@ -25,7 +25,7 @@ Data.htmlEntities = [
   ['&euro;','€','euro'],['&pound;','£','pound'],['&yen;','¥','yen'],['&cent;','¢','cent'],
   ['&deg;','°','degree'],['&plusmn;','±','plus-minus'],['&micro;','µ','micro'],['&para;','¶','pilcrow'],
   ['&middot;','·','middle dot'],['&hellip;','…','ellipsis'],['&mdash;','—','em dash'],['&ndash;','–','en dash'],
-  ['&lsquo;',''','left single quote'],["&rsquo;",''','right single quote'],['&ldquo;','"','left double quote'],['&rdquo;','"','right double quote'],
+  ['&lsquo;','\u2018','left single quote'],["&rsquo;",'\u2019','right single quote'],['&ldquo;','"','left double quote'],['&rdquo;','"','right double quote'],
   ['&larr;','←','left arrow'],['&rarr;','→','right arrow'],['&uarr;','↑','up arrow'],['&darr;','↓','down arrow'],
   ['&times;','×','multiplication'],['&divide;','÷','division'],['&infin;','∞','infinity'],
   ['&alpha;','α','alpha'],['&beta;','β','beta'],['&gamma;','γ','gamma'],['&delta;','δ','delta'],['&theta;','θ','theta'],['&lambda;','λ','lambda'],['&pi;','π','pi'],['&sigma;','σ','sigma'],['&omega;','ω','omega'],
