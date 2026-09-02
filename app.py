@@ -184,12 +184,10 @@ def sitemap():
     from xml.dom import minidom
     from datetime import datetime
 
-    # Check if browser request — redirect to HTML sitemap
-    accept = request.headers.get('Accept', '')
+    # Only serve raw XML to search engine bots; redirect browsers to HTML sitemap
     ua = request.headers.get('User-Agent', '').lower()
-    is_bot = any(b in ua for b in ['googlebot', 'bingbot', 'yandex', 'slurp', 'duckduckbot', 'baiduspider'])
-    is_xml_accept = 'application/xml' in accept or 'text/xml' in accept or '*/*' in accept
-    if not is_bot and not is_xml_accept:
+    is_bot = any(b in ua for b in ['googlebot', 'bingbot', 'yandex', 'slurp', 'duckduckbot', 'baiduspider', 'crawler', 'spider'])
+    if not is_bot:
         return redirect(url_for('sitemap_page'))
 
     tools = load_tools()
