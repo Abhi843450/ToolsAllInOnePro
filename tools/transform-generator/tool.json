@@ -5,10 +5,11 @@
     "category": "Design & Visual",
     "description": "Generate CSS 2D and 3D transform values",
     "input_type": "text",
-    "placeholder": "Describe transform...",
+    "placeholder": "Enter value (degrees, scale factor, pixels)...",
     "button_label": "Generate",
     "button_icon": "transform",
     "config": {
         "processor": "transform_generator"
-    }
+    },
+    "example": "45"
 }

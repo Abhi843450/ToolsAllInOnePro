@@ -10,5 +10,6 @@
     "button_icon": "phone",
     "config": {
         "processor": "random_phone"
-    }
+    },
+    "example": ""
 }

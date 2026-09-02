@@ -5,10 +5,11 @@
     "category": "Developer Tools",
     "description": "Quick reference for common Linux commands",
     "input_type": "text",
-    "placeholder": "Search command...",
+    "placeholder": "Search Linux commands...",
     "button_label": "View",
     "button_icon": "terminal",
     "config": {
         "processor": "linux_cheatsheet"
-    }
+    },
+    "example": "grep"
 }

@@ -10,5 +10,6 @@
     "button_icon": "palette",
     "config": {
         "processor": "random_color"
-    }
+    },
+    "example": ""
 }

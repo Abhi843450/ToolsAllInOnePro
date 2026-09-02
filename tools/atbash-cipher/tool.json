@@ -5,10 +5,11 @@
     "category": "Cryptography",
     "description": "Encode and decode text using the Atbash substitution cipher",
     "input_type": "text",
-    "placeholder": "Enter text to encode/decode...",
+    "placeholder": "Enter text to encode/decode with Atbash cipher...",
     "button_label": "Process",
     "button_icon": "swap_horiz",
     "config": {
         "processor": "rot13"
-    }
+    },
+    "example": "Hello World"
 }

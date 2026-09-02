@@ -5,10 +5,11 @@
     "category": "Encoding & Crypto",
     "description": "Detect character encoding of pasted text",
     "input_type": "text",
-    "placeholder": "Paste text to detect...",
+    "placeholder": "Paste text to detect encoding...",
     "button_label": "Detect",
     "button_icon": "search",
     "config": {
         "processor": "encoding_detector"
-    }
+    },
+    "example": "Hello World \u4f60\u597d"
 }

@@ -5,10 +5,11 @@
     "category": "Converters",
     "description": "Convert JSON to TOML format",
     "input_type": "text",
-    "placeholder": "Paste JSON here...",
+    "placeholder": "Paste JSON to convert to TOML...",
     "button_label": "Convert",
     "button_icon": "code",
     "config": {
         "processor": "json_to_yaml"
-    }
+    },
+    "example": "{\"server\":{\"host\":\"0.0.0.0\",\"port\":8080}}"
 }

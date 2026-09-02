@@ -10,5 +10,6 @@
     "button_icon": "casino",
     "config": {
         "processor": "random_bytes"
-    }
+    },
+    "example": "32"
 }

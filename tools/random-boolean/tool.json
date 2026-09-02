@@ -10,5 +10,6 @@
     "button_icon": "check_circle",
     "config": {
         "processor": "random_boolean"
-    }
+    },
+    "example": ""
 }

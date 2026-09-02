@@ -5,10 +5,11 @@
     "category": "Converters",
     "description": "Convert .env file format to JSON",
     "input_type": "text",
-    "placeholder": "Paste env vars...",
+    "placeholder": "Paste .env variables to convert to JSON...",
     "button_label": "Convert",
     "button_icon": "data_object",
     "config": {
         "processor": "env_to_json"
-    }
+    },
+    "example": "DB_HOST=localhost\nDB_PORT=5432"
 }

@@ -5,10 +5,11 @@
     "category": "Developer Tools",
     "description": "Quick reference for Python syntax, built-ins, and common patterns",
     "input_type": "text",
-    "placeholder": "Search topic...",
+    "placeholder": "Search Python syntax...",
     "button_label": "View",
     "button_icon": "code",
     "config": {
         "processor": "python_cheatsheet"
-    }
+    },
+    "example": "list comprehension"
 }

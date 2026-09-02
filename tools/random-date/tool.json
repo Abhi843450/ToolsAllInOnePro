@@ -10,5 +10,6 @@
     "button_icon": "event",
     "config": {
         "processor": "random_date"
-    }
+    },
+    "example": ""
 }

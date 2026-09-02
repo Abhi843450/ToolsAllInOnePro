@@ -5,10 +5,11 @@
     "category": "Code Tools",
     "description": "Convert HTML to Markdown format",
     "input_type": "text",
-    "placeholder": "Paste HTML here...",
+    "placeholder": "Paste HTML to convert to Markdown...",
     "button_label": "Convert",
     "button_icon": "code",
     "config": {
         "processor": "html_formatter"
-    }
+    },
+    "example": "<h1>Title</h1><p>Paragraph</p>"
 }

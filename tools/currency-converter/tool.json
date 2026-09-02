@@ -10,5 +10,6 @@
     "button_icon": "payments",
     "config": {
         "processor": "unit_converter"
-    }
+    },
+    "example": "100 USD to EUR"
 }

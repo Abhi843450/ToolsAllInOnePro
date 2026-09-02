@@ -5,10 +5,11 @@
     "category": "Web & SEO",
     "description": "Look up WHOIS registration information for domains",
     "input_type": "text",
-    "placeholder": "Enter domain name...",
+    "placeholder": "Enter domain for WHOIS lookup...",
     "button_label": "Lookup",
     "button_icon": "search",
     "config": {
         "processor": "url_parser"
-    }
+    },
+    "example": "example.com"
 }

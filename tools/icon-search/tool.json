@@ -5,10 +5,11 @@
     "category": "Design & Visual",
     "description": "Search and find Material Design icons by name",
     "input_type": "text",
-    "placeholder": "Search icons...",
+    "placeholder": "Search Material Design icons by keyword...",
     "button_label": "Search",
     "button_icon": "search",
     "config": {
         "processor": "icon_search"
-    }
+    },
+    "example": "home"
 }

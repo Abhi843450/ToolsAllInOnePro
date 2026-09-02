@@ -10,5 +10,6 @@
     "button_icon": "calculate",
     "config": {
         "processor": "scientific_calculator"
-    }
+    },
+    "example": "2x + 3 = 7"
 }

@@ -5,10 +5,11 @@
     "category": "Text Tools",
     "description": "Remove extra spaces, blank lines, special characters, and normalize whitespace",
     "input_type": "text",
-    "placeholder": "Paste your text here...",
+    "placeholder": "Paste messy text to clean up extra spaces and blank lines...",
     "button_label": "Clean",
     "button_icon": "auto_fix_high",
     "config": {
         "processor": "text_cleaner"
-    }
+    },
+    "example": "Hello   World  \n\n\n  Extra   spaces   here"
 }

@@ -5,10 +5,11 @@
     "category": "Calculators",
     "description": "Calculate tips and split bills with custom tip percentages",
     "input_type": "text",
-    "placeholder": "Enter bill amount...",
+    "placeholder": "Enter bill amount (e.g. 85.50)...",
     "button_label": "Calculate",
     "button_icon": "calculate",
     "config": {
         "processor": "tip_calculator"
-    }
+    },
+    "example": "85.50"
 }

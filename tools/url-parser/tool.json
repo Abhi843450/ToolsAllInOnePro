@@ -5,10 +5,11 @@
     "category": "Web & SEO",
     "description": "Parse URL into protocol, hostname, port, path, query, and hash",
     "input_type": "text",
-    "placeholder": "Enter URL to parse...",
+    "placeholder": "Enter URL to parse into components...",
     "button_label": "Parse",
     "button_icon": "link",
     "config": {
         "processor": "url_parser"
-    }
+    },
+    "example": "https://www.example.com:8080/path?q=search#section"
 }

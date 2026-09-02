@@ -5,10 +5,11 @@
     "category": "Cryptography",
     "description": "Execute Brainfuck code and see output",
     "input_type": "text",
-    "placeholder": "Enter Brainfuck code...",
+    "placeholder": "Enter Brainfuck code to execute...",
     "button_label": "Run",
     "button_icon": "play_arrow",
     "config": {
         "processor": "scientific_calculator"
-    }
+    },
+    "example": "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++."
 }

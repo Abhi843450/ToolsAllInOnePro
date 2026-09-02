@@ -5,10 +5,11 @@
     "category": "Web & SEO",
     "description": "Get geolocation and ISP information for IP addresses",
     "input_type": "text",
-    "placeholder": "Enter IP address...",
+    "placeholder": "Enter IP address for geolocation...",
     "button_label": "Lookup",
     "button_icon": "location_on",
     "config": {
         "processor": "url_parser"
-    }
+    },
+    "example": "8.8.8.8"
 }

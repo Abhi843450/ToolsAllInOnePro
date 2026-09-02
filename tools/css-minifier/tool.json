@@ -5,10 +5,11 @@
     "category": "Code Tools",
     "description": "Minify CSS by removing whitespace and comments",
     "input_type": "text",
-    "placeholder": "Paste CSS here...",
+    "placeholder": "Paste CSS to minify...",
     "button_label": "Minify",
     "button_icon": "compress",
     "config": {
         "processor": "css_minifier"
-    }
+    },
+    "example": ".container { margin: 0; padding: 10px; }"
 }

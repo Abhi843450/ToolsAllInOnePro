@@ -5,10 +5,11 @@
     "category": "Encoding & Crypto",
     "description": "Try all 25 Caesar cipher shifts to decode unknown text",
     "input_type": "text",
-    "placeholder": "Enter ciphertext...",
+    "placeholder": "Enter ciphertext to try all 25 Caesar shifts...",
     "button_label": "Decode",
     "button_icon": "lock",
     "config": {
         "processor": "brute_force_decoder"
-    }
+    },
+    "example": "Khoor Zruog"
 }

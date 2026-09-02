@@ -5,10 +5,11 @@
     "category": "Code Tools",
     "description": "Convert between HEX, RGB, HSL, and CMYK color formats",
     "input_type": "text",
-    "placeholder": "Enter color value (HEX, RGB, HSL)...",
+    "placeholder": "Enter color as HEX, RGB, or HSL to convert...\nExamples: #FF5733, rgb(255,87,51), hsl(14,100%,60%)",
     "button_label": "Convert",
     "button_icon": "palette",
     "config": {
         "processor": "color_converter"
-    }
+    },
+    "example": "#FF5733"
 }

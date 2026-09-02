@@ -5,10 +5,11 @@
     "category": "Cryptography",
     "description": "Analyze password strength with entropy calculation and crack time estimation",
     "input_type": "text",
-    "placeholder": "Enter password to analyze...",
+    "placeholder": "Enter password to check strength and entropy...",
     "button_label": "Check",
     "button_icon": "security",
     "config": {
         "processor": "password_strength"
-    }
+    },
+    "example": "MyP@ssw0rd123!"
 }

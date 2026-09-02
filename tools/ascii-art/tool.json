@@ -5,10 +5,11 @@
     "category": "Design & Visual",
     "description": "Convert text to ASCII art using figlet/toilet fonts",
     "input_type": "text",
-    "placeholder": "Enter text...",
+    "placeholder": "Enter text to convert to ASCII art...",
     "button_label": "Generate",
     "button_icon": "text_fields",
     "config": {
         "processor": "ascii_art"
-    }
+    },
+    "example": "HELLO"
 }

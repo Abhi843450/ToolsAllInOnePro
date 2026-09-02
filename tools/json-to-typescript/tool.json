@@ -5,10 +5,11 @@
     "category": "Converters",
     "description": "Generate TypeScript interfaces from JSON data",
     "input_type": "text",
-    "placeholder": "Paste JSON here...",
+    "placeholder": "Paste JSON to generate TypeScript interface...",
     "button_label": "Convert",
     "button_icon": "code",
     "config": {
         "processor": "json_to_typescript"
-    }
+    },
+    "example": "{\"name\":\"John\",\"age\":30,\"active\":true}"
 }

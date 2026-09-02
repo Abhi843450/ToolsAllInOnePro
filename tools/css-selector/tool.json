@@ -5,10 +5,11 @@
     "category": "Web & SEO",
     "description": "Generate CSS selectors from element descriptions",
     "input_type": "text",
-    "placeholder": "Describe element...",
+    "placeholder": "Describe the element (e.g. nav, .button, #header)...",
     "button_label": "Generate",
     "button_icon": "code",
     "config": {
         "processor": "css_selector"
-    }
+    },
+    "example": "nav > ul > li.active"
 }

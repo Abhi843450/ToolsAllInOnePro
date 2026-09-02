@@ -10,5 +10,6 @@
     "button_icon": "straighten",
     "config": {
         "processor": "random_unit"
-    }
+    },
+    "example": ""
 }

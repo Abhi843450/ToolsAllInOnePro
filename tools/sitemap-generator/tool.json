@@ -5,10 +5,11 @@
     "category": "Web & SEO",
     "description": "Generate sitemap.xml for websites",
     "input_type": "text",
-    "placeholder": "Enter site URLs (one per line)...",
+    "placeholder": "Enter URLs to include (one per line)...",
     "button_label": "Generate",
     "button_icon": "map",
     "config": {
         "processor": "sitemap_generator"
-    }
+    },
+    "example": "https://example.com/\nhttps://example.com/about\nhttps://example.com/contact"
 }

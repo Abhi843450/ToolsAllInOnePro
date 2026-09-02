@@ -5,10 +5,11 @@
     "category": "Encoding & Crypto",
     "description": "Reverse text, words, sentences, or characters",
     "input_type": "text",
-    "placeholder": "Enter text...",
+    "placeholder": "Enter text to reverse...",
     "button_label": "Reverse",
     "button_icon": "flip",
     "config": {
         "processor": "text_reverser"
-    }
+    },
+    "example": "Hello World"
 }

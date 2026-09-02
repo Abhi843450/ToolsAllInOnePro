@@ -10,5 +10,6 @@
     "button_icon": "code",
     "config": {
         "processor": "htaccess_generator"
-    }
+    },
+    "example": "old-page"
 }

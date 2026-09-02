@@ -5,10 +5,11 @@
     "category": "Code Tools",
     "description": "Format and beautify HTML with proper indentation",
     "input_type": "text",
-    "placeholder": "Paste HTML here...",
+    "placeholder": "Paste HTML to format with proper indentation...",
     "button_label": "Format",
     "button_icon": "code",
     "config": {
         "processor": "html_formatter"
-    }
+    },
+    "example": "<div><p>Hello</p><ul><li>Item 1</li></ul></div>"
 }

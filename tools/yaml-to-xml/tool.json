@@ -5,10 +5,11 @@
     "category": "Converters",
     "description": "Convert YAML to XML format",
     "input_type": "text",
-    "placeholder": "Paste YAML here...",
+    "placeholder": "Paste YAML to convert to XML...",
     "button_label": "Convert",
     "button_icon": "code",
     "config": {
         "processor": "yaml_to_xml"
-    }
+    },
+    "example": "person:\n  name: John"
 }

@@ -5,10 +5,11 @@
     "category": "Developer Tools",
     "description": "strftime/strptime format patterns for various languages",
     "input_type": "text",
-    "placeholder": "Search format...",
+    "placeholder": "Search date format patterns...",
     "button_label": "View",
     "button_icon": "schedule",
     "config": {
         "processor": "date_format_ref"
-    }
+    },
+    "example": "%Y-%m-%d"
 }

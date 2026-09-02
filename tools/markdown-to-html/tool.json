@@ -5,10 +5,11 @@
     "category": "Code Tools",
     "description": "Convert Markdown to clean HTML",
     "input_type": "text",
-    "placeholder": "Enter Markdown here...",
+    "placeholder": "Paste Markdown to convert to HTML...",
     "button_label": "Convert",
     "button_icon": "code",
     "config": {
         "processor": "markdown_preview"
-    }
+    },
+    "example": "# Title\n\nParagraph with **bold**."
 }

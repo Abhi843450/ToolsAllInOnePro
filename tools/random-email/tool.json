@@ -10,5 +10,6 @@
     "button_icon": "email",
     "config": {
         "processor": "random_email"
-    }
+    },
+    "example": ""
 }

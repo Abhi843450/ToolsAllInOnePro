@@ -5,7 +5,7 @@
     "category": "Cryptography",
     "description": "Generate strong passwords with custom length, character types, and exclusion rules",
     "input_type": "text",
-    "placeholder": "Optional notes...",
+    "placeholder": "Optional notes or requirements...",
     "button_label": "Generate",
     "button_icon": "vpn_key",
     "config": {
@@ -42,5 +42,6 @@
                 "default": true
             }
         ]
-    }
+    },
+    "example": ""
 }

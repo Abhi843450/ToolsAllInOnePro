@@ -5,10 +5,11 @@
     "category": "Developer Tools",
     "description": "Visual reference for CSS Grid properties and values",
     "input_type": "text",
-    "placeholder": "Search property...",
+    "placeholder": "Search CSS Grid properties...",
     "button_label": "View",
     "button_icon": "code",
     "config": {
         "processor": "css_grid_cheat"
-    }
+    },
+    "example": "grid-template"
 }

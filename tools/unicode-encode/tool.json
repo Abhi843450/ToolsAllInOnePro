@@ -10,5 +10,6 @@
     "button_icon": "translate",
     "config": {
         "processor": "unicode_encode"
-    }
+    },
+    "example": "Hello \u4f60\u597d"
 }

@@ -5,10 +5,11 @@
     "category": "Converters",
     "description": "Convert CSS selectors and properties to readable text",
     "input_type": "text",
-    "placeholder": "Paste CSS here...",
+    "placeholder": "Paste CSS to convert to readable text...",
     "button_label": "Convert",
     "button_icon": "text_fields",
     "config": {
         "processor": "css_to_text"
-    }
+    },
+    "example": ".a { color: red; margin: 10px; }"
 }

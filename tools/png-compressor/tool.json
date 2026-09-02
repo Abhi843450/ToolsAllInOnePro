@@ -5,10 +5,11 @@
     "category": "Design & Visual",
     "description": "Compress PNG images to reduce file size",
     "input_type": "text",
-    "placeholder": "Upload PNG...",
+    "placeholder": "Upload PNG image to compress...",
     "button_label": "Compress",
     "button_icon": "compress",
     "config": {
         "processor": "png_compressor"
-    }
+    },
+    "example": ""
 }

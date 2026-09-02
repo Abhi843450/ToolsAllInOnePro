@@ -5,10 +5,11 @@
     "category": "Developer Tools",
     "description": "Browse Unicode characters by category and block",
     "input_type": "text",
-    "placeholder": "Search character...",
+    "placeholder": "Search Unicode characters...",
     "button_label": "View",
     "button_icon": "table",
     "config": {
         "processor": "ascii_table_full"
-    }
+    },
+    "example": "heart"
 }

@@ -5,10 +5,11 @@
     "category": "Web & SEO",
     "description": "Encode and decode HTML entities and special characters",
     "input_type": "text",
-    "placeholder": "Enter HTML text...",
+    "placeholder": "Enter HTML to encode/decode entities...",
     "button_label": "Convert",
     "button_icon": "code",
     "config": {
         "processor": "text_encoder"
-    }
+    },
+    "example": "<div>Hello & Welcome</div>"
 }

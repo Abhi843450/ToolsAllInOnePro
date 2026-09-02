@@ -5,10 +5,11 @@
     "category": "Converters",
     "description": "Convert Markdown tables to CSV format",
     "input_type": "text",
-    "placeholder": "Paste Markdown table...",
+    "placeholder": "Paste Markdown table to convert to CSV...",
     "button_label": "Convert",
     "button_icon": "table_chart",
     "config": {
         "processor": "markdown_to_csv"
-    }
+    },
+    "example": "| Name | Age |\n|------|-----|\n| John | 30 |"
 }

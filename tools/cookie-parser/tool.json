@@ -5,10 +5,11 @@
     "category": "Web & SEO",
     "description": "Parse cookie header strings into individual cookie objects",
     "input_type": "text",
-    "placeholder": "Enter cookie string...",
+    "placeholder": "Paste cookie header string to parse...",
     "button_label": "Parse",
     "button_icon": "cookie",
     "config": {
         "processor": "cookie_parser"
-    }
+    },
+    "example": "session=abc123; theme=dark; lang=en"
 }

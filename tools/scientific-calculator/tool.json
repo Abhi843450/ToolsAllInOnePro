@@ -5,10 +5,11 @@
     "category": "Calculators",
     "description": "Advanced calculator with trigonometry, logarithms, exponents, and more",
     "input_type": "text",
-    "placeholder": "Enter expression (e.g. sin(45) + log(100))...",
+    "placeholder": "Enter math expression (e.g. sin(45) + log(100), sqrt(144), 2^10)...",
     "button_label": "Calculate",
     "button_icon": "calculate",
     "config": {
         "processor": "scientific_calculator"
-    }
+    },
+    "example": "sin(45) + sqrt(144)"
 }

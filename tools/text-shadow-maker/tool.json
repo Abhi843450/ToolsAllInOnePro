@@ -5,10 +5,11 @@
     "category": "Design & Visual",
     "description": "Create text shadows with multiple layers",
     "input_type": "text",
-    "placeholder": "Optional preset...",
+    "placeholder": "Enter preset or custom value...",
     "button_label": "Create",
     "button_icon": "text_fields",
     "config": {
         "processor": "box_shadow_maker"
-    }
+    },
+    "example": "default"
 }

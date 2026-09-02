@@ -5,10 +5,11 @@
     "category": "Cryptography",
     "description": "Generate SHA-256 hash from any text input",
     "input_type": "text",
-    "placeholder": "Enter text to hash...",
+    "placeholder": "Enter text to generate SHA-256 hash...",
     "button_label": "Generate",
     "button_icon": "fingerprint",
     "config": {
         "processor": "hash_generator"
-    }
+    },
+    "example": "Hello World"
 }

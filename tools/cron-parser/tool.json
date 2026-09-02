@@ -5,10 +5,11 @@
     "category": "Converters",
     "description": "Parse cron expressions and show next execution times",
     "input_type": "text",
-    "placeholder": "Enter cron expression...",
+    "placeholder": "Enter cron expression to parse...",
     "button_label": "Parse",
     "button_icon": "schedule",
     "config": {
         "processor": "cron_builder"
-    }
+    },
+    "example": "0 9 * * 1-5"
 }

@@ -5,7 +5,7 @@
     "category": "Cryptography",
     "description": "Generate MD5, SHA-1, SHA-256, SHA-512, CRC32 hashes from text",
     "input_type": "text",
-    "placeholder": "Select algorithm...",
+    "placeholder": "Enter text to hash with MD5, SHA-1, SHA-256, SHA-512...",
     "button_label": "Generate",
     "button_icon": "fingerprint",
     "config": {
@@ -39,5 +39,6 @@
                 ]
             }
         ]
-    }
+    },
+    "example": "Hello World"
 }

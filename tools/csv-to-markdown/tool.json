@@ -5,10 +5,11 @@
     "category": "Converters",
     "description": "Convert CSV data to Markdown table format",
     "input_type": "text",
-    "placeholder": "Paste CSV data...",
+    "placeholder": "Paste CSV to convert to Markdown table...",
     "button_label": "Convert",
     "button_icon": "table_chart",
     "config": {
         "processor": "csv_to_markdown"
-    }
+    },
+    "example": "Name,Age\nJohn,30"
 }

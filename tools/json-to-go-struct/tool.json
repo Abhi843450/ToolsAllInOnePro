@@ -5,10 +5,11 @@
     "category": "Converters",
     "description": "Generate Go struct definitions from JSON data",
     "input_type": "text",
-    "placeholder": "Paste JSON here...",
+    "placeholder": "Paste JSON to generate Go struct...",
     "button_label": "Convert",
     "button_icon": "code",
     "config": {
         "processor": "json_to_go_struct"
-    }
+    },
+    "example": "{\"name\":\"John\",\"age\":30}"
 }

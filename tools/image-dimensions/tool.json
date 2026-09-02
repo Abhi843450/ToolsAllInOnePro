@@ -5,10 +5,11 @@
     "category": "Design & Visual",
     "description": "Calculate image dimensions based on aspect ratio and target size",
     "input_type": "text",
-    "placeholder": "Enter original dimensions...",
+    "placeholder": "Enter original dimensions and target size...",
     "button_label": "Calculate",
     "button_icon": "aspect_ratio",
     "config": {
         "processor": "aspect_ratio"
-    }
+    },
+    "example": "1920, 1080"
 }

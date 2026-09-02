@@ -5,10 +5,11 @@
     "category": "Encoding & Crypto",
     "description": "Convert Morse Code back to text",
     "input_type": "text",
-    "placeholder": "Enter morse code...",
+    "placeholder": "Enter Morse code to decode (use dots and dashes)...",
     "button_label": "Decode",
     "button_icon": "radio",
     "config": {
         "processor": "morse_decoder"
-    }
+    },
+    "example": "... --- ..."
 }

@@ -5,10 +5,11 @@
     "category": "Calculators",
     "description": "Add or subtract days, weeks, months from a date",
     "input_type": "text",
-    "placeholder": "Enter start date and days to add/subtract...",
+    "placeholder": "Enter date and days to add/subtract (e.g. 2024-01-15 +30)...",
     "button_label": "Calculate",
     "button_icon": "calculate",
     "config": {
         "processor": "date_calculator"
-    }
+    },
+    "example": "2024-01-15 +30"
 }

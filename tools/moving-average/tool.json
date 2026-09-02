@@ -5,10 +5,11 @@
     "category": "Statistics & Analysis",
     "description": "Calculate simple and exponential moving averages",
     "input_type": "text",
-    "placeholder": "Enter data points and window size...",
+    "placeholder": "Enter data points and optional window size (e.g. 10,20,15,25,30 window=3)...",
     "button_label": "Calculate",
     "button_icon": "calculate",
     "config": {
         "processor": "moving_average"
-    }
+    },
+    "example": "10,20,15,25,30 window=3"
 }

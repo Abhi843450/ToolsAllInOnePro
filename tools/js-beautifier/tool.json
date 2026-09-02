@@ -5,10 +5,11 @@
     "category": "Code Tools",
     "description": "Beautify obfuscated or minified JavaScript",
     "input_type": "text",
-    "placeholder": "Paste JavaScript here...",
+    "placeholder": "Paste obfuscated or minified JavaScript to beautify...",
     "button_label": "Beautify",
     "button_icon": "auto_fix_high",
     "config": {
         "processor": "js_beautifier"
-    }
+    },
+    "example": "var a=1;function b(){return a+2}"
 }

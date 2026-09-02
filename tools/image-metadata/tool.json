@@ -5,10 +5,11 @@
     "category": "Design & Visual",
     "description": "View EXIF and metadata information from uploaded images",
     "input_type": "text",
-    "placeholder": "Upload image...",
+    "placeholder": "Upload image to view EXIF metadata...",
     "button_label": "View",
     "button_icon": "info",
     "config": {
         "processor": "image_metadata"
-    }
+    },
+    "example": ""
 }

@@ -5,10 +5,11 @@
     "category": "Text Tools",
     "description": "Live preview of Markdown with syntax highlighting",
     "input_type": "text",
-    "placeholder": "Enter Markdown text...",
+    "placeholder": "Write Markdown to see live preview...",
     "button_label": "Preview",
     "button_icon": "preview",
     "config": {
         "processor": "markdown_preview"
-    }
+    },
+    "example": "# Hello World\n\nThis is **bold** and *italic*.\n\n- Item 1\n- Item 2"
 }

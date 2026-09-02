@@ -5,10 +5,11 @@
     "category": "Developer Tools",
     "description": "Convert React JSX to plain HTML",
     "input_type": "text",
-    "placeholder": "Paste JSX here...",
+    "placeholder": "Paste JSX to convert to HTML...",
     "button_label": "Convert",
     "button_icon": "code",
     "config": {
         "processor": "jsx_to_html"
-    }
+    },
+    "example": "<div className=\"box\"><p>Hello</p></div>"
 }

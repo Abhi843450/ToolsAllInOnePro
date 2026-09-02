@@ -5,10 +5,11 @@
     "category": "Design & Visual",
     "description": "Create linear, radial, and conic gradients with live preview",
     "input_type": "text",
-    "placeholder": "Optional preset...",
+    "placeholder": "Enter colors or preset name (e.g. sunset, ocean)...",
     "button_label": "Create",
     "button_icon": "gradient",
     "config": {
         "processor": "color_palette_gen"
-    }
+    },
+    "example": "sunset"
 }

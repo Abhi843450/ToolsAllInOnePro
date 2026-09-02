@@ -5,10 +5,11 @@
     "category": "Web & SEO",
     "description": "Display SSL certificate information and chain details",
     "input_type": "text",
-    "placeholder": "Enter domain name...",
+    "placeholder": "Enter domain name to check...",
     "button_label": "Check",
     "button_icon": "security",
     "config": {
         "processor": "ssl_checker"
-    }
+    },
+    "example": "example.com"
 }

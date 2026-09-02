@@ -5,10 +5,11 @@
     "category": "Design & Visual",
     "description": "Preview CSS filter effects on uploaded images",
     "input_type": "text",
-    "placeholder": "Upload image...",
+    "placeholder": "Upload image to preview CSS filters...",
     "button_label": "Filter",
     "button_icon": "filter",
     "config": {
         "processor": "placeholder_image"
-    }
+    },
+    "example": ""
 }

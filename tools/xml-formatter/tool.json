@@ -5,10 +5,11 @@
     "category": "Code Tools",
     "description": "Format and beautify XML with proper indentation",
     "input_type": "text",
-    "placeholder": "Paste XML here...",
+    "placeholder": "Paste XML to format with proper indentation...",
     "button_label": "Format",
     "button_icon": "code",
     "config": {
         "processor": "xml_formatter"
-    }
+    },
+    "example": "<root><name>John</name><age>30</age></root>"
 }

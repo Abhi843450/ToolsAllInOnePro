@@ -10,5 +10,6 @@
     "button_icon": "smart_toy",
     "config": {
         "processor": "robots_txt_generator"
-    }
+    },
+    "example": "https://mysite.com/sitemap.xml"
 }

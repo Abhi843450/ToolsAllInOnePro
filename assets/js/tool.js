@@ -166,7 +166,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
       try {
         const values = collectInputs();
-        const text = values.text || '';
+        let text = values.text || '';
+
+        // If no text entered, use example from tool.json
+        if (!text.trim() && tool.example) {
+          text = tool.example;
+          var mainTA = document.getElementById('toolTextArea');
+          if (mainTA) mainTA.value = text;
+        }
 
         if (!text.trim() && inputFields.length === 0) {
           TH.showError('Please enter some text');

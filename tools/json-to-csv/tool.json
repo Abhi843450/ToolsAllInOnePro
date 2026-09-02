@@ -5,10 +5,11 @@
     "category": "Code Tools",
     "description": "Convert JSON arrays to CSV format with customizable delimiters",
     "input_type": "text",
-    "placeholder": "Paste JSON array here...",
+    "placeholder": "Paste JSON array to convert to CSV...\nExample: [{\"name\":\"John\",\"age\":30},{\"name\":\"Jane\",\"age\":25}]",
     "button_label": "Convert",
     "button_icon": "table_chart",
     "config": {
         "processor": "json_to_csv"
-    }
+    },
+    "example": "[{\"name\":\"John\",\"age\":30},{\"name\":\"Jane\",\"age\":25}]"
 }

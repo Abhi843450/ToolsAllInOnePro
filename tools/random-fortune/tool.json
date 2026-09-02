@@ -5,7 +5,7 @@
     "category": "Generators",
     "description": "Generate random motivational quotes and fortunes",
     "input_type": "text",
-    "placeholder": "Optional theme...",
+    "placeholder": "Optional theme (motivational, funny, tech, life)...",
     "button_label": "Generate",
     "button_icon": "format_quote",
     "config": {
@@ -23,5 +23,6 @@
                 ]
             }
         ]
-    }
+    },
+    "example": ""
 }

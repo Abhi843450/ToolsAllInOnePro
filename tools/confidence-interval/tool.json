@@ -5,10 +5,11 @@
     "category": "Statistics & Analysis",
     "description": "Calculate confidence intervals for means",
     "input_type": "text",
-    "placeholder": "Enter sample data...",
+    "placeholder": "Enter sample values separated by commas...",
     "button_label": "Calculate",
     "button_icon": "calculate",
     "config": {
         "processor": "confidence_interval"
-    }
+    },
+    "example": "23, 25, 28, 22, 27"
 }

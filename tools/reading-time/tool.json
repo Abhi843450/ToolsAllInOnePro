@@ -5,10 +5,11 @@
     "category": "Text Tools",
     "description": "Estimate reading time and speech duration for any text",
     "input_type": "text",
-    "placeholder": "Paste your text here...",
+    "placeholder": "Paste text to estimate reading and speech time...",
     "button_label": "Calculate",
     "button_icon": "schedule",
     "config": {
         "processor": "word_counter"
-    }
+    },
+    "example": "This is a sample article about technology and its impact on modern society."
 }

@@ -5,10 +5,11 @@
     "category": "Developer Tools",
     "description": "Convert JS style objects to CSS",
     "input_type": "text",
-    "placeholder": "Paste JS object...",
+    "placeholder": "Paste JS style object to convert to CSS...",
     "button_label": "Convert",
     "button_icon": "code",
     "config": {
         "processor": "js_to_css"
-    }
+    },
+    "example": ""
 }

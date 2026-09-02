@@ -5,10 +5,11 @@
     "category": "Web & SEO",
     "description": "Build and parse URL query parameters",
     "input_type": "text",
-    "placeholder": "Enter parameters...",
+    "placeholder": "Enter query parameters (e.g. name=John&age=30)...",
     "button_label": "Build",
     "button_icon": "link",
     "config": {
         "processor": "url_parser"
-    }
+    },
+    "example": "name=John&age=30&city=NYC"
 }

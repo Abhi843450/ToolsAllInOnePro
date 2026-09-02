@@ -5,10 +5,11 @@
     "category": "Developer Tools",
     "description": "Complete list of IANA timezones with UTC offsets",
     "input_type": "text",
-    "placeholder": "Search timezone...",
+    "placeholder": "Search timezones...",
     "button_label": "View",
     "button_icon": "public",
     "config": {
         "processor": "timezone_list"
-    }
+    },
+    "example": "UTC+5:30"
 }

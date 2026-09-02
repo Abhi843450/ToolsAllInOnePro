@@ -5,10 +5,11 @@
     "category": "Text Tools",
     "description": "Extractive summarization \u2014 find the most important sentences",
     "input_type": "text",
-    "placeholder": "Paste your text here...",
+    "placeholder": "Paste a long article to extract key sentences...",
     "button_label": "Summarize",
     "button_icon": "summarize",
     "config": {
         "processor": "text_summary"
-    }
+    },
+    "example": "Technology has changed the way we live. From smartphones to AI, innovation continues. Many industries have been transformed by digital tools."
 }

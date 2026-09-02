@@ -10,5 +10,6 @@
     "button_icon": "business",
     "config": {
         "processor": "name_generator"
-    }
+    },
+    "example": ""
 }

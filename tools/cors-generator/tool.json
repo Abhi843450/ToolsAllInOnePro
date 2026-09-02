@@ -5,10 +5,11 @@
     "category": "Web & SEO",
     "description": "Generate Cross-Origin Resource Sharing headers",
     "input_type": "text",
-    "placeholder": "Enter allowed origins...",
+    "placeholder": "Enter allowed origins for CORS headers...",
     "button_label": "Generate",
     "button_icon": "security",
     "config": {
         "processor": "cors_generator"
-    }
+    },
+    "example": "https://mysite.com"
 }

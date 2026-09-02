@@ -5,7 +5,7 @@
     "category": "Text Tools",
     "description": "Encode/decode text with Base64, URL encoding, HTML entities, or ROT13",
     "input_type": "text",
-    "placeholder": "Enter text to encode/decode...",
+    "placeholder": "Paste text to encode/decode with Base64, URL, ROT13...",
     "button_label": "Encode",
     "button_icon": "lock",
     "config": {
@@ -39,5 +39,6 @@
                 ]
             }
         ]
-    }
+    },
+    "example": "Hello World! \u4f60\u597d\u4e16\u754c"
 }

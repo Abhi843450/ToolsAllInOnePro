@@ -10,5 +10,6 @@
     "button_icon": "vpn_key",
     "config": {
         "processor": "password_generator"
-    }
+    },
+    "example": ""
 }

@@ -5,10 +5,11 @@
     "category": "Web & SEO",
     "description": "Calculate Flesch-Kincaid, Coleman-Liau, and Gunning Fog scores",
     "input_type": "text",
-    "placeholder": "Paste text here...",
+    "placeholder": "Paste text to analyze readability (Flesch, Gunning Fog)...",
     "button_label": "Analyze",
     "button_icon": "analytics",
     "config": {
         "processor": "readability_score"
-    }
+    },
+    "example": "The quick brown fox jumps over the lazy dog. This is a simple sentence."
 }

@@ -5,10 +5,11 @@
     "category": "Encoding & Crypto",
     "description": "Convert text to binary and binary to text",
     "input_type": "text",
-    "placeholder": "Enter text or binary...",
+    "placeholder": "Enter text or binary to convert...",
     "button_label": "Convert",
     "button_icon": "memory",
     "config": {
         "processor": "binary_text"
-    }
+    },
+    "example": "Hello"
 }

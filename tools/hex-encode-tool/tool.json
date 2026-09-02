@@ -5,10 +5,11 @@
     "category": "Encoding & Crypto",
     "description": "Convert text to hex and hex to text",
     "input_type": "text",
-    "placeholder": "Enter text or hex string...",
+    "placeholder": "Enter text or hex to convert...",
     "button_label": "Convert",
     "button_icon": "code",
     "config": {
         "processor": "hex_encoder"
-    }
+    },
+    "example": "Hello"
 }

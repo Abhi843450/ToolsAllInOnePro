@@ -5,10 +5,11 @@
     "category": "Encoding & Crypto",
     "description": "Escape/unescape strings for JavaScript, Python, JSON, and SQL",
     "input_type": "text",
-    "placeholder": "Enter string...",
+    "placeholder": "Enter string to escape for JS, Python, JSON, SQL...",
     "button_label": "Convert",
     "button_icon": "code",
     "config": {
         "processor": "slash_escape"
-    }
+    },
+    "example": "Hello \"World\" it's a test"
 }

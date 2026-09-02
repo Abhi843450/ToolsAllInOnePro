@@ -5,10 +5,11 @@
     "category": "Calculators",
     "description": "Perform arithmetic operations in hexadecimal",
     "input_type": "text",
-    "placeholder": "Enter hex expression...",
+    "placeholder": "Enter hex expression (e.g. FF + 1, A * B)...",
     "button_label": "Calculate",
     "button_icon": "calculate",
     "config": {
         "processor": "scientific_calculator"
-    }
+    },
+    "example": "FF + 1"
 }

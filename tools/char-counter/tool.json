@@ -5,10 +5,11 @@
     "category": "Text Tools",
     "description": "Count characters with and without spaces, lines, and bytes",
     "input_type": "text",
-    "placeholder": "Paste your text here...",
+    "placeholder": "Paste text to count characters with/without spaces...",
     "button_label": "Count",
     "button_icon": "calculate",
     "config": {
         "processor": "word_counter"
-    }
+    },
+    "example": "Hello World! This is a test."
 }

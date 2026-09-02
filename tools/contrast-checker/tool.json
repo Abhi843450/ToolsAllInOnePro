@@ -5,10 +5,11 @@
     "category": "Design & Visual",
     "description": "Check color contrast ratio for accessibility compliance",
     "input_type": "text",
-    "placeholder": "Enter two colors...",
+    "placeholder": "Enter two hex colors (e.g. #000000 #FFFFFF)...",
     "button_label": "Check",
     "button_icon": "visibility",
     "config": {
         "processor": "contrast_checker"
-    }
+    },
+    "example": "#000000 #FFFFFF"
 }

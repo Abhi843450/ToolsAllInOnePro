@@ -5,10 +5,11 @@
     "category": "Developer Tools",
     "description": "Complete ASCII table with decimal, hex, octal, binary values",
     "input_type": "text",
-    "placeholder": "Search character...",
+    "placeholder": "Search ASCII character...",
     "button_label": "View",
     "button_icon": "table",
     "config": {
         "processor": "ascii_table_full"
-    }
+    },
+    "example": ""
 }

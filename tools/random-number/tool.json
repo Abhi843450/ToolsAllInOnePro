@@ -5,7 +5,7 @@
     "category": "Generators",
     "description": "Generate random numbers within a range with distribution options",
     "input_type": "text",
-    "placeholder": "Enter range (e.g. 1-100)...",
+    "placeholder": "Optional min-max range...",
     "button_label": "Generate",
     "button_icon": "casino",
     "config": {
@@ -30,5 +30,6 @@
                 "default": "10"
             }
         ]
-    }
+    },
+    "example": ""
 }

@@ -5,10 +5,11 @@
     "category": "Design & Visual",
     "description": "Calculate and find aspect ratios for images and videos",
     "input_type": "text",
-    "placeholder": "Enter dimensions...",
+    "placeholder": "Enter width and height (e.g. 1920, 1080)...",
     "button_label": "Calculate",
     "button_icon": "aspect_ratio",
     "config": {
         "processor": "aspect_ratio"
-    }
+    },
+    "example": "1920, 1080"
 }

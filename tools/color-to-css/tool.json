@@ -5,10 +5,11 @@
     "category": "Converters",
     "description": "Convert color values to CSS code snippets",
     "input_type": "text",
-    "placeholder": "Enter color (HEX, RGB, HSL)...",
+    "placeholder": "Enter color value to convert to CSS...",
     "button_label": "Convert",
     "button_icon": "palette",
     "config": {
         "processor": "color_to_css"
-    }
+    },
+    "example": "#FF5733"
 }

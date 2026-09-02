@@ -5,10 +5,11 @@
     "category": "Developer Tools",
     "description": "View all HTML entities with codes, names, and characters",
     "input_type": "text",
-    "placeholder": "Search entity...",
+    "placeholder": "Search for HTML entities...",
     "button_label": "View",
     "button_icon": "code",
     "config": {
         "processor": "html_entity_list"
-    }
+    },
+    "example": "amp"
 }

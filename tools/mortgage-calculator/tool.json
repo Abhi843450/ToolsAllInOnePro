@@ -5,10 +5,11 @@
     "category": "Calculators",
     "description": "Calculate mortgage payments, total cost, and interest over loan term",
     "input_type": "text",
-    "placeholder": "Enter home price...",
+    "placeholder": "Enter home price, rate %, and years (e.g. 350000, 6.5, 30)...",
     "button_label": "Calculate",
     "button_icon": "calculate",
     "config": {
         "processor": "scientific_calculator"
-    }
+    },
+    "example": "350000, 6.5, 30"
 }

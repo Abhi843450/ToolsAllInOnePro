@@ -5,10 +5,11 @@
     "category": "Generators",
     "description": "Convert text to various Unicode font styles",
     "input_type": "text",
-    "placeholder": "Enter text to stylize...",
+    "placeholder": "Enter text to stylize with Unicode fonts...",
     "button_label": "Generate",
     "button_icon": "font_download",
     "config": {
         "processor": "font_generator"
-    }
+    },
+    "example": "Hello World"
 }

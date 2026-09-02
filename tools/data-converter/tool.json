@@ -5,10 +5,11 @@
     "category": "Calculators",
     "description": "Convert between bytes, KB, MB, GB, TB, PB",
     "input_type": "text",
-    "placeholder": "Enter data size...",
+    "placeholder": "Enter data size (e.g. 1024 KB to MB, 1 GB to MB)...",
     "button_label": "Convert",
     "button_icon": "data_usage",
     "config": {
         "processor": "unit_converter"
-    }
+    },
+    "example": "1024 KB to MB"
 }

@@ -5,10 +5,11 @@
     "category": "Converters",
     "description": "Convert JSON config to .env file format",
     "input_type": "text",
-    "placeholder": "Paste JSON here...",
+    "placeholder": "Paste JSON config to convert to .env format...",
     "button_label": "Convert",
     "button_icon": "code",
     "config": {
         "processor": "json_to_env"
-    }
+    },
+    "example": "{\"DB_HOST\":\"localhost\",\"DB_PORT\":5432}"
 }

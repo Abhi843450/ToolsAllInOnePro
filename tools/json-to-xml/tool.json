@@ -5,10 +5,11 @@
     "category": "Code Tools",
     "description": "Convert JSON data to XML format",
     "input_type": "text",
-    "placeholder": "Paste JSON here...",
+    "placeholder": "Paste JSON to convert to XML...",
     "button_label": "Convert",
     "button_icon": "code",
     "config": {
         "processor": "json_to_xml"
-    }
+    },
+    "example": "{\"person\":{\"name\":\"John\",\"age\":30}}"
 }

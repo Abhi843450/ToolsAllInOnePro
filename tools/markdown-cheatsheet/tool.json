@@ -5,10 +5,11 @@
     "category": "Developer Tools",
     "description": "Complete Markdown syntax reference with examples",
     "input_type": "text",
-    "placeholder": "Search syntax...",
+    "placeholder": "Search Markdown syntax...",
     "button_label": "View",
     "button_icon": "code",
     "config": {
         "processor": "markdown_cheatsheet"
-    }
+    },
+    "example": "heading"
 }

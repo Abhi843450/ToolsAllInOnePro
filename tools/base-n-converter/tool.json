@@ -5,10 +5,11 @@
     "category": "Encoding & Crypto",
     "description": "Convert numbers between base 2 through 36",
     "input_type": "text",
-    "placeholder": "Enter number and base...",
+    "placeholder": "Enter number and base (e.g. 255 from base 10)...",
     "button_label": "Convert",
     "button_icon": "swap_horiz",
     "config": {
         "processor": "number_base"
-    }
+    },
+    "example": "255"
 }

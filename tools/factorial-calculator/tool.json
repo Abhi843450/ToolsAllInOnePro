@@ -5,10 +5,11 @@
     "category": "Calculators",
     "description": "Calculate factorials and permutations",
     "input_type": "text",
-    "placeholder": "Enter number...",
+    "placeholder": "Enter a number (e.g. 10)...",
     "button_label": "Calculate",
     "button_icon": "calculate",
     "config": {
         "processor": "probability"
-    }
+    },
+    "example": "10"
 }

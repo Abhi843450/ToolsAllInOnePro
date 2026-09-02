@@ -5,10 +5,11 @@
     "category": "Code Tools",
     "description": "Minify JSON by removing whitespace and line breaks",
     "input_type": "text",
-    "placeholder": "Paste JSON here...",
+    "placeholder": "Paste JSON to minify by removing whitespace...",
     "button_label": "Minify",
     "button_icon": "compress",
     "config": {
         "processor": "json_minifier"
-    }
+    },
+    "example": "{\"name\": \"John\", \"age\": 30}"
 }

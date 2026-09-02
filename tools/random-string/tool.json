@@ -5,7 +5,7 @@
     "category": "Generators",
     "description": "Generate random strings with custom character sets and length",
     "input_type": "text",
-    "placeholder": "Enter length...",
+    "placeholder": "Optional length...",
     "button_label": "Generate",
     "button_icon": "shuffle",
     "config": {
@@ -18,5 +18,6 @@
                 "default": "16"
             }
         ]
-    }
+    },
+    "example": ""
 }

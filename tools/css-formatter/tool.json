@@ -5,10 +5,11 @@
     "category": "Code Tools",
     "description": "Format and beautify CSS stylesheets",
     "input_type": "text",
-    "placeholder": "Paste CSS here...",
+    "placeholder": "Paste CSS to format...",
     "button_label": "Format",
     "button_icon": "code",
     "config": {
         "processor": "css_formatter"
-    }
+    },
+    "example": ".container{margin:0;padding:10px}.text{color:red;font-size:14px}"
 }

@@ -5,10 +5,11 @@
     "category": "Web & SEO",
     "description": "Generate JSON-LD structured data for Schema.org",
     "input_type": "text",
-    "placeholder": "Enter entity type...",
+    "placeholder": "Enter entity type (Article, Product, Organization, Person, FAQ)...",
     "button_label": "Generate",
     "button_icon": "code",
     "config": {
         "processor": "structured_data"
-    }
+    },
+    "example": "Article"
 }

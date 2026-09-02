@@ -5,10 +5,11 @@
     "category": "Code Tools",
     "description": "Remove exact and fuzzy duplicate lines from text",
     "input_type": "text",
-    "placeholder": "Paste text here...",
+    "placeholder": "Paste text to remove duplicate lines...",
     "button_label": "Remove Duplicates",
     "button_icon": "delete_sweep",
     "config": {
         "processor": "deduplicate_lines"
-    }
+    },
+    "example": "apple\nbanana\napple\ncherry\nbanana"
 }

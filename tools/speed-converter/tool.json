@@ -5,10 +5,11 @@
     "category": "Calculators",
     "description": "Convert between km/h, mph, m/s, and knots",
     "input_type": "text",
-    "placeholder": "Enter speed and units...",
+    "placeholder": "Enter speed and units (e.g. 100 km/h to mph)...",
     "button_label": "Convert",
     "button_icon": "speed",
     "config": {
         "processor": "unit_converter"
-    }
+    },
+    "example": "100 km/h to mph"
 }

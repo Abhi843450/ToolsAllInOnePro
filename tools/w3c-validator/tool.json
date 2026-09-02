@@ -5,10 +5,11 @@
     "category": "Developer Tools",
     "description": "Validate HTML5 syntax and check for errors",
     "input_type": "text",
-    "placeholder": "Paste HTML here...",
+    "placeholder": "Paste HTML5 to validate syntax...",
     "button_label": "Validate",
     "button_icon": "check_circle",
     "config": {
         "processor": "xml_validator"
-    }
+    },
+    "example": "<!DOCTYPE html><html><head><title>Test</title></head><body><h1>Hello</h1></body></html>"
 }

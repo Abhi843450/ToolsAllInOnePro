@@ -5,10 +5,11 @@
     "category": "Encoding & Crypto",
     "description": "Apply multiple encoding layers (Base64 + URL + HTML)",
     "input_type": "text",
-    "placeholder": "Enter text...",
+    "placeholder": "Enter text to encode through multiple layers...",
     "button_label": "Encode",
     "button_icon": "layers",
     "config": {
         "processor": "encoding_chains"
-    }
+    },
+    "example": "secret"
 }

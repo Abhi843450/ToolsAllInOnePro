@@ -10,5 +10,6 @@
     "button_icon": "dynamic_feed",
     "config": {
         "processor": "lorem_ipsum"
-    }
+    },
+    "example": ""
 }

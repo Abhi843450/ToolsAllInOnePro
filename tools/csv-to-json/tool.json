@@ -5,10 +5,11 @@
     "category": "Code Tools",
     "description": "Convert CSV data to JSON format with headers as keys",
     "input_type": "text",
-    "placeholder": "Paste CSV data here...",
+    "placeholder": "Paste CSV data with headers to convert to JSON...\nExample: name,age\nJohn,30\nJane,25",
     "button_label": "Convert",
     "button_icon": "data_object",
     "config": {
         "processor": "csv_to_json"
-    }
+    },
+    "example": "name,age,city\nJohn,30,NYC\nJane,25,LA"
 }

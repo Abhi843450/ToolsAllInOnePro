@@ -5,10 +5,11 @@
     "category": "Converters",
     "description": "Convert YAML to JSON format",
     "input_type": "text",
-    "placeholder": "Paste YAML here...",
+    "placeholder": "Paste YAML to convert to JSON...",
     "button_label": "Convert",
     "button_icon": "data_object",
     "config": {
         "processor": "yaml_to_json"
-    }
+    },
+    "example": "name: John\nage: 30\ncity: NYC"
 }

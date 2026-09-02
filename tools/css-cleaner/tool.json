@@ -5,10 +5,11 @@
     "category": "Design & Visual",
     "description": "Remove unused CSS rules and properties",
     "input_type": "text",
-    "placeholder": "Paste CSS here...",
+    "placeholder": "Paste CSS to clean and remove unused rules...",
     "button_label": "Clean",
     "button_icon": "auto_fix_high",
     "config": {
         "processor": "css_cleaner"
-    }
+    },
+    "example": ".a { color: red; } .b { margin: 0; }"
 }

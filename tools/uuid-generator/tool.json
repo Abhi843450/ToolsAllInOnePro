@@ -5,7 +5,7 @@
     "category": "Cryptography",
     "description": "Generate UUID v1, v4, or custom format UUIDs in bulk",
     "input_type": "text",
-    "placeholder": "Optional seed or prefix...",
+    "placeholder": "Optional count...",
     "button_label": "Generate",
     "button_icon": "tag",
     "config": {
@@ -18,5 +18,6 @@
                 "default": "5"
             }
         ]
-    }
+    },
+    "example": ""
 }

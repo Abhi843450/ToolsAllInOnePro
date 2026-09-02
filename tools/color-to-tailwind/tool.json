@@ -5,10 +5,11 @@
     "category": "Developer Tools",
     "description": "Convert color values to Tailwind CSS configuration",
     "input_type": "text",
-    "placeholder": "Enter color values...",
+    "placeholder": "Enter color values for Tailwind config...",
     "button_label": "Convert",
     "button_icon": "code",
     "config": {
         "processor": "color_to_tailwind"
-    }
+    },
+    "example": "#3B82F6"
 }

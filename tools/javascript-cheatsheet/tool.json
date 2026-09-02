@@ -5,10 +5,11 @@
     "category": "Developer Tools",
     "description": "Quick reference for JavaScript syntax, ES6+ features",
     "input_type": "text",
-    "placeholder": "Search feature...",
+    "placeholder": "Search JavaScript features...",
     "button_label": "View",
     "button_icon": "code",
     "config": {
         "processor": "javascript_cheatsheet"
-    }
+    },
+    "example": "arrow function"
 }

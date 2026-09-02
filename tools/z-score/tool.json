@@ -5,10 +5,11 @@
     "category": "Statistics & Analysis",
     "description": "Calculate Z-scores and find percentiles",
     "input_type": "text",
-    "placeholder": "Enter value, mean, and std dev...",
+    "placeholder": "Enter value, mean, and standard deviation (e.g. 85, 70, 10)...",
     "button_label": "Calculate",
     "button_icon": "calculate",
     "config": {
         "processor": "z_score"
-    }
+    },
+    "example": "85, 70, 10"
 }

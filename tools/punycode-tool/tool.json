@@ -5,10 +5,11 @@
     "category": "Encoding & Crypto",
     "description": "Encode and decode internationalized domain names",
     "input_type": "text",
-    "placeholder": "Enter domain name...",
+    "placeholder": "Enter international domain name...",
     "button_label": "Convert",
     "button_icon": "language",
     "config": {
         "processor": "punycode_tool"
-    }
+    },
+    "example": "m\u00fcnchen.de"
 }

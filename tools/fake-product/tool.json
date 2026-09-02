@@ -10,5 +10,6 @@
     "button_icon": "inventory_2",
     "config": {
         "processor": "name_generator"
-    }
+    },
+    "example": ""
 }

@@ -5,10 +5,11 @@
     "category": "Encoding & Crypto",
     "description": "Encode and decode URL components with proper escaping",
     "input_type": "text",
-    "placeholder": "Enter URL component...",
+    "placeholder": "Enter URL component to encode/decode...",
     "button_label": "Convert",
     "button_icon": "link",
     "config": {
         "processor": "text_encoder"
-    }
+    },
+    "example": "hello world&key=value"
 }

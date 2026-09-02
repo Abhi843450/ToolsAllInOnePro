@@ -5,10 +5,11 @@
     "category": "Code Tools",
     "description": "Format and validate YAML documents",
     "input_type": "text",
-    "placeholder": "Paste YAML here...",
+    "placeholder": "Paste YAML to format and validate...",
     "button_label": "Format",
     "button_icon": "code",
     "config": {
         "processor": "yaml_formatter"
-    }
+    },
+    "example": "name: John\nage: 30\ncity: NYC"
 }

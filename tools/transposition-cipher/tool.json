@@ -5,10 +5,11 @@
     "category": "Encoding & Crypto",
     "description": "Encode/decode with columnar transposition",
     "input_type": "text",
-    "placeholder": "Enter text...",
+    "placeholder": "Enter text to encrypt with transposition...",
     "button_label": "Process",
     "button_icon": "lock",
     "config": {
         "processor": "transposition_cipher"
-    }
+    },
+    "example": "HELLO WORLD"
 }

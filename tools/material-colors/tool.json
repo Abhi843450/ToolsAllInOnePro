@@ -5,10 +5,11 @@
     "category": "Design & Visual",
     "description": "View Material Design color palette with shades",
     "input_type": "text",
-    "placeholder": "Search color...",
+    "placeholder": "Search for a Material Design color...",
     "button_label": "View",
     "button_icon": "palette",
     "config": {
         "processor": "material_colors"
-    }
+    },
+    "example": "blue"
 }

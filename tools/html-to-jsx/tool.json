@@ -5,10 +5,11 @@
     "category": "Developer Tools",
     "description": "Convert HTML to React JSX syntax",
     "input_type": "text",
-    "placeholder": "Paste HTML here...",
+    "placeholder": "Paste HTML to convert to React JSX...",
     "button_label": "Convert",
     "button_icon": "code",
     "config": {
         "processor": "html_to_jsx"
-    }
+    },
+    "example": "<div className=\"box\"><p>Hello</p></div>"
 }

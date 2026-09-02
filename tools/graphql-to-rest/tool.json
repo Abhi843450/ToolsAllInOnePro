@@ -5,10 +5,11 @@
     "category": "Converters",
     "description": "Convert GraphQL queries to REST API endpoint descriptions",
     "input_type": "text",
-    "placeholder": "Paste GraphQL query...",
+    "placeholder": "Paste GraphQL query to generate REST description...",
     "button_label": "Convert",
     "button_icon": "code",
     "config": {
         "processor": "graphql_to_rest"
-    }
+    },
+    "example": "query { users { id name email } }"
 }

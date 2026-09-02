@@ -5,10 +5,11 @@
     "category": "Developer Tools",
     "description": "Build JWT tokens with custom header and payload",
     "input_type": "text",
-    "placeholder": "Enter payload JSON...",
+    "placeholder": "Paste payload JSON to build JWT...",
     "button_label": "Build",
     "button_icon": "vpn_key",
     "config": {
         "processor": "jwt_builder"
-    }
+    },
+    "example": "{\"user\":\"john\",\"role\":\"admin\"}"
 }

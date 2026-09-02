@@ -5,10 +5,11 @@
     "category": "Developer Tools",
     "description": "Compare two texts and highlight differences",
     "input_type": "text",
-    "placeholder": "Paste text 1...",
+    "placeholder": "Paste first text to compare...",
     "button_label": "Compare",
     "button_icon": "compare",
     "config": {
         "processor": "text_diff"
-    }
+    },
+    "example": "Hello World\nLine 2"
 }

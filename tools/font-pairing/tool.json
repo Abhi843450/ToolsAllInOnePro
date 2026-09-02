@@ -5,10 +5,11 @@
     "category": "Design & Visual",
     "description": "Suggest Google Fonts pairings for headings and body text",
     "input_type": "text",
-    "placeholder": "Optional style preference...",
+    "placeholder": "Optional style preference (modern, classic, elegant)...",
     "button_label": "Generate",
     "button_icon": "font_download",
     "config": {
         "processor": "font_pairing"
-    }
+    },
+    "example": ""
 }

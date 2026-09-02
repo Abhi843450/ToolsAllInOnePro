@@ -5,10 +5,11 @@
     "category": "Converters",
     "description": "Convert Arabic numbers to Roman numerals",
     "input_type": "text",
-    "placeholder": "Enter number...",
+    "placeholder": "Enter number (1-3999) to convert to Roman...",
     "button_label": "Convert",
     "button_icon": "swap_horiz",
     "config": {
         "processor": "roman_numeral"
-    }
+    },
+    "example": "42"
 }

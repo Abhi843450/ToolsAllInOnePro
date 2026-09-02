@@ -5,10 +5,11 @@
     "category": "Converters",
     "description": "Convert plain text to formatted HTML with line breaks and paragraphs",
     "input_type": "text",
-    "placeholder": "Enter plain text...",
+    "placeholder": "Enter plain text to convert to HTML...",
     "button_label": "Convert",
     "button_icon": "code",
     "config": {
         "processor": "text_encoder"
-    }
+    },
+    "example": "Hello World\nThis is a paragraph."
 }

@@ -5,10 +5,11 @@
     "category": "Web & SEO",
     "description": "Look up DNS records for a domain",
     "input_type": "text",
-    "placeholder": "Enter domain name...",
+    "placeholder": "Enter domain to look up DNS records...",
     "button_label": "Lookup",
     "button_icon": "dns",
     "config": {
         "processor": "url_parser"
-    }
+    },
+    "example": "example.com"
 }

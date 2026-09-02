@@ -5,10 +5,11 @@
     "category": "Code Tools",
     "description": "Sort lines alphabetically, by length, numerically, or randomly",
     "input_type": "text",
-    "placeholder": "Paste lines here...",
+    "placeholder": "Paste lines to sort alphabetically, by length, or numerically...",
     "button_label": "Sort",
     "button_icon": "sort",
     "config": {
         "processor": "sort_lines"
-    }
+    },
+    "example": "cherry\napple\ndate\nbanana"
 }

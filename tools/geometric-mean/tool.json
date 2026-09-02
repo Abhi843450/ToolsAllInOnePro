@@ -5,10 +5,11 @@
     "category": "Statistics & Analysis",
     "description": "Calculate geometric mean of positive numbers",
     "input_type": "text",
-    "placeholder": "Enter positive numbers...",
+    "placeholder": "Enter positive numbers separated by commas...",
     "button_label": "Calculate",
     "button_icon": "calculate",
     "config": {
         "processor": "geometric_mean"
-    }
+    },
+    "example": "2, 4, 8"
 }

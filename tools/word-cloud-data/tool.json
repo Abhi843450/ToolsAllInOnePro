@@ -5,10 +5,11 @@
     "category": "Statistics & Analysis",
     "description": "Generate word frequency data for word cloud visualization",
     "input_type": "text",
-    "placeholder": "Enter text to analyze...",
+    "placeholder": "Enter text to analyze word frequencies for word cloud...",
     "button_label": "Generate",
     "button_icon": "cloud",
     "config": {
         "processor": "word_frequency"
-    }
+    },
+    "example": "technology innovation digital transformation future AI"
 }

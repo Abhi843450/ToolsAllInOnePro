@@ -5,10 +5,11 @@
     "category": "Design & Visual",
     "description": "Generate flexbox layout CSS",
     "input_type": "text",
-    "placeholder": "Describe layout...",
+    "placeholder": "Describe layout (e.g. centered, space-between)...",
     "button_label": "Generate",
     "button_icon": "view_agenda",
     "config": {
         "processor": "flexbox_playground"
-    }
+    },
+    "example": "center"
 }

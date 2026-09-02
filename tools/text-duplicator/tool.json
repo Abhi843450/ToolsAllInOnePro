@@ -5,7 +5,7 @@
     "category": "Text Tools",
     "description": "Duplicate text multiple times with custom separators",
     "input_type": "text",
-    "placeholder": "Paste your text here...",
+    "placeholder": "Paste text to duplicate multiple times...",
     "button_label": "Duplicate",
     "button_icon": "content_copy",
     "config": {
@@ -24,5 +24,6 @@
                 "placeholder": "e.g. \\n---\\n"
             }
         ]
-    }
+    },
+    "example": "Line to repeat"
 }

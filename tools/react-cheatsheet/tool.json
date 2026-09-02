@@ -5,10 +5,11 @@
     "category": "Developer Tools",
     "description": "Quick reference for React hooks, components, and patterns",
     "input_type": "text",
-    "placeholder": "Search hook/pattern...",
+    "placeholder": "Search React hooks and patterns...",
     "button_label": "View",
     "button_icon": "code",
     "config": {
         "processor": "react_cheatsheet"
-    }
+    },
+    "example": "useState"
 }

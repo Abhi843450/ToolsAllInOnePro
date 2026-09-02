@@ -10,5 +10,6 @@
     "button_icon": "home",
     "config": {
         "processor": "random_address"
-    }
+    },
+    "example": ""
 }

@@ -5,10 +5,11 @@
     "category": "Design & Visual",
     "description": "Generate CSS grid layouts",
     "input_type": "text",
-    "placeholder": "Describe grid...",
+    "placeholder": "Enter number of columns...",
     "button_label": "Generate",
     "button_icon": "grid_on",
     "config": {
         "processor": "grid_generator"
-    }
+    },
+    "example": "3"
 }

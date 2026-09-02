@@ -5,10 +5,11 @@
     "category": "Design & Visual",
     "description": "Convert uploaded images to ASCII art text",
     "input_type": "text",
-    "placeholder": "Upload image...",
+    "placeholder": "Enter text to convert to ASCII art...",
     "button_label": "Convert",
     "button_icon": "text_fields",
     "config": {
         "processor": "image_to_ascii"
-    }
+    },
+    "example": "HELLO"
 }

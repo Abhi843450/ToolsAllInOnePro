@@ -5,10 +5,11 @@
     "category": "Converters",
     "description": "Convert text to a downloadable PNG image with custom styling",
     "input_type": "text",
-    "placeholder": "Enter text to render...",
+    "placeholder": "Enter text to render as image...",
     "button_label": "Generate",
     "button_icon": "image",
     "config": {
         "processor": "text_to_image"
-    }
+    },
+    "example": "Hello World"
 }

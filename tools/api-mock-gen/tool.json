@@ -10,5 +10,6 @@
     "button_icon": "api",
     "config": {
         "processor": "mock_data_gen"
-    }
+    },
+    "example": "{\"users\":[{\"id\":1,\"name\":\"John\"}]}"
 }

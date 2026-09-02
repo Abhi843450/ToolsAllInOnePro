@@ -10,5 +10,6 @@
     "button_icon": "person",
     "config": {
         "processor": "name_generator"
-    }
+    },
+    "example": ""
 }

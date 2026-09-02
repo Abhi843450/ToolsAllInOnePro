@@ -5,10 +5,11 @@
     "category": "Design & Visual",
     "description": "Generate CSS border-radius values with visual preview",
     "input_type": "text",
-    "placeholder": "Optional preset...",
+    "placeholder": "Enter radius value in px...",
     "button_label": "Generate",
     "button_icon": "rounded_corner",
     "config": {
         "processor": "border_radius"
-    }
+    },
+    "example": "8"
 }

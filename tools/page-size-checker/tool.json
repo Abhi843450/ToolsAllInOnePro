@@ -5,10 +5,11 @@
     "category": "Web & SEO",
     "description": "Estimate page size from HTML content",
     "input_type": "text",
-    "placeholder": "Paste HTML here...",
+    "placeholder": "Paste HTML to calculate page size...",
     "button_label": "Calculate",
     "button_icon": "data_usage",
     "config": {
         "processor": "page_size_checker"
-    }
+    },
+    "example": "<html><body><h1>Hello</h1></body></html>"
 }

@@ -5,10 +5,11 @@
     "category": "Design & Visual",
     "description": "Create CSS keyframe animations for common effects",
     "input_type": "text",
-    "placeholder": "Describe animation...",
+    "placeholder": "Describe animation (e.g. fade-in, slide-up, bounce)...",
     "button_label": "Generate",
     "button_icon": "animation",
     "config": {
         "processor": "animation_generator"
-    }
+    },
+    "example": "fade-in"
 }

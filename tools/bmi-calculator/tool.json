@@ -5,10 +5,11 @@
     "category": "Calculators",
     "description": "Calculate Body Mass Index from height and weight",
     "input_type": "text",
-    "placeholder": "Enter weight (kg) and height (cm)...",
+    "placeholder": "Enter weight in kg and height in cm (e.g. 70, 175)...",
     "button_label": "Calculate",
     "button_icon": "calculate",
     "config": {
         "processor": "bmi_calculator"
-    }
+    },
+    "example": "70, 175"
 }

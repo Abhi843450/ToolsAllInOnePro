@@ -10,5 +10,6 @@
     "button_icon": "calculate",
     "config": {
         "processor": "age_calculator"
-    }
+    },
+    "example": "1990-05-15"
 }

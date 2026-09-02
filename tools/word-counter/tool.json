@@ -5,10 +5,11 @@
     "category": "Text Tools",
     "description": "Count words, characters, sentences, paragraphs, and reading time",
     "input_type": "text",
-    "placeholder": "Paste your text here...",
+    "placeholder": "Paste your text here to count words, characters, sentences...",
     "button_label": "Count",
     "button_icon": "calculate",
     "config": {
         "processor": "word_counter"
-    }
+    },
+    "example": "The quick brown fox jumps over the lazy dog."
 }

@@ -5,10 +5,11 @@
     "category": "Converters",
     "description": "Strip HTML tags and extract plain text content",
     "input_type": "text",
-    "placeholder": "Paste HTML here...",
+    "placeholder": "Paste HTML to extract plain text...",
     "button_label": "Convert",
     "button_icon": "text_fields",
     "config": {
         "processor": "html_minifier"
-    }
+    },
+    "example": "<p>Hello <b>World</b></p>"
 }

@@ -5,10 +5,11 @@
     "category": "Calculators",
     "description": "Convert between standard and scientific notation",
     "input_type": "text",
-    "placeholder": "Enter number...",
+    "placeholder": "Enter number (e.g. 1230000 or 1.23e6)...",
     "button_label": "Convert",
     "button_icon": "science",
     "config": {
         "processor": "scientific_notation"
-    }
+    },
+    "example": "1230000"
 }

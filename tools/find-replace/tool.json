@@ -5,7 +5,7 @@
     "category": "Text Tools",
     "description": "Find and replace text with regex support and case-insensitive matching",
     "input_type": "text",
-    "placeholder": "Paste your text here...",
+    "placeholder": "Paste text containing what you want to find...",
     "button_label": "Replace",
     "button_icon": "find_replace",
     "config": {
@@ -34,5 +34,6 @@
                 "label": "Case Insensitive"
             }
         ]
-    }
+    },
+    "example": "Hello World, Hello Universe, Hello Friends"
 }

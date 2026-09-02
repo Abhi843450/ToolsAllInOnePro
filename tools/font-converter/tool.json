@@ -5,10 +5,11 @@
     "category": "Converters",
     "description": "Convert text to CSS @font-face declarations",
     "input_type": "text",
-    "placeholder": "Enter font name...",
+    "placeholder": "Enter font name for CSS declaration...",
     "button_label": "Convert",
     "button_icon": "font_download",
     "config": {
         "processor": "font_converter"
-    }
+    },
+    "example": "Roboto"
 }

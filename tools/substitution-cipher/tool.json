@@ -5,10 +5,11 @@
     "category": "Encoding & Crypto",
     "description": "Encode/decode with a custom substitution alphabet",
     "input_type": "text",
-    "placeholder": "Enter text...",
+    "placeholder": "Enter text to encrypt with substitution...",
     "button_label": "Process",
     "button_icon": "lock",
     "config": {
         "processor": "substitution_cipher"
-    }
+    },
+    "example": "ATTACK AT DAWN"
 }
