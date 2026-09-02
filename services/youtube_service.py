@@ -229,8 +229,29 @@ def sanitize_filename(name):
 # yt-dlp Options Builder
 # ─────────────────────────────────────────────────────────────
 
+def _detect_js_runtime():
+    """Detect available JS runtime for yt-dlp."""
+    for name, path in [("node", "/usr/local/bin/node"), ("deno", "/usr/local/bin/deno")]:
+        if os.path.isfile(path):
+            return name, path
+    # Fallback: check PATH
+    for name in ("node", "deno"):
+        try:
+            r = subprocess.run([name, "--version"], capture_output=True, text=True, timeout=3)
+            if r.returncode == 0:
+                return name, None
+        except Exception:
+            continue
+    return None, None
+
+
+_js_runtime_name = None
+_js_runtime_path = None
+
+
 def _build_ydl_opts(with_cookies=False):
     """Build yt-dlp Python API options dict."""
+    global _js_runtime_name, _js_runtime_path
     opts = {
         "quiet": True,
         "no_warnings": True,
@@ -240,6 +261,14 @@ def _build_ydl_opts(with_cookies=False):
         "retries": 2,
         "extractor_retries": 2,
     }
+    # Detect JS runtime once
+    if _js_runtime_name is None:
+        _js_runtime_name, _js_runtime_path = _detect_js_runtime()
+    if _js_runtime_name:
+        if _js_runtime_path:
+            opts["js_runtimes"] = {_js_runtime_name: {"path": _js_runtime_path}}
+        else:
+            opts["js_runtimes"] = {_js_runtime_name: {}}
     if with_cookies and _cookies_configured and os.path.isfile(COOKIES_FILE_PATH):
         opts["cookiefile"] = COOKIES_FILE_PATH
     return opts
@@ -621,6 +650,11 @@ def _do_download(job):
     else:
         fmt_selector = "bestaudio/best/bestvideo+bestaudio"
 
+    # Detect JS runtime
+    global _js_runtime_name, _js_runtime_path
+    if _js_runtime_name is None:
+        _js_runtime_name, _js_runtime_path = _detect_js_runtime()
+
     # Build yt-dlp options
     opts = {
         "quiet": True,
@@ -635,6 +669,11 @@ def _do_download(job):
         "merge_output_format": "mp4" if job.output_type == "video" else None,
         "progress_hooks": [_make_progress_hook(job)],
     }
+    if _js_runtime_name:
+        if _js_runtime_path:
+            opts["js_runtimes"] = {_js_runtime_name: {"path": _js_runtime_path}}
+        else:
+            opts["js_runtimes"] = {_js_runtime_name: {}}
 
     # Audio conversion postprocessors
     if job.output_type == "audio" and job.audio_format == "mp3":
@@ -910,6 +949,11 @@ def init_youtube_service():
     if BGUTIL_ENABLED:
         start_pot_provider()
 
+    # Detect JS runtime
+    global _js_runtime_name, _js_runtime_path
+    if _js_runtime_name is None:
+        _js_runtime_name, _js_runtime_path = _detect_js_runtime()
+
     # Gather capability info
     yt_dlp_version = "NOT INSTALLED"
     try:
@@ -924,20 +968,14 @@ def init_youtube_service():
     except Exception:
         pass
 
-    js_available = False
-    try:
-        result = subprocess.run(["node", "--version"], capture_output=True, text=True, timeout=5)
-        js_available = result.returncode == 0
-    except Exception:
-        pass
-
+    js_available = _js_runtime_name is not None
     provider_available = _provider.get("ready", False)
 
     print("=" * 48)
     print("ToolsAllInOnePro Media Backend")
     print(f"yt-dlp: {yt_dlp_version}")
     print(f"FFmpeg: {'available' if ffmpeg_available else 'NOT AVAILABLE'}")
-    print(f"JS runtime: {'available' if js_available else 'NOT AVAILABLE'}")
+    print(f"JS runtime: {_js_runtime_name or 'NOT AVAILABLE'}")
     print(f"PO provider: {'available' if provider_available else 'not available'}")
     print(f"Cookies: {'configured' if _cookies_configured else 'not configured'}")
     print("=" * 48)
